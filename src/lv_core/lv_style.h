@@ -207,8 +207,16 @@ typedef uint16_t lv_style_property_t;
 
 typedef uint16_t lv_style_state_t;
 
+typedef enum {
+    LV_STYLE_PROP_TYPE_INT,
+    LV_STYLE_PROP_TYPE_OPA,
+    LV_STYLE_PROP_TYPE_COLOR,
+    LV_STYLE_PROP_TYPE_PTR,
+    _LV_STYLE_PROP_TYPE_LAST,
+}lv_style_prop_type_t;
+
 typedef struct {
-    uint8_t * map;
+    uint8_t * map[_LV_STYLE_PROP_TYPE_LAST];
 #if LV_USE_ASSERT_STYLE
     uint32_t sentinel;
 #endif
@@ -293,13 +301,6 @@ static inline lv_style_t * lv_style_list_get_style(lv_style_list_t * list, uint8
  * @param style pointer to a style
  */
 void lv_style_reset(lv_style_t * style);
-
-/**
- * Get the size of the properties in a style in bytes
- * @param style pointer to a style
- * @return size of the properties in bytes
- */
-uint16_t _lv_style_get_mem_size(const lv_style_t * style);
 
 /**
  * Copy a style to an other

@@ -34,14 +34,16 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
+static inline lv_style_prop_type_t lv_style_get_prop_type(lv_style_property_t prop);
 LV_ATTRIBUTE_FAST_MEM static inline int32_t get_property_index(const lv_style_t * style, lv_style_property_t prop);
 static lv_style_t * get_alloc_local_style(lv_style_list_t * list);
-static inline void style_resize(lv_style_t *style, size_t sz);
-static inline lv_style_property_t get_style_prop(const lv_style_t *style, size_t idx);
-static inline uint8_t get_style_prop_id(const lv_style_t *style, size_t idx);
-static inline uint8_t get_style_prop_attr(const lv_style_t *style, size_t idx);
+static inline uint8_t * style_resize(uint8_t * map, size_t sz);
+static inline lv_style_property_t get_style_prop(const uint8_t *map, size_t idx);
+static inline uint8_t get_style_prop_id(const uint8_t *map, size_t idx);
+static inline uint8_t get_style_prop_attr(const uint8_t *map, size_t idx);
 static inline size_t get_prop_size(uint8_t prop_id);
 static inline size_t get_next_prop_index(uint8_t prop_id, size_t id);
+static uint16_t get_mem_size(const lv_style_t * style, lv_style_prop_type_t type);
 
 /**********************
  *  GLOABAL VARIABLES
@@ -83,11 +85,17 @@ void lv_style_copy(lv_style_t * style_dest, const lv_style_t * style_src)
     LV_ASSERT_STYLE(style_dest);
     LV_ASSERT_STYLE(style_src);
 
-    if(style_src->map == NULL) return;
 
-    uint16_t size = _lv_style_get_mem_size(style_src);
-    style_dest->map = lv_mem_alloc(size);
-    _lv_memcpy(style_dest->map, style_src->map, size);
+    uint16_t size;
+    uint8_t i;
+    for(i = 0; i < _LV_STYLE_PROP_TYPE_LAST; i++) {
+
+        if(style_src->map[i]) {
+            size = get_mem_size(style_src, i);
+            style_dest->map[i]= lv_mem_alloc(size);
+            _lv_memcpy(style_dest->map[i], style_src->map[i], size);
+        }
+    }
 }
 
 /**
@@ -102,26 +110,28 @@ bool lv_style_remove_prop(lv_style_t * style, lv_style_property_t prop)
     if(style == NULL) return false;
     LV_ASSERT_STYLE(style);
 
+
+    lv_style_prop_type_t t = lv_style_get_prop_type(prop);
     int32_t id = get_property_index(style, prop);
     /*The property exists but not sure it's state is the same*/
     if(id >= 0) {
         lv_style_attr_t attr_found;
         lv_style_attr_t attr_goal;
 
-        attr_found = get_style_prop_attr(style, id);
+        attr_found = get_style_prop_attr(style->map[t], id);
         attr_goal = (prop >> 8) & 0xFFU;
 
         if(LV_STYLE_ATTR_GET_STATE(attr_found) == LV_STYLE_ATTR_GET_STATE(attr_goal)) {
-            uint32_t map_size = _lv_style_get_mem_size(style);
+            uint32_t map_size = get_mem_size(style, t);
             uint8_t prop_size = get_prop_size(prop);
 
             /*Move the props to fill the space of the property to delete*/
             uint32_t i;
             for(i = id; i < map_size - prop_size; i++) {
-                style->map[i] = style->map[i + prop_size];
+                style->map[t][i] = style->map[t][i + prop_size];
             }
 
-            style_resize(style, map_size - prop_size);
+            style_resize(style->map[t], map_size - prop_size);
 
             return true;
         }
@@ -321,28 +331,12 @@ void lv_style_reset(lv_style_t * style)
 {
     LV_ASSERT_STYLE(style);
 
-    lv_mem_free(style->map);
-    style->map = NULL;
-}
+    uint8_t i;
+    for(i = 0; i < _LV_STYLE_PROP_TYPE_LAST; i++) {
 
-/**
- * Get the size of the properties in a style in bytes
- * @param style pointer to a style
- * @return size of the properties in bytes
- */
-uint16_t _lv_style_get_mem_size(const lv_style_t * style)
-{
-    LV_ASSERT_STYLE(style);
-
-    if(style->map == NULL) return 0;
-
-    size_t i = 0;
-    uint8_t prop_id;
-    while((prop_id = get_style_prop_id(style, i)) != _LV_STYLE_CLOSEING_PROP) {
-        i = get_next_prop_index(prop_id, i);
+        lv_mem_free(style->map[i]);
+        style->map[i] = NULL;
     }
-
-    return i + sizeof(lv_style_property_t);
 }
 
 /**
@@ -359,17 +353,19 @@ void _lv_style_set_int(lv_style_t * style, lv_style_property_t prop, lv_style_in
 {
     LV_ASSERT_STYLE(style);
 
+    lv_style_prop_type_t t = LV_STYLE_PROP_TYPE_INT;
     int32_t id = get_property_index(style, prop);
+
     /*The property already exists but not sure it's state is the same*/
     if(id >= 0) {
         lv_style_attr_t attr_found;
         lv_style_attr_t attr_goal;
 
-        attr_found = get_style_prop_attr(style, id);
+        attr_found = get_style_prop_attr(style->map[t], id);
         attr_goal = (prop >> 8) & 0xFFU;
 
         if(LV_STYLE_ATTR_GET_STATE(attr_found) == LV_STYLE_ATTR_GET_STATE(attr_goal)) {
-            _lv_memcpy_small(style->map + id + sizeof(lv_style_property_t), &value, sizeof(lv_style_int_t));
+            _lv_memcpy_small(style->map[t] + id + sizeof(lv_style_property_t), &value, sizeof(lv_style_int_t));
             return;
         }
     }
@@ -379,16 +375,16 @@ void _lv_style_set_int(lv_style_t * style, lv_style_property_t prop, lv_style_in
     lv_style_property_t end_mark = _LV_STYLE_CLOSEING_PROP;
     uint8_t end_mark_size = sizeof(end_mark);
 
-    uint16_t size = _lv_style_get_mem_size(style);
+    uint16_t size = get_mem_size(style, t);
     if(size == 0) size += end_mark_size;
     size += sizeof(lv_style_property_t) + sizeof(lv_style_int_t);
-    style_resize(style, size);
-    LV_ASSERT_MEM(style->map);
+    style->map[t] = style_resize(style->map[t], size);
+    LV_ASSERT_MEM(style->map[t]);
     if(style == NULL) return;
 
-    _lv_memcpy_small(style->map + size - new_prop_size - end_mark_size, &prop, sizeof(lv_style_property_t));
-    _lv_memcpy_small(style->map + size - sizeof(lv_style_int_t) - end_mark_size, &value, sizeof(lv_style_int_t));
-    _lv_memcpy_small(style->map + size - end_mark_size, &end_mark, sizeof(end_mark));
+    _lv_memcpy_small(style->map[t] + size - new_prop_size - end_mark_size, &prop, sizeof(lv_style_property_t));
+    _lv_memcpy_small(style->map[t] + size - sizeof(lv_style_int_t) - end_mark_size, &value, sizeof(lv_style_int_t));
+    _lv_memcpy_small(style->map[t] + size - end_mark_size, &end_mark, sizeof(end_mark));
 }
 
 /**
@@ -405,17 +401,18 @@ void _lv_style_set_color(lv_style_t * style, lv_style_property_t prop, lv_color_
 {
     LV_ASSERT_STYLE(style);
 
+    lv_style_prop_type_t t = LV_STYLE_PROP_TYPE_COLOR;
     int32_t id = get_property_index(style, prop);
     /*The property already exists but not sure it's state is the same*/
     if(id >= 0) {
         lv_style_attr_t attr_found;
         lv_style_attr_t attr_goal;
 
-        attr_found = get_style_prop_attr(style, id);
+        attr_found = get_style_prop_attr(style->map[t], id);
         attr_goal = (prop >> 8) & 0xFFU;
 
         if(LV_STYLE_ATTR_GET_STATE(attr_found) == LV_STYLE_ATTR_GET_STATE(attr_goal)) {
-            _lv_memcpy_small(style->map + id + sizeof(lv_style_property_t), &color, sizeof(lv_color_t));
+            _lv_memcpy_small(style->map[t] + id + sizeof(lv_style_property_t), &color, sizeof(lv_color_t));
             return;
         }
     }
@@ -425,17 +422,17 @@ void _lv_style_set_color(lv_style_t * style, lv_style_property_t prop, lv_color_
     lv_style_property_t end_mark = _LV_STYLE_CLOSEING_PROP;
     uint8_t end_mark_size = sizeof(end_mark);
 
-    uint16_t size = _lv_style_get_mem_size(style);
+    uint16_t size = get_mem_size(style, t);
     if(size == 0) size += end_mark_size;
 
     size += sizeof(lv_style_property_t) + sizeof(lv_color_t);
-    style_resize(style, size);
-    LV_ASSERT_MEM(style->map);
+    style->map[t] = style_resize(style->map[t], size);
+    LV_ASSERT_MEM(style->map[t]);
     if(style == NULL) return;
 
-    _lv_memcpy_small(style->map + size - new_prop_size - end_mark_size, &prop, sizeof(lv_style_property_t));
-    _lv_memcpy_small(style->map + size - sizeof(lv_color_t) - end_mark_size, &color, sizeof(lv_color_t));
-    _lv_memcpy_small(style->map + size - end_mark_size, &end_mark, sizeof(end_mark));
+    _lv_memcpy_small(style->map[t] + size - new_prop_size - end_mark_size, &prop, sizeof(lv_style_property_t));
+    _lv_memcpy_small(style->map[t] + size - sizeof(lv_color_t) - end_mark_size, &color, sizeof(lv_color_t));
+    _lv_memcpy_small(style->map[t] + size - end_mark_size, &end_mark, sizeof(end_mark));
 }
 
 /**
@@ -452,17 +449,18 @@ void _lv_style_set_opa(lv_style_t * style, lv_style_property_t prop, lv_opa_t op
 {
     LV_ASSERT_STYLE(style);
 
+    lv_style_prop_type_t t = LV_STYLE_PROP_TYPE_OPA;
     int32_t id = get_property_index(style, prop);
     /*The property already exists but not sure it's state is the same*/
     if(id >= 0) {
         lv_style_attr_t attr_found;
         lv_style_attr_t attr_goal;
 
-        attr_found = get_style_prop_attr(style, id);
+        attr_found = get_style_prop_attr(style->map[t], id);
         attr_goal = (prop >> 8) & 0xFFU;
 
         if(LV_STYLE_ATTR_GET_STATE(attr_found) == LV_STYLE_ATTR_GET_STATE(attr_goal)) {
-            _lv_memcpy_small(style->map + id + sizeof(lv_style_property_t), &opa, sizeof(lv_opa_t));
+            _lv_memcpy_small(style->map[t] + id + sizeof(lv_style_property_t), &opa, sizeof(lv_opa_t));
             return;
         }
     }
@@ -472,17 +470,17 @@ void _lv_style_set_opa(lv_style_t * style, lv_style_property_t prop, lv_opa_t op
     lv_style_property_t end_mark = _LV_STYLE_CLOSEING_PROP;
     uint8_t end_mark_size = sizeof(end_mark);
 
-    uint16_t size = _lv_style_get_mem_size(style);
+    uint16_t size = get_mem_size(style, t);
     if(size == 0) size += end_mark_size;
 
     size += sizeof(lv_style_property_t) + sizeof(lv_opa_t);
-    style_resize(style, size);
-    LV_ASSERT_MEM(style->map);
+    style->map[t] = style_resize(style->map[t], size);
+    LV_ASSERT_MEM(style->map[t]);
     if(style == NULL) return;
 
-    _lv_memcpy_small(style->map + size - new_prop_size - end_mark_size, &prop, sizeof(lv_style_property_t));
-    _lv_memcpy_small(style->map + size - sizeof(lv_opa_t) - end_mark_size, &opa, sizeof(lv_opa_t));
-    _lv_memcpy_small(style->map + size - end_mark_size, &end_mark, sizeof(end_mark));
+    _lv_memcpy_small(style->map[t] + size - new_prop_size - end_mark_size, &prop, sizeof(lv_style_property_t));
+    _lv_memcpy_small(style->map[t] + size - sizeof(lv_opa_t) - end_mark_size, &opa, sizeof(lv_opa_t));
+    _lv_memcpy_small(style->map[t] + size - end_mark_size, &end_mark, sizeof(end_mark));
 }
 
 /**
@@ -499,17 +497,18 @@ void _lv_style_set_ptr(lv_style_t * style, lv_style_property_t prop, const void 
 {
     LV_ASSERT_STYLE(style);
 
+    lv_style_prop_type_t t = LV_STYLE_PROP_TYPE_PTR;
     int32_t id = get_property_index(style, prop);
     /*The property already exists but not sure it's state is the same*/
     if(id >= 0) {
         lv_style_attr_t attr_found;
         lv_style_attr_t attr_goal;
 
-        attr_found = get_style_prop_attr(style, id);
+        attr_found = get_style_prop_attr(style->map[t], id);
         attr_goal = (prop >> 8) & 0xFFU;
 
         if(LV_STYLE_ATTR_GET_STATE(attr_found) == LV_STYLE_ATTR_GET_STATE(attr_goal)) {
-            _lv_memcpy_small(style->map + id + sizeof(lv_style_property_t), &p, sizeof(const void *));
+            _lv_memcpy_small(style->map[t] + id + sizeof(lv_style_property_t), &p, sizeof(const void *));
             return;
         }
     }
@@ -519,17 +518,17 @@ void _lv_style_set_ptr(lv_style_t * style, lv_style_property_t prop, const void 
     lv_style_property_t end_mark = _LV_STYLE_CLOSEING_PROP;
     uint8_t end_mark_size = sizeof(end_mark);
 
-    uint16_t size = _lv_style_get_mem_size(style);
+    uint16_t size = get_mem_size(style, t);
     if(size == 0) size += end_mark_size;
 
     size += sizeof(lv_style_property_t) + sizeof(const void *);
-    style_resize(style, size);
-    LV_ASSERT_MEM(style->map);
+    style->map[t] = style_resize(style->map[t], size);
+    LV_ASSERT_MEM(style->map[t]);
     if(style == NULL) return;
 
-    _lv_memcpy_small(style->map + size - new_prop_size - end_mark_size, &prop, sizeof(lv_style_property_t));
-    _lv_memcpy_small(style->map + size - sizeof(const void *) - end_mark_size, &p, sizeof(const void *));
-    _lv_memcpy_small(style->map + size - end_mark_size, &end_mark, sizeof(end_mark));
+    _lv_memcpy_small(style->map[t] + size - new_prop_size - end_mark_size, &prop, sizeof(lv_style_property_t));
+    _lv_memcpy_small(style->map[t] + size - sizeof(const void *) - end_mark_size, &p, sizeof(const void *));
+    _lv_memcpy_small(style->map[t] + size - end_mark_size, &end_mark, sizeof(end_mark));
 }
 
 /**
@@ -547,17 +546,18 @@ int16_t _lv_style_get_int(const lv_style_t * style, lv_style_property_t prop, vo
     lv_style_int_t * res = (lv_style_int_t *)v_res;
     LV_ASSERT_STYLE(style);
 
+    lv_style_prop_type_t t = LV_STYLE_PROP_TYPE_INT;
     if(style == NULL) return -1;
-    if(style->map == NULL) return -1;
+    if(style->map[t] == NULL) return -1;
 
     int32_t id = get_property_index(style, prop);
     if(id < 0) {
         return -1;
     }
     else {
-        _lv_memcpy_small(res, &style->map[id + sizeof(lv_style_property_t)], sizeof(lv_style_int_t));
+        _lv_memcpy_small(res, &style->map[t][id + sizeof(lv_style_property_t)], sizeof(lv_style_int_t));
         lv_style_attr_t attr_act;
-        attr_act = get_style_prop_attr(style, id);
+        attr_act = get_style_prop_attr(style->map[t], id);
 
         lv_style_attr_t attr_goal;
         attr_goal = (prop >> 8) & 0xFF;
@@ -584,17 +584,18 @@ int16_t _lv_style_get_opa(const lv_style_t * style, lv_style_property_t prop, vo
     lv_opa_t * res = (lv_opa_t *)v_res;
     LV_ASSERT_STYLE(style);
 
+    lv_style_prop_type_t t = LV_STYLE_PROP_TYPE_OPA;
     if(style == NULL) return -1;
-    if(style->map == NULL) return -1;
+    if(style->map[t] == NULL) return -1;
 
     int32_t id = get_property_index(style, prop);
     if(id < 0) {
         return -1;
     }
     else {
-        _lv_memcpy_small(res, &style->map[id + sizeof(lv_style_property_t)], sizeof(lv_opa_t));
+        _lv_memcpy_small(res, &style->map[t][id + sizeof(lv_style_property_t)], sizeof(lv_opa_t));
         lv_style_attr_t attr_act;
-        attr_act = get_style_prop_attr(style, id);
+        attr_act = get_style_prop_attr(style->map[t], id);
 
         lv_style_attr_t attr_goal;
         attr_goal = (prop >> 8) & 0xFF;
@@ -619,16 +620,18 @@ int16_t _lv_style_get_opa(const lv_style_t * style, lv_style_property_t prop, vo
 int16_t _lv_style_get_color(const lv_style_t * style, lv_style_property_t prop, void * v_res)
 {
     lv_color_t * res = (lv_color_t *)v_res;
+
+    lv_style_prop_type_t t = LV_STYLE_PROP_TYPE_COLOR;
     if(style == NULL) return -1;
-    if(style->map == NULL) return -1;
+    if(style->map[t] == NULL) return -1;
     int32_t id = get_property_index(style, prop);
     if(id < 0) {
         return -1;
     }
     else {
-        _lv_memcpy_small(res, &style->map[id + sizeof(lv_style_property_t)], sizeof(lv_color_t));
+        _lv_memcpy_small(res, &style->map[t][id + sizeof(lv_style_property_t)], sizeof(lv_color_t));
         lv_style_attr_t attr_act;
-        attr_act = get_style_prop_attr(style, id);
+        attr_act = get_style_prop_attr(style->map[t], id);
 
         lv_style_attr_t attr_goal;
         attr_goal = (prop >> 8) & 0xFF;
@@ -653,17 +656,18 @@ int16_t _lv_style_get_color(const lv_style_t * style, lv_style_property_t prop, 
 int16_t _lv_style_get_ptr(const lv_style_t * style, lv_style_property_t prop, void * v_res)
 {
     const void ** res = (const void **)v_res;
+    lv_style_prop_type_t t = LV_STYLE_PROP_TYPE_PTR;
     if(style == NULL) return -1;
-    if(style->map == NULL) return -1;
+    if(style->map[t] == NULL) return -1;
 
     int32_t id = get_property_index(style, prop);
     if(id < 0) {
         return -1;
     }
     else {
-        _lv_memcpy_small(res, &style->map[id + sizeof(lv_style_property_t)], sizeof(const void *));
+        _lv_memcpy_small(res, &style->map[t][id + sizeof(lv_style_property_t)], sizeof(const void *));
         lv_style_attr_t attr_act;
-        attr_act = get_style_prop_attr(style, id);
+        attr_act = get_style_prop_attr(style->map[t], id);
 
         lv_style_attr_t attr_goal;
         attr_goal = (prop >> 8) & 0xFF;
@@ -1042,6 +1046,15 @@ bool lv_debug_check_style_list(const lv_style_list_t * list)
  *   STATIC FUNCTIONS
  **********************/
 
+static inline lv_style_prop_type_t lv_style_get_prop_type(lv_style_property_t prop)
+{
+    uint8_t type = prop &= 0xF;
+    if(type < LV_STYLE_ID_COLOR) return LV_STYLE_PROP_TYPE_INT;
+    else if(type < LV_STYLE_ID_OPA) return LV_STYLE_PROP_TYPE_COLOR;
+    else if(type < LV_STYLE_ID_PTR)  return LV_STYLE_PROP_TYPE_OPA;
+    else  return LV_STYLE_PROP_TYPE_PTR;
+}
+
 /**
  * Get a property's index (byte index in `style->map`) from a style.
  * Return best matching property's index considering the state of `prop`
@@ -1054,7 +1067,9 @@ LV_ATTRIBUTE_FAST_MEM static inline int32_t get_property_index(const lv_style_t 
 {
     LV_ASSERT_STYLE(style);
 
-    if(style->map == NULL) return -1;
+    lv_style_prop_type_t t = lv_style_get_prop_type(prop);
+    const uint8_t * map = style->map[t];
+    if(map == NULL) return -1;
 
     uint8_t id_to_find = prop & 0xFF;
     lv_style_attr_t attr;
@@ -1066,10 +1081,10 @@ LV_ATTRIBUTE_FAST_MEM static inline int32_t get_property_index(const lv_style_t 
     size_t i = 0;
 
     uint8_t prop_id;    
-    while((prop_id = get_style_prop_id(style, i)) != _LV_STYLE_CLOSEING_PROP) {
+    while((prop_id = get_style_prop_id(map, i)) != _LV_STYLE_CLOSEING_PROP) {
         if(prop_id == id_to_find) {
             lv_style_attr_t attr_i;
-            attr_i = get_style_prop_attr(style, i);
+            attr_i = get_style_prop_attr(map, i);
 
             /*If the state perfectly matches return this property*/
             if(LV_STYLE_ATTR_GET_STATE(attr_i) == LV_STYLE_ATTR_GET_STATE(attr)) {
@@ -1124,35 +1139,35 @@ static lv_style_t * get_alloc_local_style(lv_style_list_t * list)
  * @param style pointer to the style to be resized.
  * @param size new size
  */
-static inline void style_resize(lv_style_t *style, size_t sz)
+static inline uint8_t * style_resize(uint8_t * map, size_t sz)
 {
-    style->map = lv_mem_realloc(style->map, sz);
+    return lv_mem_realloc(map, sz);
 }
 
 /**
  * Get style property in index.
- * @param style pointer to style.
+ * @param map pointer to the array of properties.
  * @param idx index of the style in style->map
  * @return property in style->map + idx
  */
-static inline lv_style_property_t get_style_prop(const lv_style_t *style, size_t idx)
+static inline lv_style_property_t get_style_prop(const uint8_t *map, size_t idx)
 {
     lv_style_property_t prop;
     uint8_t *prop_p = (uint8_t*)&prop;
-    prop_p[0] = style->map[idx];
-    prop_p[1] = style->map[idx + 1];
+    prop_p[0] = map[idx];
+    prop_p[1] = map[idx + 1];
     return prop;
 }
 
 /**
- * Get style property id in index.
+ * Get style property id in index. E.g. `LV_STLYE_PROP_BG_COLOR`
  * @param style pointer to style.
  * @param idx index of the style in style->map
  * @return id of property in style->map + idx
  */
-static inline uint8_t get_style_prop_id(const lv_style_t *style, size_t idx)
+static inline uint8_t get_style_prop_id(const uint8_t *map, size_t idx)
 {
-    return get_style_prop(style, idx) & 0xFF;
+    return get_style_prop(map, idx) & 0xFF;
 }
 
 /**
@@ -1161,9 +1176,9 @@ static inline uint8_t get_style_prop_id(const lv_style_t *style, size_t idx)
  * @param idx index of the style in style->map
  * @return attribute of property in style->map + idx
  */
-static inline uint8_t get_style_prop_attr(const lv_style_t *style, size_t idx)
+static inline uint8_t get_style_prop_attr(const uint8_t *map, size_t idx)
 {
-    return ((get_style_prop(style, idx) >> 8) & 0xFFU);
+    return ((get_style_prop(map, idx) >> 8) & 0xFFU);
 }
 
 
@@ -1177,11 +1192,19 @@ static inline size_t get_prop_size(uint8_t prop_id)
 {
     prop_id &= 0xF;
     size_t size = sizeof(lv_style_property_t);
-    if(prop_id < LV_STYLE_ID_COLOR) size += sizeof(lv_style_int_t);
-    else if(prop_id < LV_STYLE_ID_OPA) size += sizeof(lv_color_t);
-    else if(prop_id < LV_STYLE_ID_PTR) size += sizeof(lv_opa_t);
-    else size += sizeof(const void *);
-    return size;
+
+    switch(lv_style_get_prop_type(prop_id)) {
+    case LV_STYLE_PROP_TYPE_INT:
+        return size + sizeof(lv_style_int_t);
+    case LV_STYLE_PROP_TYPE_OPA:
+        return size + sizeof(lv_opa_t);
+    case LV_STYLE_PROP_TYPE_COLOR:
+        return size + sizeof(lv_color_t);
+    case LV_STYLE_PROP_TYPE_PTR:
+        return size + sizeof(const void *);
+    default:
+        return 0;   /*Shouldn't happen*/
+    }
 }
 
 /**
@@ -1193,4 +1216,27 @@ static inline size_t get_prop_size(uint8_t prop_id)
 static inline size_t get_next_prop_index(uint8_t prop_id, size_t idx)
 {
     return idx + get_prop_size(prop_id);
+}
+
+
+/**
+ * Get the size of the properties in a style in bytes
+ * @param style pointer to a style
+ * @return size of the properties in bytes
+ */
+static uint16_t get_mem_size(const lv_style_t * style, lv_style_prop_type_t type)
+{
+    LV_ASSERT_STYLE(style);
+
+
+    const uint8_t * map = style->map[type];
+    if(map == NULL) return 0;
+
+    size_t i = 0;
+    uint8_t prop_id;
+    while((prop_id = get_style_prop_id(map, i)) != _LV_STYLE_CLOSEING_PROP) {
+        i = get_next_prop_index(prop_id, i);
+    }
+
+    return i + sizeof(lv_style_property_t);
 }

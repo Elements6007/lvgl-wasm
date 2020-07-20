@@ -98,8 +98,8 @@ static bool inited;
 /**********************
  *      MACROS
  **********************/
-#define COLOR_INV(c)    ((c).ch.red == 0 ? LV_COLOR_WHITE : LV_COLOR_BLACK)
-#define BG_COLOR        theme.color_primary.ch.red == 0 ? LV_COLOR_WHITE : LV_COLOR_BLACK
+#define COLOR_INV(c)    ((c).red == 0 ? LV_COLOR_WHITE : LV_COLOR_BLACK)
+#define BG_COLOR        theme.color_primary.red == 0 ? LV_COLOR_WHITE : LV_COLOR_BLACK
 #define FG_COLOR        COLOR_INV(BG_COLOR)
 #define RADIUS          (LV_MATH_MAX(LV_DPI / 30, 2))
 #define BORDER_WIDTH    (LV_MATH_MAX(LV_DPI / 60, 1))

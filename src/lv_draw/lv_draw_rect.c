@@ -186,7 +186,7 @@ LV_ATTRIBUTE_FAST_MEM static void draw_bg(const lv_area_t * coords, const lv_are
     lv_opa_t * mask_buf = _lv_mem_buf_get(draw_area_w);
 
     lv_grad_dir_t grad_dir = dsc->bg_grad_dir;
-    if(dsc->bg_color.full == dsc->bg_grad_color.full) grad_dir = LV_GRAD_DIR_NONE;
+    if(lv_color_eq(dsc->bg_color, dsc->bg_grad_color)) grad_dir = LV_GRAD_DIR_NONE;
 
     uint16_t other_mask_cnt = lv_draw_mask_get_cnt();
     bool simple_mode = true;

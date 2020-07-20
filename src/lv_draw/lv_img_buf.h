@@ -26,7 +26,7 @@ extern "C" {
 #define LV_IMG_PX_SIZE_ALPHA_BYTE 2
 #elif LV_COLOR_DEPTH == 16
 #define LV_IMG_PX_SIZE_ALPHA_BYTE 3
-#elif LV_COLOR_DEPTH == 32
+#elif LV_COLOR_DEPTH == 24 || LV_COLOR_DEPTH == 32
 #define LV_IMG_PX_SIZE_ALPHA_BYTE 4
 #endif
 
@@ -351,8 +351,9 @@ static inline bool _lv_img_buf_transform(lv_img_transform_dsc_t * dsc, lv_coord_
     }
 
     if(dsc->tmp.chroma_keyed) {
-        lv_color_t ct = LV_COLOR_TRANSP;
-        if(dsc->res.color.full == ct.full) return false;
+//        TODO
+//        lv_color_t ct = LV_COLOR_TRANSP;
+//        if(dsc->res.color.full == ct.full) return false;
     }
 
     if(dsc->cfg.antialias == false) return true;

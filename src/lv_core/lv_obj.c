@@ -4071,7 +4071,7 @@ static lv_style_trans_t * trans_create(lv_obj_t * obj, lv_style_property_t prop,
         lv_color_t c2 =  _lv_obj_get_style_color(obj, part, prop);
         style_list->skip_trans = 0;
 
-        if(c1.full == c2.full) return NULL;
+        if(lv_color_eq(c1, c2)) return NULL;
         obj->state = prev_state;
         c1 = _lv_obj_get_style_color(obj, part, prop);
         obj->state = new_state;

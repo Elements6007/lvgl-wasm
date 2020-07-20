@@ -424,8 +424,8 @@ LV_ATTRIBUTE_FAST_MEM static void lv_draw_map(const lv_area_t * map_area, const 
                         map2[px_i].full =  map_px[0];
 #elif LV_COLOR_DEPTH == 16
                         map2[px_i].full =  map_px[0] + (map_px[1] << 8);
-#elif LV_COLOR_DEPTH == 32
-                        map2[px_i].full =  *((uint32_t *)map_px);
+#elif LV_COLOR_DEPTH == 24 || LV_COLOR_DEPTH == 32
+                        *((uint32_t *)&map2[px_i]) =  *((uint32_t *)map_px);
 #endif
                     }
 #if LV_COLOR_DEPTH == 32
@@ -527,7 +527,7 @@ LV_ATTRIBUTE_FAST_MEM static void lv_draw_map(const lv_area_t * map_area, const 
                         }
                         else {
                             mask_buf[px_i] = trans_dsc.res.opa;
-                            c.full = trans_dsc.res.color.full;
+                            c = trans_dsc.res.color;
                         }
                     }
                     /*No transform*/
@@ -559,7 +559,7 @@ LV_ATTRIBUTE_FAST_MEM static void lv_draw_map(const lv_area_t * map_area, const 
                         c.ch.alpha = 0xFF;
 #endif
                         if(chroma_key) {
-                            if(c.full == chroma_keyed_color.full) {
+                            if(lv_color_eq(c, chroma_keyed_color)) {
                                 mask_buf[px_i] = LV_OPA_TRANSP;
 #if  LV_COLOR_DEPTH == 32
                                 map2[px_i].full = 0;
@@ -573,7 +573,7 @@ LV_ATTRIBUTE_FAST_MEM static void lv_draw_map(const lv_area_t * map_area, const 
                         c = lv_color_mix_premult(recolor_premult, c, recolor_opa_inv);
                     }
 
-                    map2[px_i].full = c.full;
+                    map2[px_i] = c;
                 }
 
                 /*Apply the masks if any*/

@@ -9,17 +9,17 @@
 # emcc --version
 # (shows 1.39.20)
 # wasm-as --version
-# (shows 95, which is incorrect, because emscripted 1.39 needs binaryen version 93)
+# (shows version 95, which is incorrect, because emscripted 1.39 needs binaryen version 93)
 
 # Install binaryen 93:
 # git clone --branch version_93 https://github.com/WebAssembly/binaryen
 # cd binaryen
 # cmake .
 # make
-# sudo cp ??? /usr/bin
+# sudo cp bin/* /usr/bin
 # cd ..
 # wasm-as --version
-# (shows 93, which is correct)
+# (shows version 93, which is correct)
 
 # rm -rf ~/.emscripten_cache
 # make

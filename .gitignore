@@ -2,6 +2,7 @@
 **/*bin
 **/*.swp
 **/*.swo
+**/*.o.tmp
 tags
 docs/api_doc
 scripts/cppcheck_res.txt

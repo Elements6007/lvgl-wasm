@@ -13,5 +13,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run tests
-      run: cd tests; python ./build.py
+    
+    - name: Install emscripten
+      run:  sudo apt install emscripten
+
+    - name: Build LVGL
+      run:  make -j
+
+    #- name: Run tests
+    #  run: cd tests; python ./build.py
+

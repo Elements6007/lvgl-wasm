@@ -1,7 +1,9 @@
-# Build and install Wayland EGL app
+# Build LVGL for WebAssembly
 
-# TODO: Install GLES2 library
-# sudo apt install libgles2-mesa-dev
+# emcc -c -o lv_group.o ././src/lv_core/lv_group.c -g -I src/lv_core -D LV_USE_DEMO_WIDGETS -s WASM=1
+emcc ././src/lv_core/lv_group.c -I src/lv_core -D LV_USE_DEMO_WIDGETS -s WASM=1 -o lv_group.html
+
+exit
 
 # Kill the app if it's already running
 pkill lvgl

@@ -1,42 +1,45 @@
-# Build LVGL on PinePhone Ubuntu Touch
+# Build LVGL for WebAssembly
+# Install emscripten on macOS: 
+# brew install emscripten
+# brew install binaryen
+# nano /usr/local/Cellar/emscripten/1.40.1/libexec/.emscripten
+# Change BINARYEN_ROOT to 
+# BINARYEN_ROOT = os.path.expanduser(os.getenv('BINARYEN', '/usr/local')) # directory
+
+# Compile to WebAssembly:
+# emcc hello.c -s WASM=1 -o hello.html
 
 # Define $(CSRCS)
 LVGL_DIR 	  := .
 LVGL_DIR_NAME := .
 include lvgl.mk
 
-WAYLAND_CSRCS := \
+WASM_CSRCS := \
 	demo/lv_demo_widgets.c \
-	wayland/lv_port_disp.c \
-	wayland/shader.c \
-	wayland/texture.c \
-	wayland/util.c
+	wasm/lv_port_disp.c
 
-TARGETS:= wayland/lvgl
+TARGETS:= wasm/lvgl
 
 DEPS   := lv_conf.h
 
-CC     := gcc
+CC     := emcc
 
 CCFLAGS := \
 	-g \
 	-I src/lv_core \
-	-D LV_USE_DEMO_WIDGETS
+	-D LV_USE_DEMO_WIDGETS \
+	-s WASM=1
 
 LDFLAGS := \
-    -Wl,-Map=wayland/lvgl.map \
+    -Wl,-Map=wasm/lvgl.map \
     -L/usr/lib/aarch64-linux-gnu/mesa-egl \
-    -lwayland-client \
-    -lwayland-server \
-    -lwayland-egl \
-    -lEGL \
     -lGLESv2
 
 MAINS  := $(addsuffix .o, $(TARGETS) )
 OBJ    := \
 	$(MAINS) \
 	$(CSRCS:.c=.o) \
-	$(WAYLAND_CSRCS:.c=.o)
+	$(WASM_CSRCS:.c=.o)
 
 .PHONY: all clean
 

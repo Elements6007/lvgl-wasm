@@ -1,4 +1,9 @@
 # Build LVGL for WebAssembly
+
+# Install emscripted on Manjaro:
+# sudo pacman -S emscripten
+# source /etc/profile.d/emscripten.sh
+
 # Install emscripten on macOS: 
 # brew install emscripten
 # brew install binaryen

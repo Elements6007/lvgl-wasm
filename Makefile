@@ -1,7 +1,7 @@
 # Build LVGL for WebAssembly
 
 ###############################################################################
-# Install emscripten on Manjaro
+# Doesn't Work: Install emscripten on Pinebook Pro Manjaro
 
 # sudo pacman -S emscripten
 # sudo pacman -S wabt
@@ -42,9 +42,10 @@
 #   emcc: error: '/usr/bin/wasm-emscripten-finalize --detect-features --global-base=1024 --check-stack-overflow /tmp/emscripten_temp_84xtyzya/tmpzet09r88.wasm -o /tmp/emscripten_temp_84xtyzya/tmpzet09r88.wasm.o.wasm' failed (1)
 #   FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpzet09r88.js', '/tmp/tmpxk8zxvza.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
 # Then use branch version_94 of binaryen, change version in MakeLists.txt to version 93 (see above)
+# But doesn't work
 
 ###############################################################################
-# Install emscripten on macOS
+# Doesn't Work: Install emscripten on macOS
 
 # brew install emscripten
 # brew install binaryen

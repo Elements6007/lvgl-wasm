@@ -14,7 +14,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - name: Check cache for emscripten
+      id:   cache-emscripten
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-emscripten
+      with:
+        path: /tmp/emscripten
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
     - name: Install emscripten
+      if:   steps.cache-emscripten.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
       run:  |
         # Based on https://emscripten.org/docs/getting_started/downloads.html
         cd /tmp

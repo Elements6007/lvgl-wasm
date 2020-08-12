@@ -5,8 +5,12 @@
 # (upgrade llvm to 10.0.0)
 # brew upgrade llvm
 # nano /usr/local/Cellar/emscripten/1.40.1/libexec/.emscripten
-# Change BINARYEN_ROOT to 
+# Change BINARYEN_ROOT and LLVM_ROOT to 
 # BINARYEN_ROOT = os.path.expanduser(os.getenv('BINARYEN', '/usr/local')) # directory
+# LLVM_ROOT = os.path.expanduser(os.getenv('LLVM', '/usr/local/opt/llvm/bin')) # directory
+
+# Previously: 
+# LLVM_ROOT = os.path.expanduser(os.getenv('LLVM', '/usr/local/opt/llvm@3.9/bin')) # directory
 
 # Compile to WebAssembly:
 # emcc hello.c -s WASM=1 -o hello.html

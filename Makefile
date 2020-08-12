@@ -4,6 +4,7 @@
 # sudo pacman -S emscripten
 # source /etc/profile.d/emscripten.sh
 # rm -rf ~/.emscripten_cache
+# sudo pacman -S wabt
 
 # Install emscripten on macOS: 
 # brew install emscripten

@@ -9,35 +9,39 @@
 # emcc --version
 # (shows 1.39.20)
 # wasm-as --version
-# (shows version 95, which is incorrect, because emscripted 1.39 needs binaryen version 93)
+# (shows "version 95", which is incorrect, because emscripted 1.39 needs binaryen version 93)
 
-# Install binaryen 94:
+# Install binaryen 94 renamed as 93:
+# cd ~
 # git clone --branch version_94 https://github.com/WebAssembly/binaryen
-
-# Install binaryen 93:
-# git clone --branch version_93_nostacksave https://github.com/AppKaki/binaryen
 # cd binaryen
+# nano CMakeLists.txt 
+# Change
+#   project(binaryen LANGUAGES C CXX VERSION 94)
+# To
+#   project(binaryen LANGUAGES C CXX VERSION 93)
 # cmake .
-# make -j
+# make -j 5
 # sudo cp bin/* /usr/bin
 # cd ..
+# export PATH=$HOME/binaryen/bin:$PATH
 # wasm-as --version
-# (shows version 93, which is correct)
+# (shows "version 93 (version_94)", which is correct)
 
 # rm -rf ~/.emscripten_cache
-# make -j
+# make clean
+# make -j 5
 
 # If we see error:
 #   emcc: error: unexpected binaryen version: 95 (expected 93) [-Wversion-check] [-Werror]
 #   FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpbe4ik5na.js', '/tmp/tmpzu5jusdg.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
-# Then we need to install the right version of binaryen
+# Then we need to install the right version of binaryen (see above)
 
 # If we see error:
 #   Fatal: Module::addExport: stackSave already exists
 #   emcc: error: '/usr/bin/wasm-emscripten-finalize --detect-features --global-base=1024 --check-stack-overflow /tmp/emscripten_temp_84xtyzya/tmpzet09r88.wasm -o /tmp/emscripten_temp_84xtyzya/tmpzet09r88.wasm.o.wasm' failed (1)
 #   FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpzet09r88.js', '/tmp/tmpxk8zxvza.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
-# Then use branch version_93_nostacksave of https://github.com/AppKaki/binaryen which removes
-# 
+# Then use branch version_94 of binaryen, change version in MakeLists.txt to version 93 (see above)
 
 ###############################################################################
 # Install emscripten on macOS

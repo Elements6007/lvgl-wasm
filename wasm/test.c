@@ -1,4 +1,4 @@
-/*
+/* Sample App:
 emcc wasm/test.c -s WASM=1 -o wasm/test.html
 */
 #include <stdio.h>

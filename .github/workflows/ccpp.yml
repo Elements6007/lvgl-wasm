@@ -18,10 +18,14 @@ jobs:
       run:  |
         sudo apt install emscripten
         emcc --version
+        emcc --version
 
     - name: Build LVGL
       run:  |
-        make -j
+        wasm/lvgl.sh
+
+    - name: Show files
+      run:  set ; pwd ; ls -l
 
     - name: Upload Outputs
       uses: actions/upload-artifact@v2

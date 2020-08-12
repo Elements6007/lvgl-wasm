@@ -1,4 +1,13 @@
-<h1 align="center"> (Experimental WebAssembly Port) </h1>
+<h1 align="center"> Experimental WebAssembly Port of LVGL </h1>
+
+Refer to...
+
+- [GitHub Actions Workflow](.github/workflows/ccpp.yml)
+
+- [Build Script](wasm/lvgl.sh)
+
+- [Makefile](Makefile)
+
 <h1 align="center"> LVGL - Light and Versatile Graphics Library</h1>
 
 <p align="center">

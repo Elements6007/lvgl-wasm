@@ -4,13 +4,28 @@
 # sudo pacman -S emscripten
 # sudo pacman -S wabt
 # source /etc/profile.d/emscripten.sh
+# emcc --version
+# (shows 1.39.20)
+# wasm-as --version
+# (shows 95, which is incorrect, because emscripted 1.39 needs binaryen version 93)
+
+# Install binaryen 93:
+# git clone --branch version_93 https://github.com/WebAssembly/binaryen
+# cd binaryen
+# cmake .
+# make
+# sudo cp ??? /usr/bin
+# cd ..
+# wasm-as --version
+# (shows 93, which is correct)
+
 # rm -rf ~/.emscripten_cache
 # make
 
-# Shows error:
-# emcc: error: unexpected binaryen version: 95 (expected 93) [-Wversion-check] [-Werror]
-# FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpbe4ik5na.js', '/tmp/tmpzu5jusdg.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
-# make: *** [Makefile:66: wasm/lvgl] Error 1
+# If we see error:
+#   emcc: error: unexpected binaryen version: 95 (expected 93) [-Wversion-check] [-Werror]
+#   FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpbe4ik5na.js', '/tmp/tmpzu5jusdg.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
+# Then we need to install the right version of binaryen
 
 # Install emscripten on macOS: 
 # brew install emscripten

@@ -15,14 +15,14 @@
 # git clone --branch version_93_nostacksave https://github.com/AppKaki/binaryen
 # cd binaryen
 # cmake .
-# make
+# make -j
 # sudo cp bin/* /usr/bin
 # cd ..
 # wasm-as --version
 # (shows version 93, which is correct)
 
 # rm -rf ~/.emscripten_cache
-# make
+# make -j
 
 # If we see error:
 #   emcc: error: unexpected binaryen version: 95 (expected 93) [-Wversion-check] [-Werror]

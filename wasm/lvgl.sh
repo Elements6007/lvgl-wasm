@@ -13,4 +13,4 @@ wasm-objdump -h wasm/lvgl.o
 exit
 
 # Build app
-make
+make -j

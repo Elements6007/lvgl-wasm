@@ -12,7 +12,7 @@
 # (shows version 95, which is incorrect, because emscripted 1.39 needs binaryen version 93)
 
 # Install binaryen 93:
-# git clone --branch version_93 https://github.com/WebAssembly/binaryen
+# git clone --branch version_93_nostacksave https://github.com/AppKaki/binaryen
 # cd binaryen
 # cmake .
 # make

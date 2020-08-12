@@ -15,11 +15,13 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Install emscripten
-      run:  sudo apt install emscripten
+      run:  |
+        sudo apt install emscripten
+        emcc --version
 
     - name: Build LVGL
-      run:  make -j
+      run:  |
+        make -j
 
     #- name: Run tests
     #  run: cd tests; python ./build.py
-

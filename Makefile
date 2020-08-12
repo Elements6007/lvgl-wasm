@@ -3,6 +3,7 @@
 # Install emscripted on Manjaro:
 # sudo pacman -S emscripten
 # source /etc/profile.d/emscripten.sh
+# rm -rf ~/.emscripten_cache
 
 # Install emscripten on macOS: 
 # brew install emscripten
@@ -42,9 +43,7 @@ CCFLAGS := \
 	-s WASM=1
 
 LDFLAGS := \
-    -Wl,-Map=wasm/lvgl.map \
-    -L/usr/lib/aarch64-linux-gnu/mesa-egl \
-    -lGLESv2
+    -Wl,-Map=wasm/lvgl.map
 
 MAINS  := $(addsuffix .o, $(TARGETS) )
 OBJ    := \
@@ -58,6 +57,7 @@ all: $(TARGETS)
 
 clean:
 	rm -f $(TARGETS) $(OBJ)
+	rm -rf $(HOME)/.emscripten_cache
 
 $(OBJ): %.o : %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CCFLAGS)

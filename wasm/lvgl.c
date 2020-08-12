@@ -1,9 +1,7 @@
-//  Simple port of LVGL to Wayland on PinePhone with Ubuntu Touch. 
-//  Renders UI controls but touch input not handled yet.
-//  Bundled source files: shader.c, texture.c, util.c, util.h
-//  To build and run on PinePhone, see lvgl.sh.
+//  Simple port of LVGL to WebAssembly.
+//  ??? Renders UI controls but touch input not handled yet.
+//  To build see lvgl.sh.
 //  Sample log: logs/lvgl.log 
-//  Based on https://jan.newmarch.name/Wayland/EGL/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,7 +9,6 @@
 #include "../lvgl.h"
 #include "../demo/lv_demo_widgets.h"
 #include "lv_port_disp.h"
-#include "util.h"
 
 ////////////////////////////////////////////////////////////////////
 //  Render LVGL
@@ -27,7 +24,7 @@ static void render_widgets(void) {
     lv_label_set_text(label, "Button");                     //  Set the labels text
 }
 
-/// Render the OpenGL ES2 display
+/// Render the LVGL display
 static void render_display() {
     puts("Rendering display...");
 

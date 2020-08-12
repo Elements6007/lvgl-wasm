@@ -2,6 +2,8 @@
 # Install emscripten on macOS: 
 # brew install emscripten
 # brew install binaryen
+# (upgrade llvm to 10.0.0)
+# brew upgrade llvm
 # nano /usr/local/Cellar/emscripten/1.40.1/libexec/.emscripten
 # Change BINARYEN_ROOT to 
 # BINARYEN_ROOT = os.path.expanduser(os.getenv('BINARYEN', '/usr/local')) # directory

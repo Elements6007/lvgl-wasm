@@ -1,7 +1,8 @@
 # Build LVGL for WebAssembly
 
 ###############################################################################
-# Install emscripten on Manjaro:
+# Install emscripten on Manjaro
+
 # sudo pacman -S emscripten
 # sudo pacman -S wabt
 # source /etc/profile.d/emscripten.sh

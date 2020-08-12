@@ -2,9 +2,15 @@
 
 # Install emscripted on Manjaro:
 # sudo pacman -S emscripten
+# sudo pacman -S wabt
 # source /etc/profile.d/emscripten.sh
 # rm -rf ~/.emscripten_cache
-# sudo pacman -S wabt
+# make
+
+# Shows error:
+# emcc: error: unexpected binaryen version: 95 (expected 93) [-Wversion-check] [-Werror]
+# FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpbe4ik5na.js', '/tmp/tmpzu5jusdg.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
+# make: *** [Makefile:66: wasm/lvgl] Error 1
 
 # Install emscripten on macOS: 
 # brew install emscripten

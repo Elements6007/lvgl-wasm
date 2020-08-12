@@ -5,7 +5,7 @@
 set -e -x
 
 # Build app
-make -j
+# make -j
 
 # Build sample app
 emcc wasm/test.c -s WASM=1 -o wasm/test.html

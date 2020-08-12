@@ -23,5 +23,11 @@ jobs:
       run:  |
         make -j
 
+    - name: Upload Outputs
+      uses: actions/upload-artifact@v2
+      with:
+        name: wasm
+        path: wasm/*
+
     #- name: Run tests
     #  run: cd tests; python ./build.py

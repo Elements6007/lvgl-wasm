@@ -12,6 +12,32 @@ Refer to...
 
 - [Makefile](Makefile)
 
+TODO:
+
+1. __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
+
+1. __Render LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2
+
+1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
+
+1. __Accept Touch Input__ for LVGL
+
+1. __Compile actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
+
+1. __Convert `Clock.cpp` to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
+
+1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
+
+References:
+
+- ["Programming with PineTime"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime#programming-with-pinetime)
+
+- ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
+
+![Custom PineTime Watch Face created in C++](https://lupyuen.github.io/images/vaultboy-watchface.jpg)
+
+_Custom PineTime Watch Face created in C++_
+
 <h1 align="center"> LVGL - Light and Versatile Graphics Library</h1>
 
 <p align="center">

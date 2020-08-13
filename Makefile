@@ -111,7 +111,7 @@ $(OBJ): %.o : %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CCFLAGS)
 
 $(TARGETS): % : $(filter-out $(MAINS), $(OBJ)) %.o
-	$(CC) -o $@ \
+	$(CC) -o $@.html \
 	-Wl,--start-group \
 	$(LIBS) \
 	$^ \

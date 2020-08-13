@@ -1,0 +1,7 @@
+# Define the Rust workspace, which contains all Rust projects
+
+# All projects in the `rust` folder belong to this workspace
+[workspace]
+members = [
+    "rust"
+]

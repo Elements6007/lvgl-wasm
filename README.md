@@ -24,7 +24,7 @@ TODO:
 
 1. __Compile actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
 
-1. __Convert `Clock.cpp` to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
+1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
 
 1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
 

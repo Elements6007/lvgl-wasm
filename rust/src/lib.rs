@@ -2,6 +2,9 @@
 cd rust
 wasm-pack build
 rm pkg/.gitignore
+
+To dump:
+~/PineTime/wabt/build/wasm-objdump -x pkg/lvgl_wasm_rust_bg.wasm
 */
 use std::ops::Add;
 use wasm_bindgen::prelude::*;

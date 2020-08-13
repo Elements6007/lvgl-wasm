@@ -1,3 +1,10 @@
+/*
+Fails with error:
+lvgl_wasm_rust_bg.wasm:1 Failed to load module script: The server responded with a non-JavaScript MIME type of "application/wasm". Strict MIME type checking is enforced for module scripts per HTML spec.
+TypeError: Failed to fetch dynamically imported module: https://appkaki.github.io/lvgl-wasm/rust/pkg/lvgl_wasm_rust.js
+Promise.catch (async)
+(anonymous) @ index.js:18
+*/
 import('./pkg/lvgl_wasm_rust.js')
     .then(wasm => {
         const canvas = document.getElementById('drawing');

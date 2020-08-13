@@ -13,6 +13,7 @@ To dump:
 //  use web_sys::{CanvasRenderingContext2d, ImageData};
 
 extern "C" {
+    static mut test_rust_buffer: [u8; 32];
     fn test_c() -> i32;
     fn puts(fmt: *const u8) -> i32;
     //  fn printf(fmt: *const u8, ...) -> i32;
@@ -35,6 +36,18 @@ pub extern fn test_rust3() -> i32 {
     unsafe { puts(b"In Rust: test_rust3()\0".as_ptr()); }
     let i = unsafe { test_c() };
     i
+}
+
+#[no_mangle]
+pub extern fn test_rust_set_buffer() -> i32 {
+    let i = unsafe { test_rust_buffer[0] };
+    unsafe { test_rust_buffer[0] = 0x42; }  //  B
+    i as i32
+}
+
+#[no_mangle]
+pub extern fn test_rust_get_buffer() -> i32 {
+    unsafe { test_rust_buffer[0] as i32 }
 }
 
 /*

@@ -21,8 +21,7 @@ emcc \
     -o wasm/test_rust.html \
     target/wasm32-unknown-emscripten/debug/liblvgl_wasm_rust.a
 
-# Test Compile
-# emcc -c -o lv_group.o ././src/lv_core/lv_group.c -g -I src/lv_core -D LV_USE_DEMO_WIDGETS -s WASM=1
-
-# Test Output
-# wasm-objdump -h wasm/lvgl.o
+# Dump the WebAssembly modules
+wasm-objdump -x wasm/lvgl.wasm >wasm/lvgl.txt
+wasm-objdump -x wasm/test.wasm >wasm/test.txt
+wasm-objdump -x wasm/test_rust.wasm >wasm/test_rust.txt

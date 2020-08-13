@@ -18,6 +18,9 @@ extern "C" {
     //  fn printf(fmt: *const u8, ...) -> i32;
 }
 
+#[link_section = "rust"]
+pub static SECTION: [u8; 24] = *b"This is a custom section";
+
 #[no_mangle]
 pub extern fn test_rust() -> i32 {
     unsafe { puts(b"In Rust: test_rust()\0".as_ptr()); }

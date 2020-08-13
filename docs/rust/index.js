@@ -1,18 +1,17 @@
-import('./pkg')
-    .then(wasm => {
-        const canvas = document.getElementById('drawing');
-        const ctx = canvas.getContext('2d');
+import * as wasm from "./pkg/lvgl_wasm_rust_bg.wasm";
+export * from "./pkg/lvgl_wasm_rust_bg.js";
 
-        const realInput = document.getElementById('real');
-        const imaginaryInput = document.getElementById('imaginary');
-        const renderBtn = document.getElementById('render');
+const canvas = document.getElementById('drawing');
+const ctx = canvas.getContext('2d');
 
-        renderBtn.addEventListener('click', () => {
-            const real = parseFloat(realInput.value) || 0;
-            const imaginary = parseFloat(imaginaryInput.value) || 0;
-            wasm.draw(ctx, 600, 600, real, imaginary);
-        });
+const realInput = document.getElementById('real');
+const imaginaryInput = document.getElementById('imaginary');
+const renderBtn = document.getElementById('render');
 
-        wasm.draw(ctx, 600, 600, -0.15, 0.65);
-    })
-    .catch(console.error);
+renderBtn.addEventListener('click', () => {
+    const real = parseFloat(realInput.value) || 0;
+    const imaginary = parseFloat(imaginaryInput.value) || 0;
+    wasm.draw(ctx, 600, 600, real, imaginary);
+});
+
+wasm.draw(ctx, 600, 600, -0.15, 0.65);

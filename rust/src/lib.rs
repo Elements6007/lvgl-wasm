@@ -1,8 +1,7 @@
 /* To build:
-cargo install wasm-pack
-cd rust
-wasm-pack build
-rm pkg/.gitignore
+rustup default nightly
+rustup target add wasm32-unknown-emscripten
+cargo build --target=wasm32-unknown-emscripten
 
 To dump:
 ~/PineTime/wabt/build/wasm-objdump -x docs/test_rust.wasm | more
@@ -14,6 +13,7 @@ To dump:
 //  use web_sys::{CanvasRenderingContext2d, ImageData};
 
 extern "C" {
+    fn test_c() -> i32;
     fn puts(fmt: *const u8) -> i32;
     //  fn printf(fmt: *const u8, ...) -> i32;
 }
@@ -28,6 +28,13 @@ pub extern fn test_rust() -> i32 {
 pub extern fn test_rust2() -> i32 {
     unsafe { puts(b"In Rust: test_rust2()\0".as_ptr()); }
     2306
+}
+
+#[no_mangle]
+pub extern fn test_rust3() -> i32 {
+    unsafe { puts(b"In Rust: test_rust3()\0".as_ptr()); }
+    let i = unsafe { test_c() };
+    i
 }
 
 /*

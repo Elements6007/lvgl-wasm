@@ -19,3 +19,8 @@ int main(int argc, char **argv) {
     printf("In C: test_rust() returned %d\n", i);
     return 0;
 }
+
+int test_c(void) {    
+    puts("In C: test_c()");
+    return 2407;
+}

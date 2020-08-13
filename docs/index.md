@@ -1,3 +1,5 @@
 [LVGL WebAssembly App](lvgl.html)
 
-[Sample WebAssembly App](test.html)
+[Sample WebAssembly C App](test.html)
+
+[Sample WebAssembly Rust App](rust)

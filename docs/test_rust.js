@@ -1292,11 +1292,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 5246768,
+    STACK_BASE = 5246800,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 3888,
-    DYNAMIC_BASE = 5246768,
-    DYNAMICTOP_PTR = 3728;
+    STACK_MAX = 3920,
+    DYNAMIC_BASE = 5246800,
+    DYNAMICTOP_PTR = 3760;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1881,7 +1881,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 2864;
+// STATICTOP = STATIC_BASE + 2896;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -1938,7 +1938,7 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 3728;
+      return 3760;
     }
 
   function _emscripten_memcpy_big(dest, src, num) {
@@ -2116,10 +2116,22 @@ var _test_rust = Module["_test_rust"] = createExportWrapper("test_rust");
 var _test_c = Module["_test_c"] = createExportWrapper("test_c");
 
 /** @type {function(...*):?} */
+var _test_c_set_buffer = Module["_test_c_set_buffer"] = createExportWrapper("test_c_set_buffer");
+
+/** @type {function(...*):?} */
+var _test_c_get_buffer = Module["_test_c_get_buffer"] = createExportWrapper("test_c_get_buffer");
+
+/** @type {function(...*):?} */
 var _test_rust2 = Module["_test_rust2"] = createExportWrapper("test_rust2");
 
 /** @type {function(...*):?} */
 var _test_rust3 = Module["_test_rust3"] = createExportWrapper("test_rust3");
+
+/** @type {function(...*):?} */
+var _test_rust_set_buffer = Module["_test_rust_set_buffer"] = createExportWrapper("test_rust_set_buffer");
+
+/** @type {function(...*):?} */
+var _test_rust_get_buffer = Module["_test_rust_get_buffer"] = createExportWrapper("test_rust_get_buffer");
 
 /** @type {function(...*):?} */
 var _ntohs = Module["_ntohs"] = createExportWrapper("ntohs");

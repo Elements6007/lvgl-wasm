@@ -12,7 +12,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::Clamped;
 use web_sys::{CanvasRenderingContext2d, ImageData};
 
-#[wasm_bindgen]
+//#[wasm_bindgen]
 #[no_mangle]
 pub extern fn test_rust() -> i32 {
     2205

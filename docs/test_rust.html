@@ -1293,8 +1293,22 @@
         };
       };
     </script>
+    <script type="text/javascript">
+      var Module = {
+        //  Wait for emscripten to be initialised
+        onRuntimeInitialized: function() {
+          Module._test_rust();
+          Module._test_rust2();
+          Module._test_rust3();
+          var i = Module._test_rust_set_buffer();
+          console.log("In JavaScript: test_rust_set_buffer() returned " + i);
+          i = Module._test_rust_get_buffer();
+          console.log("In JavaScript: test_rust_get_buffer() returned " + i);
+          i = Module._test_c_buffer_address();
+          console.log("In JavaScript: test_c_buffer_address() returned " + i);
+        }
+      };
+    </script>
     <script async type="text/javascript" src="test_rust.js"></script>
   </body>
 </html>
-
-

@@ -51,7 +51,10 @@ jobs:
 
     - name: Build LVGL
       run:  |
+        # Add emscripten to the PATH
         source /tmp/emsdk/emsdk_env.sh
+
+        # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
         wasm/lvgl.sh
 
     - name: Show files

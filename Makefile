@@ -1,4 +1,4 @@
-# Build LVGL for WebAssembly
+# Build LVGL for WebAssembly: wasm/lvgl.html, lvgl.js, lvgl.wasm
 
 ###############################################################################
 # Doesn't Work: Install emscripten on Pinebook Pro Manjaro
@@ -78,6 +78,7 @@ WASM_CSRCS := \
 	wasm/lv_port_disp.c \
 	wasm/texture.c
 
+# Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 TARGETS:= wasm/lvgl
 
 DEPS   := lv_conf.h

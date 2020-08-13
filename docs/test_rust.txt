@@ -35,214 +35,217 @@ Import[7]:
  - func[4] sig=3 <setTempRet0> <- env.setTempRet0
  - memory[0] pages: initial=256 max=256 <- env.memory
  - table[0] type=funcref initial=6 <- env.table
-Function[82]:
+Function[83]:
  - func[5] sig=1 <emscripten_get_sbrk_ptr>
  - func[6] sig=6 <__wasm_call_ctors>
  - func[7] sig=4 <main>
  - func[8] sig=1 <test_c>
  - func[9] sig=1 <test_c_set_buffer>
  - func[10] sig=1 <test_c_get_buffer>
- - func[11] sig=4 <core::slice::_$LT$impl$u20$$u5b$T$u5d$$GT$::as_ptr::h12bdcb698fe43582>
- - func[12] sig=1 <test_rust>
- - func[13] sig=1 <test_rust2>
- - func[14] sig=1 <test_rust3>
- - func[15] sig=1 <test_rust_set_buffer>
- - func[16] sig=1 <test_rust_get_buffer>
- - func[17] sig=1 <__errno_location>
- - func[18] sig=0 <__wasi_syscall_ret>
- - func[19] sig=2 <__stdio_write>
- - func[20] sig=0 <__emscripten_stdout_close>
- - func[21] sig=9 <__emscripten_stdout_seek>
- - func[22] sig=2 <memset>
- - func[23] sig=0 <isdigit>
- - func[24] sig=2 <memchr>
- - func[25] sig=1 <pthread_self>
- - func[26] sig=2 <wcrtomb>
- - func[27] sig=1 <__pthread_self>
- - func[28] sig=4 <wctomb>
- - func[29] sig=22 <frexp>
- - func[30] sig=11 <__ashlti3>
- - func[31] sig=11 <__lshrti3>
- - func[32] sig=21 <__trunctfdf2>
- - func[33] sig=3 <__lock>
- - func[34] sig=3 <__unlock>
- - func[35] sig=1 <__ofl_lock>
- - func[36] sig=6 <__ofl_unlock>
- - func[37] sig=0 <__towrite>
- - func[38] sig=2 <memcpy>
- - func[39] sig=2 <__fwritex>
- - func[40] sig=7 <fwrite>
- - func[41] sig=12 <__vfprintf_internal>
- - func[42] sig=16 <printf_core>
- - func[43] sig=10 <out>
- - func[44] sig=0 <getint>
- - func[45] sig=14 <pop_arg>
- - func[46] sig=18 <fmt_x>
- - func[47] sig=13 <fmt_o>
- - func[48] sig=13 <fmt_u>
- - func[49] sig=15 <pad>
- - func[50] sig=2 <vfprintf>
- - func[51] sig=8 <fmt_fp>
- - func[52] sig=5 <pop_arg_long_double>
- - func[53] sig=20 <__DOUBLE_BITS>
- - func[54] sig=4 <printf>
- - func[55] sig=4 <fputs>
- - func[56] sig=4 <__overflow>
- - func[57] sig=0 <puts>
- - func[58] sig=0 <__lockfile>
- - func[59] sig=3 <__unlockfile>
- - func[60] sig=0 <strlen>
- - func[61] sig=0 <sbrk>
- - func[62] sig=0 <dlmalloc>
- - func[63] sig=3 <dlfree>
- - func[64] sig=1 <stackSave>
- - func[65] sig=3 <stackRestore>
- - func[66] sig=0 <stackAlloc>
- - func[67] sig=0 <fflush>
- - func[68] sig=0 <__fflush_unlocked>
- - func[69] sig=0 <htonl>
- - func[70] sig=0 <__bswap_32>
- - func[71] sig=0 <htons>
- - func[72] sig=0 <__bswap_16>
- - func[73] sig=0 <ntohs>
- - func[74] sig=0 <__bswap_16.1>
- - func[75] sig=1 <__cxa_uncaught_exceptions>
- - func[76] sig=1 <std::uncaught_exception()>
- - func[77] sig=1 <std::uncaught_exceptions()>
- - func[78] sig=5 <setThrew>
- - func[79] sig=3 <__set_stack_limit>
- - func[80] sig=4 <dynCall_ii>
- - func[81] sig=7 <dynCall_iiii>
- - func[82] sig=19 <dynCall_jiji>
- - func[83] sig=17 <dynCall_iidiiii>
- - func[84] sig=10 <dynCall_vii>
- - func[85] sig=12 <legalstub$dynCall_jiji>
- - func[86] sig=0 <__growWasmMemory>
+ - func[11] sig=1 <test_c_buffer_address>
+ - func[12] sig=4 <core::slice::_$LT$impl$u20$$u5b$T$u5d$$GT$::as_ptr::h12bdcb698fe43582>
+ - func[13] sig=1 <test_rust>
+ - func[14] sig=1 <test_rust2>
+ - func[15] sig=1 <test_rust3>
+ - func[16] sig=1 <test_rust_set_buffer>
+ - func[17] sig=1 <test_rust_get_buffer>
+ - func[18] sig=1 <__errno_location>
+ - func[19] sig=0 <__wasi_syscall_ret>
+ - func[20] sig=2 <__stdio_write>
+ - func[21] sig=0 <__emscripten_stdout_close>
+ - func[22] sig=9 <__emscripten_stdout_seek>
+ - func[23] sig=2 <memset>
+ - func[24] sig=0 <isdigit>
+ - func[25] sig=2 <memchr>
+ - func[26] sig=1 <pthread_self>
+ - func[27] sig=2 <wcrtomb>
+ - func[28] sig=1 <__pthread_self>
+ - func[29] sig=4 <wctomb>
+ - func[30] sig=22 <frexp>
+ - func[31] sig=11 <__ashlti3>
+ - func[32] sig=11 <__lshrti3>
+ - func[33] sig=21 <__trunctfdf2>
+ - func[34] sig=3 <__lock>
+ - func[35] sig=3 <__unlock>
+ - func[36] sig=1 <__ofl_lock>
+ - func[37] sig=6 <__ofl_unlock>
+ - func[38] sig=0 <__towrite>
+ - func[39] sig=2 <memcpy>
+ - func[40] sig=2 <__fwritex>
+ - func[41] sig=7 <fwrite>
+ - func[42] sig=12 <__vfprintf_internal>
+ - func[43] sig=16 <printf_core>
+ - func[44] sig=10 <out>
+ - func[45] sig=0 <getint>
+ - func[46] sig=14 <pop_arg>
+ - func[47] sig=18 <fmt_x>
+ - func[48] sig=13 <fmt_o>
+ - func[49] sig=13 <fmt_u>
+ - func[50] sig=15 <pad>
+ - func[51] sig=2 <vfprintf>
+ - func[52] sig=8 <fmt_fp>
+ - func[53] sig=5 <pop_arg_long_double>
+ - func[54] sig=20 <__DOUBLE_BITS>
+ - func[55] sig=4 <printf>
+ - func[56] sig=4 <fputs>
+ - func[57] sig=4 <__overflow>
+ - func[58] sig=0 <puts>
+ - func[59] sig=0 <__lockfile>
+ - func[60] sig=3 <__unlockfile>
+ - func[61] sig=0 <strlen>
+ - func[62] sig=0 <sbrk>
+ - func[63] sig=0 <dlmalloc>
+ - func[64] sig=3 <dlfree>
+ - func[65] sig=1 <stackSave>
+ - func[66] sig=3 <stackRestore>
+ - func[67] sig=0 <stackAlloc>
+ - func[68] sig=0 <fflush>
+ - func[69] sig=0 <__fflush_unlocked>
+ - func[70] sig=0 <htonl>
+ - func[71] sig=0 <__bswap_32>
+ - func[72] sig=0 <htons>
+ - func[73] sig=0 <__bswap_16>
+ - func[74] sig=0 <ntohs>
+ - func[75] sig=0 <__bswap_16.1>
+ - func[76] sig=1 <__cxa_uncaught_exceptions>
+ - func[77] sig=1 <std::uncaught_exception()>
+ - func[78] sig=1 <std::uncaught_exceptions()>
+ - func[79] sig=5 <setThrew>
+ - func[80] sig=3 <__set_stack_limit>
+ - func[81] sig=4 <dynCall_ii>
+ - func[82] sig=7 <dynCall_iiii>
+ - func[83] sig=19 <dynCall_jiji>
+ - func[84] sig=17 <dynCall_iidiiii>
+ - func[85] sig=10 <dynCall_vii>
+ - func[86] sig=12 <legalstub$dynCall_jiji>
+ - func[87] sig=0 <__growWasmMemory>
 Global[3]:
  - global[0] i32 mutable=1 - init i32=5246832
  - global[1] i32 mutable=0 <__data_end> - init i32=3788
  - global[2] i32 mutable=1 - init i32=0
-Export[30]:
+Export[31]:
  - func[6] <__wasm_call_ctors> -> "__wasm_call_ctors"
  - func[7] <main> -> "main"
- - func[12] <test_rust> -> "test_rust"
+ - func[13] <test_rust> -> "test_rust"
  - func[8] <test_c> -> "test_c"
  - func[9] <test_c_set_buffer> -> "test_c_set_buffer"
  - func[10] <test_c_get_buffer> -> "test_c_get_buffer"
- - func[13] <test_rust2> -> "test_rust2"
- - func[14] <test_rust3> -> "test_rust3"
- - func[15] <test_rust_set_buffer> -> "test_rust_set_buffer"
- - func[16] <test_rust_get_buffer> -> "test_rust_get_buffer"
- - func[73] <ntohs> -> "ntohs"
- - func[71] <htons> -> "htons"
- - func[69] <htonl> -> "htonl"
- - func[17] <__errno_location> -> "__errno_location"
- - func[67] <fflush> -> "fflush"
- - func[78] <setThrew> -> "setThrew"
- - func[64] <stackSave> -> "stackSave"
- - func[65] <stackRestore> -> "stackRestore"
- - func[66] <stackAlloc> -> "stackAlloc"
- - func[76] <std::uncaught_exception()> -> "_ZSt18uncaught_exceptionv"
- - func[62] <dlmalloc> -> "malloc"
- - func[63] <dlfree> -> "free"
+ - func[11] <test_c_buffer_address> -> "test_c_buffer_address"
+ - func[14] <test_rust2> -> "test_rust2"
+ - func[15] <test_rust3> -> "test_rust3"
+ - func[16] <test_rust_set_buffer> -> "test_rust_set_buffer"
+ - func[17] <test_rust_get_buffer> -> "test_rust_get_buffer"
+ - func[74] <ntohs> -> "ntohs"
+ - func[72] <htons> -> "htons"
+ - func[70] <htonl> -> "htonl"
+ - func[18] <__errno_location> -> "__errno_location"
+ - func[68] <fflush> -> "fflush"
+ - func[79] <setThrew> -> "setThrew"
+ - func[65] <stackSave> -> "stackSave"
+ - func[66] <stackRestore> -> "stackRestore"
+ - func[67] <stackAlloc> -> "stackAlloc"
+ - func[77] <std::uncaught_exception()> -> "_ZSt18uncaught_exceptionv"
+ - func[63] <dlmalloc> -> "malloc"
+ - func[64] <dlfree> -> "free"
  - global[1] -> "__data_end"
- - func[79] <__set_stack_limit> -> "__set_stack_limit"
- - func[80] <dynCall_ii> -> "dynCall_ii"
- - func[81] <dynCall_iiii> -> "dynCall_iiii"
- - func[85] <legalstub$dynCall_jiji> -> "dynCall_jiji"
- - func[83] <dynCall_iidiiii> -> "dynCall_iidiiii"
- - func[84] <dynCall_vii> -> "dynCall_vii"
- - func[86] <__growWasmMemory> -> "__growWasmMemory"
+ - func[80] <__set_stack_limit> -> "__set_stack_limit"
+ - func[81] <dynCall_ii> -> "dynCall_ii"
+ - func[82] <dynCall_iiii> -> "dynCall_iiii"
+ - func[86] <legalstub$dynCall_jiji> -> "dynCall_jiji"
+ - func[84] <dynCall_iidiiii> -> "dynCall_iidiiii"
+ - func[85] <dynCall_vii> -> "dynCall_vii"
+ - func[87] <__growWasmMemory> -> "__growWasmMemory"
 Elem[1]:
  - segment[0] flags=0 table=0 count=5 - init i32=1
-  - elem[1] = func[20] <__emscripten_stdout_close>
-  - elem[2] = func[19] <__stdio_write>
-  - elem[3] = func[21] <__emscripten_stdout_seek>
-  - elem[4] = func[51] <fmt_fp>
-  - elem[5] = func[52] <pop_arg_long_double>
-Code[82]:
+  - elem[1] = func[21] <__emscripten_stdout_close>
+  - elem[2] = func[20] <__stdio_write>
+  - elem[3] = func[22] <__emscripten_stdout_seek>
+  - elem[4] = func[52] <fmt_fp>
+  - elem[5] = func[53] <pop_arg_long_double>
+Code[83]:
  - func[5] size=5 <emscripten_get_sbrk_ptr>
  - func[6] size=2 <__wasm_call_ctors>
  - func[7] size=230 <main>
  - func[8] size=24 <test_c>
  - func[9] size=95 <test_c_set_buffer>
  - func[10] size=37 <test_c_get_buffer>
- - func[11] size=40 <core::slice::_$LT$impl$u20$$u5b$T$u5d$$GT$::as_ptr::h12bdcb698fe43582>
- - func[12] size=46 <test_rust>
- - func[13] size=46 <test_rust2>
- - func[14] size=130 <test_rust3>
- - func[15] size=86 <test_rust_set_buffer>
- - func[16] size=37 <test_rust_get_buffer>
- - func[17] size=5 <__errno_location>
- - func[18] size=21 <__wasi_syscall_ret>
- - func[19] size=395 <__stdio_write>
- - func[20] size=4 <__emscripten_stdout_close>
- - func[21] size=4 <__emscripten_stdout_seek>
- - func[22] size=375 <memset>
- - func[23] size=10 <isdigit>
- - func[24] size=233 <memchr>
- - func[25] size=5 <pthread_self>
- - func[26] size=289 <wcrtomb>
- - func[27] size=4 <__pthread_self>
- - func[28] size=20 <wctomb>
- - func[29] size=142 <frexp>
- - func[30] size=87 <__ashlti3>
- - func[31] size=87 <__lshrti3>
- - func[32] size=526 <__trunctfdf2>
- - func[33] size=2 <__lock>
- - func[34] size=2 <__unlock>
- - func[35] size=10 <__ofl_lock>
- - func[36] size=7 <__ofl_unlock>
- - func[37] size=92 <__towrite>
- - func[38] size=534 <memcpy>
- - func[39] size=201 <__fwritex>
- - func[40] size=89 <fwrite>
- - func[41] size=430 <__vfprintf_internal>
- - func[42] size=2380 <printf_core>
- - func[43] size=24 <out>
- - func[44] size=77 <getint>
- - func[45] size=315 <pop_arg>
- - func[46] size=53 <fmt_x>
- - func[47] size=46 <fmt_o>
- - func[48] size=140 <fmt_u>
- - func[49] size=146 <pad>
- - func[50] size=14 <vfprintf>
- - func[51] size=3151 <fmt_fp>
- - func[52] size=42 <pop_arg_long_double>
- - func[53] size=5 <__DOUBLE_BITS>
- - func[54] size=77 <printf>
- - func[55] size=28 <fputs>
- - func[56] size=182 <__overflow>
- - func[57] size=134 <puts>
- - func[58] size=4 <__lockfile>
- - func[59] size=2 <__unlockfile>
- - func[60] size=160 <strlen>
- - func[61] size=89 <sbrk>
- - func[62] size=6198 <dlmalloc>
- - func[63] size=1784 <dlfree>
- - func[64] size=4 <stackSave>
- - func[65] size=20 <stackRestore>
- - func[66] size=37 <stackAlloc>
- - func[67] size=174 <fflush>
- - func[68] size=109 <__fflush_unlocked>
- - func[69] size=6 <htonl>
- - func[70] size=36 <__bswap_32>
- - func[71] size=6 <htons>
- - func[72] size=16 <__bswap_16>
- - func[73] size=6 <ntohs>
- - func[74] size=16 <__bswap_16.1>
- - func[75] size=4 <__cxa_uncaught_exceptions>
- - func[76] size=7 <std::uncaught_exception()>
- - func[77] size=4 <std::uncaught_exceptions()>
- - func[78] size=29 <setThrew>
- - func[79] size=6 <__set_stack_limit>
- - func[80] size=9 <dynCall_ii>
- - func[81] size=13 <dynCall_iiii>
- - func[82] size=13 <dynCall_jiji>
- - func[83] size=19 <dynCall_iidiiii>
- - func[84] size=11 <dynCall_vii>
- - func[85] size=35 <legalstub$dynCall_jiji>
- - func[86] size=6 <__growWasmMemory>
+ - func[11] size=49 <test_c_buffer_address>
+ - func[12] size=40 <core::slice::_$LT$impl$u20$$u5b$T$u5d$$GT$::as_ptr::h12bdcb698fe43582>
+ - func[13] size=46 <test_rust>
+ - func[14] size=46 <test_rust2>
+ - func[15] size=130 <test_rust3>
+ - func[16] size=86 <test_rust_set_buffer>
+ - func[17] size=37 <test_rust_get_buffer>
+ - func[18] size=5 <__errno_location>
+ - func[19] size=21 <__wasi_syscall_ret>
+ - func[20] size=395 <__stdio_write>
+ - func[21] size=4 <__emscripten_stdout_close>
+ - func[22] size=4 <__emscripten_stdout_seek>
+ - func[23] size=375 <memset>
+ - func[24] size=10 <isdigit>
+ - func[25] size=233 <memchr>
+ - func[26] size=5 <pthread_self>
+ - func[27] size=289 <wcrtomb>
+ - func[28] size=4 <__pthread_self>
+ - func[29] size=20 <wctomb>
+ - func[30] size=142 <frexp>
+ - func[31] size=87 <__ashlti3>
+ - func[32] size=87 <__lshrti3>
+ - func[33] size=526 <__trunctfdf2>
+ - func[34] size=2 <__lock>
+ - func[35] size=2 <__unlock>
+ - func[36] size=10 <__ofl_lock>
+ - func[37] size=7 <__ofl_unlock>
+ - func[38] size=92 <__towrite>
+ - func[39] size=534 <memcpy>
+ - func[40] size=201 <__fwritex>
+ - func[41] size=89 <fwrite>
+ - func[42] size=430 <__vfprintf_internal>
+ - func[43] size=2380 <printf_core>
+ - func[44] size=24 <out>
+ - func[45] size=77 <getint>
+ - func[46] size=315 <pop_arg>
+ - func[47] size=53 <fmt_x>
+ - func[48] size=46 <fmt_o>
+ - func[49] size=140 <fmt_u>
+ - func[50] size=146 <pad>
+ - func[51] size=14 <vfprintf>
+ - func[52] size=3151 <fmt_fp>
+ - func[53] size=42 <pop_arg_long_double>
+ - func[54] size=5 <__DOUBLE_BITS>
+ - func[55] size=77 <printf>
+ - func[56] size=28 <fputs>
+ - func[57] size=182 <__overflow>
+ - func[58] size=134 <puts>
+ - func[59] size=4 <__lockfile>
+ - func[60] size=2 <__unlockfile>
+ - func[61] size=160 <strlen>
+ - func[62] size=89 <sbrk>
+ - func[63] size=6198 <dlmalloc>
+ - func[64] size=1784 <dlfree>
+ - func[65] size=4 <stackSave>
+ - func[66] size=20 <stackRestore>
+ - func[67] size=37 <stackAlloc>
+ - func[68] size=174 <fflush>
+ - func[69] size=109 <__fflush_unlocked>
+ - func[70] size=6 <htonl>
+ - func[71] size=36 <__bswap_32>
+ - func[72] size=6 <htons>
+ - func[73] size=16 <__bswap_16>
+ - func[74] size=6 <ntohs>
+ - func[75] size=16 <__bswap_16.1>
+ - func[76] size=4 <__cxa_uncaught_exceptions>
+ - func[77] size=7 <std::uncaught_exception()>
+ - func[78] size=4 <std::uncaught_exceptions()>
+ - func[79] size=29 <setThrew>
+ - func[80] size=6 <__set_stack_limit>
+ - func[81] size=9 <dynCall_ii>
+ - func[82] size=13 <dynCall_iiii>
+ - func[83] size=13 <dynCall_jiji>
+ - func[84] size=19 <dynCall_iidiiii>
+ - func[85] size=11 <dynCall_vii>
+ - func[86] size=35 <legalstub$dynCall_jiji>
+ - func[87] size=6 <__growWasmMemory>
 Data[3]:
  - segment[0] memory=0 size=709 - init i32=1024
   - 0000400: 496e 2043 3a20 6d61 696e 2829 0049 6e20  In C: main().In 
@@ -433,82 +436,83 @@ Custom:
  - func[8] <test_c>
  - func[9] <test_c_set_buffer>
  - func[10] <test_c_get_buffer>
- - func[11] <core::slice::_$LT$impl$u20$$u5b$T$u5d$$GT$::as_ptr::h12bdcb698fe43582>
- - func[12] <test_rust>
- - func[13] <test_rust2>
- - func[14] <test_rust3>
- - func[15] <test_rust_set_buffer>
- - func[16] <test_rust_get_buffer>
- - func[17] <__errno_location>
- - func[18] <__wasi_syscall_ret>
- - func[19] <__stdio_write>
- - func[20] <__emscripten_stdout_close>
- - func[21] <__emscripten_stdout_seek>
- - func[22] <memset>
- - func[23] <isdigit>
- - func[24] <memchr>
- - func[25] <pthread_self>
- - func[26] <wcrtomb>
- - func[27] <__pthread_self>
- - func[28] <wctomb>
- - func[29] <frexp>
- - func[30] <__ashlti3>
- - func[31] <__lshrti3>
- - func[32] <__trunctfdf2>
- - func[33] <__lock>
- - func[34] <__unlock>
- - func[35] <__ofl_lock>
- - func[36] <__ofl_unlock>
- - func[37] <__towrite>
- - func[38] <memcpy>
- - func[39] <__fwritex>
- - func[40] <fwrite>
- - func[41] <__vfprintf_internal>
- - func[42] <printf_core>
- - func[43] <out>
- - func[44] <getint>
- - func[45] <pop_arg>
- - func[46] <fmt_x>
- - func[47] <fmt_o>
- - func[48] <fmt_u>
- - func[49] <pad>
- - func[50] <vfprintf>
- - func[51] <fmt_fp>
- - func[52] <pop_arg_long_double>
- - func[53] <__DOUBLE_BITS>
- - func[54] <printf>
- - func[55] <fputs>
- - func[56] <__overflow>
- - func[57] <puts>
- - func[58] <__lockfile>
- - func[59] <__unlockfile>
- - func[60] <strlen>
- - func[61] <sbrk>
- - func[62] <dlmalloc>
- - func[63] <dlfree>
- - func[64] <stackSave>
- - func[65] <stackRestore>
- - func[66] <stackAlloc>
- - func[67] <fflush>
- - func[68] <__fflush_unlocked>
- - func[69] <htonl>
- - func[70] <__bswap_32>
- - func[71] <htons>
- - func[72] <__bswap_16>
- - func[73] <ntohs>
- - func[74] <__bswap_16.1>
- - func[75] <__cxa_uncaught_exceptions>
- - func[76] <std::uncaught_exception()>
- - func[77] <std::uncaught_exceptions()>
- - func[78] <setThrew>
- - func[79] <__set_stack_limit>
- - func[80] <dynCall_ii>
- - func[81] <dynCall_iiii>
- - func[82] <dynCall_jiji>
- - func[83] <dynCall_iidiiii>
- - func[84] <dynCall_vii>
- - func[85] <legalstub$dynCall_jiji>
- - func[86] <__growWasmMemory>
+ - func[11] <test_c_buffer_address>
+ - func[12] <core::slice::_$LT$impl$u20$$u5b$T$u5d$$GT$::as_ptr::h12bdcb698fe43582>
+ - func[13] <test_rust>
+ - func[14] <test_rust2>
+ - func[15] <test_rust3>
+ - func[16] <test_rust_set_buffer>
+ - func[17] <test_rust_get_buffer>
+ - func[18] <__errno_location>
+ - func[19] <__wasi_syscall_ret>
+ - func[20] <__stdio_write>
+ - func[21] <__emscripten_stdout_close>
+ - func[22] <__emscripten_stdout_seek>
+ - func[23] <memset>
+ - func[24] <isdigit>
+ - func[25] <memchr>
+ - func[26] <pthread_self>
+ - func[27] <wcrtomb>
+ - func[28] <__pthread_self>
+ - func[29] <wctomb>
+ - func[30] <frexp>
+ - func[31] <__ashlti3>
+ - func[32] <__lshrti3>
+ - func[33] <__trunctfdf2>
+ - func[34] <__lock>
+ - func[35] <__unlock>
+ - func[36] <__ofl_lock>
+ - func[37] <__ofl_unlock>
+ - func[38] <__towrite>
+ - func[39] <memcpy>
+ - func[40] <__fwritex>
+ - func[41] <fwrite>
+ - func[42] <__vfprintf_internal>
+ - func[43] <printf_core>
+ - func[44] <out>
+ - func[45] <getint>
+ - func[46] <pop_arg>
+ - func[47] <fmt_x>
+ - func[48] <fmt_o>
+ - func[49] <fmt_u>
+ - func[50] <pad>
+ - func[51] <vfprintf>
+ - func[52] <fmt_fp>
+ - func[53] <pop_arg_long_double>
+ - func[54] <__DOUBLE_BITS>
+ - func[55] <printf>
+ - func[56] <fputs>
+ - func[57] <__overflow>
+ - func[58] <puts>
+ - func[59] <__lockfile>
+ - func[60] <__unlockfile>
+ - func[61] <strlen>
+ - func[62] <sbrk>
+ - func[63] <dlmalloc>
+ - func[64] <dlfree>
+ - func[65] <stackSave>
+ - func[66] <stackRestore>
+ - func[67] <stackAlloc>
+ - func[68] <fflush>
+ - func[69] <__fflush_unlocked>
+ - func[70] <htonl>
+ - func[71] <__bswap_32>
+ - func[72] <htons>
+ - func[73] <__bswap_16>
+ - func[74] <ntohs>
+ - func[75] <__bswap_16.1>
+ - func[76] <__cxa_uncaught_exceptions>
+ - func[77] <std::uncaught_exception()>
+ - func[78] <std::uncaught_exceptions()>
+ - func[79] <setThrew>
+ - func[80] <__set_stack_limit>
+ - func[81] <dynCall_ii>
+ - func[82] <dynCall_iiii>
+ - func[83] <dynCall_jiji>
+ - func[84] <dynCall_iidiiii>
+ - func[85] <dynCall_vii>
+ - func[86] <legalstub$dynCall_jiji>
+ - func[87] <__growWasmMemory>
 Custom:
  - name: ".debug_info"
 Custom:

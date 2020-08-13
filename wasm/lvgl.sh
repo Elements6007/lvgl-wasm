@@ -14,7 +14,12 @@ emcc wasm/test.c -s WASM=1 -o wasm/test.html
 cargo build --target=wasm32-unknown-emscripten
 
 # Build sample Rust app: wasm/test_rust.html, test_rust.js, test_rust.wasm
-emcc wasm/test_rust.c -s WASM=1 -o wasm/test_rust.html target/wasm32-unknown-emscripten/debug/liblvgl_wasm_rust.a
+emcc \
+    wasm/test_rust.c \
+    -s WASM=1 \
+    -s "EXPORTED_FUNCTIONS=['test_rust', 'test_rust2']" \
+    -o wasm/test_rust.html \
+    target/wasm32-unknown-emscripten/debug/liblvgl_wasm_rust.a
 
 # Test Compile
 # emcc -c -o lv_group.o ././src/lv_core/lv_group.c -g -I src/lv_core -D LV_USE_DEMO_WIDGETS -s WASM=1

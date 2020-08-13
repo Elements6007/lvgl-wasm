@@ -1,3 +1,7 @@
+/* To build:
+cd rust
+wasm-pack build
+*/
 use std::ops::Add;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::Clamped;

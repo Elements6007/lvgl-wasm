@@ -1,7 +1,7 @@
 [package]
-name = "julia_set"
+name = "lvgl_wasm_rust"
 version = "0.1.0"
-authors = ["The wasm-bindgen Developers"]
+authors = ["luppy@appkaki.com"]
 edition = "2018"
 
 [lib]

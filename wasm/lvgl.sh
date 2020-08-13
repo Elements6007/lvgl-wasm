@@ -17,7 +17,7 @@ cargo build --target=wasm32-unknown-emscripten
 emcc \
     wasm/test_rust.c \
     -s WASM=1 \
-    -s "EXPORTED_FUNCTIONS=['_main', '_test_rust', '_test_rust2']" \
+    -s "EXPORTED_FUNCTIONS=[ '_main', '_test_c', '_test_rust', '_test_rust2', '_test_rust3' ]" \
     -o wasm/test_rust.html \
     target/wasm32-unknown-emscripten/debug/liblvgl_wasm_rust.a
 

@@ -1,6 +1,7 @@
 /* To build:
 cd rust
 wasm-pack build
+rm pkg/.gitignore
 */
 use std::ops::Add;
 use wasm_bindgen::prelude::*;

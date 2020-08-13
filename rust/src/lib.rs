@@ -5,21 +5,28 @@ wasm-pack build
 rm pkg/.gitignore
 
 To dump:
-~/PineTime/wabt/build/wasm-objdump -x pkg/lvgl_wasm_rust_bg.wasm
+~/PineTime/wabt/build/wasm-objdump -x docs/test_rust.wasm | more
 */
-use std::ops::Add;
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::Clamped;
-use web_sys::{CanvasRenderingContext2d, ImageData};
+#![feature(libc)]
+//  use std::ops::Add;
+//  use wasm_bindgen::prelude::*;
+//  use wasm_bindgen::Clamped;
+//  use web_sys::{CanvasRenderingContext2d, ImageData};
 
-//#[wasm_bindgen]
+extern "C" {
+    fn puts(fmt: *const u8) -> i32;
+    //  fn printf(fmt: *const u8, ...) -> i32;
+}
+
 #[no_mangle]
 pub extern fn test_rust() -> i32 {
+    unsafe { puts(b"In Rust: test_rust()\0".as_ptr()); }
     2205
 }
 
 #[no_mangle]
 pub extern fn test_rust2() -> i32 {
+    unsafe { puts(b"In Rust: test_rust2()\0".as_ptr()); }
     2306
 }
 

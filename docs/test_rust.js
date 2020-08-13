@@ -2110,6 +2110,12 @@ var ___wasm_call_ctors = Module["___wasm_call_ctors"] = createExportWrapper("__w
 var _main = Module["_main"] = createExportWrapper("main");
 
 /** @type {function(...*):?} */
+var _test_rust = Module["_test_rust"] = createExportWrapper("test_rust");
+
+/** @type {function(...*):?} */
+var _test_rust2 = Module["_test_rust2"] = createExportWrapper("test_rust2");
+
+/** @type {function(...*):?} */
 var _ntohs = Module["_ntohs"] = createExportWrapper("ntohs");
 
 /** @type {function(...*):?} */

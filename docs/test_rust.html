@@ -1294,29 +1294,27 @@
       };
     </script>
     <script type="text/javascript">
-      var Module = {
-        //  In JavaScript: Wait for emscripten to be initialised
-        onRuntimeInitialized: function() {
-          //  Call Rust WebAssembly function
-          var i = Module._test_rust();
-          console.log("In JavaScript: test_rust() returned " + i);
+      //  In JavaScript: Wait for emscripten to be initialised
+      Module.onRuntimeInitialized = function() {
+        //  Call Rust WebAssembly function
+        var i = Module._test_rust();
+        console.log("In JavaScript: test_rust() returned " + i);
 
-          //  Call Rust WebAssembly function which calls a C WebAssembly function
-          i = Module._test_rust3();
-          console.log("In JavaScript: test_rust3() returned " + i);
+        //  Call Rust WebAssembly function which calls a C WebAssembly function
+        i = Module._test_rust3();
+        console.log("In JavaScript: test_rust3() returned " + i);
 
-          //  Call Rust WebAssembly to write to a static buffer
-          i = Module._test_rust_set_buffer();
-          console.log("In JavaScript: test_rust_set_buffer() returned 0x" + Number(i).toString(16));
+        //  Call Rust WebAssembly to write to a static buffer
+        i = Module._test_rust_set_buffer();
+        console.log("In JavaScript: test_rust_set_buffer() returned 0x" + Number(i).toString(16));
 
-          //  Call Rust WebAssembly to read from a static buffer
-          i = Module._test_rust_get_buffer();
-          console.log("In JavaScript: test_rust_get_buffer() returned 0x" + Number(i).toString(16));
+        //  Call Rust WebAssembly to read from a static buffer
+        i = Module._test_rust_get_buffer();
+        console.log("In JavaScript: test_rust_get_buffer() returned 0x" + Number(i).toString(16));
 
-          //  Call C WebAssembly to get address of the static buffer
-          i = Module._test_c_buffer_address();
-          console.log("In JavaScript: test_c_buffer_address() returned 0x" + Number(i).toString(16));
-        }
+        //  Call C WebAssembly to get address of the static buffer
+        i = Module._test_c_buffer_address();
+        console.log("In JavaScript: test_c_buffer_address() returned 0x" + Number(i).toString(16));
       };
     </script>
     <script async type="text/javascript" src="test_rust.js"></script>

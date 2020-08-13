@@ -1297,13 +1297,22 @@
       var Module = {
         //  Wait for emscripten to be initialised
         onRuntimeInitialized: function() {
+          //  Call Rust WebAssembly functions
           Module._test_rust();
           Module._test_rust2();
+
+          //  Call Rust WebAssembly function which calls a C WebAssembly function
           Module._test_rust3();
+
+          //  Call Rust WebAssembly to write to a static buffer
           var i = Module._test_rust_set_buffer();
           console.log("In JavaScript: test_rust_set_buffer() returned " + i);
+
+          //  Call Rust WebAssembly to read from a static buffer
           i = Module._test_rust_get_buffer();
           console.log("In JavaScript: test_rust_get_buffer() returned " + i);
+
+          //  Call C WebAssembly to get address of the static buffer
           i = Module._test_c_buffer_address();
           console.log("In JavaScript: test_c_buffer_address() returned " + i);
         }

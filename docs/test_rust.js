@@ -2122,6 +2122,9 @@ var _test_c_set_buffer = Module["_test_c_set_buffer"] = createExportWrapper("tes
 var _test_c_get_buffer = Module["_test_c_get_buffer"] = createExportWrapper("test_c_get_buffer");
 
 /** @type {function(...*):?} */
+var _test_c_buffer_address = Module["_test_c_buffer_address"] = createExportWrapper("test_c_buffer_address");
+
+/** @type {function(...*):?} */
 var _test_rust2 = Module["_test_rust2"] = createExportWrapper("test_rust2");
 
 /** @type {function(...*):?} */

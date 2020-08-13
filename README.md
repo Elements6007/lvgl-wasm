@@ -1,16 +1,24 @@
 <h1 align="center"> Experimental WebAssembly Port of LVGL </h1>
 
-Compiles LVGL application to WebAssembly: `wasm/lvgl.html`, `lvgl.js`, `lvgl.wasm`
-
-Refer to...
+Compile LVGL application to WebAssembly: [`lvgl.html`](docs/lvgl.html), [`lvgl.js`](docs/lvgl.js), [`lvgl.wasm`](docs/lvgl.wasm)
 
 - [Online Demo](https://appkaki.github.io/lvgl-wasm/)
+
+- [LVGL Application Source File](wasm/lvgl.c)
 
 - [GitHub Actions Workflow](.github/workflows/ccpp.yml)
 
 - [Build Script](wasm/lvgl.sh)
 
 - [Makefile](Makefile)
+
+Test of C WebAssembly calling Rust WebAssembly: [`test_rust.html`](docs/test_rust.html), [`test_rust.js`](docs/test_rust.js), [`test_rust.wasm`](docs/test_rust.wasm)
+
+- [Online Demo](https://appkaki.github.io/lvgl-wasm/test_rust.html)
+
+- [C Source File](wasm/test_rust.c)
+
+- [Rust Source File](rust/src/lib.rs)
 
 TODO:
 

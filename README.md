@@ -4,6 +4,8 @@ Compiles LVGL application to WebAssembly: `wasm/lvgl.html`, `lvgl.js`, `lvgl.was
 
 Refer to...
 
+- [Online Demo](https://appkaki.github.io/lvgl-wasm/)
+
 - [GitHub Actions Workflow](.github/workflows/ccpp.yml)
 
 - [Build Script](wasm/lvgl.sh)

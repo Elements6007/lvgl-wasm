@@ -27,3 +27,13 @@ int test_c(void) {
     puts("In C: test_c()");
     return 2407;
 }
+
+int test_c_set_buffer(void) {
+    int i = test_rust_buffer[0];
+    test_rust_buffer[0] = 'A';
+    return i;
+}
+
+int test_c_get_buffer(void) {
+    return test_rust_buffer[0];
+}

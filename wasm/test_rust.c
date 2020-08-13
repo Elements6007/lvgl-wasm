@@ -39,3 +39,8 @@ int test_c_set_buffer(void) {
 int test_c_get_buffer(void) {
     return test_rust_buffer[0];
 }
+
+unsigned test_c_buffer_address(void) {
+    uint8_t *p = &test_rust_buffer[0];
+    return (unsigned) p;
+}

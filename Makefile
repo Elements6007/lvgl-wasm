@@ -1,6 +1,10 @@
 # Build LVGL for WebAssembly: wasm/lvgl.html, lvgl.js, lvgl.wasm
 
 ###############################################################################
+# Install emscripten on Ubuntu x64
+# See .github\workflows\ccpp.yml
+
+###############################################################################
 # Doesn't Work: Install emscripten on Pinebook Pro Manjaro
 
 # sudo pacman -S emscripten
@@ -91,8 +95,7 @@ CCFLAGS := \
 	-D LV_USE_DEMO_WIDGETS \
 	-s WASM=1
 
-LDFLAGS := \
-    -Wl,-Map=wasm/lvgl.map
+LDFLAGS :=
 
 MAINS  := $(addsuffix .o, $(TARGETS) )
 OBJ    := \

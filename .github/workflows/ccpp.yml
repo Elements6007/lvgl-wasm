@@ -64,7 +64,10 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: wasm
-        path: wasm/*
+        path: |
+          wasm/*.html
+          wasm/*.js
+          wasm/*.wasm
 
     #- name: Run tests
     #  run: cd tests; python ./build.py

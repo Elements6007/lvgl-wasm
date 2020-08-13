@@ -40,6 +40,7 @@ pub extern fn test_rust3() -> i32 {
 
 #[no_mangle]
 pub extern fn test_rust_set_buffer() -> i32 {
+    unsafe { puts(b"In Rust: test_rust_set_buffer()\0".as_ptr()); }
     let i = unsafe { test_rust_buffer[0] };
     unsafe { test_rust_buffer[0] = 0x42; }  //  B
     i as i32
@@ -47,6 +48,7 @@ pub extern fn test_rust_set_buffer() -> i32 {
 
 #[no_mangle]
 pub extern fn test_rust_get_buffer() -> i32 {
+    unsafe { puts(b"In Rust: test_rust_get_buffer()\0".as_ptr()); }
     unsafe { test_rust_buffer[0] as i32 }
 }
 

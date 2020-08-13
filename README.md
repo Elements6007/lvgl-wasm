@@ -1,5 +1,7 @@
 <h1 align="center"> Experimental WebAssembly Port of LVGL </h1>
 
+Compiles LVGL application to WebAssembly: `wasm/lvgl.html`, `lvgl.js`, `lvgl.wasm`
+
 Refer to...
 
 - [GitHub Actions Workflow](.github/workflows/ccpp.yml)

@@ -7,6 +7,9 @@ set -e -x
 # Build app
 make -j
 
+# Copy the generated HTML
+cp wasm/lvgl wasm/lvgl.html
+
 # Build sample app
 emcc wasm/test.c -s WASM=1 -o wasm/test.html
 

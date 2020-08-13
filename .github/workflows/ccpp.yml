@@ -24,6 +24,10 @@ jobs:
           target
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
+    #- name: Install wasm-pack
+    #  if:   steps.cache-rust.outputs.cache-hit != 'true'  # Install wasm-pack if not found in cache
+    #  run:  cargo install wasm-pack
+
     - name: Check cache for emscripten
       id:   cache-emsdk
       uses: actions/cache@v2
@@ -78,6 +82,7 @@ jobs:
           wasm/*.html
           wasm/*.js
           wasm/*.wasm
+          target/debug/liblvgl_wasm_rust.a
 
     #- name: Run tests
     #  run: cd tests; python ./build.py

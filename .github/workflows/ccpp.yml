@@ -64,10 +64,32 @@ jobs:
         emcc --version
         emcc --version        
 
+    - name: Check cache for wabt
+      id:   cache-wabt
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-wabt
+      with:
+        path: /tmp/wabt
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install wabt
+      if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
+      run:  |
+        cd /tmp
+        git clone --recursive https://github.com/WebAssembly/wabt
+        cd wabt
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+
     - name: Build LVGL
       run:  |
-        # Add emscripten to the PATH
+        # Add emscripten and wabt to the PATH
         source /tmp/emsdk/emsdk_env.sh
+        export PATH=$PATH:/tmp/wabt/build
 
         # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
         wasm/lvgl.sh
@@ -83,6 +105,7 @@ jobs:
           wasm/*.html
           wasm/*.js
           wasm/*.wasm
+          wasm/*.txt
 
     #- name: Run tests
     #  run: cd tests; python ./build.py

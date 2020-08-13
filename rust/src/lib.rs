@@ -1,4 +1,5 @@
 /* To build:
+cargo install wasm-pack
 cd rust
 wasm-pack build
 rm pkg/.gitignore

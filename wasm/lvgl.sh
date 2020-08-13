@@ -4,6 +4,14 @@
 # Stop the script on error, echo all commands
 set -e -x
 
+# Install WebAssembly builder for Rust
+cargo install wasm-pack
+
+# Build Rust modules
+pushd rust
+wasm-pack build
+popd
+
 # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 make -j
 

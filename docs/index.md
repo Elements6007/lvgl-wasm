@@ -2,4 +2,4 @@
 
 [Sample WebAssembly C App](test.html)
 
-[Sample WebAssembly Rust App](rust)
+[Sample WebAssembly Rust App](test_rust.html)

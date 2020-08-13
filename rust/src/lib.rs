@@ -13,6 +13,12 @@ use wasm_bindgen::Clamped;
 use web_sys::{CanvasRenderingContext2d, ImageData};
 
 #[wasm_bindgen]
+pub fn test_rust() -> i32 {
+    2205
+}
+
+/*
+#[wasm_bindgen]
 pub fn draw(
     ctx: &CanvasRenderingContext2d,
     width: u32,
@@ -92,3 +98,4 @@ impl Add<Complex> for Complex {
         }
     }
 }
+*/

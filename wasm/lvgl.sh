@@ -18,6 +18,9 @@ make -j
 # Build sample app: wasm/test.html, test.js, test.wasm
 emcc wasm/test.c -s WASM=1 -o wasm/test.html
 
+# Build sample Rust app: wasm/test_rust.html, test_rust.js, test_rust.wasm
+emcc wasm/test_rust.c -s WASM=1 -o wasm/test_rust.html rust/pkg/lvgl_wasm_rust_bg.wasm
+
 # Test Compile
 # emcc -c -o lv_group.o ././src/lv_core/lv_group.c -g -I src/lv_core -D LV_USE_DEMO_WIDGETS -s WASM=1
 

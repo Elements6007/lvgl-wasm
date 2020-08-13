@@ -24,9 +24,10 @@ jobs:
           target
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-    #- name: Install wasm-pack
-    #  if:   steps.cache-rust.outputs.cache-hit != 'true'  # Install wasm-pack if not found in cache
-    #  run:  cargo install wasm-pack
+    - name: Install Rust Toolchain for emscripten
+      run:  |
+        rustup default nightly
+        rustup target add wasm32-unknown-emscripten
 
     - name: Check cache for emscripten
       id:   cache-emsdk

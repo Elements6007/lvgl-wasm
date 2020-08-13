@@ -75,7 +75,8 @@ include lvgl.mk
 
 WASM_CSRCS := \
 	demo/lv_demo_widgets.c \
-	wasm/lv_port_disp.c
+	wasm/lv_port_disp.c \
+	wasm/texture.c
 
 TARGETS:= wasm/lvgl
 

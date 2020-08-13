@@ -18,6 +18,11 @@ pub extern fn test_rust() -> i32 {
     2205
 }
 
+#[no_mangle]
+pub extern fn test_rust2() -> i32 {
+    2306
+}
+
 /*
 #[wasm_bindgen]
 pub fn draw(

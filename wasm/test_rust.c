@@ -20,6 +20,8 @@ int main(int argc, char **argv) {
     puts("In C: main()");
     int i = test_rust();
     printf("In C: test_rust() returned %d\n", i);
+    uint8_t *p = &test_rust_buffer[0];
+    printf("In C: test_rust_buffer is 0x%x\n", p);
     return 0;
 }
 

@@ -82,7 +82,6 @@ jobs:
           wasm/*.html
           wasm/*.js
           wasm/*.wasm
-          target/debug/liblvgl_wasm_rust.a
 
     #- name: Run tests
     #  run: cd tests; python ./build.py

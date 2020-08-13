@@ -4,10 +4,10 @@
 # Stop the script on error, echo all commands
 set -e -x
 
-# Build app
+# Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 make -j
 
-# Build sample app
+# Build sample app: wasm/test.html, test.js, test.wasm
 emcc wasm/test.c -s WASM=1 -o wasm/test.html
 
 # Test Compile

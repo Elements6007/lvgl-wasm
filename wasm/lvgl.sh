@@ -8,13 +8,18 @@ set -e -x
 make -j
 
 # Build sample app: wasm/test.html, test.js, test.wasm
-emcc wasm/test.c -s WASM=1 -o wasm/test.html
+emcc \
+    -g \
+    wasm/test.c \
+    -s WASM=1 \
+    -o wasm/test.html
 
-# Build Rust modules
+# Build Rust modules with emscripten compatibility
 cargo build --target=wasm32-unknown-emscripten
 
 # Build sample Rust app: wasm/test_rust.html, test_rust.js, test_rust.wasm
 emcc \
+    -g \
     wasm/test_rust.c \
     -s WASM=1 \
     -s "EXPORTED_FUNCTIONS=[ '_main', '_test_c', '_test_rust', '_test_rust2', '_test_rust3' ]" \

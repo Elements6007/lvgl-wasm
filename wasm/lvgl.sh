@@ -4,11 +4,16 @@
 # Stop the script on error, echo all commands
 set -e -x
 
+# setup - only needed once
+rustup default nightly
+rustup target add wasm32-unknown-emscripten
+
+# Build Rust modules
+cargo build --target=wasm32-unknown-emscripten
+
 # Install WebAssembly builder for Rust
 # cargo install wasm-pack
 
-# Build Rust modules
-cargo build
 # pushd rust
 # wasm-pack build
 # popd
@@ -20,7 +25,7 @@ make -j
 emcc wasm/test.c -s WASM=1 -o wasm/test.html
 
 # Build sample Rust app: wasm/test_rust.html, test_rust.js, test_rust.wasm
-emcc wasm/test_rust.c -s WASM=1 -o wasm/test_rust.html target/debug/liblvgl_wasm_rust.a
+emcc wasm/test_rust.c -s WASM=1 -o wasm/test_rust.html target/wasm32-unknown-emscripten/debug/liblvgl_wasm_rust.a
 
 # Test Compile
 # emcc -c -o lv_group.o ././src/lv_core/lv_group.c -g -I src/lv_core -D LV_USE_DEMO_WIDGETS -s WASM=1

@@ -136,9 +136,6 @@ static void disp_init(void)
     /*You code here*/
 }
 
-//  Defined in lvgl.c
-void put_display_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-
 /* Flush the content of the internal buffer the specific area on the display
  * You can use DMA or any hardware acceleration to do this operation in the background but
  * 'lv_disp_flush_ready()' has to be called when finished. */

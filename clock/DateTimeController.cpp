@@ -1,9 +1,9 @@
 #include "DateTimeController.h"
 #include "date.h" ////#include <date/date.h>
 ////#include <libraries/log/nrf_log.h>
-
 using namespace Pinetime::Controllers;
 
+#define NRF_LOG_INFO(...) ////
 
 void DateTime::SetTime(uint16_t year, uint8_t month, uint8_t day, uint8_t dayOfWeek, uint8_t hour, uint8_t minute,
                        uint8_t second, uint32_t systickCounter) {

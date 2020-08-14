@@ -32,6 +32,9 @@ extern "C" {
 
 void lv_port_disp_init(void);
 
+//  Defined in lvgl.c
+void put_display_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+
 /**********************
  *      MACROS
  **********************/

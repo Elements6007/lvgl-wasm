@@ -76,18 +76,24 @@ LVGL_DIR 	  := .
 LVGL_DIR_NAME := .
 include lvgl.mk
 
-# WebAssembly C Source Files
+# WebAssembly C and C++ Source Files
 WASM_CSRCS := \
 	demo/lv_demo_widgets.c \
-	wasm/lv_port_disp.c
+	wasm/lv_port_disp.c \
+	clock/BleController.cpp \
+	clock/Clock.cpp \
+	clock/ClockHelper.cpp \
+	clock/DateTimeController.cpp \
+	clock/Symbols.cpp
 
 # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 TARGETS:= wasm/lvgl
 
 DEPS   := lv_conf.h
 
-# Use emscripten compiler. For C++ use em++
+# Use emscripten compiler
 CC     := emcc
+CPP    := em++
 
 # Options for emscripten. We specify the C and Rust WebAssembly functions to be exported.
 CCFLAGS := \
@@ -115,6 +121,9 @@ clean:
 
 $(OBJ): %.o : %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CCFLAGS)
+
+#$(OBJ): %.o : %.cpp $(DEPS)
+#	$(CPP) -c -o $@ $< $(CCFLAGS)
 
 $(TARGETS): % : $(filter-out $(MAINS), $(OBJ)) %.o
 	$(CC) -o $@.html \

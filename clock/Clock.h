@@ -6,16 +6,10 @@
 ////#include <bits/unique_ptr.h>
 #include "lv_style.h" ////#include <libs/lvgl/src/lv_core/lv_style.h>
 #include "lv_obj.h" ////#include <libs/lvgl/src/lv_core/lv_obj.h>
-////#include <Components/Battery/BatteryController.h>
-////#include <Components/Ble/BleController.h>
+#include "BatteryController.h" ////#include <Components/Battery/BatteryController.h>
+#include "BleController.h" ////#include <Components/Ble/BleController.h>
 
 //// Begin
-namespace Pinetime {
-  namespace Controllers {  
-    class Battery {};
-    class Ble {};
-  };
-}
 class Symbols {
   public:
     static const char *batteryFull;

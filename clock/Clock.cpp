@@ -6,33 +6,16 @@ em++ -I src/lv_core clock/Clock.cpp
 #include "DateTimeController.h" ////#include <Components/DateTime/DateTimeController.h>
 #include "../lvgl.h" ////#include <libs/lvgl/lvgl.h>
 #include "Clock.h"
-////#include "../DisplayApp.h"
-////#include "BatteryIcon.h"
-////#include "BleIcon.h"
-////#include "Symbols.h"
+#include "DisplayApp.h" ////#include "../DisplayApp.h"
+#include "BatteryIcon.h"
+#include "BleIcon.h"
+#include "Symbols.h"
 using namespace Pinetime::Applications::Screens;
 extern lv_font_t jetbrains_mono_extrabold_compressed;
 extern lv_font_t jetbrains_mono_bold_20;
 extern lv_style_t* LabelBigStyle;
 
-//// Begin
-const char *Symbols::batteryFull = "F";
-const char *Symbols::bluetooth = "B";
-const char *Symbols::heart = "H";
-const char *Symbols::heartBeat = "T";
-const char *Symbols::plug = "P";
-const char *Symbols::shoe = "S";
-class BatteryIcon {
-  public:
-    static const char *GetBatteryIcon(uint8_t batteryPercent) { return "%"; }
-    static const char *GetPlugIcon(bool isCharging)  { return "C"; }
-};
-class BleIcon {
-  public:
-    static const char *GetIcon(bool)  { return "L"; }
-};
-static Clock *backgroundLabel_user_data = 0;
-//// End
+static Clock *backgroundLabel_user_data = 0; ////
 
 static void event_handler(lv_obj_t * obj, lv_event_t event) {
   Clock* screen = backgroundLabel_user_data; ////static_cast<Clock *>(obj->user_data);

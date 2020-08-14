@@ -2,26 +2,12 @@
 
 #include <cstdint>
 #include <chrono>
-////#include "Screen.h"
+#include "Screen.h"
 ////#include <bits/unique_ptr.h>
 #include "lv_style.h" ////#include <libs/lvgl/src/lv_core/lv_style.h>
 #include "lv_obj.h" ////#include <libs/lvgl/src/lv_core/lv_obj.h>
 #include "BatteryController.h" ////#include <Components/Battery/BatteryController.h>
 #include "BleController.h" ////#include <Components/Ble/BleController.h>
-
-//// Begin
-class Symbols {
-  public:
-    static const char *batteryFull;
-    static const char *bluetooth;
-    static const char *heart;
-    static const char *heartBeat;
-    static const char *plug;
-    static const char *shoe;
-};
-class DisplayApp {};
-class Screen {};
-//// End
 
 namespace Pinetime {
   namespace Applications {

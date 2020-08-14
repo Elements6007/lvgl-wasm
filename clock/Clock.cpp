@@ -5,15 +5,20 @@ em++ -I src/lv_core clock/Clock.cpp
 ////#include <libs/date/includes/date/date.h>
 ////#include <Components/DateTime/DateTimeController.h>
 #include "../lvgl.h" ////#include <libs/lvgl/lvgl.h>
-#include "Clock.h"
-#include "../DisplayApp.h"
-#include "BatteryIcon.h"
-#include "BleIcon.h"
-#include "Symbols.h"
-using namespace Pinetime::Applications::Screens;
+////#include "Clock.h"
+////#include "../DisplayApp.h"
+////#include "BatteryIcon.h"
+////#include "BleIcon.h"
+////#include "Symbols.h"
+////using namespace Pinetime::Applications::Screens;
 extern lv_font_t jetbrains_mono_extrabold_compressed;
 extern lv_font_t jetbrains_mono_bold_20;
 extern lv_style_t* LabelBigStyle;
+
+////
+class Clock {  
+};
+////
 
 static void event_handler(lv_obj_t * obj, lv_event_t event) {
   Clock* screen = static_cast<Clock *>(obj->user_data);

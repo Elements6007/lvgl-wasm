@@ -9,6 +9,27 @@
 ////#include <Components/Battery/BatteryController.h>
 ////#include <Components/Ble/BleController.h>
 
+//// Begin
+namespace Pinetime {
+  namespace Controllers {  
+    class DateTime {};
+    class Battery {};
+    class Ble {};
+  };
+}
+class Symbols {
+  public:
+    static const char *batteryFull;
+    static const char *bluetooth;
+    static const char *heart;
+    static const char *heartBeat;
+    static const char *plug;
+    static const char *shoe;
+};
+class DisplayApp {};
+class Screen {};
+//// End
+
 namespace Pinetime {
   namespace Applications {
     namespace Screens {
@@ -38,23 +59,23 @@ namespace Pinetime {
                   Controllers::DateTime& dateTimeController,
                   Controllers::Battery& batteryController,
                   Controllers::Ble& bleController);
-          ~Clock() override;
+          ~Clock(); //// override;
 
-          bool Refresh() override;
-          bool OnButtonPushed() override;
+          bool Refresh(); //// override;
+          bool OnButtonPushed(); //// override;
 
           void OnObjectEvent(lv_obj_t *pObj, lv_event_t i);
         private:
-          static const char* MonthToString(Pinetime::Controllers::DateTime::Months month);
-          static const char* DayOfWeekToString(Pinetime::Controllers::DateTime::Days dayOfWeek);
+          ////static const char* MonthToString(Pinetime::Controllers::DateTime::Months month);
+          ////static const char* DayOfWeekToString(Pinetime::Controllers::DateTime::Days dayOfWeek);
           static char const *DaysString[];
           static char const *MonthsString[];
 
           char displayedChar[5];
 
           uint16_t currentYear = 1970;
-          Pinetime::Controllers::DateTime::Months currentMonth = Pinetime::Controllers::DateTime::Months::Unknown;
-          Pinetime::Controllers::DateTime::Days currentDayOfWeek = Pinetime::Controllers::DateTime::Days::Unknown;
+          ////Pinetime::Controllers::DateTime::Months currentMonth = Pinetime::Controllers::DateTime::Months::Unknown;
+          ////Pinetime::Controllers::DateTime::Days currentDayOfWeek = Pinetime::Controllers::DateTime::Days::Unknown;
           uint8_t currentDay = 0;
 
           DirtyValue<uint8_t> batteryPercentRemaining  {0};

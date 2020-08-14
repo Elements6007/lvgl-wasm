@@ -17,6 +17,24 @@ extern lv_style_t* LabelBigStyle;
 
 ////
 class Clock {  
+  private:
+    char displayedChar[5];
+
+    lv_obj_t* label_time;
+    lv_obj_t* label_date;
+    lv_obj_t* backgroundLabel;
+    lv_obj_t * batteryIcon;
+    lv_obj_t * bleIcon;
+    lv_obj_t* batteryPlug;
+    lv_obj_t* heartbeatIcon;
+    lv_obj_t* heartbeatValue;
+    lv_obj_t* heartbeatBpm;
+    lv_obj_t* stepIcon;
+    lv_obj_t* stepValue;
+};
+class Controllers {  
+};
+class Symbols {
 };
 ////
 

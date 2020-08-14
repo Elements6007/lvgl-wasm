@@ -16,7 +16,6 @@ extern lv_font_t jetbrains_mono_bold_20;
 extern lv_style_t* LabelBigStyle;
 
 //// Begin
-//#define LV_LABEL_STYLE_MAIN LV_LABEL_PART_MAIN
 const char *Symbols::batteryFull = "F";
 const char *Symbols::bluetooth = "B";
 const char *Symbols::heart = "H";

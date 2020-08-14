@@ -77,23 +77,26 @@ LVGL_DIR 	  := .
 LVGL_DIR_NAME := .
 include lvgl.mk
 
+# WebAssembly C Source Files
 WASM_CSRCS := \
 	demo/lv_demo_widgets.c \
-	wasm/lv_port_disp.c \
-	wasm/texture.c
+	wasm/lv_port_disp.c
 
 # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 TARGETS:= wasm/lvgl
 
 DEPS   := lv_conf.h
 
+# Use emscripten compiler. For C++ use em++
 CC     := emcc
 
+# Options for emscripten. We specify the C and Rust WebAssembly functions to be exported.
 CCFLAGS := \
 	-g \
 	-I src/lv_core \
 	-D LV_USE_DEMO_WIDGETS \
-	-s WASM=1
+	-s WASM=1 \
+    -s "EXPORTED_FUNCTIONS=[ '_main', '_get_display_buffer', '_get_display_width', '_get_display_height', '_test_display', '_render_display' ]"
 
 LDFLAGS :=
 

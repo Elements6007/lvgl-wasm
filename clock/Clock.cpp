@@ -22,6 +22,15 @@ const char *Symbols::heart = "H";
 const char *Symbols::heartBeat = "T";
 const char *Symbols::plug = "P";
 const char *Symbols::shoe = "S";
+class BatteryIcon {
+  public:
+    static const char *GetBatteryIcon(uint8_t batteryPercent) { return "%"; }
+    static const char *GetPlugIcon(bool isCharging)  { return "C"; }
+};
+class BleIcon {
+  public:
+    static const char *GetIcon(bool)  { return "L"; }
+};
 //// End
 
 static void event_handler(lv_obj_t * obj, lv_event_t event) {

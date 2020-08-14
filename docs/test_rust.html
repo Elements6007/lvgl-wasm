@@ -1312,12 +1312,12 @@
         Module.print(`In JavaScript: address [${toHex(addr)}] is ${toHex(Module.HEAPU8[addr])}`);
 
         //  Call Rust WebAssembly function
-        //  i = Module._test_rust();
-        //  Module.print("In JavaScript: test_rust() returned " + i);
+        i = Module._test_rust();
+        Module.print(`In JavaScript: test_rust() returned ${i}`);
 
         //  Call Rust WebAssembly function which calls a C WebAssembly function
-        //  i = Module._test_rust3();
-        //  Module.print("In JavaScript: test_rust3() returned " + i);
+        i = Module._test_rust3();
+        Module.print(`In JavaScript: test_rust3() returned ${i}`);
       };
 
       /// Convert i to hexadecimal

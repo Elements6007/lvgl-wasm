@@ -51,9 +51,9 @@ int test_display(void) {
     puts("In C: test_display()");
     for (uint16_t x = 0; x < 20; x++) {
         for (uint16_t y = 0; y < 20; y++) {     
-            uint8_t r = x % 0xff;
-            uint8_t g = y % 0xff;
-            uint8_t b = ((x + y) / 2) % 0xff;
+            uint8_t r = x * 256 / 20;
+            uint8_t g = y * 256 / 20;
+            uint8_t b = (x + y) * 256 / 40;
             uint8_t a = 0xff;
             put_device_px(x, y, r, g, b, a);
         }

@@ -1294,8 +1294,37 @@
       };
     </script>
     <script type="text/javascript">
+      function test_display() {
+        Module.print(`In JavaScript: test_display()`);
+        //  Resize the canvas to PineTime dimensions
+        var width = Module._get_display_width();
+        var height = Module._get_display_height();
+        Module.canvas.width = width;
+        Module.canvas.height = height;
+        var ctx = Module.canvas.getContext('2d');
+
+        //  Paint the canvas
+        const DISPLAY_BYTES_PER_PIXEL = 4;
+        var imageData = ctx.getImageData(0, 0, width, height);
+        var data = imageData.data;
+
+        for (var x = 0; x < 20; x++) {
+          for (var y = 0; y < 20; y++) {
+            var i = (y * width * DISPLAY_BYTES_PER_PIXEL) + (x * DISPLAY_BYTES_PER_PIXEL);
+            data[i++] = x * 256 / 20;  //  Red
+            data[i++] = y * 256 / 20;  //  Green
+            data[i++] = (x + y) * 256 / 40;  //  Blue
+            data[i++] = 255;  //  Alpha
+          }
+        }
+        ctx.putImageData(imageData, 0, 0);
+      }
+
       //  In JavaScript: Wait for emscripten to be initialised
       Module.onRuntimeInitialized = function() {
+        //  Test the display
+        test_display();
+
         //  Call C WebAssembly to get address of the static buffer
         var addr = Module._test_c_buffer_address();
         Module.print(`In JavaScript: test_c_buffer_address() returned ${toHex(addr)}`);

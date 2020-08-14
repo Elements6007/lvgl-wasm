@@ -1297,8 +1297,8 @@
       //  In JavaScript: Wait for emscripten to be initialised
       Module.onRuntimeInitialized = function() {
         //  Call C WebAssembly to get address of the static buffer
-        addr = Module._test_c_buffer_address();
-        Module.print("In JavaScript: test_c_buffer_address() returned 0x" + Number(i).toString(16));
+        var addr = Module._test_c_buffer_address();
+        Module.print("In JavaScript: test_c_buffer_address() returned 0x" + Number(addr).toString(16));
         Module.print("In JavaScript: addr[0] is 0x" + Number(Module.HEAPU8[addr]).toString(16));
         
         //  Call Rust WebAssembly to write to a static buffer

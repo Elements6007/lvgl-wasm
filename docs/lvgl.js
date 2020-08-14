@@ -1292,11 +1292,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 5962400,
+    STACK_BASE = 6020064,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 719520,
-    DYNAMIC_BASE = 5962400,
-    DYNAMICTOP_PTR = 719360;
+    STACK_MAX = 777184,
+    DYNAMIC_BASE = 6020064,
+    DYNAMICTOP_PTR = 777024;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1881,7 +1881,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 718496;
+// STATICTOP = STATIC_BASE + 776160;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -1942,7 +1942,7 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 719360;
+      return 777024;
     }
 
   function _emscripten_memcpy_big(dest, src, num) {
@@ -2109,6 +2109,21 @@ var asmLibraryArg = { "__assert_fail": ___assert_fail, "__handle_stack_overflow"
 var asm = createWasm();
 /** @type {function(...*):?} */
 var ___wasm_call_ctors = Module["___wasm_call_ctors"] = createExportWrapper("__wasm_call_ctors");
+
+/** @type {function(...*):?} */
+var _get_display_buffer = Module["_get_display_buffer"] = createExportWrapper("get_display_buffer");
+
+/** @type {function(...*):?} */
+var _get_display_width = Module["_get_display_width"] = createExportWrapper("get_display_width");
+
+/** @type {function(...*):?} */
+var _get_display_height = Module["_get_display_height"] = createExportWrapper("get_display_height");
+
+/** @type {function(...*):?} */
+var _test_display = Module["_test_display"] = createExportWrapper("test_display");
+
+/** @type {function(...*):?} */
+var _render_display = Module["_render_display"] = createExportWrapper("render_display");
 
 /** @type {function(...*):?} */
 var _main = Module["_main"] = createExportWrapper("main");

@@ -20,11 +20,13 @@ Test of C WebAssembly calling Rust WebAssembly: [`test_rust.html`](docs/test_rus
 
 - [Rust Source File](rust/src/lib.rs)
 
-TODO:
-
-1. __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
+Completed Features:
 
 1. __Render LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2
+
+TODO Features:
+
+1. __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
 
 1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 

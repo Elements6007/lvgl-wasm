@@ -5,57 +5,24 @@ em++ -I src/lv_core clock/Clock.cpp
 ////#include <libs/date/includes/date/date.h>
 ////#include <Components/DateTime/DateTimeController.h>
 #include "../lvgl.h" ////#include <libs/lvgl/lvgl.h>
-////#include "Clock.h"
+#include "Clock.h"
 ////#include "../DisplayApp.h"
 ////#include "BatteryIcon.h"
 ////#include "BleIcon.h"
 ////#include "Symbols.h"
-////using namespace Pinetime::Applications::Screens;
+using namespace Pinetime::Applications::Screens;
 extern lv_font_t jetbrains_mono_extrabold_compressed;
 extern lv_font_t jetbrains_mono_bold_20;
 extern lv_style_t* LabelBigStyle;
 
-////
-class Controllers {  
-  public:
-    class DateTime {
-    };
-    class Battery {
-    };
-    class Ble {
-    };
-};
-class Symbols {
-  public:
-    static char *batteryFull; //// = (char *) "";
-    static char *bluetooth; //// = (char *) "";
-    static char *plug; //// = (char *) "";
-};
-class DisplayApp {
-};
-class Clock {  
-  private:
-    char displayedChar[5];
-
-    lv_obj_t* label_time;
-    lv_obj_t* label_date;
-    lv_obj_t* backgroundLabel;
-    lv_obj_t * batteryIcon;
-    lv_obj_t * bleIcon;
-    lv_obj_t* batteryPlug;
-    lv_obj_t* heartbeatIcon;
-    lv_obj_t* heartbeatValue;
-    lv_obj_t* heartbeatBpm;
-    lv_obj_t* stepIcon;
-    lv_obj_t* stepValue;
-
-    Controllers::DateTime& dateTimeController;
-    Controllers::Battery& batteryController;
-    Controllers::Ble& bleController;
-
-    bool running = true;
-};
-////
+//// Begin
+const char *Symbols::batteryFull = "F";
+const char *Symbols::bluetooth = "B";
+const char *Symbols::heart = "H";
+const char *Symbols::heartBeat = "T";
+const char *Symbols::plug = "P";
+const char *Symbols::shoe = "S";
+//// End
 
 static void event_handler(lv_obj_t * obj, lv_event_t event) {
   Clock* screen = static_cast<Clock *>(obj->user_data);

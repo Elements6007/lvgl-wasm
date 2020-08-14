@@ -40,7 +40,7 @@ Import[8]:
 Function[88]:
  - func[6] sig=0 <emscripten_get_sbrk_ptr>
  - func[7] sig=6 <__wasm_call_ctors>
- - func[8] sig=16 <put_device_px>
+ - func[8] sig=16 <put_display_px>
  - func[9] sig=0 <get_display_buffer>
  - func[10] sig=0 <get_display_width>
  - func[11] sig=0 <get_display_height>
@@ -176,11 +176,11 @@ Elem[1]:
 Code[88]:
  - func[6] size=6 <emscripten_get_sbrk_ptr>
  - func[7] size=2 <__wasm_call_ctors>
- - func[8] size=883 <put_device_px>
+ - func[8] size=883 <put_display_px>
  - func[9] size=49 <get_display_buffer>
  - func[10] size=12 <get_display_width>
  - func[11] size=12 <get_display_height>
- - func[12] size=759 <test_display>
+ - func[12] size=809 <test_display>
  - func[13] size=230 <main>
  - func[14] size=24 <test_c>
  - func[15] size=95 <test_c_set_buffer>
@@ -265,27 +265,27 @@ Code[88]:
 Data[3]:
  - segment[0] memory=0 size=869 - init i32=1024
   - 0000400: 7820 3e3d 2030 0077 6173 6d2f 7465 7374  x >= 0.wasm/test
-  - 0000410: 5f72 7573 742e 6300 7075 745f 6465 7669  _rust.c.put_devi
-  - 0000420: 6365 5f70 7800 7820 3c20 4c56 5f48 4f52  ce_px.x < LV_HOR
-  - 0000430: 5f52 4553 5f4d 4158 0079 203e 3d20 3000  _RES_MAX.y >= 0.
-  - 0000440: 7920 3c20 4c56 5f56 4552 5f52 4553 5f4d  y < LV_VER_RES_M
-  - 0000450: 4158 0049 6e20 433a 2074 6573 745f 6469  AX.In C: test_di
-  - 0000460: 7370 6c61 7928 2900 496e 2043 3a20 6d61  splay().In C: ma
-  - 0000470: 696e 2829 0049 6e20 433a 2074 6573 745f  in().In C: test_
-  - 0000480: 7275 7374 2829 2072 6574 7572 6e65 6420  rust() returned 
-  - 0000490: 2564 0a00 496e 2043 3a20 7465 7374 5f72  %d..In C: test_r
-  - 00004a0: 7573 745f 6275 6666 6572 2069 7320 3078  ust_buffer is 0x
-  - 00004b0: 2578 0a00 496e 2043 3a20 7465 7374 5f63  %x..In C: test_c
-  - 00004c0: 2829 0049 6e20 5275 7374 3a20 7465 7374  ().In Rust: test
-  - 00004d0: 5f72 7573 7428 2900 496e 2052 7573 743a  _rust().In Rust:
-  - 00004e0: 2074 6573 745f 7275 7374 3228 2900 496e   test_rust2().In
-  - 00004f0: 2052 7573 743a 2074 6573 745f 7275 7374   Rust: test_rust
-  - 0000500: 3328 2900 496e 2052 7573 743a 2074 6573  3().In Rust: tes
-  - 0000510: 745f 7275 7374 5f73 6574 5f62 7566 6665  t_rust_set_buffe
-  - 0000520: 7228 2900 496e 2052 7573 743a 2074 6573  r().In Rust: tes
-  - 0000530: 745f 7275 7374 5f67 6574 5f62 7566 6665  t_rust_get_buffe
-  - 0000540: 7228 2900 9007 0000 2d2b 2020 2030 5830  r().....-+   0X0
-  - 0000550: 7800 286e 756c 6c29 0000 0000 0000 0000  x.(null)........
+  - 0000410: 5f72 7573 742e 6300 7075 745f 6469 7370  _rust.c.put_disp
+  - 0000420: 6c61 795f 7078 0078 203c 204c 565f 484f  lay_px.x < LV_HO
+  - 0000430: 525f 5245 535f 4d41 5800 7920 3e3d 2030  R_RES_MAX.y >= 0
+  - 0000440: 0079 203c 204c 565f 5645 525f 5245 535f  .y < LV_VER_RES_
+  - 0000450: 4d41 5800 496e 2043 3a20 7465 7374 5f64  MAX.In C: test_d
+  - 0000460: 6973 706c 6179 2829 0049 6e20 433a 206d  isplay().In C: m
+  - 0000470: 6169 6e28 2900 496e 2043 3a20 7465 7374  ain().In C: test
+  - 0000480: 5f72 7573 7428 2920 7265 7475 726e 6564  _rust() returned
+  - 0000490: 2025 640a 0049 6e20 433a 2074 6573 745f   %d..In C: test_
+  - 00004a0: 7275 7374 5f62 7566 6665 7220 6973 2030  rust_buffer is 0
+  - 00004b0: 7825 780a 0049 6e20 433a 2074 6573 745f  x%x..In C: test_
+  - 00004c0: 6328 2900 496e 2052 7573 743a 2074 6573  c().In Rust: tes
+  - 00004d0: 745f 7275 7374 2829 0049 6e20 5275 7374  t_rust().In Rust
+  - 00004e0: 3a20 7465 7374 5f72 7573 7432 2829 0049  : test_rust2().I
+  - 00004f0: 6e20 5275 7374 3a20 7465 7374 5f72 7573  n Rust: test_rus
+  - 0000500: 7433 2829 0049 6e20 5275 7374 3a20 7465  t3().In Rust: te
+  - 0000510: 7374 5f72 7573 745f 7365 745f 6275 6666  st_rust_set_buff
+  - 0000520: 6572 2829 0049 6e20 5275 7374 3a20 7465  er().In Rust: te
+  - 0000530: 7374 5f72 7573 745f 6765 745f 6275 6666  st_rust_get_buff
+  - 0000540: 6572 2829 0000 0000 9007 0000 2d2b 2020  er()........-+  
+  - 0000550: 2030 5830 7800 286e 756c 6c29 0000 0000   0X0x.(null)....
   - 0000560: 1100 0a00 1111 1100 0000 0005 0000 0000  ................
   - 0000570: 0000 0900 0000 000b 0000 0000 0000 0000  ................
   - 0000580: 1100 0f0a 1111 1103 0a07 0001 0009 0b0b  ................
@@ -14859,7 +14859,7 @@ Custom:
  - func[5] <setTempRet0>
  - func[6] <emscripten_get_sbrk_ptr>
  - func[7] <__wasm_call_ctors>
- - func[8] <put_device_px>
+ - func[8] <put_display_px>
  - func[9] <get_display_buffer>
  - func[10] <get_display_width>
  - func[11] <get_display_height>

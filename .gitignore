@@ -9,3 +9,12 @@ scripts/cppcheck_res.txt
 scripts/built_in_font/lv_font_*
 target
 rust/node_modules
+wasm/lvgl.html
+wasm/lvgl.js
+wasm/lvgl.wasm
+wasm/test.html
+wasm/test.js
+wasm/test.wasm
+wasm/test-rust.html
+wasm/test-rust.js
+wasm/test-rust.wasm

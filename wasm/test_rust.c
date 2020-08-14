@@ -36,7 +36,7 @@ void put_device_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint
 
 ///  Return the WebAssembly Address of the Display Buffer
 unsigned get_display_buffer(void) {
-    uint8_t *p = &test_rust_buffer[0];
+    uint8_t *p = &display_buffer[0];
     return (unsigned) p;
 }
 

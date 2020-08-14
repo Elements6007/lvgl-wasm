@@ -180,7 +180,7 @@ Code[88]:
  - func[9] size=49 <get_display_buffer>
  - func[10] size=12 <get_display_width>
  - func[11] size=12 <get_display_height>
- - func[12] size=732 <test_display>
+ - func[12] size=759 <test_display>
  - func[13] size=230 <main>
  - func[14] size=24 <test_c>
  - func[15] size=95 <test_c_set_buffer>

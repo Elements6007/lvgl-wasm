@@ -16,6 +16,23 @@ extern lv_font_t jetbrains_mono_bold_20;
 extern lv_style_t* LabelBigStyle;
 
 ////
+class Controllers {  
+  public:
+    class DateTime {
+    };
+    class Battery {
+    };
+    class Ble {
+    };
+};
+class Symbols {
+  public:
+    static char *batteryFull; //// = (char *) "";
+    static char *bluetooth; //// = (char *) "";
+    static char *plug; //// = (char *) "";
+};
+class DisplayApp {
+};
 class Clock {  
   private:
     char displayedChar[5];
@@ -31,10 +48,12 @@ class Clock {
     lv_obj_t* heartbeatBpm;
     lv_obj_t* stepIcon;
     lv_obj_t* stepValue;
-};
-class Controllers {  
-};
-class Symbols {
+
+    Controllers::DateTime& dateTimeController;
+    Controllers::Battery& batteryController;
+    Controllers::Ble& bleController;
+
+    bool running = true;
 };
 ////
 

@@ -58,6 +58,15 @@ int test_display(void) {
 ////////////////////////////////////////////////////////////////////
 //  Render LVGL
 
+/// Init the LVGL display
+void init_display(void) {
+    puts("In C: Init display...");
+
+    //  Init the LVGL display
+    lv_init();
+    lv_port_disp_init();
+}
+
 /// Render a Button Widget and a Label Widget
 void render_widgets(void) {
     puts("In C: Rendering widgets...");
@@ -72,17 +81,6 @@ void render_widgets(void) {
 /// Render the LVGL display
 void render_display(void) {
     puts("In C: Rendering display...");
-
-    //  Init the LVGL display
-    lv_init();
-    lv_port_disp_init();
-
-    //  Create the LVGL widgets
-    render_widgets();  //  For button and label
-    //  lv_demo_widgets();  //  For all kinds of demo widgets
-
-    //  Render the LVGL widgets
-    puts("In C: Handle task...");
     lv_task_handler();
 }
 

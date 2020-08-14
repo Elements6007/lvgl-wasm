@@ -101,7 +101,7 @@ CCFLAGS := \
 	-I src/lv_core \
 	-D LV_USE_DEMO_WIDGETS \
 	-s WASM=1 \
-    -s "EXPORTED_FUNCTIONS=[ '_main', '_get_display_buffer', '_get_display_width', '_get_display_height', '_test_display', '_render_display' ]"
+    -s "EXPORTED_FUNCTIONS=[ '_main', '_get_display_buffer', '_get_display_width', '_get_display_height', '_test_display', '_init_display', '_render_display', '_render_widgets', '_create_clock', '_refresh_clock', '_update_clock' ]"
 
 LDFLAGS :=
 

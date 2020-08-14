@@ -18,3 +18,5 @@ int update_clock(void);
 #ifdef __cplusplus
 }  //  extern "C"
 #endif
+
+#endif  //  CLOCKHELPER_H

@@ -1,6 +1,7 @@
 ////  WebAssembly Helper
-#include "Clock.h"
 #include <assert.h>
+#include "Clock.h"
+#include "ClockHelper.h"
 
 static Pinetime::Applications::Screens::Clock *clock0 = 0;
 static DisplayApp *app0 = 0;
@@ -25,14 +26,14 @@ int create_clock(void) {
 
 /// Redraw the clock
 int refresh_clock(void) {
-    //  TODO
     assert(clock0 != 0);
+    clock0->Refresh();
     return 0;
 }
 
 /// Update the clock time
 int update_clock(void) {
-    //  TODO
     assert(clock0 != 0);
+    //  TODO
     return 0;
 }

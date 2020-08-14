@@ -14,7 +14,7 @@
 //  Render LVGL
 
 /// Render a Button Widget and a Label Widget
-static void render_widgets(void) {
+void render_widgets(void) {
     puts("Rendering widgets...");
     lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
     lv_obj_set_pos(btn, 10, 10);                            //  Set its position
@@ -25,7 +25,7 @@ static void render_widgets(void) {
 }
 
 /// Render the LVGL display
-static void render_display() {
+void render_display(void) {
     puts("Rendering display...");
 
     //  Init the LVGL display

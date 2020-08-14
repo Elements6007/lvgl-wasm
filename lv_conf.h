@@ -22,8 +22,8 @@
 /* Maximal horizontal and vertical resolution to support by the library.*/
 
 //  Actual Resolution
-#define LV_HOR_RES_MAX          (720)
-#define LV_VER_RES_MAX          (1398)
+#define LV_HOR_RES_MAX          (240)
+#define LV_VER_RES_MAX          (240)
 #define LV_SCALE_RES            1
 
 //  Half Resolution

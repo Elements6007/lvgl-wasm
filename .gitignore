@@ -11,10 +11,13 @@ target
 rust/node_modules
 wasm/lvgl.html
 wasm/lvgl.js
+wasm/lvgl.txt
 wasm/lvgl.wasm
 wasm/test.html
 wasm/test.js
+wasm/test.txt
 wasm/test.wasm
 wasm/test-rust.html
 wasm/test-rust.js
+wasm/test-rust.txt
 wasm/test-rust.wasm

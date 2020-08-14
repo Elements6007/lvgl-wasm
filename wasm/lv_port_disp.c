@@ -136,8 +136,8 @@ static void disp_init(void)
     /*You code here*/
 }
 
-//  Defined in texture.c
-void put_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+//  Defined in lvgl.c
+void put_display_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 
 /* Flush the content of the internal buffer the specific area on the display
  * You can use DMA or any hardware acceleration to do this operation in the background but
@@ -152,7 +152,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     for(y = area->y1; y <= area->y2; y++) {
         for(x = area->x1; x <= area->x2; x++) {
             /* Put a pixel to the display */
-            put_px(x, y, 
+            put_display_px(x, y, 
                 color_p->ch.red, 
                 color_p->ch.green, 
                 color_p->ch.blue, 

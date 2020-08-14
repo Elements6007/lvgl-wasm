@@ -1,7 +1,6 @@
 //  Simple port of LVGL to WebAssembly.
-//  ??? Renders UI controls but touch input not handled yet.
-//  To build see lvgl.sh.
-//  Sample log: logs/lvgl.log 
+//  Renders UI controls to HTML Canvas but touch input not handled yet.
+//  To build see lvgl.sh
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,11 +10,57 @@
 #include "lv_port_disp.h"
 
 ////////////////////////////////////////////////////////////////////
+//  Device and Display Buffers
+
+///  RGBA WebAssembly Display Buffer that will be rendered to HTML Canvas
+#define DISPLAY_BYTES_PER_PIXEL 4
+uint8_t display_buffer[LV_HOR_RES_MAX * LV_VER_RES_MAX * DISPLAY_BYTES_PER_PIXEL];
+
+///  Plot a pixel on the WebAssembly Display Buffer
+void put_display_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+    assert(x >= 0); assert(x < LV_HOR_RES_MAX);
+    assert(y >= 0); assert(y < LV_VER_RES_MAX);
+    //  TODO: Map RGB565 to RGBA
+    int i = (y * LV_HOR_RES_MAX * DISPLAY_BYTES_PER_PIXEL) + (x * DISPLAY_BYTES_PER_PIXEL);
+    display_buffer[i++] = r;  //  Red
+    display_buffer[i++] = g;  //  Green
+    display_buffer[i++] = b;  //  Blue
+    display_buffer[i++] = a;  //  Alpha
+}
+
+///  Return the WebAssembly Address of the WebAssembly Display Buffer
+unsigned get_display_buffer(void) {
+    uint8_t *p = &display_buffer[0];
+    return (unsigned) p;
+}
+
+///  Return the width of the WebAssembly Display Buffer
+unsigned get_display_width(void) { return LV_HOR_RES_MAX; }
+
+///  Return the height of the WebAssembly Display Buffer
+unsigned get_display_height(void) { return LV_VER_RES_MAX; }
+
+///  Render a colour box to the WebAssembly Display Buffer
+int test_display(void) {
+    puts("In C: Testing display...");
+    for (uint16_t x = 0; x < LV_HOR_RES_MAX; x++) {
+        for (uint16_t y = 0; y < LV_VER_RES_MAX; y++) {     
+            uint8_t r = (x * 256 / 20) & 0xff;
+            uint8_t g = (y * 256 / 20) & 0xff;
+            uint8_t b = ((x + y) * 256 / 40) & 0xff;
+            uint8_t a = 0xff;
+            put_display_px(x, y, r, g, b, a);
+        }
+    }
+    return 0;
+}
+
+////////////////////////////////////////////////////////////////////
 //  Render LVGL
 
 /// Render a Button Widget and a Label Widget
 void render_widgets(void) {
-    puts("Rendering widgets...");
+    puts("In C: Rendering widgets...");
     lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
     lv_obj_set_pos(btn, 10, 10);                            //  Set its position
     lv_obj_set_size(btn, 120, 50);                          //  Set its size
@@ -26,7 +71,7 @@ void render_widgets(void) {
 
 /// Render the LVGL display
 void render_display(void) {
-    puts("Rendering display...");
+    puts("In C: Rendering display...");
 
     //  Init the LVGL display
     lv_init();
@@ -37,14 +82,15 @@ void render_display(void) {
     //  lv_demo_widgets();  //  For all kinds of demo widgets
 
     //  Render the LVGL widgets
-    puts("Handle task...");
+    puts("In C: Handle task...");
     lv_task_handler();
 }
 
 ////////////////////////////////////////////////////////////////////
 //  Main
 
+/// Do nothing
 int main(int argc, char **argv) {
-    render_display();
+    puts("In C: main()");
     return 0;
 }

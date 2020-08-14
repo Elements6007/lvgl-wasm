@@ -31,18 +31,21 @@ class BleIcon {
   public:
     static const char *GetIcon(bool)  { return "L"; }
 };
+static Clock *backgroundLabel_user_data = 0;
 //// End
 
 static void event_handler(lv_obj_t * obj, lv_event_t event) {
-  Clock* screen = static_cast<Clock *>(obj->user_data);
+  Clock* screen = backgroundLabel_user_data; ////static_cast<Clock *>(obj->user_data);
   screen->OnObjectEvent(obj, event);
 }
 
 Clock::Clock(DisplayApp* app,
         Controllers::DateTime& dateTimeController,
         Controllers::Battery& batteryController,
-        Controllers::Ble& bleController) : Screen(app), currentDateTime{{}},
-                                           dateTimeController{dateTimeController}, batteryController{batteryController}, bleController{bleController} {
+        Controllers::Ble& bleController) : 
+        //// Screen(app), 
+        currentDateTime{{}},
+        dateTimeController{dateTimeController}, batteryController{batteryController}, bleController{bleController} {
   displayedChar[0] = 0;
   displayedChar[1] = 0;
   displayedChar[2] = 0;
@@ -71,7 +74,7 @@ Clock::Clock(DisplayApp* app,
   lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 0);
 
   backgroundLabel = lv_label_create(lv_scr_act(), NULL);
-  backgroundLabel->user_data = this;
+  backgroundLabel_user_data = this; ////backgroundLabel->user_data = this;
   lv_obj_set_click(backgroundLabel, true);
   lv_obj_set_event_cb(backgroundLabel, event_handler);
   lv_label_set_long_mode(backgroundLabel, LV_LABEL_LONG_CROP);

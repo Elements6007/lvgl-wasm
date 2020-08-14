@@ -33,6 +33,6 @@ wasm-objdump -x wasm/test.wasm >wasm/test.txt
 wasm-objdump -x wasm/test_rust.wasm >wasm/test_rust.txt
 
 # Rename the HTML files so we don't overwrite the updates
-mv wasm/lvgl.html mv wasm/lvgl.old.html
-mv wasm/test.html mv wasm/test.old.html
-mv wasm/test_rust.html mv wasm/test_rust.old.html
+mv wasm/lvgl.html wasm/lvgl.old.html
+mv wasm/test.html wasm/test.old.html
+mv wasm/test_rust.html wasm/test_rust.old.html

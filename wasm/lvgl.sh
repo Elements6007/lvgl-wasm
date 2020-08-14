@@ -4,6 +4,9 @@
 # Stop the script on error, echo all commands
 set -e -x
 
+# Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
+make -j
+
 # Build Rust modules with emscripten compatibility
 cargo build --target=wasm32-unknown-emscripten
 
@@ -17,9 +20,6 @@ emcc \
 	-I src/lv_core \
     target/wasm32-unknown-emscripten/debug/liblvgl_wasm_rust.a
 
-# Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
-make -j
-
 # Build sample app: wasm/test.html, test.js, test.wasm
 emcc \
     -g \
@@ -31,3 +31,8 @@ emcc \
 wasm-objdump -x wasm/lvgl.wasm >wasm/lvgl.txt
 wasm-objdump -x wasm/test.wasm >wasm/test.txt
 wasm-objdump -x wasm/test_rust.wasm >wasm/test_rust.txt
+
+# Rename the HTML files so we don't overwrite the updates
+mv wasm/lvgl.html mv wasm/lvgl.old.html
+mv wasm/test.html mv wasm/test.old.html
+mv wasm/test_rust.html mv wasm/test_rust.old.html

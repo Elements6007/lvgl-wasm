@@ -1,5 +1,4 @@
 ////  WebAssembly Helper
-
 #ifndef CLOCKHELPER_H
 #define CLOCKHELPER_H
 
@@ -7,8 +6,13 @@
 extern "C" {
 #endif
 
+/// Create an instance of the clock
 int create_clock(void);
-int render_clock(void);
+
+/// Redraw the clock
+int refresh_clock(void);
+
+/// Update the clock time
 int update_clock(void);
 
 #ifdef __cplusplus

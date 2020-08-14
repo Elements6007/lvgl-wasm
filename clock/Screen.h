@@ -3,6 +3,7 @@
 #define SCREEN_H
 
 #include "DisplayApp.h"
+#include "DateTimeController.h"
 
 class Screen {};
 

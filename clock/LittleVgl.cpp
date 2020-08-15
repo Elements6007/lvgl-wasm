@@ -270,13 +270,15 @@ void LittleVgl::InitBaseTheme() {
   lv_style_set_text_font(&bg, LV_STATE_DEFAULT, font); ////bg.text.font       = font;
   lv_style_set_image_recolor(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE); ////bg.image.color     = LV_COLOR_WHITE;
 
-  lv_style_copy(&scr, &bg);
+  ////TODO: Add scr style to bg style
+  lv_style_init(&scr); ////lv_style_copy(&scr, &bg);
   scr.body.padding.bottom = 0;
   scr.body.padding.top    = 0;
   scr.body.padding.left   = 0;
   scr.body.padding.right  = 0;
 
-  lv_style_copy(&sb, &def);
+  ////TODO: Add sb style to bg style
+  lv_style_init(&sb); ////lv_style_copy(&sb, &def);
   sb.body.main_color     = lv_color_hsv_to_rgb(hue, 30, 60);
   sb.body.grad_color     = lv_color_hsv_to_rgb(hue, 30, 60);
   sb.body.border.width   = 0;
@@ -288,7 +290,8 @@ void LittleVgl::InitBaseTheme() {
   sb.body.radius         = LV_DPI / 30;
   sb.body.opa            = LV_OPA_COVER;
 
-  lv_style_copy(&panel, &bg);
+  ////TODO: Add panel style to bg style
+  lv_style_init(&panel); ////lv_style_copy(&panel, &bg);
   panel.body.main_color     = lv_color_hsv_to_rgb(hue, 11, 18);
   panel.body.grad_color     = lv_color_hsv_to_rgb(hue, 11, 18);
   panel.body.radius         = LV_DPI / 20;
@@ -314,7 +317,8 @@ void LittleVgl::InitThemeContainer() {
 void LittleVgl::InitThemeButton() {
 
 
-  lv_style_copy(&btn_rel, &def);
+  ////TODO: Add btn_rel style to def style
+  lv_style_init(&btn_rel); ////lv_style_copy(&btn_rel, &def);
   btn_rel.body.main_color     = lv_color_hsv_to_rgb(hue, 10, 40);
   btn_rel.body.grad_color     = lv_color_hsv_to_rgb(hue, 10, 20);
   btn_rel.body.border.color   = lv_color_hex3(0x111);
@@ -330,25 +334,29 @@ void LittleVgl::InitThemeButton() {
   btn_rel.text.color          = lv_color_hex3(0xeee);
   btn_rel.image.color         = lv_color_hex3(0xeee);
 
-  lv_style_copy(&btn_pr, &btn_rel);
+  ////TODO: Add btn_pr style to btn_rel style
+  lv_style_init(&btn_pr); ////lv_style_copy(&btn_pr, &btn_rel);
   btn_pr.body.main_color = lv_color_hsv_to_rgb(hue, 10, 30);
   btn_pr.body.grad_color = lv_color_hsv_to_rgb(hue, 10, 10);
 
-  lv_style_copy(&btn_tgl_rel, &btn_rel);
+  ////TODO: Add btn_tgl_rel style to btn_rel style
+  lv_style_init(&btn_tgl_rel); ////lv_style_copy(&btn_tgl_rel, &btn_rel);
   btn_tgl_rel.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 20);
   btn_tgl_rel.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 40);
   btn_tgl_rel.body.shadow.width = LV_DPI / 40;
   btn_tgl_rel.text.color        = lv_color_hex3(0xddd);
   btn_tgl_rel.image.color       = lv_color_hex3(0xddd);
 
-  lv_style_copy(&btn_tgl_pr, &btn_rel);
+  ////TODO: Add btn_tgl_pr style to btn_rel style
+  lv_style_init(&btn_tgl_pr); ////lv_style_copy(&btn_tgl_pr, &btn_rel);
   btn_tgl_pr.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 10);
   btn_tgl_pr.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 30);
   btn_tgl_pr.body.shadow.width = LV_DPI / 30;
   btn_tgl_pr.text.color        = lv_color_hex3(0xddd);
   btn_tgl_pr.image.color       = lv_color_hex3(0xddd);
 
-  lv_style_copy(&btn_ina, &btn_rel);
+  ////TODO: Add btn_ina style to btn_rel style
+  lv_style_init(&btn_ina); ////lv_style_copy(&btn_ina, &btn_rel);
   btn_ina.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 20);
   btn_ina.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 20);
   btn_ina.body.shadow.width = 0;
@@ -363,17 +371,21 @@ void LittleVgl::InitThemeButton() {
 }
 
 void LittleVgl::InitThemeLabel() {
-  lv_style_copy(&prim, &bg);
+  ////TODO: Add prim style to bg style
+  lv_style_init(&prim); ////lv_style_copy(&prim, &bg);
   prim.text.color = lv_color_hsv_to_rgb(hue, 5, 95);
 
-  lv_style_copy(&labelBigStyle, &prim);
+  ////TODO: Add labelBigStyle style to prim style
+  lv_style_init(&labelBigStyle); ////lv_style_copy(&labelBigStyle, &prim);
   labelBigStyle.text.font = &jetbrains_mono_extrabold_compressed;
   LabelBigStyle = &(this->labelBigStyle);
 
-  lv_style_copy(&sec, &bg);
+  ////TODO: Add sec style to bg style
+  lv_style_init(&sec); ////lv_style_copy(&sec, &bg);
   sec.text.color = lv_color_hsv_to_rgb(hue, 15, 65);
 
-  lv_style_copy(&hint, &bg);
+  ////TODO: Add hint style to bg style
+  lv_style_init(&hint); ////lv_style_copy(&hint, &bg);
   hint.text.color = lv_color_hsv_to_rgb(hue, 20, 55);
 
   theme.style.label.prim = &prim;
@@ -386,7 +398,8 @@ void LittleVgl::InitThemeLine() {
 }
 
 void LittleVgl::InitThemeLed() {
-  lv_style_copy(&led, &def);
+  ////TODO: Add led style to def style
+  lv_style_init(&led); ////lv_style_copy(&led, &def);
   led.body.shadow.width = LV_DPI / 10;
   led.body.radius       = LV_RADIUS_CIRCLE;
   led.body.border.width = LV_DPI / 30;
@@ -405,14 +418,16 @@ void LittleVgl::InitThemeImage() {
 }
 
 void LittleVgl::InitThemeBar() {
-  lv_style_copy(&bar_bg, &panel);
+  ////TODO: Add bar_bg style to panel style
+  lv_style_init(&bar_bg); ////lv_style_copy(&bar_bg, &panel);
   bar_bg.body.padding.left   = LV_DPI / 16;
   bar_bg.body.padding.right  = LV_DPI / 16;
   bar_bg.body.padding.top    = LV_DPI / 16;
   bar_bg.body.padding.bottom = LV_DPI / 16;
   bar_bg.body.radius         = LV_RADIUS_CIRCLE;
 
-  lv_style_copy(&bar_indic, &def);
+  ////TODO: Add bar_indic style to def style
+  lv_style_init(&bar_indic); ////lv_style_copy(&bar_indic, &def);
   bar_indic.body.main_color     = lv_color_hsv_to_rgb(hue, 80, 70);
   bar_indic.body.grad_color     = lv_color_hsv_to_rgb(hue, 80, 70);
   bar_indic.body.border.color   = lv_color_hsv_to_rgb(hue, 20, 15);
@@ -429,7 +444,8 @@ void LittleVgl::InitThemeBar() {
 }
 
 void LittleVgl::InitThemeSlider() {
-  lv_style_copy(&slider_knob, theme.style.btn.rel);
+  ////TODO: Add slider_knob style to rel style
+  lv_style_init(&slider_knob); ////lv_style_copy(&slider_knob, theme.style.btn.rel);
   slider_knob.body.radius = LV_RADIUS_CIRCLE;
 
   theme.style.slider.bg    = theme.style.bar.bg;
@@ -446,7 +462,8 @@ void LittleVgl::InitThemeSwitch() {
 
 void LittleVgl::InitThemeMeter() {
   static lv_style_t lmeter_bg;
-  lv_style_copy(&lmeter_bg, &def);
+  ////TODO: Add lmeter_bg style to def style
+  lv_style_init(&lmeter_bg); ////lv_style_copy(&lmeter_bg, &def);
   lmeter_bg.body.main_color    = lv_color_hsv_to_rgb(hue, 10, 70);
   lmeter_bg.body.grad_color    = lv_color_hsv_to_rgb(hue, 95, 90);
   lmeter_bg.body.padding.left  = LV_DPI / 10; /*Scale line length*/
@@ -461,7 +478,8 @@ void LittleVgl::InitThemeMeter() {
 
 void LittleVgl::InitThemeGauge() {
   static lv_style_t gauge_bg;
-  lv_style_copy(&gauge_bg, &def);
+  ////TODO: Add gauge_bg style to def style
+  lv_style_init(&gauge_bg); ////lv_style_copy(&gauge_bg, &def);
   gauge_bg.body.main_color = lv_color_hsv_to_rgb(hue, 10, 70);
   gauge_bg.body.grad_color = gauge_bg.body.main_color;
   gauge_bg.line.color      = lv_color_hsv_to_rgb(hue, 80, 75);
@@ -472,7 +490,8 @@ void LittleVgl::InitThemeGauge() {
 }
 
 void LittleVgl::InitThemeArc() {
-  lv_style_copy(&arc, &def);
+  ////TODO: Add arc style to def style
+  lv_style_init(&arc); ////lv_style_copy(&arc, &def);
   arc.line.width   = 8;
   arc.line.color   = lv_color_hsv_to_rgb(hue, 80, 70);
   arc.line.rounded = 1;
@@ -498,7 +517,8 @@ void LittleVgl::InitThemeChart() {
 
 void LittleVgl::InitThemeCalendar() {
 
-  lv_style_copy(&cal_bg, &bg);
+  ////TODO: Add cal_bg style to bg style
+  lv_style_init(&cal_bg); ////lv_style_copy(&cal_bg, &bg);
   cal_bg.body.main_color     = lv_color_hsv_to_rgb(hue, 10, 40);
   cal_bg.body.grad_color     = lv_color_hsv_to_rgb(hue, 10, 40);
   cal_bg.body.border.color   = lv_color_hex3(0x333);
@@ -510,7 +530,8 @@ void LittleVgl::InitThemeCalendar() {
   cal_bg.body.padding.bottom = LV_DPI / 10;
 
 
-  lv_style_copy(&cal_header, &bg);
+  ////TODO: Add cal_header style to bg style
+  lv_style_init(&cal_header); ////lv_style_copy(&cal_header, &bg);
   cal_header.body.main_color     = lv_color_hsv_to_rgb(hue, 10, 20);
   cal_header.body.grad_color     = lv_color_hsv_to_rgb(hue, 10, 20);
   cal_header.body.radius         = 0;
@@ -522,7 +543,8 @@ void LittleVgl::InitThemeCalendar() {
   cal_header.body.padding.bottom = LV_DPI / 10;
 
 
-  lv_style_copy(&week_box, &panel);
+  ////TODO: Add week_box style to panel style
+  lv_style_init(&week_box); ////lv_style_copy(&week_box, &panel);
   week_box.body.main_color     = lv_color_hsv_to_rgb(hue, 30, 45);
   week_box.body.grad_color     = lv_color_hsv_to_rgb(hue, 30, 45);
   week_box.body.radius         = LV_DPI / 20;
@@ -532,7 +554,8 @@ void LittleVgl::InitThemeCalendar() {
   week_box.body.padding.top    = LV_DPI / 25;
   week_box.body.padding.bottom = LV_DPI / 25;
 
-  lv_style_copy(&today_box, &week_box);
+  ////TODO: Add today_box style to week_box style
+  lv_style_init(&today_box); ////lv_style_copy(&today_box, &week_box);
   today_box.body.main_color     = lv_color_hsv_to_rgb(hue, 80, 70);
   today_box.body.grad_color     = lv_color_hsv_to_rgb(hue, 80, 70);
   today_box.body.radius         = LV_DPI / 20;
@@ -541,10 +564,12 @@ void LittleVgl::InitThemeCalendar() {
   today_box.body.padding.top    = LV_DPI / 14;
   today_box.body.padding.bottom = LV_DPI / 14;
 
-  lv_style_copy(&highlighted_days, &bg);
+  ////TODO: Add highlighted_days style to bg style
+  lv_style_init(&highlighted_days); ////lv_style_copy(&highlighted_days, &bg);
   highlighted_days.text.color = lv_color_hsv_to_rgb(hue, 40, 80);
 
-  lv_style_copy(&ina_days, &bg);
+  ////TODO: Add ina_days style to bg style
+  lv_style_init(&ina_days); ////lv_style_copy(&ina_days, &bg);
   ina_days.text.color = lv_color_hsv_to_rgb(hue, 0, 60);
 
   theme.style.calendar.bg               = &cal_bg;
@@ -558,7 +583,8 @@ void LittleVgl::InitThemeCalendar() {
 
 void LittleVgl::InitThemeCheckBox() {
 
-  lv_style_copy(&rel, &def);
+  ////TODO: Add rel style to def style
+  lv_style_init(&rel); ////lv_style_copy(&rel, &def);
   rel.body.radius       = LV_DPI / 20;
   rel.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 95);
   rel.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 95);
@@ -566,26 +592,30 @@ void LittleVgl::InitThemeCheckBox() {
   rel.body.border.width = 2;
   ;
 
-  lv_style_copy(&pr, &rel);
+  ////TODO: Add pr style to rel style
+  lv_style_init(&pr); ////lv_style_copy(&pr, &rel);
   pr.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 80);
   pr.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 80);
   pr.body.border.color = lv_color_hsv_to_rgb(hue, 10, 20);
   pr.body.border.width = 1;
   ;
 
-  lv_style_copy(&tgl_rel, &rel);
+  ////TODO: Add tgl_rel style to rel style
+  lv_style_init(&tgl_rel); ////lv_style_copy(&tgl_rel, &rel);
   tgl_rel.body.main_color   = lv_color_hsv_to_rgb(hue, 80, 90);
   tgl_rel.body.grad_color   = lv_color_hsv_to_rgb(hue, 80, 90);
   tgl_rel.body.border.color = lv_color_hsv_to_rgb(hue, 80, 50);
 
-  lv_style_copy(&tgl_pr, &tgl_rel);
+  ////TODO: Add tgl_pr style to tgl_rel style
+  lv_style_init(&tgl_pr); ////lv_style_copy(&tgl_pr, &tgl_rel);
   tgl_pr.body.main_color   = lv_color_hsv_to_rgb(hue, 80, 70);
   tgl_pr.body.grad_color   = lv_color_hsv_to_rgb(hue, 80, 70);
   tgl_pr.body.border.color = lv_color_hsv_to_rgb(hue, 80, 30);
   tgl_pr.body.border.width = 1;
   ;
 
-  lv_style_copy(&ina, &rel);
+  ////TODO: Add ina style to rel style
+  lv_style_init(&ina); ////lv_style_copy(&ina, &rel);
   ina.body.main_color   = lv_color_hex3(0x777);
   ina.body.grad_color   = lv_color_hex3(0x777);
   ina.body.border.width = 0;
@@ -600,7 +630,8 @@ void LittleVgl::InitThemeCheckBox() {
 
 void LittleVgl::InitThemeButtonMatrix() {
 
-  lv_style_copy(&btnm_bg, theme.style.btn.rel);
+  ////TODO: Add btnm_bg style to theme.style.btn.rel style
+  lv_style_init(&btnm_bg); ////lv_style_copy(&btnm_bg, theme.style.btn.rel);
   btnm_bg.body.padding.left   = 2;
   btnm_bg.body.padding.right  = 2;
   btnm_bg.body.padding.top    = 2;
@@ -608,27 +639,32 @@ void LittleVgl::InitThemeButtonMatrix() {
   btnm_bg.body.padding.inner  = 0;
   btnm_bg.body.border.width   = 1;
 
-  lv_style_copy(&btnm_rel, theme.style.btn.rel);
+  ////TODO: Add btnm_rel style to theme.style.btn.rel style
+  lv_style_init(&btnm_rel); ////lv_style_copy(&btnm_rel, theme.style.btn.rel);
   btnm_rel.body.border.part  = LV_BORDER_FULL | LV_BORDER_INTERNAL;
   btnm_rel.body.border.width = 1;
   btnm_rel.body.radius       = 2;
 
-  lv_style_copy(&btnm_pr, theme.style.btn.pr);
+  ////TODO: Add btnm_pr style to theme.style.btn.pr style
+  lv_style_init(&btnm_pr); ////lv_style_copy(&btnm_pr, theme.style.btn.pr);
   btnm_pr.body.border.part  = btnm_rel.body.border.part;
   btnm_pr.body.border.width = btnm_rel.body.border.width;
   btnm_pr.body.radius       = btnm_rel.body.radius;
 
-  lv_style_copy(&btnm_tgl_rel, theme.style.btn.tgl_rel);
+  ////TODO: Add btnm_tgl_rel style to theme.style.btn.tgl_rel style
+  lv_style_init(&btnm_tgl_rel); ////lv_style_copy(&btnm_tgl_rel, theme.style.btn.tgl_rel);
   btnm_tgl_rel.body.border.part  = btnm_rel.body.border.part;
   btnm_tgl_rel.body.border.width = btnm_rel.body.border.width;
   btnm_tgl_rel.body.radius       = btnm_rel.body.radius;
 
-  lv_style_copy(&btnm_tgl_pr, theme.style.btn.pr);
+  ////TODO: Add btnm_tgl_pr style to theme.style.btn.pr style
+  lv_style_init(&btnm_tgl_pr); ////lv_style_copy(&btnm_tgl_pr, theme.style.btn.pr);
   btnm_tgl_pr.body.border.part  = btnm_rel.body.border.part;
   btnm_tgl_pr.body.border.width = btnm_rel.body.border.width;
   btnm_tgl_pr.body.radius       = btnm_rel.body.radius;
 
-  lv_style_copy(&btnm_ina, theme.style.btn.ina);
+  ////TODO: Add btnm_ina style to theme.style.btn.ina style
+  lv_style_init(&btnm_ina); ////lv_style_copy(&btnm_ina, theme.style.btn.ina);
   btnm_ina.body.border.part  = btnm_rel.body.border.part;
   btnm_ina.body.border.width = btnm_rel.body.border.width;
   btnm_ina.body.radius       = btnm_rel.body.radius;
@@ -651,7 +687,8 @@ void LittleVgl::InitThemeKnob() {
 }
 
 void LittleVgl::InitThemeMessageBox() {
-  lv_style_copy(&mbox_bg, &bg);
+  ////TODO: Add mbox_bg style to bg style
+  lv_style_init(&mbox_bg); ////lv_style_copy(&mbox_bg, &bg);
   mbox_bg.body.main_color   = lv_color_hsv_to_rgb(hue, 30, 30);
   mbox_bg.body.grad_color   = lv_color_hsv_to_rgb(hue, 30, 30);
   mbox_bg.body.border.color = lv_color_hsv_to_rgb(hue, 11, 20);
@@ -666,7 +703,8 @@ void LittleVgl::InitThemeMessageBox() {
 }
 
 void LittleVgl::InitThemePage() {
-  lv_style_copy(&page_scrl, &bg);
+  ////TODO: Add page_scrl style to bg style
+  lv_style_init(&page_scrl); ////lv_style_copy(&page_scrl, &bg);
   page_scrl.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 40);
   page_scrl.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 40);
   page_scrl.body.border.color = lv_color_hex3(0x333);
@@ -693,14 +731,16 @@ void LittleVgl::InitThemeSpinBox() {
 
 void LittleVgl::InitThemeList() {
 
-  lv_style_copy(&list_bg, &panel);
+  ////TODO: Add list_bg style to panel style
+  lv_style_init(&list_bg); ////lv_style_copy(&list_bg, &panel);
   list_bg.body.padding.top    = 0;
   list_bg.body.padding.bottom = 0;
   list_bg.body.padding.left   = 0;
   list_bg.body.padding.right  = 0;
   list_bg.body.padding.inner  = 0;
 
-  lv_style_copy(&list_btn_rel, &bg);
+  ////TODO: Add list_btn_rel style to bg style
+  lv_style_init(&list_btn_rel); ////lv_style_copy(&list_btn_rel, &bg);
   list_btn_rel.body.opa            = LV_OPA_TRANSP;
   list_btn_rel.body.border.part    = LV_BORDER_BOTTOM;
   list_btn_rel.body.border.color   = lv_color_hsv_to_rgb(hue, 10, 5);
@@ -713,7 +753,8 @@ void LittleVgl::InitThemeList() {
   list_btn_rel.body.padding.left   = LV_DPI / 8;
   list_btn_rel.body.padding.right  = LV_DPI / 8;
 
-  lv_style_copy(&list_btn_pr, theme.style.btn.pr);
+  ////TODO: Add list_btn_pr style to theme.style.btn.pr style
+  lv_style_init(&list_btn_pr); ////lv_style_copy(&list_btn_pr, theme.style.btn.pr);
   list_btn_pr.body.main_color     = lv_color_hsv_to_rgb(hue, 10, 5);
   list_btn_pr.body.grad_color     = lv_color_hsv_to_rgb(hue, 10, 5);
   list_btn_pr.body.border.color   = lv_color_hsv_to_rgb(hue, 10, 5);
@@ -725,14 +766,16 @@ void LittleVgl::InitThemeList() {
   list_btn_pr.text.color          = lv_color_hsv_to_rgb(hue, 5, 80);
   list_btn_pr.image.color         = lv_color_hsv_to_rgb(hue, 5, 80);
 
-  lv_style_copy(&list_btn_tgl_rel, &list_btn_rel);
+  ////TODO: Add list_btn_tgl_rel style to list_btn_rel style
+  lv_style_init(&list_btn_tgl_rel); ////lv_style_copy(&list_btn_tgl_rel, &list_btn_rel);
   list_btn_tgl_rel.body.opa        = LV_OPA_COVER;
   list_btn_tgl_rel.body.main_color = lv_color_hsv_to_rgb(hue, 80, 70);
   list_btn_tgl_rel.body.grad_color = lv_color_hsv_to_rgb(hue, 80, 70);
   list_btn_tgl_rel.body.border.color   = lv_color_hsv_to_rgb(hue, 60, 40);
   list_btn_tgl_rel.body.radius         = list_bg.body.radius;
 
-  lv_style_copy(&list_btn_tgl_pr, &list_btn_tgl_rel);
+  ////TODO: Add list_btn_tgl_pr style to list_btn_tgl_rel style
+  lv_style_init(&list_btn_tgl_pr); ////lv_style_copy(&list_btn_tgl_pr, &list_btn_tgl_rel);
   list_btn_tgl_pr.body.main_color = lv_color_hsv_to_rgb(hue, 80, 60);
   list_btn_tgl_pr.body.grad_color = lv_color_hsv_to_rgb(hue, 80, 60);
 
@@ -747,7 +790,8 @@ void LittleVgl::InitThemeList() {
 }
 
 void LittleVgl::InitThemeDropDownList() {
-  lv_style_copy(&ddlist_bg, theme.style.btn.rel);
+  ////TODO: Add ddlist_bg style to theme.style.btn.rel style
+  lv_style_init(&ddlist_bg); ////lv_style_copy(&ddlist_bg, theme.style.btn.rel);
   ddlist_bg.text.line_space     = LV_DPI / 8;
   ddlist_bg.body.padding.top    = LV_DPI / 8;
   ddlist_bg.body.padding.bottom = LV_DPI / 8;
@@ -755,7 +799,8 @@ void LittleVgl::InitThemeDropDownList() {
   ddlist_bg.body.padding.right  = LV_DPI / 8;
   ddlist_bg.body.radius         = LV_DPI / 30;
 
-  lv_style_copy(&ddlist_sel, theme.style.btn.rel);
+  ////TODO: Add ddlist_sel style to theme.style.btn.rel style
+  lv_style_init(&ddlist_sel); ////lv_style_copy(&ddlist_sel, theme.style.btn.rel);
   ddlist_sel.body.main_color = lv_color_hsv_to_rgb(hue, 20, 50);
   ddlist_sel.body.grad_color = lv_color_hsv_to_rgb(hue, 20, 50);
   ddlist_sel.body.radius     = 0;
@@ -768,7 +813,8 @@ void LittleVgl::InitThemeDropDownList() {
 void LittleVgl::InitThemeRoller() {
   lv_style_t roller_bg;
 
-  lv_style_copy(&roller_bg, theme.style.ddlist.bg);
+  ////TODO: Add roller_bg style to theme.style.ddlist.bg style
+  lv_style_init(&roller_bg); ////lv_style_copy(&roller_bg, theme.style.ddlist.bg);
   roller_bg.body.main_color = lv_color_hsv_to_rgb(hue, 10, 20);
   roller_bg.body.grad_color = lv_color_hsv_to_rgb(hue, 10, 40);
   roller_bg.text.color      = lv_color_hsv_to_rgb(hue, 5, 70);
@@ -795,7 +841,8 @@ void LittleVgl::InitThemeTileView() {
 }
 
 void LittleVgl::InitThemeTable() {
-  lv_style_copy(&cell, &panel);
+  ////TODO: Add cell style to panel style
+  lv_style_init(&cell); ////lv_style_copy(&cell, &panel);
   cell.body.radius         = 0;
   cell.body.border.width   = 1;
   cell.body.padding.left   = LV_DPI / 12;

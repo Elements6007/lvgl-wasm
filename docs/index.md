@@ -1,5 +1,5 @@
-[LVGL WebAssembly App](lvgl.html)
+[PineTime Watch Face (LVGL C and C++ WebAssembly App)](lvgl.html)
 
-[Sample WebAssembly C App](test.html)
+[Sample C WebAssembly App](test.html)
 
-[Sample WebAssembly Rust App](test_rust.html)
+[Sample C and Rust Interoperability WebAssembly App](test_rust.html)

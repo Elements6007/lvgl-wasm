@@ -270,16 +270,14 @@ void LittleVgl::InitBaseTheme() {
   lv_style_set_text_font(&bg, LV_STATE_DEFAULT, font); ////bg.text.font       = font;
   lv_style_set_image_recolor(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE); ////bg.image.color     = LV_COLOR_WHITE;
 
-  ////TODO: Add scr style to bg style
-  lv_style_init(&scr); ////lv_style_copy(&scr, &bg);
+  lv_style_copy(&scr, &bg);
   lv_style_set_pad_bottom(&scr, LV_STATE_DEFAULT, 0); ////scr.body.padding.bottom = 0;
   lv_style_set_pad_top(&scr, LV_STATE_DEFAULT,    0); ////scr.body.padding.top    = 0;
   lv_style_set_pad_left(&scr, LV_STATE_DEFAULT,   0); ////scr.body.padding.left   = 0;
   lv_style_set_pad_right(&scr, LV_STATE_DEFAULT,  0); ////scr.body.padding.right  = 0;
 
 
-  ////TODO: Add sb style to bg style
-  lv_style_init(&sb); ////lv_style_copy(&sb, &def);
+  lv_style_copy(&sb, &def);
   lv_style_set_bg_color(&sb, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 30, 60)); ////sb.body.main_color     = lv_color_hsv_to_rgb(hue, 30, 60);
   lv_style_set_bg_grad_color(&sb, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 30, 60)); ////sb.body.grad_color     = lv_color_hsv_to_rgb(hue, 30, 60);
   lv_style_set_border_width(&sb, LV_STATE_DEFAULT,   0); ////sb.body.border.width   = 0;
@@ -291,8 +289,7 @@ void LittleVgl::InitBaseTheme() {
   lv_style_set_radius(&sb, LV_STATE_DEFAULT,         LV_DPI / 30); ////sb.body.radius         = LV_DPI / 30;
   lv_style_set_opa(&sb, LV_STATE_DEFAULT,            LV_OPA_COVER); ////sb.body.opa            = LV_OPA_COVER;
 
-  ////TODO: Add panel style to bg style
-  lv_style_init(&panel); ////lv_style_copy(&panel, &bg);
+  lv_style_copy(&panel, &bg);
   lv_style_set_bg_color(&panel, LV_STATE_DEFAULT,     lv_color_hsv_to_rgb(hue, 11, 18)); ////panel.body.main_color     = lv_color_hsv_to_rgb(hue, 11, 18);
   lv_style_set_bg_grad_color(&panel, LV_STATE_DEFAULT,     lv_color_hsv_to_rgb(hue, 11, 18)); ////panel.body.grad_color     = lv_color_hsv_to_rgb(hue, 11, 18);
   lv_style_set_radius(&panel, LV_STATE_DEFAULT,         LV_DPI / 20); ////panel.body.radius         = LV_DPI / 20;
@@ -306,9 +303,9 @@ void LittleVgl::InitBaseTheme() {
   lv_style_set_line_color(&panel, LV_STATE_DEFAULT,           lv_color_hsv_to_rgb(hue, 20, 40)); ////panel.line.color          = lv_color_hsv_to_rgb(hue, 20, 40);
   lv_style_set_line_width(&panel, LV_STATE_DEFAULT,           1); ////panel.line.width          = 1;
 
-  lv_style_set_scr(&theme, LV_STATE_DEFAULT,    &scr); ////theme.style.scr   = &scr;
-  lv_style_set_bg(&theme, LV_STATE_DEFAULT,     &bg); ////theme.style.bg    = &bg;
-  lv_style_set_panel(&theme, LV_STATE_DEFAULT,  &def); ////theme.style.panel = &def;
+  ////TODO: theme.style.scr   = &scr;
+  ////TODO: theme.style.bg    = &bg;
+  ////TODO: theme.style.panel = &def;
 }
 
 void LittleVgl::InitThemeContainer() {
@@ -374,24 +371,24 @@ void LittleVgl::InitThemeButton() {
 void LittleVgl::InitThemeLabel() {
   ////TODO: Add prim style to bg style
   lv_style_init(&prim); ////lv_style_copy(&prim, &bg);
-  prim.text.color = lv_color_hsv_to_rgb(hue, 5, 95);
+  lv_style_set_text_color(&prim, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 5, 95)); ////prim.text.color = lv_color_hsv_to_rgb(hue, 5, 95);
 
   ////TODO: Add labelBigStyle style to prim style
   lv_style_init(&labelBigStyle); ////lv_style_copy(&labelBigStyle, &prim);
-  labelBigStyle.text.font = &jetbrains_mono_extrabold_compressed;
+  lv_style_set_text_font(&labelBigStyle, LV_STATE_DEFAULT, &jetbrains_mono_extrabold_compressed); ////labelBigStyle.text.font = &jetbrains_mono_extrabold_compressed;
   LabelBigStyle = &(this->labelBigStyle);
 
   ////TODO: Add sec style to bg style
   lv_style_init(&sec); ////lv_style_copy(&sec, &bg);
-  sec.text.color = lv_color_hsv_to_rgb(hue, 15, 65);
+  lv_style_set_text_color(&sec, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 15, 65)); ////sec.text.color = lv_color_hsv_to_rgb(hue, 15, 65);
 
   ////TODO: Add hint style to bg style
   lv_style_init(&hint); ////lv_style_copy(&hint, &bg);
-  hint.text.color = lv_color_hsv_to_rgb(hue, 20, 55);
+  lv_style_set_text_color(&hint, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 20, 55)); ////hint.text.color = lv_color_hsv_to_rgb(hue, 20, 55);
 
-  theme.style.label.prim = &prim;
-  theme.style.label.sec  = &sec;
-  theme.style.label.hint = &hint;
+  ////TODO: theme.style.label.prim = &prim;
+  ////TODO: theme.style.label.sec  = &sec;
+  ////TODO: theme.style.label.hint = &hint;
 }
 
 void LittleVgl::InitThemeLine() {

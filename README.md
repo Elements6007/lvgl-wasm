@@ -73,6 +73,10 @@ Compare the original and converted files...
 
   Click `Files Changed` and look for `Clock.cpp`
 
+- [LittleVgl.cpp: LVGL Version 6 vs Version 7](https://github.com/AppKaki/lvgl-wasm/compare/AppKaki:littlevgl_before...master#diff-c2a76b9cd8a6d2fd824f1441a1e2ed34)
+
+  Click `Files Changed` and look for `LittleVgl.cpp`
+
 ## Migrating LVGL user_data
 
 `user_data` has been removed in LVGL 7. Code like this...
@@ -98,10 +102,28 @@ Code that uses `lv_label_set_style`...
 lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
 ```
 
-Has been changed to `lv_obj_add_style`...
+Has been changed to `lv_obj_reset_style_list` and `lv_obj_add_style`...
 
 ```c++
+//  Remove the styles coming from the theme
+lv_obj_reset_style_list(label_time, LV_LABEL_PART_MAIN);
+//  Then add style
 lv_obj_add_style(label_time, LV_LABEL_PART_MAIN, LabelBigStyle);
+```
+
+## Migrating LVGL lv_style_copy
+
+Change...
+
+```c++
+  lv_style_copy(&def, &lv_style_plain);
+  def.text.font = font;
+```
+
+To...
+```c++
+  lv_style_init(&def);
+  lv_style_set_text_font(&def, LV_STATE_DEFAULT, font);
 ```
 
 ## TODO

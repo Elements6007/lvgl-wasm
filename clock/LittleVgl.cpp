@@ -316,8 +316,8 @@ void LittleVgl::InitThemeButton() {
 
 
   lv_style_copy(&btn_rel, &def);
-  lv_style_set_main_color(&btn_rel, LV_STATE_DEFAULT,      lv_color_hsv_to_rgb(hue, 10, 40)); ////btn_rel.body.main_color     = lv_color_hsv_to_rgb(hue, 10, 40);
-  lv_style_set_grad_color(&btn_rel, LV_STATE_DEFAULT,      lv_color_hsv_to_rgb(hue, 10, 20)); ////btn_rel.body.grad_color     = lv_color_hsv_to_rgb(hue, 10, 20);
+  lv_style_set_bg_color(&btn_rel, LV_STATE_DEFAULT,      lv_color_hsv_to_rgb(hue, 10, 40)); ////btn_rel.body.main_color     = lv_color_hsv_to_rgb(hue, 10, 40);
+  lv_style_set_bg_grad_color(&btn_rel, LV_STATE_DEFAULT,      lv_color_hsv_to_rgb(hue, 10, 20)); ////btn_rel.body.grad_color     = lv_color_hsv_to_rgb(hue, 10, 20);
   lv_style_set_border_color(&btn_rel, LV_STATE_DEFAULT,    lv_color_hex3(0x111)); ////btn_rel.body.border.color   = lv_color_hex3(0x111);
   lv_style_set_border_width(&btn_rel, LV_STATE_DEFAULT,    1); ////btn_rel.body.border.width   = 1;
   lv_style_set_border_opa(&btn_rel, LV_STATE_DEFAULT,      LV_OPA_70); ////btn_rel.body.border.opa     = LV_OPA_70;
@@ -332,26 +332,26 @@ void LittleVgl::InitThemeButton() {
   lv_style_set_image_color(&btn_rel, LV_STATE_DEFAULT,          lv_color_hex3(0xeee)); ////btn_rel.image.color         = lv_color_hex3(0xeee);
 
   lv_style_copy(&btn_pr, &btn_rel);
-  lv_style_set_main_color(&btn_pr, LV_STATE_DEFAULT,  lv_color_hsv_to_rgb(hue, 10, 30)); ////btn_pr.body.main_color = lv_color_hsv_to_rgb(hue, 10, 30);
-  lv_style_set_grad_color(&btn_pr, LV_STATE_DEFAULT,  lv_color_hsv_to_rgb(hue, 10, 10)); ////btn_pr.body.grad_color = lv_color_hsv_to_rgb(hue, 10, 10);
+  lv_style_set_bg_color(&btn_pr, LV_STATE_DEFAULT,  lv_color_hsv_to_rgb(hue, 10, 30)); ////btn_pr.body.main_color = lv_color_hsv_to_rgb(hue, 10, 30);
+  lv_style_set_bg_grad_color(&btn_pr, LV_STATE_DEFAULT,  lv_color_hsv_to_rgb(hue, 10, 10)); ////btn_pr.body.grad_color = lv_color_hsv_to_rgb(hue, 10, 10);
 
   lv_style_copy(&btn_tgl_rel, &btn_rel);
-  lv_style_set_main_color(&btn_tgl_rel, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 20)); ////btn_tgl_rel.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 20);
-  lv_style_set_grad_color(&btn_tgl_rel, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 40)); ////btn_tgl_rel.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 40);
+  lv_style_set_bg_color(&btn_tgl_rel, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 20)); ////btn_tgl_rel.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 20);
+  lv_style_set_bg_grad_color(&btn_tgl_rel, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 40)); ////btn_tgl_rel.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 40);
   lv_style_set_shadow_width(&btn_tgl_rel, LV_STATE_DEFAULT, LV_DPI / 40); ////btn_tgl_rel.body.shadow.width = LV_DPI / 40;
   lv_style_set_text_color(&btn_tgl_rel, LV_STATE_DEFAULT,        lv_color_hex3(0xddd)); ////btn_tgl_rel.text.color        = lv_color_hex3(0xddd);
   lv_style_set_image_color(&btn_tgl_rel, LV_STATE_DEFAULT,       lv_color_hex3(0xddd)); ////btn_tgl_rel.image.color       = lv_color_hex3(0xddd);
 
   lv_style_copy(&btn_tgl_pr, &btn_rel);
-  lv_style_set_main_color(&btn_tgl_pr, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 10)); ////btn_tgl_pr.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 10);
-  lv_style_set_grad_color(&btn_tgl_pr, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 30)); ////btn_tgl_pr.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 30);
+  lv_style_set_bg_color(&btn_tgl_pr, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 10)); ////btn_tgl_pr.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 10);
+  lv_style_set_bg_grad_color(&btn_tgl_pr, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 30)); ////btn_tgl_pr.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 30);
   lv_style_set_shadow_width(&btn_tgl_pr, LV_STATE_DEFAULT, LV_DPI / 30); ////btn_tgl_pr.body.shadow.width = LV_DPI / 30;
   lv_style_set_text_color(&btn_tgl_pr, LV_STATE_DEFAULT,        lv_color_hex3(0xddd)); ////btn_tgl_pr.text.color        = lv_color_hex3(0xddd);
   lv_style_set_image_color(&btn_tgl_pr, LV_STATE_DEFAULT,       lv_color_hex3(0xddd)); ////btn_tgl_pr.image.color       = lv_color_hex3(0xddd);
 
   lv_style_copy(&btn_ina, &btn_rel);
-  lv_style_set_main_color(&btn_ina, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 20)); ////btn_ina.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 20);
-  lv_style_set_grad_color(&btn_ina, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 20)); ////btn_ina.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 20);
+  lv_style_set_bg_color(&btn_ina, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 20)); ////btn_ina.body.main_color   = lv_color_hsv_to_rgb(hue, 10, 20);
+  lv_style_set_bg_grad_color(&btn_ina, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 20)); ////btn_ina.body.grad_color   = lv_color_hsv_to_rgb(hue, 10, 20);
   lv_style_set_shadow_width(&btn_ina, LV_STATE_DEFAULT, 0); ////btn_ina.body.shadow.width = 0;
   lv_style_set_text_color(&btn_ina, LV_STATE_DEFAULT,        lv_color_hex3(0xaaa)); ////btn_ina.text.color        = lv_color_hex3(0xaaa);
   lv_style_set_image_color(&btn_ina, LV_STATE_DEFAULT,       lv_color_hex3(0xaaa)); ////btn_ina.image.color       = lv_color_hex3(0xaaa);

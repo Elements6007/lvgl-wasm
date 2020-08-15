@@ -10,6 +10,9 @@
 
 #include "LittleVgl.h"
 
+static Pinetime::Components::LittleVgl *disp_drv_user_data = 0; ////
+static Pinetime::Components::LittleVgl *indev_drv_user_data = 0; ////
+
 using namespace Pinetime::Components;
 
 extern "C" {
@@ -20,12 +23,12 @@ LV_FONT_DECLARE(jetbrains_mono_bold_20)
 lv_style_t* LabelBigStyle = nullptr;
 
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) {
-  auto* lvgl = static_cast<LittleVgl*>(disp_drv->user_data);
+  auto* lvgl = disp_drv_user_data; ////auto* lvgl = static_cast<LittleVgl*>(disp_drv->user_data);
   lvgl->FlushDisplay(area, color_p);
 }
 
 bool touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data) {
-  auto* lvgl = static_cast<LittleVgl*>(indev_drv->user_data);
+  auto* lvgl = indev_drv_user_data; ////auto* lvgl = static_cast<LittleVgl*>(indev_drv->user_data);
   return lvgl->GetTouchPadInfo(data);
 }
 
@@ -50,7 +53,7 @@ void LittleVgl::InitDisplay() {
   disp_drv.flush_cb = disp_flush;
   /*Set a display buffer*/
   disp_drv.buffer = &disp_buf_2;
-  disp_drv.user_data = this;
+  disp_drv_user_data = this; ////disp_drv.user_data = this;
 
   /*Finally register the driver*/
   lv_disp_drv_register(&disp_drv);
@@ -62,7 +65,7 @@ void LittleVgl::InitTouchpad() {
   lv_indev_drv_init(&indev_drv);
   indev_drv.type = LV_INDEV_TYPE_POINTER;
   indev_drv.read_cb = touchpad_read;
-  indev_drv.user_data = this;
+  indev_drv_user_data = this; ////indev_drv.user_data = this;
   lv_indev_drv_register(&indev_drv);
 }
 
@@ -70,12 +73,12 @@ void LittleVgl::SetFullRefresh(FullRefreshDirections direction) {
   if(scrollDirection == FullRefreshDirections::None) {
     scrollDirection = direction;
     if (scrollDirection == FullRefreshDirections::Down)
-      lv_disp_set_direction(lv_disp_get_default(), 1);
+      {} ////lv_disp_set_direction(lv_disp_get_default(), 1);
   }
 }
 
 void LittleVgl::FlushDisplay(const lv_area_t *area, lv_color_t *color_p) {
-  ulTaskNotifyTake(pdTRUE, 500);
+  ////ulTaskNotifyTake(pdTRUE, 500);
   // NOtification is still needed (even if there is a mutex on SPI) because of the DataCommand pin
   // which cannot be set/clear during a transfert.
 
@@ -100,7 +103,7 @@ void LittleVgl::FlushDisplay(const lv_area_t *area, lv_color_t *color_p) {
         if(area->y1 == 0) {
         toScroll = height*2;
         scrollDirection = FullRefreshDirections::None;
-        lv_disp_set_direction(lv_disp_get_default(), 0);
+        ////lv_disp_set_direction(lv_disp_get_default(), 0);
       } else {
         toScroll = height;
       }
@@ -112,12 +115,12 @@ void LittleVgl::FlushDisplay(const lv_area_t *area, lv_color_t *color_p) {
           scrollOffset = (totalNbLines) - toScroll;
       }
 
-      lcd.VerticalScrollDefinition(0, 320, 0);
-      lcd.VerticalScrollStartAddress(scrollOffset);
+      ////lcd.VerticalScrollDefinition(0, 320, 0);
+      ////lcd.VerticalScrollStartAddress(scrollOffset);
     }
 
-    lcd.BeginDrawBuffer(x, y, width, height);
-    lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height*2) ;
+    ////lcd.BeginDrawBuffer(x, y, width, height);
+    ////lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height*2) ;
 
   } else if(scrollDirection == FullRefreshDirections::Up) {
     if(area->y1 == 0) {
@@ -136,17 +139,17 @@ void LittleVgl::FlushDisplay(const lv_area_t *area, lv_color_t *color_p) {
       if(area->y2 == visibleNbLines -1) {
         scrollOffset += (height * 2);
         scrollDirection = FullRefreshDirections::None;
-        lv_disp_set_direction(lv_disp_get_default(), 0);
+        ////lv_disp_set_direction(lv_disp_get_default(), 0);
       } else {
         scrollOffset += height;
       }
       scrollOffset = scrollOffset % totalNbLines;
-      lcd.VerticalScrollDefinition(0, 320, 0);
-      lcd.VerticalScrollStartAddress(scrollOffset);
+      ////lcd.VerticalScrollDefinition(0, 320, 0);
+      ////lcd.VerticalScrollStartAddress(scrollOffset);
     }
 
-    lcd.BeginDrawBuffer(x, y, width, height);
-    lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height*2);
+    ////lcd.BeginDrawBuffer(x, y, width, height);
+    ////lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height*2);
   } else {
     x = area->x1;
     width = (area->x2 - area->x1) + 1;
@@ -157,15 +160,15 @@ void LittleVgl::FlushDisplay(const lv_area_t *area, lv_color_t *color_p) {
 
     if (y2 < y1) {
       height = (totalNbLines - 1) - y1;
-      lcd.BeginDrawBuffer(x, y1, width, height);
-      lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height * 2);
-      ulTaskNotifyTake(pdTRUE, 500);
+      ////lcd.BeginDrawBuffer(x, y1, width, height);
+      ////cd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height * 2);
+      ////ulTaskNotifyTake(pdTRUE, 500);
       height = y2;
-      lcd.BeginDrawBuffer(x, 0, width, height);
-      lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height * 2);
+      ////lcd.BeginDrawBuffer(x, 0, width, height);
+      ////lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height * 2);
     } else {
-      lcd.BeginDrawBuffer(x, y, width, height);
-      lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height * 2);
+      ////lcd.BeginDrawBuffer(x, y, width, height);
+      ////lcd.NextDrawBuffer(reinterpret_cast<const uint8_t *>(color_p), width * height * 2);
     }
   }
 

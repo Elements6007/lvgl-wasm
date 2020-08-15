@@ -1301,17 +1301,21 @@
           //  Init LVGL Display
           Module._init_display();
 
-          //  Construct the demo LVGL Widgets
-          Module._render_widgets();
+          //  Set to true to see demo widget, false to see PineTime Watch Face
+          const demo_mode = true;
+          if (demo_mode) {
+            //  Construct the demo LVGL Widgets
+            Module._render_widgets();
+          } else {
+            //  Create the LVGL Watch Face Widgets
+            Module._create_clock();
 
-          //  Create the LVGL Watch Face Widgets
-          //  Module._create_clock();
+            //  Refresh the LVGL Watch Face Widgets
+            //  Module._refresh_clock();
 
-          //  Refresh the LVGL Watch Face Widgets
-          //  Module._refresh_clock();
-
-          //  Update the LVGL Watch Face Widgets
-          //  Module._update_clock();
+            //  Update the LVGL Watch Face Widgets
+            //  Module._update_clock();
+          }
 
           //  Render LVGL Widgets to the WebAssembly Display Buffer
           Module._render_display();

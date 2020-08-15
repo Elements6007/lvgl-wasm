@@ -30,6 +30,8 @@ Completed Features:
 
 TODO Features:
 
+1. __Add fonts and symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
+
 1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 
 1. __Accept Touch Input__ for LVGL

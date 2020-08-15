@@ -104,6 +104,7 @@ wasm-as --version
 binaryen is now version 93, which is correct. Proceed to build the app...
 
 ```bash
+cd lvgl-wasm
 rm -rf ~/.emscripten_cache
 make clean
 make -j 5

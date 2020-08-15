@@ -126,6 +126,30 @@ lv_style_init(&def);
 lv_style_set_text_font(&def, LV_STATE_DEFAULT, font);
 ```
 
+## Migrating LVGL Styles
+
+Change...
+
+```c++
+lv_style_copy(&bg, &lv_style_plain);
+bg.body.main_color = LV_COLOR_BLACK;
+bg.body.grad_color = LV_COLOR_BLACK;
+bg.text.color      = LV_COLOR_WHITE;
+bg.text.font       = font;
+bg.image.color     = LV_COLOR_WHITE;
+```
+
+To...
+
+```c++
+lv_style_init(&bg);
+lv_style_set_bg_color(&bg, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+lv_style_set_bg_grad_color(&bg, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+lv_style_set_text_color(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE);
+lv_style_set_text_font(&bg, LV_STATE_DEFAULT, font);
+lv_style_set_image_recolor(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE);
+```
+
 ## TODO
 
 TODO: Fix these errors

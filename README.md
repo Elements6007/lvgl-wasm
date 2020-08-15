@@ -128,7 +128,7 @@ lv_style_set_text_font(&def, LV_STATE_DEFAULT, font);
 
 ## Migrating LVGL Styles
 
-Change...
+Change LVL 6 Style...
 
 ```c++
 lv_style_copy(&bg, &lv_style_plain);
@@ -139,7 +139,7 @@ bg.text.font       = font;
 bg.image.color     = LV_COLOR_WHITE;
 ```
 
-To...
+To LVL 7 Style...
 
 ```c++
 lv_style_init(&bg);
@@ -148,6 +148,43 @@ lv_style_set_bg_grad_color(&bg, LV_STATE_DEFAULT, LV_COLOR_BLACK);
 lv_style_set_text_color(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE);
 lv_style_set_text_font(&bg, LV_STATE_DEFAULT, font);
 lv_style_set_image_recolor(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE);
+```
+
+Change LVL 6 Style...
+
+```c++
+lv_style_copy(&panel, &bg);
+panel.body.main_color     = lv_color_hsv_to_rgb(hue, 11, 18);
+panel.body.grad_color     = lv_color_hsv_to_rgb(hue, 11, 18);
+panel.body.radius         = LV_DPI / 20;
+panel.body.border.color   = lv_color_hsv_to_rgb(hue, 10, 25);
+panel.body.border.width   = 1;
+panel.body.border.opa     = LV_OPA_COVER;
+panel.body.padding.left   = LV_DPI / 10;
+panel.body.padding.right  = LV_DPI / 10;
+panel.body.padding.top    = LV_DPI / 10;
+panel.body.padding.bottom = LV_DPI / 10;
+panel.line.color          = lv_color_hsv_to_rgb(hue, 20, 40);
+panel.line.width          = 1;
+```
+
+To LVL 7 Style...
+
+```c++
+//  TODO: Add panel style to bg style
+lv_style_init(&panel); 
+lv_style_set_bg_color(&panel, LV_STATE_DEFAULT,       lv_color_hsv_to_rgb(hue, 11, 18)); 
+lv_style_set_bg_grad_color(&panel, LV_STATE_DEFAULT,  lv_color_hsv_to_rgb(hue, 11, 18)); 
+lv_style_set_radius(&panel, LV_STATE_DEFAULT,         LV_DPI / 20); 
+lv_style_set_border_color(&panel, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 25)); 
+lv_style_set_border_width(&panel, LV_STATE_DEFAULT,   1); 
+lv_style_set_border_opa(&panel, LV_STATE_DEFAULT,     LV_OPA_COVER); 
+lv_style_set_pad_left(&panel, LV_STATE_DEFAULT,       LV_DPI / 10); 
+lv_style_set_pad_right(&panel, LV_STATE_DEFAULT,      LV_DPI / 10); 
+lv_style_set_pad_top(&panel, LV_STATE_DEFAULT,        LV_DPI / 10); 
+lv_style_set_pad_bottom(&panel, LV_STATE_DEFAULT,     LV_DPI / 10); 
+lv_style_set_line_color(&panel, LV_STATE_DEFAULT,     lv_color_hsv_to_rgb(hue, 20, 40)); 
+lv_style_set_line_width(&panel, LV_STATE_DEFAULT,     1); 
 ```
 
 ## TODO

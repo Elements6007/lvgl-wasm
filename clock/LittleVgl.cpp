@@ -272,42 +272,43 @@ void LittleVgl::InitBaseTheme() {
 
   ////TODO: Add scr style to bg style
   lv_style_init(&scr); ////lv_style_copy(&scr, &bg);
-  scr.body.padding.bottom = 0;
-  scr.body.padding.top    = 0;
-  scr.body.padding.left   = 0;
-  scr.body.padding.right  = 0;
+  lv_style_set_pad_bottom(&scr, LV_STATE_DEFAULT, 0); ////scr.body.padding.bottom = 0;
+  lv_style_set_pad_top(&scr, LV_STATE_DEFAULT,    0); ////scr.body.padding.top    = 0;
+  lv_style_set_pad_left(&scr, LV_STATE_DEFAULT,   0); ////scr.body.padding.left   = 0;
+  lv_style_set_pad_right(&scr, LV_STATE_DEFAULT,  0); ////scr.body.padding.right  = 0;
+
 
   ////TODO: Add sb style to bg style
   lv_style_init(&sb); ////lv_style_copy(&sb, &def);
-  sb.body.main_color     = lv_color_hsv_to_rgb(hue, 30, 60);
-  sb.body.grad_color     = lv_color_hsv_to_rgb(hue, 30, 60);
-  sb.body.border.width   = 0;
-  sb.body.padding.inner  = LV_DPI / 20;
-  sb.body.padding.left   = 0;
-  sb.body.padding.right  = 0;
-  sb.body.padding.top    = 0;
-  sb.body.padding.bottom = 0;
-  sb.body.radius         = LV_DPI / 30;
-  sb.body.opa            = LV_OPA_COVER;
+  lv_style_set_bg_color(&sb, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 30, 60)); ////sb.body.main_color     = lv_color_hsv_to_rgb(hue, 30, 60);
+  lv_style_set_bg_grad_color(&sb, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 30, 60)); ////sb.body.grad_color     = lv_color_hsv_to_rgb(hue, 30, 60);
+  lv_style_set_border_width(&sb, LV_STATE_DEFAULT,   0); ////sb.body.border.width   = 0;
+  lv_style_set_pad_inner(&sb, LV_STATE_DEFAULT,  LV_DPI / 20); ////sb.body.padding.inner  = LV_DPI / 20;
+  lv_style_set_pad_left(&sb, LV_STATE_DEFAULT,   0); ////sb.body.padding.left   = 0;
+  lv_style_set_pad_right(&sb, LV_STATE_DEFAULT,  0); ////sb.body.padding.right  = 0;
+  lv_style_set_pad_top(&sb, LV_STATE_DEFAULT,    0); ////sb.body.padding.top    = 0;
+  lv_style_set_pad_bottom(&sb, LV_STATE_DEFAULT, 0); ////sb.body.padding.bottom = 0;
+  lv_style_set_radius(&sb, LV_STATE_DEFAULT,         LV_DPI / 30); ////sb.body.radius         = LV_DPI / 30;
+  lv_style_set_opa(&sb, LV_STATE_DEFAULT,            LV_OPA_COVER); ////sb.body.opa            = LV_OPA_COVER;
 
   ////TODO: Add panel style to bg style
   lv_style_init(&panel); ////lv_style_copy(&panel, &bg);
-  panel.body.main_color     = lv_color_hsv_to_rgb(hue, 11, 18);
-  panel.body.grad_color     = lv_color_hsv_to_rgb(hue, 11, 18);
-  panel.body.radius         = LV_DPI / 20;
-  panel.body.border.color   = lv_color_hsv_to_rgb(hue, 10, 25);
-  panel.body.border.width   = 1;
-  panel.body.border.opa     = LV_OPA_COVER;
-  panel.body.padding.left   = LV_DPI / 10;
-  panel.body.padding.right  = LV_DPI / 10;
-  panel.body.padding.top    = LV_DPI / 10;
-  panel.body.padding.bottom = LV_DPI / 10;
-  panel.line.color          = lv_color_hsv_to_rgb(hue, 20, 40);
-  panel.line.width          = 1;
+  lv_style_set_bg_color(&panel, LV_STATE_DEFAULT,     lv_color_hsv_to_rgb(hue, 11, 18)); ////panel.body.main_color     = lv_color_hsv_to_rgb(hue, 11, 18);
+  lv_style_set_bg_grad_color(&panel, LV_STATE_DEFAULT,     lv_color_hsv_to_rgb(hue, 11, 18)); ////panel.body.grad_color     = lv_color_hsv_to_rgb(hue, 11, 18);
+  lv_style_set_radius(&panel, LV_STATE_DEFAULT,         LV_DPI / 20); ////panel.body.radius         = LV_DPI / 20;
+  lv_style_set_border_color(&panel, LV_STATE_DEFAULT,   lv_color_hsv_to_rgb(hue, 10, 25)); ////panel.body.border.color   = lv_color_hsv_to_rgb(hue, 10, 25);
+  lv_style_set_border_width(&panel, LV_STATE_DEFAULT,   1); ////panel.body.border.width   = 1;
+  lv_style_set_border_opa(&panel, LV_STATE_DEFAULT,     LV_OPA_COVER); ////panel.body.border.opa     = LV_OPA_COVER;
+  lv_style_set_pad_left(&panel, LV_STATE_DEFAULT,    LV_DPI / 10); ////panel.body.padding.left   = LV_DPI / 10;
+  lv_style_set_pad_right(&panel, LV_STATE_DEFAULT,   LV_DPI / 10); ////panel.body.padding.right  = LV_DPI / 10;
+  lv_style_set_pad_top(&panel, LV_STATE_DEFAULT,     LV_DPI / 10); ////panel.body.padding.top    = LV_DPI / 10;
+  lv_style_set_pad_bottom(&panel, LV_STATE_DEFAULT,  LV_DPI / 10); ////panel.body.padding.bottom = LV_DPI / 10;
+  lv_style_set_line_color(&panel, LV_STATE_DEFAULT,           lv_color_hsv_to_rgb(hue, 20, 40)); ////panel.line.color          = lv_color_hsv_to_rgb(hue, 20, 40);
+  lv_style_set_line_width(&panel, LV_STATE_DEFAULT,           1); ////panel.line.width          = 1;
 
-  theme.style.scr   = &scr;
-  theme.style.bg    = &bg;
-  theme.style.panel = &def;
+  lv_style_set_scr(&theme, LV_STATE_DEFAULT,    &scr); ////theme.style.scr   = &scr;
+  lv_style_set_bg(&theme, LV_STATE_DEFAULT,     &bg); ////theme.style.bg    = &bg;
+  lv_style_set_panel(&theme, LV_STATE_DEFAULT,  &def); ////theme.style.panel = &def;
 }
 
 void LittleVgl::InitThemeContainer() {

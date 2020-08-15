@@ -23,8 +23,8 @@ int create_clock(void) {
     lcd0 = new Pinetime::Drivers::St7789();
     touchPanel0 = new Pinetime::Drivers::Cst816S();
     littleVgl0 = new Pinetime::Components::LittleVgl(
-        lcd0,
-        touchPanel0
+        *lcd0,
+        *touchPanel0
     );
     assert(LabelBigStyle != nullptr);
 

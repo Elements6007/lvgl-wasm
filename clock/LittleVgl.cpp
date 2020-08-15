@@ -440,8 +440,9 @@ void LittleVgl::InitThemeBar() {
 }
 
 void LittleVgl::InitThemeSlider() {
-  lv_style_copy(&slider_knob, theme.style.btn.rel);
+  lv_style_init(&slider_knob);////
 #ifdef TODO
+  lv_style_copy(&slider_knob, theme.style.btn.rel);
   slider_knob.body.radius = LV_RADIUS_CIRCLE;
 
   theme.style.slider.bg    = theme.style.bar.bg;
@@ -514,7 +515,9 @@ void LittleVgl::InitThemePreload() {
 }
 
 void LittleVgl::InitThemeChart() {
+#ifdef TODO
   theme.style.chart = &panel;
+#endif  //  TODO
 }
 
 void LittleVgl::InitThemeCalendar() {

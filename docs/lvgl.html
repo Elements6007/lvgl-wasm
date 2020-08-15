@@ -1298,6 +1298,12 @@
       ///  In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
       function render_canvas() {
           Module.print(`In JavaScript: render_canvas()`);
+          //  Init LVGL Display
+          Module._init_display();
+
+          //  Construct the LVGL Widgets
+          Module._render_widgets();
+
           //  Render LVGL Widgets to the WebAssembly Display Buffer
           Module._render_display();
   

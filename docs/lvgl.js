@@ -670,8 +670,8 @@ var wasmMemory;
 // so this creates a (non-native-wasm) table for us.
 
 var wasmTable = new WebAssembly.Table({
-  'initial': 50,
-  'maximum': 50 + 0,
+  'initial': 52,
+  'maximum': 52 + 0,
   'element': 'anyfunc'
 });
 
@@ -1292,11 +1292,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 6020064,
+    STACK_BASE = 6020592,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 777184,
-    DYNAMIC_BASE = 6020064,
-    DYNAMICTOP_PTR = 777024;
+    STACK_MAX = 777712,
+    DYNAMIC_BASE = 6020592,
+    DYNAMICTOP_PTR = 777552;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1881,7 +1881,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 776160;
+// STATICTOP = STATIC_BASE + 776688;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -1941,8 +1941,12 @@ var ASM_CONSTS = {
       abort('stack overflow')
     }
 
+  function _abort() {
+      abort();
+    }
+
   function _emscripten_get_sbrk_ptr() {
-      return 777024;
+      return 777552;
     }
 
   function _emscripten_memcpy_big(dest, src, num) {
@@ -2105,10 +2109,19 @@ function intArrayToString(array) {
 
 
 var asmGlobalArg = {};
-var asmLibraryArg = { "__assert_fail": ___assert_fail, "__handle_stack_overflow": ___handle_stack_overflow, "emscripten_get_sbrk_ptr": _emscripten_get_sbrk_ptr, "emscripten_memcpy_big": _emscripten_memcpy_big, "emscripten_resize_heap": _emscripten_resize_heap, "fd_write": _fd_write, "memory": wasmMemory, "setTempRet0": _setTempRet0, "table": wasmTable };
+var asmLibraryArg = { "__assert_fail": ___assert_fail, "__handle_stack_overflow": ___handle_stack_overflow, "abort": _abort, "emscripten_get_sbrk_ptr": _emscripten_get_sbrk_ptr, "emscripten_memcpy_big": _emscripten_memcpy_big, "emscripten_resize_heap": _emscripten_resize_heap, "fd_write": _fd_write, "memory": wasmMemory, "setTempRet0": _setTempRet0, "table": wasmTable };
 var asm = createWasm();
 /** @type {function(...*):?} */
 var ___wasm_call_ctors = Module["___wasm_call_ctors"] = createExportWrapper("__wasm_call_ctors");
+
+/** @type {function(...*):?} */
+var _create_clock = Module["_create_clock"] = createExportWrapper("create_clock");
+
+/** @type {function(...*):?} */
+var _refresh_clock = Module["_refresh_clock"] = createExportWrapper("refresh_clock");
+
+/** @type {function(...*):?} */
+var _update_clock = Module["_update_clock"] = createExportWrapper("update_clock");
 
 /** @type {function(...*):?} */
 var _get_display_buffer = Module["_get_display_buffer"] = createExportWrapper("get_display_buffer");
@@ -2123,6 +2136,12 @@ var _get_display_height = Module["_get_display_height"] = createExportWrapper("g
 var _test_display = Module["_test_display"] = createExportWrapper("test_display");
 
 /** @type {function(...*):?} */
+var _init_display = Module["_init_display"] = createExportWrapper("init_display");
+
+/** @type {function(...*):?} */
+var _render_widgets = Module["_render_widgets"] = createExportWrapper("render_widgets");
+
+/** @type {function(...*):?} */
 var _render_display = Module["_render_display"] = createExportWrapper("render_display");
 
 /** @type {function(...*):?} */
@@ -2133,6 +2152,15 @@ var ___errno_location = Module["___errno_location"] = createExportWrapper("__err
 
 /** @type {function(...*):?} */
 var _fflush = Module["_fflush"] = createExportWrapper("fflush");
+
+/** @type {function(...*):?} */
+var __get_tzname = Module["__get_tzname"] = createExportWrapper("_get_tzname");
+
+/** @type {function(...*):?} */
+var __get_daylight = Module["__get_daylight"] = createExportWrapper("_get_daylight");
+
+/** @type {function(...*):?} */
+var __get_timezone = Module["__get_timezone"] = createExportWrapper("_get_timezone");
 
 /** @type {function(...*):?} */
 var stackSave = Module["stackSave"] = createExportWrapper("stackSave");
@@ -2186,10 +2214,10 @@ var dynCall_iiiiiii = Module["dynCall_iiiiiii"] = createExportWrapper("dynCall_i
 var dynCall_viiiii = Module["dynCall_viiiii"] = createExportWrapper("dynCall_viiiii");
 
 /** @type {function(...*):?} */
-var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
+var dynCall_iidiiii = Module["dynCall_iidiiii"] = createExportWrapper("dynCall_iidiiii");
 
 /** @type {function(...*):?} */
-var dynCall_iidiiii = Module["dynCall_iidiiii"] = createExportWrapper("dynCall_iidiiii");
+var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
 
 /** @type {function(...*):?} */
 var __growWasmMemory = Module["__growWasmMemory"] = createExportWrapper("__growWasmMemory");

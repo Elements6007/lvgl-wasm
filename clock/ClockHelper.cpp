@@ -1,6 +1,7 @@
 ////  WebAssembly Helper
 #include <stdio.h>
 #include <assert.h>
+#include "LittleVgl.h"
 #include "Clock.h"
 #include "ClockHelper.h"
 

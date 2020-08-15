@@ -86,7 +86,7 @@ disp_drv.user_data = this;
 auto* lvgl = static_cast<LittleVgl*>(disp_drv->user_data);
 ```
 
-Has been changed to...
+Should be changed to...
 
 ```c++
 static Pinetime::Components::LittleVgl *disp_drv_user_data = nullptr;
@@ -102,7 +102,7 @@ Code that uses `lv_label_set_style`...
 lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
 ```
 
-Has been changed to `lv_obj_reset_style_list` and `lv_obj_add_style`...
+Should be changed to `lv_obj_reset_style_list` and `lv_obj_add_style`...
 
 ```c++
 //  Remove the styles coming from the theme

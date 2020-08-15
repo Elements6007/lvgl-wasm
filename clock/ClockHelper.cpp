@@ -4,19 +4,30 @@
 #include "Clock.h"
 #include "ClockHelper.h"
 
+static Pinetime::Components::LittleVgl *littleVgl0 = nullptr;
+static Pinetime::Drivers::St7789 *lcd0 = nullptr;
+static Pinetime::Drivers::Cst816S *touchPanel0 = nullptr;
 static Pinetime::Applications::Screens::Clock *clock0 = nullptr;
 static DisplayApp *app0 = nullptr;
 static Pinetime::Controllers::DateTime *dateTimeController0 = nullptr;
 static Pinetime::Controllers::Battery *batteryController0 = nullptr;
 static Pinetime::Controllers::Ble *bleController0 = nullptr;
-
-//  TODO: Check LabelBigStyle
-//  extern lv_style_t* LabelBigStyle;
-//  assert(LabelBigStyle != nullptr);
+extern lv_style_t* LabelBigStyle;
 
 /// Create an instance of the clock
 int create_clock(void) {
     puts("In C++: Creating clock...");
+
+    //  Init LVGL styles
+    lcd0 = new Pinetime::Drivers::St7789();
+    touchPanel0 = new Pinetime::Drivers::Cst816S();
+    littleVgl0 = new Pinetime::Components::LittleVgl(
+        lcd0,
+        touchPanel0
+    );
+    assert(LabelBigStyle != nullptr);
+
+    //  Create clock
     app0 = new DisplayApp();
     dateTimeController0 = new Pinetime::Controllers::DateTime();
     batteryController0 = new Pinetime::Controllers::Battery();

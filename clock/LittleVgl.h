@@ -6,6 +6,14 @@
 ////#include <drivers/St7789.h>
 ////#include <drivers/Cst816s.h>
 
+////Begin
+namespace Pinetime { 
+  namespace Drivers {
+    class St7789 {};
+    class Cst816S {};
+  } 
+}
+////End
 
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p);
 static bool touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data);

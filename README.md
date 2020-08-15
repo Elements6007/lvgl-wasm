@@ -155,6 +155,10 @@ Fails with error:
 
 # Stack Trace for PineTime Watch Face
 
+TODO: Init LabelBigStyle and fonts
+
+https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp
+
 ```
 lvgl.js:1839 Fetch finished loading: GET "http://127.0.0.1:8887/lvgl.wasm".
 instantiateAsync @ lvgl.js:1839

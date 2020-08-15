@@ -287,7 +287,7 @@ void LittleVgl::InitBaseTheme() {
   lv_style_set_pad_top(&sb, LV_STATE_DEFAULT,    0); ////sb.body.padding.top    = 0;
   lv_style_set_pad_bottom(&sb, LV_STATE_DEFAULT, 0); ////sb.body.padding.bottom = 0;
   lv_style_set_radius(&sb, LV_STATE_DEFAULT,         LV_DPI / 30); ////sb.body.radius         = LV_DPI / 30;
-  lv_style_set_opa(&sb, LV_STATE_DEFAULT,            LV_OPA_COVER); ////sb.body.opa            = LV_OPA_COVER;
+  ////TODO: lv_style_set_opa(&sb, LV_STATE_DEFAULT,            LV_OPA_COVER); ////sb.body.opa            = LV_OPA_COVER;
 
   lv_style_copy(&panel, &bg);
   lv_style_set_bg_color(&panel, LV_STATE_DEFAULT,     lv_color_hsv_to_rgb(hue, 11, 18)); ////panel.body.main_color     = lv_color_hsv_to_rgb(hue, 11, 18);
@@ -309,7 +309,7 @@ void LittleVgl::InitBaseTheme() {
 }
 
 void LittleVgl::InitThemeContainer() {
-  theme.style.cont = &panel;
+  ////TODO: theme.style.cont = &panel;
 }
 
 void LittleVgl::InitThemeButton() {
@@ -325,7 +325,7 @@ void LittleVgl::InitThemeButton() {
   lv_style_set_pad_right(&btn_rel, LV_STATE_DEFAULT,   LV_DPI / 4); ////btn_rel.body.padding.right  = LV_DPI / 4;
   lv_style_set_pad_top(&btn_rel, LV_STATE_DEFAULT,     LV_DPI / 8); ////btn_rel.body.padding.top    = LV_DPI / 8;
   lv_style_set_pad_bottom(&btn_rel, LV_STATE_DEFAULT,  LV_DPI / 8); ////btn_rel.body.padding.bottom = LV_DPI / 8;
-  lv_style_set_shadow_type(&btn_rel, LV_STATE_DEFAULT,     LV_SHADOW_BOTTOM); ////btn_rel.body.shadow.type    = LV_SHADOW_BOTTOM;
+  ////TODO: lv_style_set_shadow_type(&btn_rel, LV_STATE_DEFAULT,     LV_SHADOW_BOTTOM); ////btn_rel.body.shadow.type    = LV_SHADOW_BOTTOM;
   lv_style_set_shadow_color(&btn_rel, LV_STATE_DEFAULT,    lv_color_hex3(0x111)); ////btn_rel.body.shadow.color   = lv_color_hex3(0x111);
   lv_style_set_shadow_width(&btn_rel, LV_STATE_DEFAULT,    LV_DPI / 30); ////btn_rel.body.shadow.width   = LV_DPI / 30;
   lv_style_set_text_color(&btn_rel, LV_STATE_DEFAULT,           lv_color_hex3(0xeee)); ////btn_rel.text.color          = lv_color_hex3(0xeee);

@@ -57,11 +57,21 @@ PineTime runs on LVGL version 6 while our WebAssembly port runs on LVGL version 
 
 Here's how we migrated our code from LVGL Version 6...
 
-[Original PineTime LittleVgl.cpp](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
+- [Original PineTime Clock.cpp](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
+
+- [Original PineTime LittleVgl.cpp](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
 
 To LVGL Version 7...
 
-[Converted WebAssembly LittleVgl.cpp](clock/LittleVgl.cpp)
+- [Converted WebAssembly Clock.cpp](clock/Clock.cpp)
+
+- [Converted WebAssembly LittleVgl.cpp](clock/LittleVgl.cpp)
+
+Compare the original and converted files...
+
+- [Clock.cpp: LVGL Version 6 vs Version 7](https://github.com/AppKaki/lvgl-wasm/compare/clock_before...master#diff-9a3204013cda108f0edc5647e908ea82)
+
+  Click `Files Changed` and look for `Clock.cpp`
 
 ## Migrating LVGL user_data
 

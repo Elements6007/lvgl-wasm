@@ -24,6 +24,8 @@ Completed Features:
 
 1. __Render LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2
 
+1. __Compile actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) was converted to [WebAssembly `clock`](clock)
+
 TODO Features:
 
 1. __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
@@ -31,8 +33,6 @@ TODO Features:
 1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 
 1. __Accept Touch Input__ for LVGL
-
-1. __Compile actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
 
 1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
 

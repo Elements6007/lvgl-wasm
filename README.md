@@ -50,6 +50,124 @@ References:
 
 _Custom PineTime Watch Face created in C++_
 
+
+# Migrating LVGL Version 6 to 7
+
+PineTime runs on LVGL version 6 while our WebAssembly port runs on LVGL version 7. And programs built for LVGL version 6 will not compile with LVGL version 7.
+
+Here's how we migrated our code from LVGL Version 6...
+
+[Original PineTime LittleVgl.cpp](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
+
+To LVGL Version 7...
+
+[Converted WebAssembly LittleVgl.cpp](clock/LittleVgl.cpp)
+
+## Migrating LVGL user_data
+
+Code like this...
+
+```c++
+disp_drv.user_data = this;
+auto* lvgl = static_cast<LittleVgl*>(disp_drv->user_data);
+```
+
+Has been changed to...
+
+```c++
+static Pinetime::Components::LittleVgl *disp_drv_user_data = 0;
+disp_drv_user_data = this;
+auto* lvgl = disp_drv_user_data;
+```
+
+## Migrating LVGL lv_label_set_style
+
+Code that uses `lv_label_set_style`...
+
+```c++
+lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
+```
+
+Has been changed to `lv_obj_add_style`...
+
+```c++
+lv_obj_add_style(label_time, LV_LABEL_PART_MAIN, LabelBigStyle);
+```
+
+## TODO
+
+TODO: Fix these errors
+
+```bash
+[luppy@pinebook lvgl-wasm]$  em++ -I src/lv_core clock/LittleVgl.cpp 
+shared:INFO: EM_IGNORE_SANITY set, ignoring sanity checks
+clock/LittleVgl.cpp:221:49: error: no member named 'style' in '_lv_theme_t'
+  lv_style_t ** style_p = (lv_style_t **)&theme.style;
+                                          ~~~~~ ^
+clock/LittleVgl.cpp:222:18: error: use of undeclared identifier 'LV_THEME_STYLE_COUNT'
+  for(i = 0; i < LV_THEME_STYLE_COUNT; i++) {
+                 ^
+clock/LittleVgl.cpp:258:3: error: use of undeclared identifier 'lv_theme_set_current'; did you mean 'lv_theme_set_act'?
+  lv_theme_set_current(&theme);
+  ^~~~~~~~~~~~~~~~~~~~
+  lv_theme_set_act
+clock/../src/lv_themes/lv_theme.h:177:6: note: 'lv_theme_set_act' declared here
+void lv_theme_set_act(lv_theme_t * th);
+     ^
+clock/LittleVgl.cpp:263:24: error: use of undeclared identifier 'lv_style_plain'
+  lv_style_copy(&def, &lv_style_plain); /*Initialize the default style*/
+                       ^
+clock/LittleVgl.cpp:264:7: error: no member named 'text' in 'lv_style_t'
+  def.text.font = font;
+  ~~~ ^
+clock/LittleVgl.cpp:266:23: error: use of undeclared identifier 'lv_style_plain'
+  lv_style_copy(&bg, &lv_style_plain);
+                      ^
+clock/LittleVgl.cpp:267:6: error: no member named 'body' in 'lv_style_t'
+  bg.body.main_color = LV_COLOR_BLACK;
+  ~~ ^
+clock/LittleVgl.cpp:268:6: error: no member named 'body' in 'lv_style_t'
+  bg.body.grad_color = LV_COLOR_BLACK;
+  ~~ ^
+clock/LittleVgl.cpp:269:6: error: no member named 'text' in 'lv_style_t'
+  bg.text.color      = LV_COLOR_WHITE;
+  ~~ ^
+clock/LittleVgl.cpp:270:6: error: no member named 'text' in 'lv_style_t'
+  bg.text.font       = font;
+  ~~ ^
+clock/LittleVgl.cpp:271:6: error: no member named 'image' in 'lv_style_t'
+  bg.image.color     = LV_COLOR_WHITE;
+  ~~ ^
+clock/LittleVgl.cpp:274:7: error: no member named 'body' in 'lv_style_t'
+  scr.body.padding.bottom = 0;
+  ~~~ ^
+clock/LittleVgl.cpp:275:7: error: no member named 'body' in 'lv_style_t'
+  scr.body.padding.top    = 0;
+  ~~~ ^
+clock/LittleVgl.cpp:276:7: error: no member named 'body' in 'lv_style_t'
+  scr.body.padding.left   = 0;
+  ~~~ ^
+clock/LittleVgl.cpp:277:7: error: no member named 'body' in 'lv_style_t'
+  scr.body.padding.right  = 0;
+  ~~~ ^
+clock/LittleVgl.cpp:280:6: error: no member named 'body' in 'lv_style_t'
+  sb.body.main_color     = lv_color_hsv_to_rgb(hue, 30, 60);
+  ~~ ^
+clock/LittleVgl.cpp:281:6: error: no member named 'body' in 'lv_style_t'
+  sb.body.grad_color     = lv_color_hsv_to_rgb(hue, 30, 60);
+  ~~ ^
+clock/LittleVgl.cpp:282:6: error: no member named 'body' in 'lv_style_t'
+  sb.body.border.width   = 0;
+  ~~ ^
+clock/LittleVgl.cpp:283:6: error: no member named 'body' in 'lv_style_t'
+  sb.body.padding.inner  = LV_DPI / 20;
+  ~~ ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+em++: error: '/opt/emscripten-llvm/bin/clang++ -target wasm32-unknown-emscripten -D__EMSCRIPTEN_major__=1 -D__EMSCRIPTEN_minor__=40 -D__EMSCRIPTEN_tiny__=1 -D_LIBCPP_ABI_VERSION=2 -Dunix -D__unix -D__unix__ -Werror=implicit-function-declaration -Xclang -nostdsysteminc -Xclang -isystem/usr/lib/emscripten/system/include/libcxx -Xclang -isystem/usr/lib/emscripten/system/lib/libcxxabi/include -Xclang -isystem/usr/lib/emscripten/system/include/compat -Xclang -isystem/usr/lib/emscripten/system/include -Xclang -isystem/usr/lib/emscripten/system/include/libc -Xclang -isystem/usr/lib/emscripten/system/lib/libc/musl/arch/emscripten -Xclang -isystem/usr/lib/emscripten/system/local/include -Xclang -isystem/usr/lib/emscripten/system/include/SSE -Xclang -isystem/usr/lib/emscripten/system/lib/compiler-rt/include -Xclang -isystem/usr/lib/emscripten/system/lib/libunwind/include -Xclang -isystem/home/luppy/.emscripten_cache/wasm/include -DEMSCRIPTEN -fignore-exceptions -Isrc/lv_core clock/LittleVgl.cpp -Xclang -isystem/usr/lib/emscripten/system/include/SDL -c -o /tmp/emscripten_temp_d_p2h1en/LittleVgl_0.o -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr' failed (1)
+[luppy@pinebook lvgl-wasm]$ 
+```
+
 # Install emscripten on Ubuntu x64
 
 See the GitHub Actions Workflow...
@@ -211,109 +329,6 @@ Promise.then (async)
 instantiateAsync @ lvgl.js:1839
 createWasm @ lvgl.js:1866
 (anonymous) @ lvgl.js:2113
-```
-
-# Migrating LVGL Version 6 to 7
-
-PineTime runs on LVGL version 6 while our WebAssembly port runs on LVGL version 7. And programs built for LVGL version 6 will not compile with LVGL version 7.
-
-Here's how we migrated our code from LVGL Version 6...
-
-[Original PineTime LittleVgl.cpp](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
-
-To LVGL Version 7...
-
-[Converted WebAssembly LittleVgl.cpp](clock/LittleVgl.cpp)
-
-## LVGL user_data
-
-Code like this...
-
-```c++
-disp_drv.user_data = this;
-auto* lvgl = static_cast<LittleVgl*>(disp_drv->user_data);
-```
-
-Has been changed to...
-
-```c++
-static Pinetime::Components::LittleVgl *disp_drv_user_data = 0;
-disp_drv_user_data = this;
-auto* lvgl = disp_drv_user_data;
-```
-
-## TODO
-
-TODO: Fix these errors
-
-```bash
-[luppy@pinebook lvgl-wasm]$  em++ -I src/lv_core clock/LittleVgl.cpp 
-shared:INFO: EM_IGNORE_SANITY set, ignoring sanity checks
-clock/LittleVgl.cpp:221:49: error: no member named 'style' in '_lv_theme_t'
-  lv_style_t ** style_p = (lv_style_t **)&theme.style;
-                                          ~~~~~ ^
-clock/LittleVgl.cpp:222:18: error: use of undeclared identifier 'LV_THEME_STYLE_COUNT'
-  for(i = 0; i < LV_THEME_STYLE_COUNT; i++) {
-                 ^
-clock/LittleVgl.cpp:258:3: error: use of undeclared identifier 'lv_theme_set_current'; did you mean 'lv_theme_set_act'?
-  lv_theme_set_current(&theme);
-  ^~~~~~~~~~~~~~~~~~~~
-  lv_theme_set_act
-clock/../src/lv_themes/lv_theme.h:177:6: note: 'lv_theme_set_act' declared here
-void lv_theme_set_act(lv_theme_t * th);
-     ^
-clock/LittleVgl.cpp:263:24: error: use of undeclared identifier 'lv_style_plain'
-  lv_style_copy(&def, &lv_style_plain); /*Initialize the default style*/
-                       ^
-clock/LittleVgl.cpp:264:7: error: no member named 'text' in 'lv_style_t'
-  def.text.font = font;
-  ~~~ ^
-clock/LittleVgl.cpp:266:23: error: use of undeclared identifier 'lv_style_plain'
-  lv_style_copy(&bg, &lv_style_plain);
-                      ^
-clock/LittleVgl.cpp:267:6: error: no member named 'body' in 'lv_style_t'
-  bg.body.main_color = LV_COLOR_BLACK;
-  ~~ ^
-clock/LittleVgl.cpp:268:6: error: no member named 'body' in 'lv_style_t'
-  bg.body.grad_color = LV_COLOR_BLACK;
-  ~~ ^
-clock/LittleVgl.cpp:269:6: error: no member named 'text' in 'lv_style_t'
-  bg.text.color      = LV_COLOR_WHITE;
-  ~~ ^
-clock/LittleVgl.cpp:270:6: error: no member named 'text' in 'lv_style_t'
-  bg.text.font       = font;
-  ~~ ^
-clock/LittleVgl.cpp:271:6: error: no member named 'image' in 'lv_style_t'
-  bg.image.color     = LV_COLOR_WHITE;
-  ~~ ^
-clock/LittleVgl.cpp:274:7: error: no member named 'body' in 'lv_style_t'
-  scr.body.padding.bottom = 0;
-  ~~~ ^
-clock/LittleVgl.cpp:275:7: error: no member named 'body' in 'lv_style_t'
-  scr.body.padding.top    = 0;
-  ~~~ ^
-clock/LittleVgl.cpp:276:7: error: no member named 'body' in 'lv_style_t'
-  scr.body.padding.left   = 0;
-  ~~~ ^
-clock/LittleVgl.cpp:277:7: error: no member named 'body' in 'lv_style_t'
-  scr.body.padding.right  = 0;
-  ~~~ ^
-clock/LittleVgl.cpp:280:6: error: no member named 'body' in 'lv_style_t'
-  sb.body.main_color     = lv_color_hsv_to_rgb(hue, 30, 60);
-  ~~ ^
-clock/LittleVgl.cpp:281:6: error: no member named 'body' in 'lv_style_t'
-  sb.body.grad_color     = lv_color_hsv_to_rgb(hue, 30, 60);
-  ~~ ^
-clock/LittleVgl.cpp:282:6: error: no member named 'body' in 'lv_style_t'
-  sb.body.border.width   = 0;
-  ~~ ^
-clock/LittleVgl.cpp:283:6: error: no member named 'body' in 'lv_style_t'
-  sb.body.padding.inner  = LV_DPI / 20;
-  ~~ ^
-fatal error: too many errors emitted, stopping now [-ferror-limit=]
-20 errors generated.
-em++: error: '/opt/emscripten-llvm/bin/clang++ -target wasm32-unknown-emscripten -D__EMSCRIPTEN_major__=1 -D__EMSCRIPTEN_minor__=40 -D__EMSCRIPTEN_tiny__=1 -D_LIBCPP_ABI_VERSION=2 -Dunix -D__unix -D__unix__ -Werror=implicit-function-declaration -Xclang -nostdsysteminc -Xclang -isystem/usr/lib/emscripten/system/include/libcxx -Xclang -isystem/usr/lib/emscripten/system/lib/libcxxabi/include -Xclang -isystem/usr/lib/emscripten/system/include/compat -Xclang -isystem/usr/lib/emscripten/system/include -Xclang -isystem/usr/lib/emscripten/system/include/libc -Xclang -isystem/usr/lib/emscripten/system/lib/libc/musl/arch/emscripten -Xclang -isystem/usr/lib/emscripten/system/local/include -Xclang -isystem/usr/lib/emscripten/system/include/SSE -Xclang -isystem/usr/lib/emscripten/system/lib/compiler-rt/include -Xclang -isystem/usr/lib/emscripten/system/lib/libunwind/include -Xclang -isystem/home/luppy/.emscripten_cache/wasm/include -DEMSCRIPTEN -fignore-exceptions -Isrc/lv_core clock/LittleVgl.cpp -Xclang -isystem/usr/lib/emscripten/system/include/SDL -c -o /tmp/emscripten_temp_d_p2h1en/LittleVgl_0.o -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr' failed (1)
-[luppy@pinebook lvgl-wasm]$ 
 ```
 
 <h1 align="center"> LVGL - Light and Versatile Graphics Library</h1>

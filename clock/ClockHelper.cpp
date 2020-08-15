@@ -4,11 +4,15 @@
 #include "Clock.h"
 #include "ClockHelper.h"
 
-static Pinetime::Applications::Screens::Clock *clock0 = 0;
-static DisplayApp *app0 = 0;
-static Pinetime::Controllers::DateTime *dateTimeController0 = 0;
-static Pinetime::Controllers::Battery *batteryController0 = 0;
-static Pinetime::Controllers::Ble *bleController0 = 0;
+static Pinetime::Applications::Screens::Clock *clock0 = nullptr;
+static DisplayApp *app0 = nullptr;
+static Pinetime::Controllers::DateTime *dateTimeController0 = nullptr;
+static Pinetime::Controllers::Battery *batteryController0 = nullptr;
+static Pinetime::Controllers::Ble *bleController0 = nullptr;
+
+//  TODO: Check LabelBigStyle
+//  extern lv_style_t* LabelBigStyle;
+//  assert(LabelBigStyle != nullptr);
 
 /// Create an instance of the clock
 int create_clock(void) {

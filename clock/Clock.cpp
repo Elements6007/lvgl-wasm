@@ -16,7 +16,7 @@ extern lv_font_t jetbrains_mono_bold_20;
 ////TODO: Init LabelBigStyle and fonts
 ////extern lv_style_t* LabelBigStyle;
 
-static Clock *backgroundLabel_user_data = 0; ////
+static Clock *backgroundLabel_user_data = nullptr; ////
 
 static void event_handler(lv_obj_t * obj, lv_event_t event) {
   Clock* screen = backgroundLabel_user_data; ////static_cast<Clock *>(obj->user_data);

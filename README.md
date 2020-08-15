@@ -22,7 +22,7 @@ Test of C WebAssembly calling Rust WebAssembly: [`test_rust.html`](docs/test_rus
 
 Completed Features:
 
-1. __Render LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2
+1. __Render LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
 
 1. __Compile actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) was converted to [WebAssembly `clock`](clock)
 

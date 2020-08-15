@@ -17,6 +17,7 @@ WASM_CSRCS := \
 	clock/Clock.cpp \
 	clock/ClockHelper.cpp \
 	clock/DateTimeController.cpp \
+	clock/LittleVgl.cpp \
 	clock/Symbols.cpp
 
 # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm

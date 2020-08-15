@@ -1301,8 +1301,17 @@
           //  Init LVGL Display
           Module._init_display();
 
-          //  Construct the LVGL Widgets
+          //  Construct the demo LVGL Widgets
           Module._render_widgets();
+
+          //  Create the LVGL Watch Face Widgets
+          //  Module._create_clock();
+
+          //  Refresh the LVGL Watch Face Widgets
+          //  Module._refresh_clock();
+
+          //  Update the LVGL Watch Face Widgets
+          //  Module._update_clock();
 
           //  Render LVGL Widgets to the WebAssembly Display Buffer
           Module._render_display();
@@ -1310,11 +1319,16 @@
           //  Resize the canvas to PineTime dimensions
           var width = Module._get_display_width();
           var height = Module._get_display_height();
-          Module.canvas.width = width;
-          Module.canvas.height = height;
-          var ctx = Module.canvas.getContext('2d');
+          if (
+            Module.canvas.width != width ||
+            Module.canvas.height != height
+          ) {
+            Module.canvas.width = width;
+            Module.canvas.height = height;
+          }
   
           //  Fetch the canvas pixels
+          var ctx = Module.canvas.getContext('2d');
           var imageData = ctx.getImageData(0, 0, width, height);
           var data = imageData.data;
   

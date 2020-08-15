@@ -10,8 +10,8 @@
 
 #include "LittleVgl.h"
 
-static Pinetime::Components::LittleVgl *disp_drv_user_data = 0; ////
-static Pinetime::Components::LittleVgl *indev_drv_user_data = 0; ////
+static Pinetime::Components::LittleVgl *disp_drv_user_data = nullptr; ////
+static Pinetime::Components::LittleVgl *indev_drv_user_data = nullptr; ////
 
 using namespace Pinetime::Components;
 
@@ -260,10 +260,10 @@ void LittleVgl::InitTheme() {
 
 void LittleVgl::InitBaseTheme() {
   if(font == nullptr) font = &jetbrains_mono_bold_20;
-  lv_style_copy(&def, &lv_style_plain); /*Initialize the default style*/
-  def.text.font = font;
+  lv_style_init(&def); ////lv_style_copy(&def, &lv_style_plain); /*Initialize the default style*/
+  lv_style_set_text_font(&def, LV_STATE_DEFAULT, font); ////def.text.font = font;
 
-  lv_style_copy(&bg, &lv_style_plain);
+  lv_style_init(&bg); ////lv_style_copy(&bg, &lv_style_plain);
   bg.body.main_color = LV_COLOR_BLACK;
   bg.body.grad_color = LV_COLOR_BLACK;
   bg.text.color      = LV_COLOR_WHITE;

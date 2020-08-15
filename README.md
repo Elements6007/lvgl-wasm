@@ -85,7 +85,7 @@ auto* lvgl = static_cast<LittleVgl*>(disp_drv->user_data);
 Has been changed to...
 
 ```c++
-static Pinetime::Components::LittleVgl *disp_drv_user_data = 0;
+static Pinetime::Components::LittleVgl *disp_drv_user_data = nullptr;
 disp_drv_user_data = this;
 auto* lvgl = disp_drv_user_data;
 ```

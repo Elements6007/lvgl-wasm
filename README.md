@@ -52,7 +52,7 @@ _Custom PineTime Watch Face created in C++_
 
 See the GitHub Actions Workflow...
 
-[`.github\workflows\ccpp.yml`](.github\workflows\ccpp.yml)
+[`.github/workflows/ccpp.yml`](.github/workflows/ccpp.yml)
 
 # Install emscripten on Arch Linux / Manjaro Arm64
 

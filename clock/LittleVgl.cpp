@@ -268,7 +268,7 @@ void LittleVgl::InitBaseTheme() {
   lv_style_set_bg_grad_color(&bg, LV_STATE_DEFAULT, LV_COLOR_BLACK); ////bg.body.grad_color = LV_COLOR_BLACK;
   lv_style_set_text_color(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE); ////bg.text.color      = LV_COLOR_WHITE;
   lv_style_set_text_font(&bg, LV_STATE_DEFAULT, font); ////bg.text.font       = font;
-  lv_style_set_image_color(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE); ////bg.image.color     = LV_COLOR_WHITE;
+  lv_style_set_image_recolor(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE); ////bg.image.color     = LV_COLOR_WHITE;
 
   lv_style_copy(&scr, &bg);
   scr.body.padding.bottom = 0;

@@ -22,23 +22,32 @@ LV_FONT_DECLARE(jetbrains_mono_bold_20)
 
 lv_style_t* LabelBigStyle = nullptr;
 
+#ifdef NOTUSED  ////  Not needed for WebAssembly
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) {
   auto* lvgl = disp_drv_user_data; ////auto* lvgl = static_cast<LittleVgl*>(disp_drv->user_data);
   lvgl->FlushDisplay(area, color_p);
 }
+#endif  ////  NOTUSED
 
+#ifdef NOTUSED  ////  Not needed for WebAssembly
 bool touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data) {
   auto* lvgl = indev_drv_user_data; ////auto* lvgl = static_cast<LittleVgl*>(indev_drv->user_data);
   return lvgl->GetTouchPadInfo(data);
 }
+#endif  ////  NOTUSED
 
 LittleVgl::LittleVgl(Pinetime::Drivers::St7789& lcd, Pinetime::Drivers::Cst816S& touchPanel) : lcd{lcd}, touchPanel{touchPanel}, previousClick{0,0} {
+#ifdef NOTUSED  ////  Not needed for WebAssembly
   lv_init();
+#endif  ////  NOTUSED
   InitTheme();
+#ifdef NOTUSED  ////  Not needed for WebAssembly
   InitDisplay();
   InitTouchpad();
+#endif  ////  NOTUSED
 }
 
+#ifdef NOTUSED  ////  Not needed for WebAssembly
 void LittleVgl::InitDisplay() {
   lv_disp_buf_init(&disp_buf_2, buf2_1, buf2_2, LV_HOR_RES_MAX * 4);   /*Initialize the display buffer*/
   lv_disp_drv_init(&disp_drv);                    /*Basic initialization*/
@@ -58,7 +67,9 @@ void LittleVgl::InitDisplay() {
   /*Finally register the driver*/
   lv_disp_drv_register(&disp_drv);
 }
+#endif  ////  NOTUSED
 
+#ifdef NOTUSED  ////  Not needed for WebAssembly
 void LittleVgl::InitTouchpad() {
   lv_indev_drv_t indev_drv;
 
@@ -68,7 +79,9 @@ void LittleVgl::InitTouchpad() {
   indev_drv_user_data = this; ////indev_drv.user_data = this;
   lv_indev_drv_register(&indev_drv);
 }
+#endif  ////  NOTUSED
 
+#ifdef NOTUSED  ////  Not needed for WebAssembly
 void LittleVgl::SetFullRefresh(FullRefreshDirections direction) {
   if(scrollDirection == FullRefreshDirections::None) {
     scrollDirection = direction;
@@ -76,7 +89,9 @@ void LittleVgl::SetFullRefresh(FullRefreshDirections direction) {
       {} ////lv_disp_set_direction(lv_disp_get_default(), 1);
   }
 }
+#endif  ////  NOTUSED
 
+#ifdef NOTUSED  ////  Not needed for WebAssembly
 void LittleVgl::FlushDisplay(const lv_area_t *area, lv_color_t *color_p) {
   ////ulTaskNotifyTake(pdTRUE, 500);
   // NOtification is still needed (even if there is a mutex on SPI) because of the DataCommand pin
@@ -176,13 +191,17 @@ void LittleVgl::FlushDisplay(const lv_area_t *area, lv_color_t *color_p) {
    * Inform the graphics library that you are ready with the flushing*/
   lv_disp_flush_ready(&disp_drv);
 }
+#endif  ////  NOTUSED
 
+#ifdef NOTUSED  ////  Not needed for WebAssembly
 void LittleVgl::SetNewTapEvent(uint16_t x, uint16_t y) {
   tap_x = x;
   tap_y = y;
   tapped = true;
 }
+#endif  ////  NOTUSED
 
+#ifdef NOTUSED  ////  Not needed for WebAssembly
 bool LittleVgl::GetTouchPadInfo(lv_indev_data_t *ptr) {
   if(tapped) {
     ptr->point.x = tap_x;
@@ -215,6 +234,7 @@ bool LittleVgl::GetTouchPadInfo(lv_indev_data_t *ptr) {
   return false;
    */
 }
+#endif  ////  NOTUSED
 
 void LittleVgl::InitTheme() {
 #ifdef TODO  

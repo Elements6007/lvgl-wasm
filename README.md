@@ -70,7 +70,7 @@ wasm-as --version
 
 This will fail during the build, because emscripten 1.39 needs binaryen version 93, not 95.
 
-We could install binaryen version 93... But emcc will fail with an error "stackSave already exists". That's because binaryen 93 generates the "stackSave" that conflicts with emscripten. [More details here](https://github.com/emscripten-core/emscripten/pull/11166)
+We could install binaryen version 93... But emcc will fail with an error "stackSave already exists". That's because binaryen 93 generates the "stackSave" that conflicts with emscripten 1.39.20. [More details here](https://github.com/emscripten-core/emscripten/pull/11166)
 
 To fix this, we install binaryen version 94, __but rename it as version 93__...
 

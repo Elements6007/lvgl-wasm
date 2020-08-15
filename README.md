@@ -116,14 +116,14 @@ lv_obj_add_style(label_time, LV_LABEL_PART_MAIN, LabelBigStyle);
 Change...
 
 ```c++
-  lv_style_copy(&def, &lv_style_plain);
-  def.text.font = font;
+lv_style_copy(&def, &lv_style_plain);
+def.text.font = font;
 ```
 
 To...
 ```c++
-  lv_style_init(&def);
-  lv_style_set_text_font(&def, LV_STATE_DEFAULT, font);
+lv_style_init(&def);
+lv_style_set_text_font(&def, LV_STATE_DEFAULT, font);
 ```
 
 ## TODO

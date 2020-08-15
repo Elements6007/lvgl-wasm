@@ -13,7 +13,7 @@ em++ -I src/lv_core clock/Clock.cpp
 using namespace Pinetime::Applications::Screens;
 extern lv_font_t jetbrains_mono_extrabold_compressed;
 extern lv_font_t jetbrains_mono_bold_20;
-extern lv_style_t* LabelBigStyle;
+////extern lv_style_t* LabelBigStyle;
 
 static Clock *backgroundLabel_user_data = 0; ////
 
@@ -53,7 +53,7 @@ Clock::Clock(DisplayApp* app,
   lv_obj_align(label_date, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 60);
 
   label_time = lv_label_create(lv_scr_act(), NULL);
-  lv_obj_add_style(label_time, LV_LABEL_PART_MAIN, LabelBigStyle); ////lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
+  ////lv_obj_add_style(label_time, LV_LABEL_PART_MAIN, LabelBigStyle); ////lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
   lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 0);
 
   backgroundLabel = lv_label_create(lv_scr_act(), NULL);

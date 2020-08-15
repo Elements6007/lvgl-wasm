@@ -217,12 +217,14 @@ bool LittleVgl::GetTouchPadInfo(lv_indev_data_t *ptr) {
 }
 
 void LittleVgl::InitTheme() {
+#ifdef TODO  
   uint16_t i;
   lv_style_t ** style_p = (lv_style_t **)&theme.style;
   for(i = 0; i < LV_THEME_STYLE_COUNT; i++) {
     *style_p = &def;
     style_p++;
   }
+#endif  //  TODO
 
   InitBaseTheme();
   InitThemeContainer();
@@ -255,7 +257,7 @@ void LittleVgl::InitTheme() {
   InitThemeTable();
   InitThemeWindow();
 
-  lv_theme_set_current(&theme);
+  ////TODO: lv_theme_set_current(&theme);
 }
 
 void LittleVgl::InitBaseTheme() {

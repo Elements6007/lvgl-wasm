@@ -28,9 +28,9 @@ Completed Features:
 
 1. __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces. [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
 
-TODO Features:
-
 1. __Add fonts and symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
+
+TODO Features:
 
 1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 
@@ -49,7 +49,6 @@ References:
 ![Custom PineTime Watch Face created in C++](https://lupyuen.github.io/images/vaultboy-watchface.jpg)
 
 _Custom PineTime Watch Face created in C++_
-
 
 # Migrating LVGL Version 6 to 7
 
@@ -123,6 +122,29 @@ Should be changed to...
 
 ```c++
 lv_style_init(&def);
+```
+
+## Migrating LVGL Themes
+
+In LVL 6, setting the default font for a Theme used to be easy...
+
+```c++
+lv_style_init(&def);
+lv_style_set_text_font(&def, LV_STATE_DEFAULT, &jetbrains_mono_bold_20);
+...
+lv_theme_set_current(&theme);
+```
+
+But in LVL 7, we need to use [Theme Callback Functions](https://docs.lvgl.io/latest/en/html/overview/style.html?highlight=theme#themes) to apply the style.
+
+A simpler solution is to set the default font in `lv_conf.h`...
+
+```c++
+#define LV_FONT_CUSTOM_DECLARE LV_FONT_DECLARE(jetbrains_mono_bold_20)
+#define LV_THEME_DEFAULT_FONT_SMALL         &jetbrains_mono_bold_20
+#define LV_THEME_DEFAULT_FONT_NORMAL        &jetbrains_mono_bold_20
+#define LV_THEME_DEFAULT_FONT_SUBTITLE      &jetbrains_mono_bold_20
+#define LV_THEME_DEFAULT_FONT_TITLE         &jetbrains_mono_bold_20
 ```
 
 ## Migrating LVGL Styles

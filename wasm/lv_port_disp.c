@@ -148,11 +148,11 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     int32_t y;
     for(y = area->y1; y <= area->y2; y++) {
         for(x = area->x1; x <= area->x2; x++) {
-            /* Put a pixel to the display */
+            //  Put a pixel to the display in RGB565 format
             put_display_px(x, y, 
-                color_p->ch.red, 
-                (color_p->ch.green_h << 3) + color_p->ch.green_l, 
-                color_p->ch.blue, 
+                color_p->ch.red  << 3,  //  5 bits for Red
+                ((color_p->ch.green_h << 3) + color_p->ch.green_l) << 2,   //  6 bits for Green
+                color_p->ch.blue << 3,  //  5 bits for Blue
                 0xff);
             color_p++;
         }

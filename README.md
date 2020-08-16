@@ -40,7 +40,7 @@ Proposed Workflow:
 
 1.  And then __pushes the generated WebAssembly files__ to GitHub Pages (or GitLab Pages)
 
-1.  We __preview the PineTime Watch Face__ through the Simulator in a web browser
+1.  We __preview the PineTime Watch Face__ through the Simulator in a web browser: [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
 
 1.  We if are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth
 

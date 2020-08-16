@@ -1354,7 +1354,7 @@
               for (var x = 0; x < width; x++) {
                 //  Copy from src to dest with scaling
                 const src = ((y * width) + x) * DISPLAY_BYTES_PER_PIXEL;
-                const dest = src * DISPLAY_SCALE;
+                const dest = src * DISPLAY_SCALE + ys;
                 //  Scale the pixels horizontally to fill the canvas
                 for (var xs = 0; xs < DISPLAY_SCALE; xs++) {
                   const dest2 = dest + xs * DISPLAY_BYTES_PER_PIXEL;

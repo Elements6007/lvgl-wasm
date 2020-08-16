@@ -330,9 +330,7 @@ Fails with error:
 
 # Stack Trace for PineTime Watch Face
 
-Caused by LabelBigStyle not being initialised.
-
-TODO: [Init LabelBigStyle and fonts](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
+This is a sample stack trace that appears in the web browser. It was caused by LabelBigStyle not being initialised.
 
 ```
 lvgl.js:1839 Fetch finished loading: GET "http://127.0.0.1:8887/lvgl.wasm".

@@ -55,8 +55,11 @@ all: $(TARGETS)
 clean:
 	rm *.o || true
 	rm clock/*.o || true
+	rm clock/ClockTmp.* || true
 	rm wasm/*.o || true
 	rm wasm/*.wasm || true
+	rm wasm/*.js || true
+	rm wasm/*.txt || true
 	rm -r $(HOME)/.emscripten_cache || true
 
 $(OBJ): %.o : %.c $(DEPS)

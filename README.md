@@ -34,9 +34,11 @@ References:
 
 _Custom PineTime Watch Face created in C++_
 
-# Files
+# How It Works
 
-Compile LVGL application to WebAssembly: [`lvgl.html`](docs/lvgl.html), [`lvgl.js`](docs/lvgl.js), [`lvgl.wasm`](docs/lvgl.wasm)
+PineTime Watch Face Simulator was compiled from C and C++ to WebAssembly with [emscripten](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)...
+
+- Generated Files: [`lvgl.html`](docs/lvgl.html), [`lvgl.js`](docs/lvgl.js), [`lvgl.wasm`](docs/lvgl.wasm)
 
 - [Online Demo](https://appkaki.github.io/lvgl-wasm/)
 
@@ -48,7 +50,9 @@ Compile LVGL application to WebAssembly: [`lvgl.html`](docs/lvgl.html), [`lvgl.j
 
 - [Makefile](Makefile)
 
-Test of C WebAssembly calling Rust WebAssembly: [`test_rust.html`](docs/test_rust.html), [`test_rust.js`](docs/test_rust.js), [`test_rust.wasm`](docs/test_rust.wasm)
+Here's a test of C WebAssembly calling Rust WebAssembly (which will be used for building Watches Faces in Rust)...
+
+- Generated Files: [`test_rust.html`](docs/test_rust.html), [`test_rust.js`](docs/test_rust.js), [`test_rust.wasm`](docs/test_rust.wasm)
 
 - [Online Demo](https://appkaki.github.io/lvgl-wasm/test_rust.html)
 

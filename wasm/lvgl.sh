@@ -4,6 +4,27 @@
 # Stop the script on error, echo all commands
 set -e -x
 
+# Rewrite Clock.cpp to build with WebAssembly:
+# Change <libs/date/includes/date/date.h>
+#   To "date.h"
+# Change <Components/DateTime/DateTimeController.h>
+#   To "DateTimeController.h"
+# Change <libs/lvgl/lvgl.h>
+#   To "../lvgl.h"
+# Change obj->user_data
+#   To backgroundLabel_user_data
+# Change backgroundLabel->user_data
+#   To backgroundLabel_user_data
+# Remove Screen(app),
+cat clock/Clock.cpp \
+    | sed 's/<libs/date/includes/date/date.h>/"date.h"/' \
+    | sed 's/<Components/DateTime/DateTimeController.h>/"DateTimeController.h"/' \
+    | sed 's/<libs/lvgl/lvgl.h>/"../lvgl.h"/' \
+    | sed 's/obj->user_data/backgroundLabel_user_data/' \
+    | sed 's/backgroundLabel->user_data/backgroundLabel_user_data/' \
+    | sed 's/Screen(app),//' \
+    >clock/ClockTmp.cpp
+
 # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 make -j
 

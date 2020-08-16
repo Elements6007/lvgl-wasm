@@ -207,7 +207,7 @@ lv_theme_set_current(&theme);
 
 But in LVL 7, we need to use [Theme Callback Functions](https://docs.lvgl.io/latest/en/html/overview/style.html?highlight=theme#themes) to apply the style.
 
-A simpler solution is to set the default font in `lv_conf.h`...
+A simpler solution is to set the default font in [`lv_conf.h`](lv_conf.h)...
 
 ```c++
 #define LV_FONT_CUSTOM_DECLARE LV_FONT_DECLARE(jetbrains_mono_bold_20)

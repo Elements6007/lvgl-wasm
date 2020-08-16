@@ -162,23 +162,6 @@ Compare the original and converted files...
 
   Click `Files Changed`, then `Changed Files` and look for `Clock/LittleVgl.cpp`
 
-## Migrating LVGL user_data
-
-`user_data` has been removed in LVGL 7. Code like this...
-
-```c++
-disp_drv.user_data = this;
-auto* lvgl = static_cast<LittleVgl*>(disp_drv->user_data);
-```
-
-Should be changed to...
-
-```c++
-static Pinetime::Components::LittleVgl *disp_drv_user_data = nullptr;
-disp_drv_user_data = this;
-auto* lvgl = disp_drv_user_data;
-```
-
 ## Migrating LVGL lv_label_set_style
 
 Code that uses `lv_label_set_style`...

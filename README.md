@@ -18,6 +18,10 @@ Upcoming Features:
 
 1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 
+1. __Show current date and time__
+
+1. __Show a selected date and time__
+
 1. __Accept Touch Input__ for LVGL
 
 1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)

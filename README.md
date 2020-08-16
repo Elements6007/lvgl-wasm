@@ -1,4 +1,4 @@
-<h1 align="center"> Experimental WebAssembly Port of LVGL </h1>
+<h1 align="center"> PineTime Watch Face Simulator with Experimental WebAssembly Port of LVGL </h1>
 
 Compile LVGL application to WebAssembly: [`lvgl.html`](docs/lvgl.html), [`lvgl.js`](docs/lvgl.js), [`lvgl.wasm`](docs/lvgl.wasm)
 

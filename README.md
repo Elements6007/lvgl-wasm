@@ -196,6 +196,18 @@ lv_obj_reset_style_list(label_time, LV_LABEL_PART_MAIN);
 lv_obj_add_style(label_time, LV_LABEL_PART_MAIN, LabelBigStyle);
 ```
 
+Or define a macro like so...
+
+```c++
+/// Change LVGL v6 lv_label_set_style() to LVGL v7 lv_obj_reset_style_list() and lv_obj_add_style()
+#define lv_label_set_style(label, style_type, style) \
+{ \
+    lv_obj_reset_style_list(label, LV_LABEL_PART_MAIN); \
+    lv_obj_add_style(label, LV_LABEL_PART_MAIN, style); \
+}
+lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
+```
+
 ## Migrating LVGL lv_style_plain
 
 `lv_style_plain` has been removed in LVGL 7. Code like this...

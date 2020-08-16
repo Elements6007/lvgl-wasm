@@ -62,7 +62,7 @@ Here's a test of C WebAssembly calling Rust WebAssembly (which will be used for 
 
 # WebAssembly Stack Trace for PineTime Watch Face
 
-This is a sample WebAssembly Stack Trace that appears in the web browser. It was caused by LabelBigStyle not being initialised.
+This is a sample WebAssembly Stack Trace that appears in the web browser. It happens when we don't initialise the LVGL Style `LabelBigStyle` used by [`Clock.cpp`](clock/Clock.cpp)
 
 ```
 lvgl.js:1839 Fetch finished loading: GET "http://127.0.0.1:8887/lvgl.wasm".

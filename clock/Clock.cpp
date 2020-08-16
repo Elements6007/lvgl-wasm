@@ -1,6 +1,3 @@
-/* To build:
-em++ -I src/lv_core clock/Clock.cpp
-*/
 #include <cstdio>
 #include "date.h" ////#include <libs/date/includes/date/date.h>
 #include "DateTimeController.h" ////#include <Components/DateTime/DateTimeController.h>
@@ -15,10 +12,8 @@ extern lv_font_t jetbrains_mono_extrabold_compressed;
 extern lv_font_t jetbrains_mono_bold_20;
 extern lv_style_t* LabelBigStyle;
 
-static Clock *backgroundLabel_user_data = nullptr; ////
-
 static void event_handler(lv_obj_t * obj, lv_event_t event) {
-  Clock* screen = backgroundLabel_user_data; ////static_cast<Clock *>(obj->user_data);
+  Clock* screen = static_cast<Clock *>(backgroundLabel_user_data); ////static_cast<Clock *>(obj->user_data);
   screen->OnObjectEvent(obj, event);
 }
 
@@ -53,8 +48,7 @@ Clock::Clock(DisplayApp* app,
   lv_obj_align(label_date, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 60);
 
   label_time = lv_label_create(lv_scr_act(), NULL);
-  lv_obj_reset_style_list(label_time, LV_LABEL_PART_MAIN); ////
-  lv_obj_add_style(label_time, LV_LABEL_PART_MAIN, LabelBigStyle); ////lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
+  lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
   lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 0);
 
   backgroundLabel = lv_label_create(lv_scr_act(), NULL);

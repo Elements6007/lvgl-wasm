@@ -1292,11 +1292,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 6020592,
+    STACK_BASE = 6013600,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 777712,
-    DYNAMIC_BASE = 6020592,
-    DYNAMICTOP_PTR = 777552;
+    STACK_MAX = 770720,
+    DYNAMIC_BASE = 6013600,
+    DYNAMICTOP_PTR = 770560;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1881,7 +1881,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 776688;
+// STATICTOP = STATIC_BASE + 769696;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -1946,7 +1946,7 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 777552;
+      return 770560;
     }
 
   function _emscripten_memcpy_big(dest, src, num) {
@@ -2196,9 +2196,6 @@ var dynCall_vii = Module["dynCall_vii"] = createExportWrapper("dynCall_vii");
 var dynCall_vi = Module["dynCall_vi"] = createExportWrapper("dynCall_vi");
 
 /** @type {function(...*):?} */
-var dynCall_iiiii = Module["dynCall_iiiii"] = createExportWrapper("dynCall_iiiii");
-
-/** @type {function(...*):?} */
 var dynCall_viii = Module["dynCall_viii"] = createExportWrapper("dynCall_viii");
 
 /** @type {function(...*):?} */
@@ -2212,6 +2209,9 @@ var dynCall_iiiiiii = Module["dynCall_iiiiiii"] = createExportWrapper("dynCall_i
 
 /** @type {function(...*):?} */
 var dynCall_viiiii = Module["dynCall_viiiii"] = createExportWrapper("dynCall_viiiii");
+
+/** @type {function(...*):?} */
+var dynCall_iiiii = Module["dynCall_iiiii"] = createExportWrapper("dynCall_iiiii");
 
 /** @type {function(...*):?} */
 var dynCall_iidiiii = Module["dynCall_iidiiii"] = createExportWrapper("dynCall_iidiiii");

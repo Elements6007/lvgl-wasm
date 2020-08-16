@@ -13,12 +13,13 @@ include lvgl.mk
 WASM_CSRCS := \
 	demo/lv_demo_widgets.c \
 	wasm/lv_port_disp.c \
+	clock/BatteryIcon.cpp \
 	clock/BleController.cpp \
+	clock/BleIcon.cpp \
 	clock/Clock.cpp \
 	clock/ClockHelper.cpp \
 	clock/DateTimeController.cpp \
 	clock/LittleVgl.cpp \
-	clock/Symbols.cpp \
 	clock/jetbrains_mono_bold_20.c \
 	clock/jetbrains_mono_extrabold_compressed.c
 

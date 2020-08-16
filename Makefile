@@ -53,8 +53,11 @@ OBJ    := \
 all: $(TARGETS)
 
 clean:
-	rm -f $(TARGETS) $(OBJ)
-	rm -rf $(HOME)/.emscripten_cache
+	rm *.o || true
+	rm clock/*.o || true
+	rm wasm/*.o || true
+	rm wasm/*.wasm || true
+	rm -r $(HOME)/.emscripten_cache || true
 
 $(OBJ): %.o : %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CCFLAGS)

@@ -30,19 +30,19 @@ Upcoming Features:
 
 Proposed Workflow:
 
-1.  We clone the repo in GitHub (or GitLab)
+1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab)
 
-1.  We edit `Clock.cpp` in the web browser
+1.  We __edit [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)__ in the web browser via GitHub (or GitLab Web IDE)
 
-1.  Which triggers a PineTime Firmware Build in GitHub Actions (or GitLab CD)
+1.  Which triggers a __PineTime Firmware Build__ in GitHub Actions (or GitLab CD)
 
-1.  Which also builds the PineTime Watch Face Simulator in WebAssembly
+1.  Which also builds the __PineTime Watch Face Simulator__ in WebAssembly
 
-1.  And and then pushes the generated WebAssembly files to GitHub Pages (or GitLab Pages)
+1.  And then __pushes the generated WebAssembly files__ to GitHub Pages (or GitLab Pages)
 
-1.  We preview the PineTime Watch Face Simulator through a web browser
+1.  We __preview the PineTime Watch Face__ through the Simulator in a web browser
 
-1.  We if are happy with the Watch Face, we flash the firmware to PineTime over Bluetooth
+1.  We if are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth
 
 References:
 

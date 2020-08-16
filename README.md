@@ -156,11 +156,11 @@ Compare the original and converted files...
 
 - [Clock.cpp: LVGL Version 6 vs Version 7](https://github.com/AppKaki/lvgl-wasm/compare/clock_before...master#diff-9a3204013cda108f0edc5647e908ea82)
 
-  Click `Files Changed` and look for `Clock.cpp`
+  Click `Files Changed`, then `Changed Files` and look for `Clock/Clock.cpp`
 
 - [LittleVgl.cpp: LVGL Version 6 vs Version 7](https://github.com/AppKaki/lvgl-wasm/compare/AppKaki:littlevgl_before...master#diff-c2a76b9cd8a6d2fd824f1441a1e2ed34)
 
-  Click `Files Changed` and look for `LittleVgl.cpp`
+  Click `Files Changed`, then `Changed Files` and look for `Clock/LittleVgl.cpp`
 
 ## Migrating LVGL user_data
 
@@ -309,7 +309,7 @@ For more examples of LVL Style migration, see...
 
 [LittleVgl.cpp: LVGL Version 6 vs Version 7](https://github.com/AppKaki/lvgl-wasm/compare/AppKaki:littlevgl_before...master#diff-c2a76b9cd8a6d2fd824f1441a1e2ed34)
 
-Click `Files Changed` and look for `LittleVgl.cpp`
+Click `Files Changed`, then `Changed Files` and look for `Clock/LittleVgl.cpp`
 
 # Install emscripten on Ubuntu x64
 

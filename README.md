@@ -12,9 +12,9 @@ Completed Features:
 
 1. __Add fonts and symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
 
-Upcoming Features:
-
 1. __Auto Convert any PineTime Watch Face from C++ to WebAssembly__ with `sed` and GitHub Actions / GitLab CD
+
+Upcoming Features:
 
 1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 

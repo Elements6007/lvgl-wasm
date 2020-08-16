@@ -32,6 +32,8 @@ Completed Features:
 
 TODO Features:
 
+1. __Auto Convert any PineTime Watch Face to WebAssembly__ with `sed` and GitHub Actions / GitLab CD
+
 1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 
 1. __Accept Touch Input__ for LVGL

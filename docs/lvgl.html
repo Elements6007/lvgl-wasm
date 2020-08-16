@@ -101,7 +101,10 @@
       }
     </style>
   </head>
-  <body>
+  <body style="font-size:small">
+    &nbsp;PineTime Watch Face Simulator
+    &nbsp;(<a href="https://github.com/AppKaki/lvgl-wasm">More info</a>)<br>
+
     <a href="http://emscripten.org">
       <svg
    version="1.1"
@@ -1199,8 +1202,8 @@
     <div class="emscripten" id="status">Downloading...</div>
 
 <span id='controls'>
-  <span><input type="checkbox" id="resize">Resize canvas</span>
-  <span><input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer &nbsp;&nbsp;&nbsp;</span>
+  <span><input type="checkbox" id="resize">Resize</span>
+  <span><input type="checkbox" id="pointerLock" checked>Lock&nbsp;&nbsp;</span>
   <span><input type="button" value="Fullscreen" onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, 
                                                                             document.getElementById('resize').checked)">
   </span>

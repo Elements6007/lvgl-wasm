@@ -60,6 +60,62 @@ Here's a test of C WebAssembly calling Rust WebAssembly (which will be used for 
 
 - [Rust Source File](rust/src/lib.rs)
 
+# WebAssembly Stack Trace for PineTime Watch Face
+
+This is a sample WebAssembly Stack Trace that appears in the web browser. It was caused by LabelBigStyle not being initialised.
+
+```
+lvgl.js:1839 Fetch finished loading: GET "http://127.0.0.1:8887/lvgl.wasm".
+instantiateAsync @ lvgl.js:1839
+createWasm @ lvgl.js:1866
+(anonymous) @ lvgl.js:2113
+lvgl2.html:1237 In JavaScript: render_canvas()
+lvgl2.html:1237 In C: Init display...
+lvgl2.html:1237 Init display...
+​ Uncaught RuntimeError: memory access out of bounds
+    at _lv_style_get_int (http://127.0.0.1:8887/lvgl.wasm:wasm-function[229]:0x21bfb)
+    at _lv_style_list_get_int (http://127.0.0.1:8887/lvgl.wasm:wasm-function[234]:0x22bf7)
+    at _lv_obj_get_style_int (http://127.0.0.1:8887/lvgl.wasm:wasm-function[87]:0xe524)
+    at lv_obj_get_style_shadow_width (http://127.0.0.1:8887/lvgl.wasm:wasm-function[162]:0x17d1b)
+    at lv_obj_get_draw_rect_ext_pad_size (http://127.0.0.1:8887/lvgl.wasm:wasm-function[43]:0x70ae)
+    at lv_obj_signal (http://127.0.0.1:8887/lvgl.wasm:wasm-function[33]:0x55e6)
+    at lv_label_signal (http://127.0.0.1:8887/lvgl.wasm:wasm-function[261]:0x27804)
+    at lv_obj_refresh_ext_draw_pad (http://127.0.0.1:8887/lvgl.wasm:wasm-function[45]:0x886f)
+    at lv_obj_signal (http://127.0.0.1:8887/lvgl.wasm:wasm-function[33]:0x5793)
+    at lv_label_signal (http://127.0.0.1:8887/lvgl.wasm:wasm-function[261]:0x27804)
+_lv_style_get_int @ ​
+_lv_style_list_get_int @ ​
+_lv_obj_get_style_int @ ​
+lv_obj_get_style_shadow_width @ ​
+lv_obj_get_draw_rect_ext_pad_size @ ​
+lv_obj_signal @ ​
+lv_label_signal @ ​
+lv_obj_refresh_ext_draw_pad @ ​
+lv_obj_signal @ ​
+lv_label_signal @ ​
+lv_obj_refresh_style @ ​
+lv_obj_add_style @ ​
+Pinetime::Applications::Screens::Clock::Clock(DisplayApp*, Pinetime::Controllers::DateTime&, Pinetime::Controllers::Battery&, Pinetime::Controllers::Ble&) @ ​
+create_clock @ ​
+(anonymous) @ lvgl.js:1734
+render_canvas @ lvgl2.html:1311
+Module.onRuntimeInitialized @ lvgl2.html:1354
+doRun @ lvgl.js:2496
+(anonymous) @ lvgl.js:2509
+setTimeout (async)
+run @ lvgl.js:2505
+runCaller @ lvgl.js:2411
+removeRunDependency @ lvgl.js:1632
+receiveInstance @ lvgl.js:1799
+receiveInstantiatedSource @ lvgl.js:1816
+Promise.then (async)
+(anonymous) @ lvgl.js:1841
+Promise.then (async)
+instantiateAsync @ lvgl.js:1839
+createWasm @ lvgl.js:1866
+(anonymous) @ lvgl.js:2113
+```
+
 # Migrating LVGL Version 6 to 7
 
 PineTime runs on LVGL version 6 while our WebAssembly port runs on LVGL version 7. And programs built for LVGL version 6 will not compile with LVGL version 7.
@@ -326,62 +382,6 @@ Fails with error:
    shared:INFO: (Emscripten: Running sanity checks)
    clang-10: error: unknown argument: '-fignore-exceptions'
    emcc: error: '/usr/local/opt/llvm/bin/clang -target wasm32-unknown-emscripten -D__EMSCRIPTEN_major__=1 -D__EMSCRIPTEN_minor__=40 -D__EMSCRIPTEN_tiny__=1 -D_LIBCPP_ABI_VERSION=2 -Dunix -D__unix -D__unix__ -Werror=implicit-function-declaration -Xclang -nostdsysteminc -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/compat -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/libc -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/libc/musl/arch/emscripten -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/local/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/SSE -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/compiler-rt/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/libunwind/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/cache/wasm/include -DEMSCRIPTEN -fignore-exceptions -Isrc/lv_core -D LV_USE_DEMO_WIDGETS ././src/lv_core/lv_group.c -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/SDL -c -o /var/folders/gp/jb0b68fn3b187mgyyrjml3km0000gn/T/emscripten_temp_caxv1fls/lv_group_0.o -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr' failed (1)
-```
-
-# Stack Trace for PineTime Watch Face
-
-This is a sample stack trace that appears in the web browser. It was caused by LabelBigStyle not being initialised.
-
-```
-lvgl.js:1839 Fetch finished loading: GET "http://127.0.0.1:8887/lvgl.wasm".
-instantiateAsync @ lvgl.js:1839
-createWasm @ lvgl.js:1866
-(anonymous) @ lvgl.js:2113
-lvgl2.html:1237 In JavaScript: render_canvas()
-lvgl2.html:1237 In C: Init display...
-lvgl2.html:1237 Init display...
-​ Uncaught RuntimeError: memory access out of bounds
-    at _lv_style_get_int (http://127.0.0.1:8887/lvgl.wasm:wasm-function[229]:0x21bfb)
-    at _lv_style_list_get_int (http://127.0.0.1:8887/lvgl.wasm:wasm-function[234]:0x22bf7)
-    at _lv_obj_get_style_int (http://127.0.0.1:8887/lvgl.wasm:wasm-function[87]:0xe524)
-    at lv_obj_get_style_shadow_width (http://127.0.0.1:8887/lvgl.wasm:wasm-function[162]:0x17d1b)
-    at lv_obj_get_draw_rect_ext_pad_size (http://127.0.0.1:8887/lvgl.wasm:wasm-function[43]:0x70ae)
-    at lv_obj_signal (http://127.0.0.1:8887/lvgl.wasm:wasm-function[33]:0x55e6)
-    at lv_label_signal (http://127.0.0.1:8887/lvgl.wasm:wasm-function[261]:0x27804)
-    at lv_obj_refresh_ext_draw_pad (http://127.0.0.1:8887/lvgl.wasm:wasm-function[45]:0x886f)
-    at lv_obj_signal (http://127.0.0.1:8887/lvgl.wasm:wasm-function[33]:0x5793)
-    at lv_label_signal (http://127.0.0.1:8887/lvgl.wasm:wasm-function[261]:0x27804)
-_lv_style_get_int @ ​
-_lv_style_list_get_int @ ​
-_lv_obj_get_style_int @ ​
-lv_obj_get_style_shadow_width @ ​
-lv_obj_get_draw_rect_ext_pad_size @ ​
-lv_obj_signal @ ​
-lv_label_signal @ ​
-lv_obj_refresh_ext_draw_pad @ ​
-lv_obj_signal @ ​
-lv_label_signal @ ​
-lv_obj_refresh_style @ ​
-lv_obj_add_style @ ​
-Pinetime::Applications::Screens::Clock::Clock(DisplayApp*, Pinetime::Controllers::DateTime&, Pinetime::Controllers::Battery&, Pinetime::Controllers::Ble&) @ ​
-create_clock @ ​
-(anonymous) @ lvgl.js:1734
-render_canvas @ lvgl2.html:1311
-Module.onRuntimeInitialized @ lvgl2.html:1354
-doRun @ lvgl.js:2496
-(anonymous) @ lvgl.js:2509
-setTimeout (async)
-run @ lvgl.js:2505
-runCaller @ lvgl.js:2411
-removeRunDependency @ lvgl.js:1632
-receiveInstance @ lvgl.js:1799
-receiveInstantiatedSource @ lvgl.js:1816
-Promise.then (async)
-(anonymous) @ lvgl.js:1841
-Promise.then (async)
-instantiateAsync @ lvgl.js:1839
-createWasm @ lvgl.js:1866
-(anonymous) @ lvgl.js:2113
 ```
 
 <h1 align="center"> LVGL - Light and Versatile Graphics Library</h1>

@@ -1,5 +1,41 @@
 <h1 align="center"> PineTime Watch Face Simulator with Experimental WebAssembly Port of LVGL </h1>
 
+__Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
+
+[Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
+
+Completed Features:
+
+1. __Render LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
+
+1. __Compile actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) was converted to [WebAssembly `clock`](clock)
+
+1. __Add fonts and symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
+
+Upcoming Features:
+
+1. __Auto Convert any PineTime Watch Face from C++ to WebAssembly__ with `sed` and GitHub Actions / GitLab CD
+
+1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
+
+1. __Accept Touch Input__ for LVGL
+
+1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
+
+1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
+
+References:
+
+- ["Programming with PineTime"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime#programming-with-pinetime)
+
+- ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
+
+![Custom PineTime Watch Face created in C++](https://lupyuen.github.io/images/vaultboy-watchface.jpg)
+
+_Custom PineTime Watch Face created in C++_
+
+# Files
+
 Compile LVGL application to WebAssembly: [`lvgl.html`](docs/lvgl.html), [`lvgl.js`](docs/lvgl.js), [`lvgl.wasm`](docs/lvgl.wasm)
 
 - [Online Demo](https://appkaki.github.io/lvgl-wasm/)
@@ -19,38 +55,6 @@ Test of C WebAssembly calling Rust WebAssembly: [`test_rust.html`](docs/test_rus
 - [C Source File](wasm/test_rust.c)
 
 - [Rust Source File](rust/src/lib.rs)
-
-Completed Features:
-
-1. __Render LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
-
-1. __Compile actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) was converted to [WebAssembly `clock`](clock)
-
-1. __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces. [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
-
-1. __Add fonts and symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
-
-TODO Features:
-
-1. __Auto Convert any PineTime Watch Face to WebAssembly__ with `sed` and GitHub Actions / GitLab CD
-
-1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
-
-1. __Accept Touch Input__ for LVGL
-
-1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
-
-1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
-
-References:
-
-- ["Programming with PineTime"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime#programming-with-pinetime)
-
-- ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
-
-![Custom PineTime Watch Face created in C++](https://lupyuen.github.io/images/vaultboy-watchface.jpg)
-
-_Custom PineTime Watch Face created in C++_
 
 # Migrating LVGL Version 6 to 7
 

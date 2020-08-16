@@ -28,7 +28,7 @@ Upcoming Features:
 
 1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
 
-Proposed Workflow:
+Proposed Workflow for Building a PineTime Watch Face:
 
 1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab)
 

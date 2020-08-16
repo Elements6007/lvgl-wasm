@@ -3,10 +3,6 @@
  *
  */
 
- /*Copy this file as "lv_port_disp.c" and set this value to "1" to enable content*/
-//#include <bits/stdint-uintn.h>
-#if 1
-
 /*********************
  *      INCLUDES
  *********************/
@@ -163,8 +159,8 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     lv_disp_flush_ready(disp_drv);
 }
 
-
-/*OPTIONAL: GPU INTERFACE*/
+//  OPTIONAL: GPU INTERFACE
+#ifdef NOTUSED  //  No GPU
 #if LV_USE_GPU
 
 /* If your MCU has hardware accelerator (GPU) then you can use it to blend to memories using opacity
@@ -195,10 +191,5 @@ static void gpu_fill(lv_disp_drv_t * disp_drv, lv_color_t * dest_buf, lv_coord_t
     }
 }
 
-#endif  /*LV_USE_GPU*/
-
-#else /* Enable this file at the top */
-
-/* This dummy typedef exists purely to silence -Wpedantic. */
-typedef int keep_pedantic_happy;
-#endif
+#endif  //  LV_USE_GPU
+#endif  //  NOTUSED

@@ -1,4 +1,4 @@
-<h1 align="center"> PineTime Watch Face Simulator with Experimental WebAssembly Port of LVGL </h1>
+<h1 align="center"> PineTime Watch Face Simulator with LVGL ported to WebAssembly  </h1>
 
 __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
 

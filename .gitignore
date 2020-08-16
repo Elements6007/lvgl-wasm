@@ -21,3 +21,4 @@ wasm/test-rust.html
 wasm/test-rust.js
 wasm/test-rust.txt
 wasm/test-rust.wasm
+clock/ClockTmp.cpp

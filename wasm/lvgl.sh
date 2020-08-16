@@ -17,9 +17,9 @@ set -e -x
 #   To backgroundLabel_user_data
 # Remove Screen(app),
 cat clock/Clock.cpp \
-    | sed 's/<libs/date/includes/date/date.h>/"date.h"/' \
-    | sed 's/<Components/DateTime/DateTimeController.h>/"DateTimeController.h"/' \
-    | sed 's/<libs/lvgl/lvgl.h>/"../lvgl.h"/' \
+    | sed 's/<libs\/date\/includes\/date\/date.h>/"date.h"/' \
+    | sed 's/<Components\/DateTime\/DateTimeController.h>/"DateTimeController.h"/' \
+    | sed 's/<libs\/lvgl\/lvgl.h>/"..\/lvgl.h"/' \
     | sed 's/obj->user_data/backgroundLabel_user_data/' \
     | sed 's/backgroundLabel->user_data/backgroundLabel_user_data/' \
     | sed 's/Screen(app),//' \

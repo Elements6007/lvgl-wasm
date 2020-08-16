@@ -1,12 +1,16 @@
-////  Mock Class
+#pragma once
 
-#ifndef BATTERYICON_H
-#define BATTERYICON_H
+#include "../lv_draw/lv_img_decoder.h"////#include <libs/lvgl/src/lv_draw/lv_img_decoder.h>
 
-class BatteryIcon {
-  public:
-    static const char *GetBatteryIcon(uint8_t batteryPercent) { return "%"; }
-    static const char *GetPlugIcon(bool isCharging)  { return "C"; }
-};
-
-#endif  //  BATTERYICON_H
+namespace Pinetime {
+  namespace Applications {
+    namespace Screens {
+      class BatteryIcon {
+      public:
+        static const char* GetUnknownIcon();
+          static const char* GetBatteryIcon(float batteryPercent);
+          static const char* GetPlugIcon(bool isCharging);
+      };
+    }
+  }
+}

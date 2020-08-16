@@ -1,11 +1,12 @@
-////  Mock Class
+#pragma once
 
-#ifndef BLEICON_H
-#define BLEICON_H
-
-class BleIcon {
-  public:
-    static const char *GetIcon(bool)  { return "L"; }
-};
-
-#endif  //  BLEICON_H
+namespace Pinetime {
+  namespace Applications {
+    namespace Screens {
+      class BleIcon {
+      public:
+        static const char* GetIcon(bool isConnected);
+      };
+    }
+  }
+}

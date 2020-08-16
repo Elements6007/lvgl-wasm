@@ -132,7 +132,7 @@ void lv_port_disp_init(void)
 /* Initialize your display and the required peripherals. */
 static void disp_init(void)
 {
-    puts("Init display...");
+    //  puts("Init display...");
     /*You code here*/
 }
 
@@ -141,7 +141,7 @@ static void disp_init(void)
  * 'lv_disp_flush_ready()' has to be called when finished. */
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
 {
-    printf("Flush display: left=%d, top=%d, right=%d, bottom=%d...\n", area->x1, area->y1, area->x2, area->y2);
+    printf("In C: Flush display: left=%d, top=%d, right=%d, bottom=%d...\n", area->x1, area->y1, area->x2, area->y2);
     /*The most simple case (but also the slowest) to put all pixels to the screen one-by-one*/
 
     int32_t x;

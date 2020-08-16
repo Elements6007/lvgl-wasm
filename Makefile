@@ -16,7 +16,7 @@ WASM_CSRCS := \
 	clock/BatteryIcon.cpp \
 	clock/BleController.cpp \
 	clock/BleIcon.cpp \
-	clock/Clock.cpp \
+	clock/ClockTmp.cpp \
 	clock/ClockHelper.cpp \
 	clock/DateTimeController.cpp \
 	clock/LittleVgl.cpp \

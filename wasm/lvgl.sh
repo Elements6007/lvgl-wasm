@@ -11,6 +11,8 @@ set -e -x
 #   To "DateTimeController.h"
 # Change <libs/lvgl/lvgl.h>
 #   To "../lvgl.h"
+# Change "../DisplayApp.h"
+#   To "DisplayApp.h"
 # Change obj->user_data
 #   To backgroundLabel_user_data
 # Change backgroundLabel->user_data
@@ -20,6 +22,7 @@ cat clock/Clock.cpp \
     | sed 's/<libs\/date\/includes\/date\/date.h>/"date.h"/' \
     | sed 's/<Components\/DateTime\/DateTimeController.h>/"DateTimeController.h"/' \
     | sed 's/<libs\/lvgl\/lvgl.h>/"..\/lvgl.h"/' \
+    | sed 's/"..\/DisplayApp.h"/"DisplayApp.h"/' \
     | sed 's/obj->user_data/backgroundLabel_user_data/' \
     | sed 's/backgroundLabel->user_data/backgroundLabel_user_data/' \
     | sed 's/Screen(app),//' \

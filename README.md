@@ -28,6 +28,22 @@ Upcoming Features:
 
 1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
 
+Proposed Workflow:
+
+1.  We clone the repo in GitHub (or GitLab)
+
+1.  We edit `Clock.cpp` in the web browser
+
+1.  Which triggers a PineTime Firmware Build in GitHub Actions (or GitLab CD)
+
+1.  Which also builds the PineTime Watch Face Simulator in WebAssembly
+
+1.  And and then pushes the generated WebAssembly files to GitHub Pages (or GitLab Pages)
+
+1.  We preview the PineTime Watch Face Simulator through a web browser
+
+1.  We if are happy with the Watch Face, we flash the firmware to PineTime over Bluetooth
+
 References:
 
 - ["Programming with PineTime"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime#programming-with-pinetime)

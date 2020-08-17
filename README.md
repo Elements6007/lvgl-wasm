@@ -6,9 +6,9 @@ _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.
 
 __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
 
-[Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
+- [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
 
-[Watch Face Source Code in C++](clock/Clock.cpp)
+- [Watch Face Source Code in C++](clock/Clock.cpp)
 
 Features:
 

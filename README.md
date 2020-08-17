@@ -36,13 +36,13 @@ Upcoming Features:
 
 1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
 
-Proposed Workflow for Building a PineTime Watch Face:
+How to build a PineTime Watch Face:
 
 1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab)
 
 1.  Enable __GitHub Pages (or GitLab Pages)__ publishing for `master` branch, `docs` folder
 
-1.  Add the __GitHub Actions Workflow (or GitLab CD)__: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml)
+1.  Add the __GitHub Actions Workflow (or GitLab CD)__: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml). Enable the workflow.
 
 1.  We __edit [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)__ in the web browser via GitHub (or GitLab Web IDE)
 

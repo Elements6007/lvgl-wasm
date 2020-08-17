@@ -8,6 +8,8 @@ __Simulate PineTime Watch Face__ in Web Browser, for easier development of custo
 
 [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
 
+[Watch Face Source Code in C++](clock/Clock.cpp)
+
 Completed Features:
 
 1. __Render LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)

@@ -12,11 +12,11 @@ Completed Features:
 
 1. __Add fonts and symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
 
-1. __Auto Convert any PineTime Watch Face from C++ to WebAssembly__ with `sed` and GitHub Actions / GitLab CD
+1. __Auto Convert any PineTime Watch Face from C++ to WebAssembly__ with `sed` and GitHub Actions / GitLab CD. [Custom Watch Face Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
+
+1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly. [Custom Bitmap Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
 
 Upcoming Features:
-
-1. __Adopt RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 
 1. __Show current date and time__
 

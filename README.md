@@ -1,5 +1,9 @@
 <h1 align="center"> PineTime Watch Face Simulator with LVGL ported to WebAssembly  </h1>
 
+![Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime](https://lupyuen.github.io/images/pinetime-simulator.png)
+
+_Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.com/SravanSenthiln1): PineTime Watch Face Simulator vs Real PineTime_
+
 __Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
 
 [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
@@ -49,10 +53,6 @@ References:
 - ["Programming with PineTime"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime#programming-with-pinetime)
 
 - ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
-
-![Custom PineTime Watch Face created in C++](https://lupyuen.github.io/images/vaultboy-watchface.jpg)
-
-_Custom PineTime Watch Face created in C++_
 
 # How It Works
 

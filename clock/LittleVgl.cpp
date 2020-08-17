@@ -236,7 +236,6 @@ bool LittleVgl::GetTouchPadInfo(lv_indev_data_t *ptr) {
 }
 #endif  ////  NOTUSED
 
-#include <stdio.h> ////
 void LittleVgl::InitTheme() {
 #ifdef TODO  
   uint16_t i;
@@ -247,67 +246,36 @@ void LittleVgl::InitTheme() {
   }
 #endif  //  TODO
 
-  puts("a");////
   InitBaseTheme();
-  puts("b");////
   InitThemeContainer();
-  puts("c");////
   InitThemeButton();
-  puts("d");////
   InitThemeLabel();
-  puts("e");////
   InitThemeLine();
-  puts("f");////
   InitThemeLed();
-  puts("g");////
   InitThemeImage();
-  puts("h");////
   InitThemeBar();
-  puts("i");////
   InitThemeSlider();
-  puts("j");////
   InitThemeSwitch();
-  puts("k");////
   InitThemeMeter();
-  puts("l");////
   InitThemeGauge();
-  puts("m");////
   InitThemeArc();
-  puts("n");////
   InitThemePreload();
-  puts("o");////
   InitThemeChart();
-  puts("p");////
   InitThemeCalendar();
-  puts("q");////
   InitThemeCheckBox();
-  puts("r");////
   InitThemeButtonMatrix();
-  puts("s");////
   InitThemeKnob();
-  puts("t");////
   InitThemeMessageBox();
-  puts("u");////
   InitThemePage();
-  puts("v");////
   InitThemeTextArea();
-  puts("w");////
   InitThemeSpinBox();
-  puts("x");////
   InitThemeList();
-  puts("y");////
   InitThemeDropDownList();
-  puts("z");////
   InitThemeRoller();
-  puts("z1");////
   InitThemeTabView();
-  puts("z2");////
   InitThemeTileView();
-  puts("z3");////
   InitThemeTable();
-  puts("z4");////
   InitThemeWindow();
-  puts("z5");////
 
   ////TODO: lv_theme_set_current(&theme);
 }

@@ -236,6 +236,7 @@ bool LittleVgl::GetTouchPadInfo(lv_indev_data_t *ptr) {
 }
 #endif  ////  NOTUSED
 
+#include <stdio.h> ////
 void LittleVgl::InitTheme() {
 #ifdef TODO  
   uint16_t i;
@@ -246,36 +247,67 @@ void LittleVgl::InitTheme() {
   }
 #endif  //  TODO
 
+  puts("a");////
   InitBaseTheme();
+  puts("b");////
   InitThemeContainer();
+  puts("c");////
   InitThemeButton();
+  puts("d");////
   InitThemeLabel();
+  puts("e");////
   InitThemeLine();
+  puts("f");////
   InitThemeLed();
+  puts("g");////
   InitThemeImage();
+  puts("h");////
   InitThemeBar();
+  puts("i");////
   InitThemeSlider();
+  puts("j");////
   InitThemeSwitch();
+  puts("k");////
   InitThemeMeter();
+  puts("l");////
   InitThemeGauge();
+  puts("m");////
   InitThemeArc();
+  puts("n");////
   InitThemePreload();
+  puts("o");////
   InitThemeChart();
+  puts("p");////
   InitThemeCalendar();
+  puts("q");////
   InitThemeCheckBox();
+  puts("r");////
   InitThemeButtonMatrix();
+  puts("s");////
   InitThemeKnob();
+  puts("t");////
   InitThemeMessageBox();
+  puts("u");////
   InitThemePage();
+  puts("v");////
   InitThemeTextArea();
+  puts("w");////
   InitThemeSpinBox();
+  puts("x");////
   InitThemeList();
+  puts("y");////
   InitThemeDropDownList();
+  puts("z");////
   InitThemeRoller();
+  puts("z1");////
   InitThemeTabView();
+  puts("z2");////
   InitThemeTileView();
+  puts("z3");////
   InitThemeTable();
+  puts("z4");////
   InitThemeWindow();
+  puts("z5");////
 
   ////TODO: lv_theme_set_current(&theme);
 }
@@ -292,13 +324,17 @@ void LittleVgl::InitBaseTheme() {
   lv_style_set_text_font(&bg, LV_STATE_DEFAULT, font); ////bg.text.font       = font;
   lv_style_set_image_recolor(&bg, LV_STATE_DEFAULT, LV_COLOR_WHITE); ////bg.image.color     = LV_COLOR_WHITE;
 
+  puts("a1");////
+  lv_style_init(&scr); ////Init styles before copying
   lv_style_copy(&scr, &bg);
+  puts("a2");////
   lv_style_set_pad_bottom(&scr, LV_STATE_DEFAULT, 0); ////scr.body.padding.bottom = 0;
   lv_style_set_pad_top(&scr, LV_STATE_DEFAULT,    0); ////scr.body.padding.top    = 0;
   lv_style_set_pad_left(&scr, LV_STATE_DEFAULT,   0); ////scr.body.padding.left   = 0;
   lv_style_set_pad_right(&scr, LV_STATE_DEFAULT,  0); ////scr.body.padding.right  = 0;
 
 
+  lv_style_init(&sb); ////Init styles before copying
   lv_style_copy(&sb, &def);
   lv_style_set_bg_color(&sb, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 30, 60)); ////sb.body.main_color     = lv_color_hsv_to_rgb(hue, 30, 60);
   lv_style_set_bg_grad_color(&sb, LV_STATE_DEFAULT, lv_color_hsv_to_rgb(hue, 30, 60)); ////sb.body.grad_color     = lv_color_hsv_to_rgb(hue, 30, 60);
@@ -311,6 +347,7 @@ void LittleVgl::InitBaseTheme() {
   lv_style_set_radius(&sb, LV_STATE_DEFAULT,         LV_DPI / 30); ////sb.body.radius         = LV_DPI / 30;
   ////TODO: lv_style_set_opa(&sb, LV_STATE_DEFAULT,            LV_OPA_COVER); ////sb.body.opa            = LV_OPA_COVER;
 
+  lv_style_init(&panel); ////Init styles before copying
   lv_style_copy(&panel, &bg);
   lv_style_set_bg_color(&panel, LV_STATE_DEFAULT,     lv_color_hsv_to_rgb(hue, 11, 18)); ////panel.body.main_color     = lv_color_hsv_to_rgb(hue, 11, 18);
   lv_style_set_bg_grad_color(&panel, LV_STATE_DEFAULT,     lv_color_hsv_to_rgb(hue, 11, 18)); ////panel.body.grad_color     = lv_color_hsv_to_rgb(hue, 11, 18);

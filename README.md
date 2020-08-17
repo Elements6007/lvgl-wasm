@@ -36,25 +36,27 @@ Upcoming Features:
 
 1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
 
-How to build a PineTime Watch Face:
+How to Build and Simulate a PineTime Watch Face:
 
-1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab)
+1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab): [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
 
 1.  Enable __GitHub Pages (or GitLab Pages)__ publishing for `master` branch, `docs` folder
 
-1.  Add the __GitHub Actions Workflow (or GitLab CD)__: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml). Enable the workflow.
+1.  Add the __GitHub Actions Workflow (or GitLab CD)__: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml)
 
-1.  We __edit [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)__ in the web browser via GitHub (or GitLab Web IDE)
+1.  Enable the workflow
 
-1.  Which triggers a __PineTime Firmware Build__ in GitHub Actions (or GitLab CD)
+1.  We __edit [`DisplayApp/Screens/Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)__ in the web browser via GitHub (or GitLab Web IDE)
+
+1.  Which triggers a __PineTime Firmware Build__ in GitHub Actions (or GitLab CD), assuming [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml) has been installed
 
 1.  Which also builds the __PineTime Watch Face Simulator__ in WebAssembly
 
 1.  And then __pushes the generated WebAssembly files__ to GitHub Pages (or GitLab Pages)
 
-1.  We __preview the PineTime Watch Face__ through the Simulator in a web browser: [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
+1.  We __preview the PineTime Watch Face__ through the Simulator in a web browser: `https://YOUR_ACCOUNT.github.io/Pinetime` (See [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html))
 
-1.  We if are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth
+1.  We if are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
 References:
 

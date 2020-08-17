@@ -24,6 +24,8 @@ Features:
 
 Upcoming Features:
 
+1. __Create GitHub Actions Workflow__ to build any fork of [InfiniTime Firmware](https://github.com/JF002/Pinetime) into WebAssembly
+
 1. __Show current date and time__
 
 1. __Show a selected date and time__

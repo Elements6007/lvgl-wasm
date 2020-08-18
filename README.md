@@ -79,7 +79,7 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
     cd lvgl-wasm
     ```
 
-1.  For Arm64 Only (Raspberry Pi 64, Pinebook Pro):
+1.  __For Arm64 Only__ (Raspberry Pi 64, Pinebook Pro):
 
     We need to prevent `make` from running parallel builds, because the machine will freeze due to high I/O.
 
@@ -111,6 +111,19 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
     wasm/lvgl.sh
     ```
 
+    We should see...
+
+    ```
+    ...
+    clock/ClockTmp.cpp:172:32: warning: format specifies type 'unsigned long' but the argument has type 'unsigned int' [-Wformat]
+        sprintf(stepBuffer, "%lu", stepCount.Get());
+                            ~~~   ^~~~~~~~~~~~~~~
+                            %u
+    17 warnings generated.
+    + wasm-objdump -x wasm/lvgl.wasm
+    + mv wasm/lvgl.html wasm/lvgl.old.html
+    ```
+
     This produces `wasm/lvgl.html`, `wasm/lvgl.js` and `wasm/lvgl.wasm`
 
 1.  Copy the generated WebAssembly files to the `docs` folder (used by GitHub Pages)...
@@ -123,17 +136,19 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 
 1.  Start a Web Server for the `docs` folder, because WebAssembly doesn't work when opened from the filesystem.
 
-    For Arm64: Use [`darkhttpd`](https://unix4lyfe.org/darkhttpd/)...
+    __For Arm64:__ Use [`darkhttpd`](https://unix4lyfe.org/darkhttpd/)...
 
     ```bash
     darkhttpd docs
     ```
 
-    For x64: Use the Chrome Extension [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) and set the folder to `docs`
+    __For x64:__ Use the Chrome Extension [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) and set the folder to `docs`
 
 1.  Launch a Web Browser and open the URL shown by `darkhttpd` or Web Server for Chrome.
 
     Enter `lvgl.html` in the URL bar to view the PineTime Watch Face Simulator.
+
+In case of problems, compare with the [GitHub Actions build log](https://github.com/AppKaki/lvgl-wasm/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
 
 # How It Works
 

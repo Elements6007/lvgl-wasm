@@ -4,13 +4,13 @@
 
 _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.com/SravanSenthiln1): PineTime Watch Face Simulator vs Real PineTime_
 
-__Simulate PineTime Watch Face__ in Web Browser, for easier development of custom watch faces
+__Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 
 - [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
 
 - [Watch Face Source Code in C++](clock/Clock.cpp)
 
-Features:
+# Features
 
 1. __Compiles actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) was converted to [WebAssembly `clock`](clock/Clock.cpp)
 
@@ -22,21 +22,7 @@ Features:
 
 1. __Supports RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly. [Custom Bitmap Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
 
-Upcoming Features:
-
-1. __Create GitHub Actions Workflow__ to build any fork of [InfiniTime Watch Face](https://github.com/JF002/Pinetime) into WebAssembly
-
-1. __Show current date and time__
-
-1. __Show a selected date and time__
-
-1. __Accept Touch Input__ for LVGL
-
-1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
-
-1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
-
-How to Build and Simulate a PineTime Watch Face:
+# How to Build and Preview a PineTime Watch Face
 
 1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab): [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
 
@@ -58,7 +44,21 @@ How to Build and Simulate a PineTime Watch Face:
 
 1.  We if are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
-References:
+# Upcoming Features
+
+1. __Create GitHub Actions Workflow__ to build any fork of [InfiniTime Watch Face](https://github.com/JF002/Pinetime) into WebAssembly
+
+1. __Show current date and time__
+
+1. __Show a selected date and time__
+
+1. __Accept Touch Input__ for LVGL
+
+1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
+
+1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
+
+# References
 
 - ["Programming with PineTime"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime#programming-with-pinetime)
 

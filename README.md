@@ -66,6 +66,53 @@ Read the article...
 
 - ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
 
+# How To Build
+
+To build PineTime Watch Face Simulator on Linux x64 or Arm64...
+
+1.  Install emscripten and wabt. See instructions below.
+
+1.  Enter...
+
+    ```bash
+    git clone https://github.com/AppKaki/lvgl-wasm
+    cd lvgl-wasm
+    ```
+
+1.  For Arm64 Only (Raspberry Pi 64, Pinebook Pro):
+
+    We need to prevent `make` from running parallel builds, because the machine will freeze due to high I/O.
+
+    Edit `wasm/lvgl.sh`(wasm/lvgl.sh) and change...
+
+    ```bash
+    make -j
+    ```
+
+    To...
+
+    ```bash
+    make
+    ```
+
+1.  Copy [`DisplayApp/Screens/Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) from our fork of the InfiniTime repo to `clock/Clock.cpp`...
+
+    ```bash
+    # Assume that our fork of InfiniTime is at ~/Pinetime
+    cp ~/Pinetime/src/DisplayApp/Screens/Clock.cpp clock/Clock.cpp
+    ```
+
+    This is the Watch Face that will be built into the Simulator.
+
+1.  Build the LVGL WebAssembly app containing our Watch Face...
+
+    ```bash
+    # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
+    wasm/lvgl.sh
+    ```
+
+    This produces `wasm/lvgl.html, lvgl.js, lvgl.wasm`
+
 # How It Works
 
 PineTime Watch Face Simulator was compiled from C and C++ to WebAssembly with [emscripten](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)...
@@ -97,6 +144,144 @@ Here's a test of C WebAssembly calling Rust WebAssembly...
 - [GitHub Actions Workflow](.github/workflows/ccpp.yml#L16-L31)
 
 - [Build Script](https://github.com/AppKaki/lvgl-wasm/blob/master/wasm/lvgl.sh#L33-L46)
+
+
+# Install emscripten on Ubuntu x64
+
+See the GitHub Actions Workflow...
+
+[`.github/workflows/ccpp.yml`](.github/workflows/ccpp.yml)
+
+Look for the steps...
+
+1.   "Install emscripten"
+
+1.   "Install wabt"
+
+Change `/tmp` to a permanent path like `~`
+
+Then add emscripten and wabt to the PATH...
+
+```bash
+# Add emscripten and wabt to the PATH
+source ~/emsdk/emsdk_env.sh
+export PATH=$PATH:~/wabt/build
+```
+
+# Install emscripten on Arch Linux / Manjaro Arm64
+
+Works on Pinebook Pro with Manjaro...
+
+```bash
+sudo pacman -S emscripten
+sudo pacman -S wabt
+source /etc/profile.d/emscripten.sh
+emcc --version
+# Shows emscripten version 1.39.20
+wasm-as --version
+# Shows binaryen version 95
+```
+
+## For emscripten version 1.40.x and newer
+
+emscripten and binaryen will probably work, skip the rest of this section.
+
+## For emscripten version 1.39.x and binaryen version 95 only
+
+This will fail during the build, because emscripten 1.39 needs binaryen version 93, not 95.
+
+We could install binaryen version 93... But emcc will fail with an error "stackSave already exists". That's because binaryen 93 generates the "stackSave" that conflicts with emscripten 1.39.20. [More details here](https://github.com/emscripten-core/emscripten/pull/11166)
+
+To fix this, we install binaryen version 94, __but rename it as version 93__...
+
+```bash
+# Download binaryen 94
+git clone --branch version_94 https://github.com/WebAssembly/binaryen
+cd binaryen
+nano CMakeLists.txt 
+```
+
+Change
+```
+   project(binaryen LANGUAGES C CXX VERSION 94)
+```
+To
+```
+   project(binaryen LANGUAGES C CXX VERSION 93)
+```
+
+Then build and install binaryen...
+
+```bash
+cmake .
+make -j 5
+sudo cp bin/* /usr/bin
+sudo cp lib/* /usr/lib
+wasm-as --version
+# Shows binaryen "version 93 (version_94)"
+```
+
+binaryen is now version 93, which is correct. Proceed to build the app...
+
+```bash
+cd lvgl-wasm
+rm -rf ~/.emscripten_cache
+make clean
+make -j 5
+```
+
+The app build should complete successfully.
+
+## emcc Error: Unexpected binaryen version
+
+If we see this error...
+
+```
+   emcc: error: unexpected binaryen version: 95 (expected 93) [-Wversion-check] [-Werror]
+   FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpbe4ik5na.js', '/tmp/tmpzu5jusdg.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
+```
+
+## emcc Error: stackSave already exists
+
+Then we need to install the right version of binaryen (see above)
+
+If we see this error...
+
+```
+   Fatal: Module::addExport: stackSave already exists
+   emcc: error: '/usr/bin/wasm-emscripten-finalize --detect-features --global-base=1024 --check-stack-overflow /tmp/emscripten_temp_84xtyzya/tmpzet09r88.wasm -o /tmp/emscripten_temp_84xtyzya/tmpzet09r88.wasm.o.wasm' failed (1)
+   FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpzet09r88.js', '/tmp/tmpxk8zxvza.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
+```
+
+That means binaryen 93 generates the "stackSave" that conflicts with emscripten 1.39.20. [More details here](https://github.com/emscripten-core/emscripten/pull/11166)
+
+We need to install branch version_94 of binaryen, change version in CMakeLists.txt to version 93 (see above)
+
+# Install emscripten on macOS (Doesn't Work)
+
+Enter these commands...
+```bash
+brew install emscripten
+brew install binaryen
+# Upgrade llvm to 10.0.0
+brew install llvm
+brew upgrade llvm
+nano /usr/local/Cellar/emscripten/1.40.1/libexec/.emscripten
+```
+
+Change BINARYEN_ROOT and LLVM_ROOT to 
+```python
+BINARYEN_ROOT = os.path.expanduser(os.getenv('BINARYEN', '/usr/local')) # directory
+LLVM_ROOT = os.path.expanduser(os.getenv('LLVM', '/usr/local/opt/llvm/bin')) # directory
+```
+
+Fails with error:
+```
+   emcc: warning: LLVM version appears incorrect (seeing "10.0", expected "12.0") [-Wversion-check]
+   shared:INFO: (Emscripten: Running sanity checks)
+   clang-10: error: unknown argument: '-fignore-exceptions'
+   emcc: error: '/usr/local/opt/llvm/bin/clang -target wasm32-unknown-emscripten -D__EMSCRIPTEN_major__=1 -D__EMSCRIPTEN_minor__=40 -D__EMSCRIPTEN_tiny__=1 -D_LIBCPP_ABI_VERSION=2 -Dunix -D__unix -D__unix__ -Werror=implicit-function-declaration -Xclang -nostdsysteminc -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/compat -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/libc -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/libc/musl/arch/emscripten -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/local/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/SSE -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/compiler-rt/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/libunwind/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/cache/wasm/include -DEMSCRIPTEN -fignore-exceptions -Isrc/lv_core -D LV_USE_DEMO_WIDGETS ././src/lv_core/lv_group.c -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/SDL -c -o /var/folders/gp/jb0b68fn3b187mgyyrjml3km0000gn/T/emscripten_temp_caxv1fls/lv_group_0.o -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr' failed (1)
+```
 
 # WebAssembly Stack Trace for PineTime Watch Face
 
@@ -312,110 +497,6 @@ For more examples of LVL Style migration, see...
 
 Click `Files Changed`, then `Changed Files` and look for `Clock/LittleVgl.cpp`
 
-# Install emscripten on Ubuntu x64
-
-See the GitHub Actions Workflow...
-
-[`.github/workflows/ccpp.yml`](.github/workflows/ccpp.yml)
-
-# Install emscripten on Arch Linux / Manjaro Arm64
-
-Works on Pinebook Pro with Manjaro...
-
-```bash
-sudo pacman -S emscripten
-sudo pacman -S wabt
-source /etc/profile.d/emscripten.sh
-emcc --version
-# Shows emscripten version 1.39.20
-wasm-as --version
-# Shows binaryen version 95
-```
-
-This will fail during the build, because emscripten 1.39 needs binaryen version 93, not 95.
-
-We could install binaryen version 93... But emcc will fail with an error "stackSave already exists". That's because binaryen 93 generates the "stackSave" that conflicts with emscripten 1.39.20. [More details here](https://github.com/emscripten-core/emscripten/pull/11166)
-
-To fix this, we install binaryen version 94, __but rename it as version 93__...
-
-```bash
-# Download binaryen 94
-git clone --branch version_94 https://github.com/WebAssembly/binaryen
-cd binaryen
-nano CMakeLists.txt 
-```
-
-Change
-```
-   project(binaryen LANGUAGES C CXX VERSION 94)
-```
-To
-```
-   project(binaryen LANGUAGES C CXX VERSION 93)
-```
-
-Then build and install binaryen...
-
-```bash
-cmake .
-make -j 5
-sudo cp bin/* /usr/bin
-sudo cp lib/* /usr/lib
-wasm-as --version
-# Shows binaryen "version 93 (version_94)"
-```
-
-binaryen is now version 93, which is correct. Proceed to build the app...
-
-```bash
-cd lvgl-wasm
-rm -rf ~/.emscripten_cache
-make clean
-make -j 5
-```
-
-The app build should complete successfully.
-
-If we see error...
-```
-   emcc: error: unexpected binaryen version: 95 (expected 93) [-Wversion-check] [-Werror]
-   FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpbe4ik5na.js', '/tmp/tmpzu5jusdg.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
-```
-Then we need to install the right version of binaryen (see above)
-
-If we see error...
-```
-   Fatal: Module::addExport: stackSave already exists
-   emcc: error: '/usr/bin/wasm-emscripten-finalize --detect-features --global-base=1024 --check-stack-overflow /tmp/emscripten_temp_84xtyzya/tmpzet09r88.wasm -o /tmp/emscripten_temp_84xtyzya/tmpzet09r88.wasm.o.wasm' failed (1)
-   FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpzet09r88.js', '/tmp/tmpxk8zxvza.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
-```
-Then we need to install branch version_94 of binaryen, change version in CMakeLists.txt to version 93 (see above)
-
-# Install emscripten on macOS (Doesn't Work)
-
-Enter these commands...
-```bash
-brew install emscripten
-brew install binaryen
-# Upgrade llvm to 10.0.0
-brew install llvm
-brew upgrade llvm
-nano /usr/local/Cellar/emscripten/1.40.1/libexec/.emscripten
-```
-
-Change BINARYEN_ROOT and LLVM_ROOT to 
-```python
-BINARYEN_ROOT = os.path.expanduser(os.getenv('BINARYEN', '/usr/local')) # directory
-LLVM_ROOT = os.path.expanduser(os.getenv('LLVM', '/usr/local/opt/llvm/bin')) # directory
-```
-
-Fails with error:
-```
-   emcc: warning: LLVM version appears incorrect (seeing "10.0", expected "12.0") [-Wversion-check]
-   shared:INFO: (Emscripten: Running sanity checks)
-   clang-10: error: unknown argument: '-fignore-exceptions'
-   emcc: error: '/usr/local/opt/llvm/bin/clang -target wasm32-unknown-emscripten -D__EMSCRIPTEN_major__=1 -D__EMSCRIPTEN_minor__=40 -D__EMSCRIPTEN_tiny__=1 -D_LIBCPP_ABI_VERSION=2 -Dunix -D__unix -D__unix__ -Werror=implicit-function-declaration -Xclang -nostdsysteminc -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/compat -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/libc -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/libc/musl/arch/emscripten -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/local/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/SSE -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/compiler-rt/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/libunwind/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/cache/wasm/include -DEMSCRIPTEN -fignore-exceptions -Isrc/lv_core -D LV_USE_DEMO_WIDGETS ././src/lv_core/lv_group.c -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/SDL -c -o /var/folders/gp/jb0b68fn3b187mgyyrjml3km0000gn/T/emscripten_temp_caxv1fls/lv_group_0.o -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr' failed (1)
-```
 
 <h1 align="center"> LVGL - Light and Versatile Graphics Library</h1>
 

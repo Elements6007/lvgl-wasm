@@ -80,7 +80,9 @@ PineTime Watch Face Simulator was compiled from C and C++ to WebAssembly with [e
 
 - [Makefile](Makefile)
 
-Here's a test of C WebAssembly calling Rust WebAssembly (which will be used for building Watches Faces in Rust)...
+In future we shall be mixing C WebAssembly with Rust WebAssembly, so that the Watch Face code in [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) may be programmed in Rust instead.
+
+Here's a test of C WebAssembly calling Rust WebAssembly...
 
 - Generated Files: [`test_rust.html`](docs/test_rust.html), [`test_rust.js`](docs/test_rust.js), [`test_rust.wasm`](docs/test_rust.wasm)
 
@@ -90,9 +92,13 @@ Here's a test of C WebAssembly calling Rust WebAssembly (which will be used for 
 
 - [Rust Source File](rust/src/lib.rs)
 
+- [GitHub Actions Workflow](.github/workflows/ccpp.yml#L16-L31)
+
+- [Build Script](https://github.com/AppKaki/lvgl-wasm/blob/master/wasm/lvgl.sh#L33-L46)
+
 # WebAssembly Stack Trace for PineTime Watch Face
 
-This is a sample WebAssembly Stack Trace that appears in the web browser. It happens when we don't initialise the LVGL Style `LabelBigStyle` used by [`Clock.cpp`](clock/Clock.cpp)
+Here is a sample WebAssembly Stack Trace that appears in the web browser. It happens when we don't initialise the LVGL Style `LabelBigStyle` used by [`Clock.cpp`](clock/Clock.cpp)
 
 ```
 lvgl.js:1839 Fetch finished loading: GET "http://127.0.0.1:8887/lvgl.wasm".

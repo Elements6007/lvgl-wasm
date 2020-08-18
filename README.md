@@ -16,6 +16,8 @@ __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier d
 
 1. __Auto Convert any PineTime Watch Face__ from C++ to WebAssembly with `sed` and GitHub Actions / GitLab CD. [Custom Watch Face Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
 
+1. __Uses GitHub Actions Workflow__ to build any fork of [InfiniTime Watch Face](https://github.com/JF002/Pinetime) into WebAssembly
+
 1. __Renders LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
 
 1. __Includes PineTime Fonts and Symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
@@ -46,11 +48,7 @@ __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier d
 
 # Upcoming Features
 
-1. __Create GitHub Actions Workflow__ to build any fork of [InfiniTime Watch Face](https://github.com/JF002/Pinetime) into WebAssembly
-
-1. __Show current date and time__
-
-1. __Show a selected date and time__
+1. __Show date and time__, current and selected
 
 1. __Accept Touch Input__ for LVGL
 

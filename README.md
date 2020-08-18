@@ -28,7 +28,7 @@ Read the article...
 
 1. __Supports RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly. [Custom Bitmap Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
 
-# How to Build and Preview a PineTime Watch Face
+# How to Build and Preview a PineTime Watch Face with GitHub or GitLab
 
 1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab): [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
 
@@ -48,7 +48,7 @@ Read the article...
 
 1.  We __preview the PineTime Watch Face__ through the Simulator in a web browser: `https://YOUR_ACCOUNT.github.io/Pinetime` (See [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html))
 
-1.  We if are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
+1.  If we are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
 # Upcoming Features
 
@@ -66,7 +66,7 @@ Read the article...
 
 - ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
 
-# How To Build
+# How To Build The Simulator
 
 To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 
@@ -111,7 +111,29 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
     wasm/lvgl.sh
     ```
 
-    This produces `wasm/lvgl.html, lvgl.js, lvgl.wasm`
+    This produces `wasm/lvgl.html`, `wasm/lvgl.js` and `wasm/lvgl.wasm`
+
+1.  Copy the generated WebAssembly files to the `docs` folder (used by GitHub Pages)...
+
+    ```bash
+    cp wasm/lvgl.js wasm/lvgl.wasm docs
+    ```
+
+    We don't need `lvgl.html` because `docs` already contains a version of `lvgl.html` with custom JavaScript.
+
+1.  Start a Web Server for the `docs` folder, because WebAssembly doesn't work when opened from the filesystem.
+
+    For Arm64: Use [`darkhttpd`](https://unix4lyfe.org/darkhttpd/)...
+
+    ```bash
+    darkhttpd docs
+    ```
+
+    For x64: Use the Chrome Extension [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) and set the folder to `docs`
+
+1.  Launch a Web Browser and open the URL shown by `darkhttpd` or Web Server for Chrome.
+
+    Enter `lvgl.html` in the URL bar to view the PineTime Watch Face Simulator.
 
 # How It Works
 

@@ -10,6 +10,10 @@ __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier d
 
 - [Watch Face Source Code in C++](clock/Clock.cpp)
 
+Read the article...
+
+- ["Preview PineTime Watch Faces in your Web Browser with WebAssembly"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
+
 # Features
 
 1. __Compiles actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) was converted to [WebAssembly `clock`](clock/Clock.cpp)

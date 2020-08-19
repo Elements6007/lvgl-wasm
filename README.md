@@ -532,9 +532,11 @@ InfiniTime Sandbox exposes two LVGL Styles...
 
 # Simulator JavaScript
 
-TODO
+The JavaScript functions here call the Exported WebAssembly Functions to render the Watch Face. From [`docs/lvgl.html`](docs/lvgl.html)
 
-From [`docs/lvgl.html`](docs/lvgl.html)...
+## Initialise WebAssembly
+
+We register a callback in the emscripten API, to be notified when the WebAssembly Module `lvgl.wasm` has been loaded...
 
 ```javascript
 //  In JavaScript: Wait for emscripten to be initialised
@@ -544,16 +546,13 @@ Module.onRuntimeInitialized = function() {
 };
 ```
 
+## Initialise LVGL Display
+
+We call the WebAssembly Function `init_display()` to initialise the LVGL display...
+
 ```javascript
 ///  In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
 function render_canvas() {
-  const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
-  const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
-```
-
-## Init LVGL Display
-
-```javascript
   //  Init LVGL Display
   Module._init_display();
 ```
@@ -585,6 +584,9 @@ function render_canvas() {
 ## Resize HTML Canvas
 
 ```javascript
+  const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
+  const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
+  
   //  Fetch the PineTime dimensions from WebAssembly Display Buffer
   var width = Module._get_display_width();
   var height = Module._get_display_height();

@@ -205,6 +205,20 @@ TODO
 make -j
 ```
 
+The `make` command triggers this command in the [Makefile](Makefile)...
+
+```bash
+emcc -o wasm/lvgl.html \
+	-Wl,--start-group \
+	(List of C and C++ object files from LVGL and InfiniTime Sandbox) \
+	-Wl,--end-group \
+	-g \
+	-I src/lv_core \
+	-D LV_USE_DEMO_WIDGETS \
+	-s WASM=1 \
+    -s "EXPORTED_FUNCTIONS=[ '_main', '_get_display_buffer', '_get_display_width', '_get_display_height', '_test_display', '_init_display', '_render_display', '_render_widgets', '_create_clock', '_refresh_clock', '_update_clock' ]"
+```
+
 TODO
 
 ## Dump the WebAssembly modules
@@ -270,7 +284,7 @@ wasm-objdump -x wasm/test_rust.wasm >wasm/test_rust.txt
 mv wasm/test_rust.html wasm/test_rust.old.html
 ```
 
-# PineTime Simulator Sandbox
+# InfiniTime Sandbox
 
 TODO
 

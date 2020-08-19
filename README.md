@@ -356,7 +356,9 @@ source ~/emsdk/emsdk_env.sh
 export PATH=$PATH:~/wabt/build
 ```
 
-# Custom JavaScript
+# Simuator JavaScript
+
+TODO
 
 From docs/lvgl.html
 
@@ -368,37 +370,47 @@ Module.onRuntimeInitialized = function() {
 };
 ```
 
-TODO
-
 ```javascript
 ///  In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
 function render_canvas() {
-  Module.print(`In JavaScript: render_canvas()`);
   const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
   const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
+```
 
+## Init LVGL Display
+
+```javascript
   //  Init LVGL Display
   Module._init_display();
+```
 
-  //  Set to true to see demo widget, false to see PineTime Watch Face
-  const demo_mode = false;
-  if (demo_mode) {
-    //  Construct the demo LVGL Widgets
-    Module._render_widgets();
-  } else {
-    //  Create the LVGL Watch Face Widgets
-    Module._create_clock();
+## Create LVGL Watch Face Widgets
 
-    //  Refresh the LVGL Watch Face Widgets
-    Module._refresh_clock();
+```javascript
+  //  Create the LVGL Watch Face Widgets
+  Module._create_clock();
+```
 
-    //  Update the LVGL Watch Face Widgets
-    //  Module._update_clock();
-  }
+## Refresh LVGL Watch Face Widgets
 
+```javascript
+  //  Refresh the LVGL Watch Face Widgets
+  Module._refresh_clock();
+
+  //  Update the LVGL Watch Face Widgets
+  //  Module._update_clock();
+```
+
+## Render LVGL Widgets to WebAssembly Display Buffer
+
+```javascript
   //  Render LVGL Widgets to the WebAssembly Display Buffer
   Module._render_display();
-  
+```
+
+## Resize HTML Canvas
+
+```javascript
   //  Fetch the PineTime dimensions from WebAssembly Display Buffer
   var width = Module._get_display_width();
   var height = Module._get_display_height();
@@ -411,12 +423,20 @@ function render_canvas() {
     Module.canvas.width = width * DISPLAY_SCALE;
     Module.canvas.height = height * DISPLAY_SCALE;
   }
+```
 
+## Fetch HTML Canvas
+
+```javascript
   //  Fetch the canvas pixels
   var ctx = Module.canvas.getContext('2d');
   var imageData = ctx.getImageData(0, 0, width * DISPLAY_SCALE, height * DISPLAY_SCALE);
   var data = imageData.data;
+```
 
+## Copy WebAssembly Display Buffer to HTML Canvas
+
+```javascript
   //  Copy the pixels from the WebAssembly Display Buffer to the canvas
   var addr = Module._get_display_buffer();
   Module.print(`In JavaScript: get_display_buffer() returned ${toHex(addr)}`);          
@@ -439,13 +459,15 @@ function render_canvas() {
       }
     }
   }
-  
+```
+
+## Paint the HTML Canvas
+
+```javascript
   //  Paint the canvas
   ctx.putImageData(imageData, 0, 0);
 }
 ```
-
-TODO
 
 # Install emscripten on Arch Linux / Manjaro Arm64
 

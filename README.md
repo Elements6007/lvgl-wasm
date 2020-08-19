@@ -269,7 +269,7 @@ The emscripten compiler `emcc` generates three files in folder `wasm`...
 
     We won't be using this file, because we have a [custom version of `lvgl.html`](docs/lvgl.html)
 
-`EXPORTED_FUNCTIONS` are the C functions that will be exposed from WebAssembly to JavaScript.
+`EXPORTED_FUNCTIONS` are the C functions that will be exposed from WebAssembly to JavaScript. See the section on "Exported Functions" below.
 
 ## Dump the WebAssembly modules
 
@@ -349,6 +349,32 @@ PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat simi
 `lvgl-wasm` simulates the minimal set of InfiniTime functions needed for rendering Watch Faces. (FreeRTOS is not supported by the Simulator)
 
 Hence `lvgl-wasm` works like a __Sandbox__.  Here's how the InfiniTime Sandbox works...
+
+## Exported Functions
+
+The Sandbox exports the following WebAssembly functions from C to JavaScript...
+
+`init_display()`: TODO
+
+`create_clock()`:
+
+`refresh_clock()`:
+
+`update_clock()`:
+
+`get_display_width()`:
+
+`get_display_height()`:
+
+`get_display_buffer()`:
+
+`main()`:
+
+`test_display()`:
+
+`render_display()`:
+
+`render_widgets()`:
 
 ## Sandbox Styles
 

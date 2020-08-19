@@ -356,6 +356,8 @@ The Sandbox exports the following WebAssembly functions from C to JavaScript...
 
 ### Clock Functions
 
+These functions create the Clock class from `Clock.cpp`, render the LVGL widgets on the Watch Face, and update the time...
+
 -   `create_clock()`
 
     Create an instance of the clock. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
@@ -370,6 +372,8 @@ The Sandbox exports the following WebAssembly functions from C to JavaScript...
 
 ### Display Functions
 
+These functions initialise the LVGL library and render the LVGL Widgets to the WebAssembly Display Buffer...
+
 -   `init_display()`
 
     Init the LVGL display. From [`wasm/lvgl.c`](wasm/lvgl.c)
@@ -377,22 +381,44 @@ The Sandbox exports the following WebAssembly functions from C to JavaScript...
 -   `render_display()`
 
     Render the LVGL display. From [`wasm/lvgl.c`](wasm/lvgl.c)
+
+    Calls the WebAssembly Display Driver defined in [`wasm/lv_port_disp.c`](wasm/lv_port_disp.c)
+
+    Which calls `put_display_px()` to draw individual pixels to the the WebAssembly Display Buffer: [`wasm/lvgl.c`](wasm/lvgl.c)
     
 ### Display Buffer Functions
 
+The WebAssembly Display Driver maintains a Display Buffer: 240 x 240 array of pixels, 2 bytes per pixel, in RGB565 colour format: [`wasm/lvgl.c`](wasm/lvgl.c)
+
+```c
+///  RGBA WebAssembly Display Buffer that will be rendered to HTML Canvas
+#define LV_HOR_RES_MAX          240
+#define LV_VER_RES_MAX          240
+#define DISPLAY_BYTES_PER_PIXEL 4
+uint8_t display_buffer[LV_HOR_RES_MAX * LV_VER_RES_MAX * DISPLAY_BYTES_PER_PIXEL];
+```
+
+Our JavaScript code copies the Display Buffer from WebAssembly Memory and renders to HTML Canvas by calling the following functions...
+
 -   `get_display_width()`
 
-    Return the width of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Returns 240, the width of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 -   `get_display_height()`
 
-    Return the height of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Returns 240, the height of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 -   `get_display_buffer()`
 
     Return the WebAssembly Address of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
 
+Note that JavaScript is allowed to read and write to WebAssembly Memory (treating it like a JavaScript array of bytes). But WebAssembly can't access any JavaScript Memory.
+
+That's why we designed the Display Buffer Functions to manipulate WebAssembly Memory.
+
 ### Test Functions
+
+For testing only...
 
 -   `test_display()`
 
@@ -408,7 +434,7 @@ The Sandbox exports the following WebAssembly functions from C to JavaScript...
 
 ## Sandbox API
 
-The Sandbox simulates the InfiniTime OS by exposing the following API Classes to Clock.cpp...
+The Sandbox simulates InfiniTime OS by exposing the following API Classes to `Clock.cpp`...
 
 ### New Classes
 

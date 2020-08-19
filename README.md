@@ -237,6 +237,8 @@ We call `sed` to rewrite `Clock.cpp` so that it compiles with the InfiniTime San
 
 ## Build LVGL app
 
+We build the LVGL app in WebAssembly...
+
 ```bash
 # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 make -j
@@ -257,25 +259,37 @@ emcc -o wasm/lvgl.html \
     -s "EXPORTED_FUNCTIONS=[ '_main', '_get_display_buffer', '_get_display_width', '_get_display_height', '_test_display', '_init_display', '_render_display', '_render_widgets', '_create_clock', '_refresh_clock', '_update_clock' ]"
 ```
 
-TODO
+The emscripten compiler `emcc` generates three files in folder `wasm`...
+
+- `lvgl.wasm`: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox. [Sample File](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.wasm)
+
+- `lvgl.js`: Provides the JavaScript glue that's needed to load `lvgl.wasm` and run it in a Web Browser. [Sample File](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.js)
+
+- `lvgl.html`: The HTML file that calls `lvgl.js` to render the user interface.
+
+    We won't be using this file, because we have a [custom version of `lvgl.html`](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.html)
+
+`EXPORTED_FUNCTIONS` are the C functions that will be exposed from WebAssembly to JavaScript.
 
 ## Dump the WebAssembly modules
+
+For troubleshooting, we dump the text version of the WebAssembly module to `lvgl.txt`...
 
 ```bash
 # Dump the WebAssembly modules
 wasm-objdump -x wasm/lvgl.wasm >wasm/lvgl.txt
 ```
 
-TODO
+[Sample `lvgl.txt`](docs/lvgl.txt)
 
 ## Rename the HTML files
+
+Because we use a custom `lvgl.html`, we rename the generated `lvgl.html` to prevent overwriting...
 
 ```bash
 # Rename the HTML files so we don't overwrite the updates
 mv wasm/lvgl.html wasm/lvgl.old.html
 ```
-
-TODO
 
 ## Mixing Rust and C WebAssembly
 

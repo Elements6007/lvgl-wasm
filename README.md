@@ -196,7 +196,42 @@ cat clock/Clock.cpp \
     >clock/ClockTmp.cpp
 ```
 
-TODO
+We call `sed` to rewrite `Clock.cpp` so that it compiles with the InfiniTime Sandbox...
+
+1.  Include paths are flattened...
+
+    ```c++
+    #include <Components/DateTime/DateTimeController.h>
+    ```
+
+    Becomes...
+
+    ```c++
+    #include "DateTimeController.h"
+    ```
+
+    The InfiniTime Sandbox header and source files are located in the [clock](clock) folder, the same folder as `Clock.cpp`
+
+1.  We simplify Base Classes...
+
+    ```c++
+    Clock::Clock(...) : 
+        Screen(app),
+        currentDateTime{{}}, ... {
+    ```
+
+    Becomes
+
+    ```c++
+    Clock::Clock(...) : 
+        currentDateTime{{}}, ... {
+    ```
+
+    In the InfiniTime Sandbox, the `Screen` class has been replaced by a [Mock Class](clock/Screen.h) that uses no constructor.
+
+1.  We rewrite LVGL references like `user_data`.
+
+    TODO: This may be removed, we now support `user_data` with the updated [`lv_config.h`](lv_config.h)
 
 ## Build LVGL app
 
@@ -210,6 +245,7 @@ The `make` command triggers this command in the [Makefile](Makefile)...
 ```bash
 emcc -o wasm/lvgl.html \
 	-Wl,--start-group \
+  clock/ClockTmp.cpp \
 	(List of C and C++ object files from LVGL and InfiniTime Sandbox) \
 	-Wl,--end-group \
 	-g \

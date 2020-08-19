@@ -356,6 +356,97 @@ source ~/emsdk/emsdk_env.sh
 export PATH=$PATH:~/wabt/build
 ```
 
+# Custom JavaScript
+
+From docs/lvgl.html
+
+```javascript
+//  In JavaScript: Wait for emscripten to be initialised
+Module.onRuntimeInitialized = function() {
+  //  Render LVGL to HTML Canvas
+  render_canvas();
+};
+```
+
+TODO
+
+```javascript
+///  In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
+function render_canvas() {
+  Module.print(`In JavaScript: render_canvas()`);
+  const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
+  const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
+
+  //  Init LVGL Display
+  Module._init_display();
+
+  //  Set to true to see demo widget, false to see PineTime Watch Face
+  const demo_mode = false;
+  if (demo_mode) {
+    //  Construct the demo LVGL Widgets
+    Module._render_widgets();
+  } else {
+    //  Create the LVGL Watch Face Widgets
+    Module._create_clock();
+
+    //  Refresh the LVGL Watch Face Widgets
+    Module._refresh_clock();
+
+    //  Update the LVGL Watch Face Widgets
+    //  Module._update_clock();
+  }
+
+  //  Render LVGL Widgets to the WebAssembly Display Buffer
+  Module._render_display();
+  
+  //  Fetch the PineTime dimensions from WebAssembly Display Buffer
+  var width = Module._get_display_width();
+  var height = Module._get_display_height();
+
+  //  Resize the canvas to PineTime dimensions (240 x 240)
+  if (
+    Module.canvas.width != width * DISPLAY_SCALE ||
+    Module.canvas.height != height * DISPLAY_SCALE
+  ) {
+    Module.canvas.width = width * DISPLAY_SCALE;
+    Module.canvas.height = height * DISPLAY_SCALE;
+  }
+
+  //  Fetch the canvas pixels
+  var ctx = Module.canvas.getContext('2d');
+  var imageData = ctx.getImageData(0, 0, width * DISPLAY_SCALE, height * DISPLAY_SCALE);
+  var data = imageData.data;
+
+  //  Copy the pixels from the WebAssembly Display Buffer to the canvas
+  var addr = Module._get_display_buffer();
+  Module.print(`In JavaScript: get_display_buffer() returned ${toHex(addr)}`);          
+  for (var y = 0; y < height; y++) {
+    //  Scale the pixels vertically to fill the canvas
+    for (var ys = 0; ys < DISPLAY_SCALE; ys++) {
+      for (var x = 0; x < width; x++) {
+        //  Copy from src to dest with scaling
+        const src = ((y * width) + x) * DISPLAY_BYTES_PER_PIXEL;
+        const dest = ((((y * DISPLAY_SCALE + ys) * width) + x) * DISPLAY_BYTES_PER_PIXEL) 
+          * DISPLAY_SCALE;
+        //  Scale the pixels horizontally to fill the canvas
+        for (var xs = 0; xs < DISPLAY_SCALE; xs++) {
+          const dest2 = dest + xs * DISPLAY_BYTES_PER_PIXEL;
+          //  Copy 4 bytes: RGBA
+          for (var b = 0; b < DISPLAY_BYTES_PER_PIXEL; b++) {
+            data[dest2 + b] = Module.HEAPU8[addr + src + b];
+          }
+        }
+      }
+    }
+  }
+  
+  //  Paint the canvas
+  ctx.putImageData(imageData, 0, 0);
+}
+```
+
+TODO
+
 # Install emscripten on Arch Linux / Manjaro Arm64
 
 Works on Pinebook Pro with Manjaro...

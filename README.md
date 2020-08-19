@@ -354,7 +354,9 @@ Hence `lvgl-wasm` works like a __Sandbox__.  Here's how the InfiniTime Sandbox w
 
 The Sandbox exports the following WebAssembly functions from C to JavaScript...
 
-`init_display()`: TODO
+TODO
+
+`init_display()`:
 
 `create_clock()`:
 
@@ -375,6 +377,36 @@ The Sandbox exports the following WebAssembly functions from C to JavaScript...
 `render_display()`:
 
 `render_widgets()`:
+
+## Sandbox API
+
+The Sandbox simulates the InfiniTime OS by exposing the following API Classes to Clock.cpp...
+
+TODO
+
+[`BatteryController.h`](clock/BatteryController.h)
+
+[`BatteryIcon.h`](clock/BatteryIcon.h), [`.cpp`](clock/BatteryIcon.cpp)
+
+[`BleController.h`](clock/BleController.h), [`.cpp`](clock/BleController.cpp)
+
+[`BleIcon.h`](clock/BleIcon.h), [`.cpp`](clock/BleIcon.cpp)
+
+[`Clock.h`](clock/Clock.h), [`.cpp`](clock/Clock.cpp)
+
+[`ClockHelper.h`](clock/ClockHelper.h), [`.cpp`](clock/ClockHelper.cpp)
+
+[`DateTimeController.h`](clock/DateTimeController.h), [`.cpp`](clock/DateTimeController.cpp)
+
+[`DisplayApp.h`](clock/DisplayApp.h)
+
+[`LittleVgl.h`](clock/LittleVgl.h), [`.cpp`](clock/LittleVgl.cpp)
+
+[`Screen.h`](clock/Screen.h)
+
+[`Symbols.h`](clock/Symbols.h)
+
+[`date.h`](clock/date.h)
 
 ## Sandbox Styles
 

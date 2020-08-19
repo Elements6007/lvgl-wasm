@@ -338,7 +338,17 @@ mv wasm/test_rust.html wasm/test_rust.old.html
 
 # InfiniTime Sandbox
 
-TODO
+PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
+
+`Clock.cpp` is our C++ class that contains the Watch Face code. `Clock.cpp` calls functions from two providers...
+
+1. [LVGL UI Toolkit Library](https://docs.lvgl.io/latest/en/html/index.html)
+
+1. [InfiniTime Operating System](https://github.com/JF002/Pinetime) based on FreeRTOS
+
+`lvgl-wasm` simulates the minimal set of InfiniTime functions needed for rendering Watch Faces. (FreeRTOS is not supported by the Simulator)
+
+Hence `lvgl-wasm` works like a __Sandbox__.  Here's how the InfiniTime Sandbox works...
 
 ## Sandbox Styles
 
@@ -349,6 +359,8 @@ InfiniTime Sandbox exposes two LVGL Styles...
     TODO: Use the Base Theme defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L283-L333). It doesn't work with LVGL Version 7 because the LVGL 7 needs Style Callback Functions.
 
 1.  `LabelBigStyle` defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L393-L414) with font [`jetbrains_mono_extrabold_compressed`](clock/jetbrains_mono_extrabold_compressed.c)
+
+## TODO
 
 # Install emscripten on Ubuntu x64
 

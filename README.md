@@ -354,93 +354,125 @@ Hence `lvgl-wasm` works like a __Sandbox__.  Here's how the InfiniTime Sandbox w
 
 The Sandbox exports the following WebAssembly functions from C to JavaScript...
 
-`init_display()`: Init the LVGL display. From [`wasm/lvgl.c`](wasm/lvgl.c)
+## Clock Functions
 
-`create_clock()`: Create an instance of the clock. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+-   `create_clock()`
 
-`refresh_clock()`: Redraw the clock. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+    Create an instance of the clock. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
 
-`update_clock()`: (TODO) Update the clock time. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+-   `refresh_clock()`
 
-`render_display()`: From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Redraw the clock. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
 
-`get_display_width()`: Return the width of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+-   `update_clock()`
 
-`get_display_height()`: Return the height of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    (TODO) Update the clock time. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
 
-`get_display_buffer()`: Return the WebAssembly Address of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+## Display Functions
 
-`test_display()`: (For Testing) Render a colour box to the WebAssembly Display Buffer From [`wasm/lvgl.c`](wasm/lvgl.c)
+-   `init_display()`
 
-`render_widgets()`: (For Testing) Render a Button Widget and a Label Widget. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Init the LVGL display. From [`wasm/lvgl.c`](wasm/lvgl.c)
 
-`main()`: Does nothing. From [`wasm/lvgl.c`](wasm/lvgl.c)
+-   `render_display()`
+
+    Render the LVGL display. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    
+### Display Buffer Functions
+
+-   `get_display_width()`
+
+    Return the width of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+
+-   `get_display_height()`
+
+    Return the height of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+
+-   `get_display_buffer()`
+
+    Return the WebAssembly Address of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+
+### Test Functions
+
+-   `test_display()`
+
+    (For Testing) Render a colour box to the WebAssembly Display Buffer From [`wasm/lvgl.c`](wasm/lvgl.c)
+
+-   `render_widgets()`
+
+    (For Testing) Render a Button Widget and a Label Widget. From [`wasm/lvgl.c`](wasm/lvgl.c)
+
+### Other Functions
+
+-   `main()`: Does nothing. From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 ## Sandbox API
 
 The Sandbox simulates the InfiniTime OS by exposing the following API Classes to Clock.cpp...
 
+### New Classes
+
+The following classes were created for the Simulator...
+
+-   [`ClockHelper.h`](clock/ClockHelper.h), [`.cpp`](clock/ClockHelper.cpp)
+
 TODO
 
-[`BatteryController.h`](clock/BatteryController.h)
+### Mocked Classes
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/Components/Battery/BatteryController.h
+The following classes from InfiniTime were mocked up (i.e. non-functional) to run in the Simulator...
 
-[`BatteryIcon.h`](clock/BatteryIcon.h), [`.cpp`](clock/BatteryIcon.cpp)
+TODO
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BatteryIcon.h
+-   [`DisplayApp.h`](clock/DisplayApp.h)
 
-https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BatteryIcon.cpp
+    Based on [`DisplayApp/DisplayApp.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/DisplayApp.h)
 
-[`BleController.h`](clock/BleController.h), [`.cpp`](clock/BleController.cpp)
+-   [`Screen.h`](clock/Screen.h)
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/Components/Ble/BleController.h
+    Based on [`DisplayApp/Screens/Screen.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Screen.h)
 
-https://github.com/JF002/Pinetime/blob/master/src/Components/Ble/BleController.cpp
+### Reused Classes
 
-[`BleIcon.h`](clock/BleIcon.h), [`.cpp`](clock/BleIcon.cpp)
+The following classes were reused from InfiniTime...
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BleIcon.h
+TODO
 
-https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BleIcon.cpp
+-   [`BatteryController.h`](clock/BatteryController.h)
 
-[`Clock.h`](clock/Clock.h), [`.cpp`](clock/Clock.cpp)
+    Based on [`Components/Battery/BatteryController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/Battery/BatteryController.h)
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.h
+-   [`BatteryIcon.h`](clock/BatteryIcon.h), [`.cpp`](clock/BatteryIcon.cpp)
 
-https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp
+    Based on [`DisplayApp/Screens/BatteryIcon.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BatteryIcon.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BatteryIcon.cpp)
 
-[`ClockHelper.h`](clock/ClockHelper.h), [`.cpp`](clock/ClockHelper.cpp)
+-   [`BleController.h`](clock/BleController.h), [`.cpp`](clock/BleController.cpp)
 
-New
+    Based on [`Components/Ble/BleController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/Ble/BleController.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/Components/Ble/BleController.cpp)
 
-[`DateTimeController.h`](clock/DateTimeController.h), [`.cpp`](clock/DateTimeController.cpp)
+-   [`BleIcon.h`](clock/BleIcon.h), [`.cpp`](clock/BleIcon.cpp)
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/Components/DateTime/DateTimeController.h
+    Based on [`DisplayApp/Screens/BleIcon.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BleIcon.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BleIcon.cpp)
 
-https://github.com/JF002/Pinetime/blob/master/src/Components/DateTime/DateTimeController.cpp
+-   [`Clock.h`](clock/Clock.h), [`.cpp`](clock/Clock.cpp)
 
-[`DisplayApp.h`](clock/DisplayApp.h)
+    Based on [`DisplayApp/Screens/Clock.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/DisplayApp.h
+-   [`DateTimeController.h`](clock/DateTimeController.h), [`.cpp`](clock/DateTimeController.cpp)
 
-[`LittleVgl.h`](clock/LittleVgl.h), [`.cpp`](clock/LittleVgl.cpp)
+    Based on [`Components/DateTime/DateTimeController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/DateTime/DateTimeController.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/Components/DateTime/DateTimeController.cpp)
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.h
+-   [`LittleVgl.h`](clock/LittleVgl.h), [`.cpp`](clock/LittleVgl.cpp)
 
-https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp
+    Based on [`DisplayApp/LittleVgl.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
 
-[`Screen.h`](clock/Screen.h)
+-   [`Symbols.h`](clock/Symbols.h)
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Screen.h
+    Based on [`DisplayApp/Screens/Symbols.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Symbols.h)
 
-[`Symbols.h`](clock/Symbols.h)
+-   [`date.h`](clock/date.h)
 
-Based on https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Symbols.h
-
-[`date.h`](clock/date.h)
-
-Based on libs/date/includes/date/date.h
+    Based on [`libs/date/includes/date/date.h`](libs/date/includes/date/date.h)
 
 ## Sandbox Styles
 

@@ -354,7 +354,7 @@ Hence `lvgl-wasm` works like a __Sandbox__.  Here's how the InfiniTime Sandbox w
 
 The Sandbox exports the following WebAssembly functions from C to JavaScript...
 
-## Clock Functions
+### Clock Functions
 
 -   `create_clock()`
 
@@ -368,7 +368,7 @@ The Sandbox exports the following WebAssembly functions from C to JavaScript...
 
     (TODO) Update the clock time. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
 
-## Display Functions
+### Display Functions
 
 -   `init_display()`
 
@@ -416,13 +416,9 @@ The following classes were created for the Simulator...
 
 -   [`ClockHelper.h`](clock/ClockHelper.h), [`.cpp`](clock/ClockHelper.cpp)
 
-TODO
-
 ### Mocked Classes
 
-The following classes from InfiniTime were mocked up (i.e. non-functional) to run in the Simulator...
-
-TODO
+The following classes from InfiniTime were mocked up (i.e. made non-functional) to run in the Simulator...
 
 -   [`DisplayApp.h`](clock/DisplayApp.h)
 
@@ -435,8 +431,6 @@ TODO
 ### Reused Classes
 
 The following classes were reused from InfiniTime...
-
-TODO
 
 -   [`BatteryController.h`](clock/BatteryController.h)
 
@@ -483,8 +477,6 @@ InfiniTime Sandbox exposes two LVGL Styles...
     TODO: Use the Base Theme defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L283-L333). It doesn't work with LVGL Version 7 because the LVGL 7 needs Style Callback Functions.
 
 1.  `LabelBigStyle` defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L393-L414) with font [`jetbrains_mono_extrabold_compressed`](clock/jetbrains_mono_extrabold_compressed.c)
-
-## TODO
 
 # Install emscripten on Ubuntu x64
 

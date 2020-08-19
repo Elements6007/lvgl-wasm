@@ -380,7 +380,7 @@ These functions initialise the LVGL library and render the LVGL Widgets to the W
 
 -   `render_display()`
 
-    Render the LVGL display. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Render the LVGL display in 16-bit RGB565 format. From [`wasm/lvgl.c`](wasm/lvgl.c)
 
     Calls the WebAssembly Display Driver defined in [`wasm/lv_port_disp.c`](wasm/lv_port_disp.c)
 
@@ -388,7 +388,7 @@ These functions initialise the LVGL library and render the LVGL Widgets to the W
     
 ### Display Buffer Functions
 
-The WebAssembly Display Driver maintains a Display Buffer: 240 x 240 array of pixels, 2 bytes per pixel, in RGB565 colour format: [`wasm/lvgl.c`](wasm/lvgl.c)
+The WebAssembly Display Driver maintains a Display Buffer: 240 x 240 array of pixels, 4 bytes per pixel, in RGBA colour format: [`wasm/lvgl.c`](wasm/lvgl.c)
 
 ```c
 ///  RGBA WebAssembly Display Buffer that will be rendered to HTML Canvas
@@ -610,6 +610,8 @@ We resize the HTML Canvas to PineTime's 240 x 240 resolution, scaled by 2 times.
 
 ## Fetch HTML Canvas
 
+We fetch the HTML Canvas...
+
 ```javascript
   //  Fetch the canvas pixels
   var ctx = Module.canvas.getContext('2d');
@@ -618,6 +620,8 @@ We resize the HTML Canvas to PineTime's 240 x 240 resolution, scaled by 2 times.
 ```
 
 ## Copy WebAssembly Display Buffer to HTML Canvas
+
+We copy the pixels from the WebAssembly Display Buffer to the HTML Canvas (which uses 24-bit RGBA format)...
 
 ```javascript
   const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
@@ -647,7 +651,13 @@ We resize the HTML Canvas to PineTime's 240 x 240 resolution, scaled by 2 times.
   }
 ```
 
+Note that JavaScript is allowed to read and write to WebAssembly Memory (treating it like a JavaScript array of bytes in `Module.HEAPU8[]`). But WebAssembly can't access any JavaScript Memory.
+
+That's why we designed the Display Buffer Functions to manipulate WebAssembly Memory.
+
 ## Paint the HTML Canvas
+
+Finally we update the HTML Canvas...
 
 ```javascript
   //  Paint the canvas

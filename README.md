@@ -462,7 +462,7 @@ The following classes from InfiniTime were mocked up (i.e. made non-functional) 
 
 ### Reused Classes
 
-The following classes were reused from InfiniTime with minor changes (e.g. include paths)...
+The following classes were reused from InfiniTime with minor changes (e.g. include paths changed, functions stubbed out)...
 
 -   [`BatteryController.h`](clock/BatteryController.h)
 
@@ -502,9 +502,9 @@ The following classes were reused from InfiniTime with minor changes (e.g. inclu
 
 -   [`LittleVgl.h`](clock/LittleVgl.h), [`.cpp`](clock/LittleVgl.cpp)
 
-    LVGL styling functions.
+    LVGL Style functions.
 
-    The changes here are quite massive and incomplete because InfiniTime uses LVGL Version 6 Styles whereas the Simulator uses LVGL Version 6 Styles.  See the section below on "Migrating LVGL Version 6 to 7"
+    The changes here are quite massive and incomplete because InfiniTime uses LVGL Version 6 Styles whereas the Simulator uses LVGL Version 7 Styles.  See the section below on "Migrating LVGL Version 6 to 7"
 
     Based on [`DisplayApp/LittleVgl.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
 

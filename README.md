@@ -548,7 +548,7 @@ Module.onRuntimeInitialized = function() {
 
 ## Initialise LVGL Display
 
-We call the WebAssembly Function `init_display()` to initialise the LVGL display...
+When the WebAssembly Module `lvgl.wasm` has been loaded, we call the WebAssembly Function `init_display()` to initialise the LVGL display...
 
 ```javascript
 ///  In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
@@ -559,12 +559,16 @@ function render_canvas() {
 
 ## Create LVGL Watch Face Widgets
 
+Then we create the LVGL Watch Face Class from `Clock.cpp`...
+
 ```javascript
   //  Create the LVGL Watch Face Widgets
   Module._create_clock();
 ```
 
 ## Refresh LVGL Watch Face Widgets
+
+And redraw the LVGL Watch Face Widgets in `Clock.cpp`...
 
 ```javascript
   //  Refresh the LVGL Watch Face Widgets
@@ -576,6 +580,8 @@ function render_canvas() {
 
 ## Render LVGL Widgets to WebAssembly Display Buffer
 
+We call LVGL to render the Widgets into the WebAssembly Display Buffer...
+
 ```javascript
   //  Render LVGL Widgets to the WebAssembly Display Buffer
   Module._render_display();
@@ -583,10 +589,11 @@ function render_canvas() {
 
 ## Resize HTML Canvas
 
+We resize the HTML Canvas to PineTime's 240 x 240 resolution, scaled by 2 times...
+
 ```javascript
-  const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
   const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
-  
+
   //  Fetch the PineTime dimensions from WebAssembly Display Buffer
   var width = Module._get_display_width();
   var height = Module._get_display_height();
@@ -613,6 +620,9 @@ function render_canvas() {
 ## Copy WebAssembly Display Buffer to HTML Canvas
 
 ```javascript
+  const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
+  const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
+
   //  Copy the pixels from the WebAssembly Display Buffer to the canvas
   var addr = Module._get_display_buffer();
   Module.print(`In JavaScript: get_display_buffer() returned ${toHex(addr)}`);          

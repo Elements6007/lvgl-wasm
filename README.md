@@ -324,6 +324,14 @@ mv wasm/test_rust.html wasm/test_rust.old.html
 
 TODO
 
+## Sandbox Styles
+
+InfiniTime Sandbox exposes two LVGL Styles...
+
+1.  Default Style defined here in [`lv_conf.h`](lv_conf.h#L448-L451) with font [`jetbrains_mono_bold_20.c`](clock/jetbrains_mono_bold_20.c)
+
+1.  `labelBigStyle` defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L393-L414) with font [`jetbrains_mono_extrabold_compressed`](clock/jetbrains_mono_extrabold_compressed.c)
+
 # Install emscripten on Ubuntu x64
 
 See the GitHub Actions Workflow...

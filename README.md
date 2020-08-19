@@ -261,13 +261,13 @@ emcc -o wasm/lvgl.html \
 
 The emscripten compiler `emcc` generates three files in folder `wasm`...
 
-- `lvgl.wasm`: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox. [Sample File](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.wasm)
+- `lvgl.wasm`: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox. [Sample File](docs/lvgl.wasm)
 
-- `lvgl.js`: Provides the JavaScript glue that's needed to load `lvgl.wasm` and run it in a Web Browser. [Sample File](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.js)
+- `lvgl.js`: Provides the JavaScript glue that's needed to load `lvgl.wasm` and run it in a Web Browser. [Sample File](docs/lvgl.js)
 
 - `lvgl.html`: The HTML file that calls `lvgl.js` to render the user interface.
 
-    We won't be using this file, because we have a [custom version of `lvgl.html`](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.html)
+    We won't be using this file, because we have a [custom version of `lvgl.html`](docs/lvgl.html)
 
 `EXPORTED_FUNCTIONS` are the C functions that will be exposed from WebAssembly to JavaScript.
 

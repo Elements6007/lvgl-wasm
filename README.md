@@ -328,7 +328,7 @@ TODO
 
 InfiniTime Sandbox exposes two LVGL Styles...
 
-1.  Default Style defined in [`lv_conf.h`](lv_conf.h#L448-L451) with font [`jetbrains_mono_bold_20.c`](clock/jetbrains_mono_bold_20.c)
+1.  Default Style defined in [`lv_conf.h`](lv_conf.h#L448-L451) with font [`jetbrains_mono_bold_20`](clock/jetbrains_mono_bold_20.c)
 
 1.  `LabelBigStyle` defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L393-L414) with font [`jetbrains_mono_extrabold_compressed`](clock/jetbrains_mono_extrabold_compressed.c)
 

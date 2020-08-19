@@ -442,55 +442,81 @@ The following classes were created for the Simulator...
 
 -   [`ClockHelper.h`](clock/ClockHelper.h), [`.cpp`](clock/ClockHelper.cpp)
 
+    Exposes the Clock Functions for creating and rendering the Watch Face: `create_clock()`, `refresh_clock()` and `update_clock()`
+
 ### Mocked Classes
 
 The following classes from InfiniTime were mocked up (i.e. made non-functional) to run in the Simulator...
 
 -   [`DisplayApp.h`](clock/DisplayApp.h)
 
+    Mocked-up `DisplayApp` class.
+
     Based on [`DisplayApp/DisplayApp.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/DisplayApp.h)
 
 -   [`Screen.h`](clock/Screen.h)
+
+    Mocked-up `Screen` class.
 
     Based on [`DisplayApp/Screens/Screen.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Screen.h)
 
 ### Reused Classes
 
-The following classes were reused from InfiniTime...
+The following classes were reused from InfiniTime with minor changes (e.g. include paths)...
 
 -   [`BatteryController.h`](clock/BatteryController.h)
+
+    Simulated battery functions.
 
     Based on [`Components/Battery/BatteryController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/Battery/BatteryController.h)
 
 -   [`BatteryIcon.h`](clock/BatteryIcon.h), [`.cpp`](clock/BatteryIcon.cpp)
 
+    Battery icons.
+
     Based on [`DisplayApp/Screens/BatteryIcon.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BatteryIcon.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BatteryIcon.cpp)
 
 -   [`BleController.h`](clock/BleController.h), [`.cpp`](clock/BleController.cpp)
+
+    Simulated BLE controller.
 
     Based on [`Components/Ble/BleController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/Ble/BleController.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/Components/Ble/BleController.cpp)
 
 -   [`BleIcon.h`](clock/BleIcon.h), [`.cpp`](clock/BleIcon.cpp)
 
+    BLE icons.
+
     Based on [`DisplayApp/Screens/BleIcon.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BleIcon.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BleIcon.cpp)
 
 -   [`Clock.h`](clock/Clock.h), [`.cpp`](clock/Clock.cpp)
+
+    Watch Face.
 
     Based on [`DisplayApp/Screens/Clock.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
 
 -   [`DateTimeController.h`](clock/DateTimeController.h), [`.cpp`](clock/DateTimeController.cpp)
 
+    Date and time functions.
+
     Based on [`Components/DateTime/DateTimeController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/DateTime/DateTimeController.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/Components/DateTime/DateTimeController.cpp)
 
 -   [`LittleVgl.h`](clock/LittleVgl.h), [`.cpp`](clock/LittleVgl.cpp)
+
+    LVGL styling functions.
+
+    The changes here are quite massive and incomplete because InfiniTime uses LVGL Version 6 Styles whereas the Simulator uses LVGL Version 6 Styles.  See the section below on "Migrating LVGL Version 6 to 7"
 
     Based on [`DisplayApp/LittleVgl.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
 
 -   [`Symbols.h`](clock/Symbols.h)
 
+    Watch Face symbols.
+
     Based on [`DisplayApp/Screens/Symbols.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Symbols.h)
 
 -   [`date.h`](clock/date.h)
+
+    Date functions.
 
     Based on [`libs/date/includes/date/date.h`](libs/date/includes/date/date.h)
 
@@ -504,33 +530,11 @@ InfiniTime Sandbox exposes two LVGL Styles...
 
 1.  `LabelBigStyle` defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L393-L414) with font [`jetbrains_mono_extrabold_compressed`](clock/jetbrains_mono_extrabold_compressed.c)
 
-# Install emscripten on Ubuntu x64
-
-See the GitHub Actions Workflow...
-
-[`.github/workflows/ccpp.yml`](.github/workflows/ccpp.yml)
-
-Look for the steps...
-
-1.   "Install emscripten"
-
-1.   "Install wabt"
-
-Change `/tmp` to a permanent path like `~`
-
-Then add emscripten and wabt to the PATH...
-
-```bash
-# Add emscripten and wabt to the PATH
-source ~/emsdk/emsdk_env.sh
-export PATH=$PATH:~/wabt/build
-```
-
 # Simulator JavaScript
 
 TODO
 
-From docs/lvgl.html
+From [`docs/lvgl.html`](docs/lvgl.html)...
 
 ```javascript
 //  In JavaScript: Wait for emscripten to be initialised
@@ -637,6 +641,28 @@ function render_canvas() {
   //  Paint the canvas
   ctx.putImageData(imageData, 0, 0);
 }
+```
+
+# Install emscripten on Ubuntu x64
+
+See the GitHub Actions Workflow...
+
+[`.github/workflows/ccpp.yml`](.github/workflows/ccpp.yml)
+
+Look for the steps...
+
+1.   "Install emscripten"
+
+1.   "Install wabt"
+
+Change `/tmp` to a permanent path like `~`
+
+Then add emscripten and wabt to the PATH...
+
+```bash
+# Add emscripten and wabt to the PATH
+source ~/emsdk/emsdk_env.sh
+export PATH=$PATH:~/wabt/build
 ```
 
 # Install emscripten on Arch Linux / Manjaro Arm64

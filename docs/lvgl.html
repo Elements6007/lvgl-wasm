@@ -1304,20 +1304,28 @@
       const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
       const DEMO_MODE = false;  //  Set to true to see demo widget, false to see PineTime Watch Face
 
-      /// In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
-      function render_canvas() {
-          Module.print(`In JavaScript: render_canvas()`);
+      /// In JavaScript: Create the Watch Face in WebAssembly
+      function renderCanvas() {
+          Module.print(`In JavaScript: Rendering canvas...`);
 
-          //  Init LVGL Display
+          //  Init LVGL Display in WebAssembly
           Module._init_display();
 
           if (DEMO_MODE) {
-            //  Construct the demo LVGL Widgets
+            //  Create the Demo Widgets in WebAssembly
             Module._render_widgets();
           } else {
-            //  Create the LVGL Watch Face Widgets
+            //  Create the Watch Face in WebAssembly
             Module._create_clock();
+          }
+          //  Draw the Watch Face
+          updateCanvas();
+        }
 
+        /// In JavaScript: Update the Watch Face time in WebAssembly and render the WebAssembly Display Buffer to the HTML Canvas
+        function updateCanvas() {
+          Module.print(`In JavaScript: Updating canvas...`);
+          if (!DEMO_MODE) {
             //  Update the Date and Time: year, month, day, hour, minute, second
             const localTime = new Date();
             const timezoneOffset = localTime.getTimezoneOffset();  //  In mins
@@ -1335,11 +1343,11 @@
               now.getSeconds()
             );
 
-            //  Refresh the LVGL Watch Face Widgets
+            //  Update the Watch Face time in WebAssembly
             Module._refresh_clock();
           }
 
-          //  Render LVGL Widgets to the WebAssembly Display Buffer
+          //  Render Watch Face to the WebAssembly Display Buffer
           Module._render_display();
           
           //  Fetch the PineTime dimensions from WebAssembly Display Buffer
@@ -1384,13 +1392,13 @@
           }
          
           //  Paint the canvas
-          ctx.putImageData(imageData, 0, 0);
+          ctx.putImageData(imageData, 0, 0);          
         }
   
-        //  Wait for emscripten to be initialised
+        /// Wait for emscripten to be initialised
         Module.onRuntimeInitialized = function() {
           //  Render LVGL to HTML Canvas
-          render_canvas();
+          renderCanvas();
         };
   
         /// Convert i to hexadecimal

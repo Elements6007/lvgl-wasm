@@ -45,15 +45,21 @@ int create_clock(void) {
 /// Redraw the clock
 int refresh_clock(void) {
     puts("In C++: Refreshing clock...");
-    assert(clock0 != 0);
+    assert(clock0 != nullptr);
     clock0->Refresh();
     return 0;
 }
 
-/// Update the clock time
-int update_clock(void) {
+/// Update the clock time. Use generic "int" type to prevent JavaScript-WebAssembly interoperability problems.
+int update_clock(int year, int month, int day, 
+    int hour, int minute, int second) {
     puts("In C++: Updating clock...");
-    assert(clock0 != 0);
-    //  TODO
+    assert(dateTimeController0 != nullptr);
+    dateTimeController0->SetTime(
+        year, month, day, 
+        0,  //  Auto compute day of week 
+        hour, minute, second,
+        0   //  Offset 0 for systick counter
+    );
     return 0;
 }

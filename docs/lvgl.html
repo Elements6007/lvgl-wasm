@@ -1317,11 +1317,25 @@
             //  Create the LVGL Watch Face Widgets
             Module._create_clock();
 
+            //  Update the Date and Time: year, month, day, hour, minute, second
+            const localTime = new Date();
+            const timezoneOffset = localTime.getTimezoneOffset();  //  In mins
+            //  Compensate for the time zone
+            const now = new Date(
+              localTime.valueOf()             //  Convert time to millisec
+              - (timezoneOffset * 60 * 1000)  //  Convert mins to millisec
+            );
+            Module._update_clock(
+              now.getFullYear(),
+              now.getMonth() - 1,  //  getMonth() returns 1 to 12
+              now.getDay(), 
+              now.getHours(),
+              now.getMinutes(),
+              now.getSeconds()
+            );
+
             //  Refresh the LVGL Watch Face Widgets
             Module._refresh_clock();
-
-            //  Update the LVGL Watch Face Widgets
-            //  Module._update_clock();
           }
 
           //  Render LVGL Widgets to the WebAssembly Display Buffer

@@ -13,8 +13,9 @@ int create_clock(void);
 int refresh_clock(void);
 
 /// Update the clock time
-int update_clock(void);
-
+int update_clock(int year, int month, int day, 
+    int hour, int minute, int second);
+    
 #ifdef __cplusplus
 }  //  extern "C"
 #endif

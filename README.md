@@ -362,15 +362,21 @@ These functions create the Clock class from `Clock.cpp`, render the LVGL widgets
 
 -   `create_clock()`
 
-    Create an instance of the clock. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+    Create an instance of the clock. 
+    
+    From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
 
 -   `refresh_clock()`
 
-    Redraw the clock. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+    Redraw the clock. 
+    
+    From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
 
--   `update_clock()`
+-   `update_clock(year, month, day, hour, minute, second)`
 
-    (TODO) Update the clock time. From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+    Set the current date and time in `DateTimeController`. The time needs to be adjusted for the current timezone, see the JavaScript call to `update_clock()` below.
+    
+    From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
 
 ### Display Functions
 
@@ -378,7 +384,9 @@ These functions initialise the LVGL library and render the LVGL Widgets to the W
 
 -   `init_display()`
 
-    Init the LVGL display. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Init the LVGL display. 
+    
+    From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 -   `render_display()`
 
@@ -404,15 +412,21 @@ Our JavaScript code copies the Display Buffer from WebAssembly Memory and render
 
 -   `get_display_width()`
 
-    Returns 240, the width of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Returns 240, the width of the WebAssembly Display Buffer. 
+    
+    From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 -   `get_display_height()`
 
-    Returns 240, the height of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Returns 240, the height of the WebAssembly Display Buffer. 
+    
+    From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 -   `get_display_buffer()`
 
-    Return the WebAssembly Address of the WebAssembly Display Buffer. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    Return the WebAssembly Address of the WebAssembly Display Buffer. 
+    
+    From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 Note that JavaScript is allowed to read and write to WebAssembly Memory (treating it like a JavaScript array of bytes). But WebAssembly can't access any JavaScript Memory.
 
@@ -424,15 +438,21 @@ For testing only...
 
 -   `test_display()`
 
-    (For Testing) Render a colour box to the WebAssembly Display Buffer From [`wasm/lvgl.c`](wasm/lvgl.c)
+    (For Testing) Render a colour box to the WebAssembly Display Buffer.
+    
+    From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 -   `render_widgets()`
 
-    (For Testing) Render a Button Widget and a Label Widget. From [`wasm/lvgl.c`](wasm/lvgl.c)
+    (For Testing) Render a Button Widget and a Label Widget. 
+    
+    From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 ### Other Functions
 
--   `main()`: Does nothing. From [`wasm/lvgl.c`](wasm/lvgl.c)
+-   `main()`: Does nothing. 
+
+    From [`wasm/lvgl.c`](wasm/lvgl.c)
 
 ## Sandbox API
 
@@ -557,31 +577,53 @@ Module.onRuntimeInitialized = function() {
 When the WebAssembly Module `lvgl.wasm` has been loaded, we call the WebAssembly Function `init_display()` to initialise the LVGL display...
 
 ```javascript
-///  In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
+/// In JavaScript: Create the Watch Face in WebAssembly
 function render_canvas() {
   //  Init LVGL Display
   Module._init_display();
 ```
 
-## Create LVGL Watch Face Widgets
+## Create Watch Face
 
 Then we create the LVGL Watch Face Class from `Clock.cpp`...
 
 ```javascript
-  //  Create the LVGL Watch Face Widgets
+  //  Create the Watch Face in WebAssembly
   Module._create_clock();
 ```
 
-## Refresh LVGL Watch Face Widgets
+## Update Watch Face Time
 
-And redraw the LVGL Watch Face Widgets in `Clock.cpp`...
+Every minute we update the Watch Face time in `DateTimeController`...
 
 ```javascript
-  //  Refresh the LVGL Watch Face Widgets
-  Module._refresh_clock();
+/// In JavaScript: Update the Watch Face time in WebAssembly and render the WebAssembly Display Buffer to the HTML Canvas
+function updateCanvas() {
+  //  Update the WebAssembly Date and Time: year, month, day, hour, minute, second
+  const localTime = new Date();
+  const timezoneOffset = localTime.getTimezoneOffset();  //  In mins
+  //  Compensate for the time zone
+  const now = new Date(
+    localTime.valueOf()             //  Convert time to millisec
+    - (timezoneOffset * 60 * 1000)  //  Convert mins to millisec
+  );
+  Module._update_clock(
+    now.getFullYear(),
+    now.getMonth() - 1,  //  getMonth() returns 1 to 12
+    now.getDay(), 
+    now.getHours(),
+    now.getMinutes(),
+    now.getSeconds()
+  );
+```
 
-  //  Update the LVGL Watch Face Widgets
-  //  Module._update_clock();
+## Redraw Watch Face
+
+And redraw the Watch Face in `Clock.cpp`...
+
+```javascript
+  //  Update the Watch Face time in WebAssembly
+  Module._refresh_clock();
 ```
 
 ## Render LVGL Widgets to WebAssembly Display Buffer

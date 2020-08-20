@@ -340,6 +340,38 @@ wasm-objdump -x wasm/test_rust.wasm >wasm/test_rust.txt
 mv wasm/test_rust.html wasm/test_rust.old.html
 ```
 
+When we see this error...
+
+```
+error[E0432]: unresolved import `ad`
+ --> /home/luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cty-0.1.5/src/lib.rs:8:9
+  |
+8 | pub use ad::*;
+  |         ^^ maybe a missing crate `ad`?
+```
+
+Edit `~/.cargo/registry/src/github.com-*/cty-0.1.5/src/lib.rs`
+
+Under `aarch64`, insert a line for `wasm32`...
+
+```rust
+#[cfg(any(target_arch = "aarch64",
+          target_arch = "arm",
+          target_arch = "asmjs",
+          target_arch = "powerpc",
+          target_arch = "powerpc64",
+          target_arch = "s390x",
+          target_arch = "wasm32"))]
+mod ad {
+    pub type c_char = ::c_uchar;
+
+    pub type c_int = i32;
+    pub type c_uint = u32;
+}
+```
+
+And rebuild.
+
 # InfiniTime Sandbox
 
 PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)

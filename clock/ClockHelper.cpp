@@ -55,12 +55,11 @@ int update_clock(int year, int month, int day,
     int hour, int minute, int second) {
     puts("In C++: Updating clock...");
     assert(dateTimeController0 != nullptr);
-    static int systick = 0;
     dateTimeController0->SetTime(
         year, month, day, 
         0,  //  Auto compute day of week 
         hour, minute, second,
-        systick++   //  Offset for systick counter
+        0   //  Offset for systick counter
     );
     return 0;
 }

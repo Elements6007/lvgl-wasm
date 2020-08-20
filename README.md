@@ -235,6 +235,8 @@ We call `sed` to rewrite `Clock.cpp` so that it compiles with the InfiniTime San
 
     TODO: This may be removed, we now support `user_data` with the updated [`lv_config.h`](lv_config.h)
 
+This step creates the file `ClockTmp.cpp`, which is compiled instead of the original `Clock.cpp`.
+
 ## Build LVGL app
 
 We build the LVGL app in WebAssembly...
@@ -490,7 +492,11 @@ The following classes were reused from InfiniTime with minor changes (e.g. inclu
 
 -   [`Clock.h`](clock/Clock.h), [`.cpp`](clock/Clock.cpp)
 
-    Watch Face.
+    Watch Face code. `Clock.cpp` contains the Custom Watch Face code. `Clock.h` is fixed for all Watch Faces.
+
+    `Clock.cpp` is transformed by `sed` to `ClockTmp.cpp`. (See "How It Works" above)
+
+    `ClockTmp.cpp` is the actual file that's compiled by the emscripten compiler.
 
     Based on [`DisplayApp/Screens/Clock.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
 

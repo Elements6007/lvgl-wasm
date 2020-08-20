@@ -81,6 +81,9 @@ void render_widgets(void) {
 /// Render the LVGL display
 void render_display(void) {
     puts("In C: Rendering display...");
+    //  Must tick at least 100 milliseconds to force LVGL to update display
+    lv_tick_inc(100);
+    //  LVGL will flush our display driver
     lv_task_handler();
 }
 

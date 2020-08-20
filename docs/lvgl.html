@@ -1299,18 +1299,19 @@
     </script>
     <!--  Custom Script  -->
     <script type="text/javascript">
-      ///  In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
+      /// Rendering Parameters
+      const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
+      const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
+      const DEMO_MODE = false;  //  Set to true to see demo widget, false to see PineTime Watch Face
+
+      /// In JavaScript: Render the C WebAssembly Display Buffer to the HTML Canvas
       function render_canvas() {
           Module.print(`In JavaScript: render_canvas()`);
-          const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
-          const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
 
           //  Init LVGL Display
           Module._init_display();
 
-          //  Set to true to see demo widget, false to see PineTime Watch Face
-          const demo_mode = false;
-          if (demo_mode) {
+          if (DEMO_MODE) {
             //  Construct the demo LVGL Widgets
             Module._render_widgets();
           } else {
@@ -1386,7 +1387,7 @@
           ctx.putImageData(imageData, 0, 0);
         }
   
-        //  In JavaScript: Wait for emscripten to be initialised
+        //  Wait for emscripten to be initialised
         Module.onRuntimeInitialized = function() {
           //  Render LVGL to HTML Canvas
           render_canvas();

@@ -28,6 +28,8 @@ Read the article...
 
 1. __Supports RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly. [Custom Bitmap Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
 
+1. __Shows current date and time__
+
 # How to Build and Preview a PineTime Watch Face with GitHub or GitLab
 
 1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab): [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
@@ -51,8 +53,6 @@ Read the article...
 1.  If we are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
 # Upcoming Features
-
-1. __Show date and time__, current and selected
 
 1. __Accept Touch Input__ for LVGL
 
@@ -616,6 +616,8 @@ function updateCanvas() {
     now.getSeconds()
   );
 ```
+
+Note that we need to compensate for the timezone.
 
 ## Redraw Watch Face
 

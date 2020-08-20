@@ -1395,7 +1395,7 @@
         ctx.putImageData(imageData, 0, 0);        
         
         //  Update the Watch Face at the next minute
-        const sleepSeconds = 61 - new Date().getSeconds();
+        const sleepSeconds = 60 - new Date().getSeconds();
         Module.print(`In JavaScript: Sleeping ${sleepSeconds} seconds...`);
         window.setTimeout(
           updateCanvas,

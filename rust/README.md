@@ -1,8 +1,11 @@
-# Rust WebAssembly Modules for LVGL
+# rust
 
-Based on...
+Rust application, macros and wrappers for LittlevGL.
 
-https://rustwasm.github.io/docs/book/reference/js-ffi.html
+## Contents
 
-https://kripken.github.io/blog/binaryen/2018/04/18/rust-emscripten.html
+[`app`](app): Rust Application
 
+[`lvgl`](lvgl): Rust Safe Wrappers for LittlevGL (LVGL) API
+
+[`macros`](macros): Rust Procedural Macros

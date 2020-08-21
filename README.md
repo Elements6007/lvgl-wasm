@@ -372,6 +372,14 @@ mod ad {
 
 And rebuild.
 
+When we see this error...
+
+```
+error: language item required, but not found: `eh_personality`
+```
+
+TODO
+
 # InfiniTime Sandbox
 
 PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)

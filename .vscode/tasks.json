@@ -277,23 +277,21 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " newt\\newt.exe clean -v all && rd /q /s target && echo ✅ ◾ ️Done!"
+                    " cargo clean && make clean && echo ✅ ◾ ️Done!"
                 ]
             },
             "osx": {
-                // Previously: " newt load -v bluepill_my_sensor && echo '**** Done!' "
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt clean -v all && rm -r target ; echo ✅ ◾ ️Done! "
+                    " cargo clean ; make clean ; echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
-                // Previously: " newt load -v bluepill_my_sensor && echo '**** Done!' "
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt clean -v all && rm -r target ; echo ✅ ◾ ️Done! "
+                    " cargo clean ; make clean ; echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],

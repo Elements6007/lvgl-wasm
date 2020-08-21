@@ -30,8 +30,7 @@ extern crate lvgl;                      //  Declare the LittlevGL (LVGL) library
 extern crate macros as lvgl_macros;     //  Declare the LVGL Procedural Macros library
 
 //  Declare the modules in our application
-pub mod watch_face;             ////  Export `watch_face.rs` as Rust module `watch_face` for Watch Face
-////mod watch_face;             //  Declare `watch_face.rs` as Rust module `watch_face` for Watch Face
+pub mod watch_face;         //  Export `watch_face.rs` as Rust module `watch_face` for Watch Face ////
 
 //  Declare the system modules
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
@@ -43,6 +42,7 @@ use lvgl::console;          //  Import Semihosting Console functions
 extern "C" fn rust_main() {  //  Declare extern "C" because it will be called by RIOT OS firmware
 }
 
+/* ////
 ///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
@@ -65,3 +65,4 @@ fn panic(info: &PanicInfo) -> ! {
     //  Loop forever so that device won't restart.
     loop {}
 }
+*/ ////

@@ -5,6 +5,8 @@ cargo build --target=wasm32-unknown-emscripten
 */
 #![feature(libc)]
 
+use app::watch_face;
+
 /// Create an instance of the clock
 #[no_mangle]
 pub extern fn create_clock() -> i32 {

@@ -1,5 +1,5 @@
 [package]
-name = "lvgl_wasm_rust"
+name = "wasm"
 version = "0.1.0"
 authors = ["luppy@appkaki.com"]
 edition = "2018"

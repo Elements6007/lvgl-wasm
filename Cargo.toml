@@ -4,9 +4,9 @@
 [workspace]
 members = [
     "rust/app",
-    "rust/demo",
     "rust/lvgl",
-    "rust/macros"
+    "rust/macros",
+    "rust/wasm",
 ]
 
 # Options for `cargo build`

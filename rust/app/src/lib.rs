@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//!  Main Rust Application for PineTime with Apache Mynewt OS
+//!  Main Rust Application for PineTime with RIOT ////
 #![no_std]                              //  Don't link with standard Rust library, which is not compatible with embedded systems
 #![feature(trace_macros)]               //  Allow macro tracing: `trace_macros!(true)`
 #![feature(concat_idents)]              //  Allow `concat_idents!()` macro used in `coap!()` macro

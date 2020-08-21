@@ -340,7 +340,7 @@ wasm-objdump -x wasm/test_rust.wasm >wasm/test_rust.txt
 mv wasm/test_rust.html wasm/test_rust.old.html
 ```
 
-When we see this error...
+If we see this error...
 
 ```
 error[E0432]: unresolved import `ad`
@@ -370,15 +370,18 @@ mod ad {
 }
 ```
 
-And rebuild.
-
-When we see this error...
+If we see this error...
 
 ```
 error: language item required, but not found: `eh_personality`
 ```
 
-TODO
+Check `Cargo.toml`...
+
+```yaml
+[profile.dev]
+panic         = "abort"     # Disable stack unwinding on panic
+```
 
 # InfiniTime Sandbox
 

@@ -91,8 +91,9 @@ void render_display(void) {
 //  Rust LVGL Interface
 
 /// Create LVGL Screen. Called by rust/wasm/src/lib.rs
-lv_obj_t *create_screen(void) {
-    lv_obj_t *screen = lv_obj_create(NULL, NULL);
+lv_obj_t *get_screen(void) {
+    puts("In C: Getting screen...");
+    lv_obj_t *screen = lv_scr_act();
     return screen;
 }
 

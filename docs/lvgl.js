@@ -670,8 +670,8 @@ var wasmMemory;
 // so this creates a (non-native-wasm) table for us.
 
 var wasmTable = new WebAssembly.Table({
-  'initial': 155,
-  'maximum': 155 + 0,
+  'initial': 160,
+  'maximum': 160 + 0,
   'element': 'anyfunc'
 });
 
@@ -1292,11 +1292,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 5734288,
+    STACK_BASE = 5737424,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 491408,
-    DYNAMIC_BASE = 5734288,
-    DYNAMICTOP_PTR = 491248;
+    STACK_MAX = 494544,
+    DYNAMIC_BASE = 5737424,
+    DYNAMICTOP_PTR = 494384;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1863,7 +1863,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 490384;
+// STATICTOP = STATIC_BASE + 493520;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -4377,7 +4377,7 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 491248;
+      return 494384;
     }
 
   function _emscripten_memcpy_big(dest, src, num) {
@@ -4812,6 +4812,9 @@ var dynCall_iiiiii = Module["dynCall_iiiiii"] = createExportWrapper("dynCall_iii
 
 /** @type {function(...*):?} */
 var dynCall_iiiiiii = Module["dynCall_iiiiiii"] = createExportWrapper("dynCall_iiiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_iiiii = Module["dynCall_iiiii"] = createExportWrapper("dynCall_iiiii");
 
 /** @type {function(...*):?} */
 var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");

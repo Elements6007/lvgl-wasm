@@ -32,8 +32,8 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> LvglResult<()> { ////
     let l_state = label::create(scr, ptr::null()) ? ;
     obj::set_width(l_state, 50) ? ;
     obj::set_height(l_state, 80) ? ;
-    label::set_text(l_state, strn!("BBB")) ? ;  //  strn creates a null-terminated string
-    ////label::set_recolor(l_state, true) ? ;
+    label::set_text(l_state, strn!("")) ? ;  //  strn creates a null-terminated string
+    label::set_recolor(l_state, true) ? ;
     label::set_align(l_state, label::LV_LABEL_ALIGN_LEFT) ? ;
     obj::align(l_state, scr, obj::LV_ALIGN_IN_TOP_LEFT, 0, 0) ? ;
     widgets.ble_label = l_state;
@@ -42,8 +42,8 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> LvglResult<()> { ////
     let l_power = label::create(scr, ptr::null()) ? ;
     obj::set_width(l_power, 80) ? ;
     obj::set_height(l_power, 20) ? ;
-    label::set_text(l_power, strn!("PPP")) ? ;  //  strn creates a null-terminated string
-    ////label::set_recolor(l_power, true) ? ;
+    label::set_text(l_power, strn!("")) ? ;  //  strn creates a null-terminated string
+    label::set_recolor(l_power, true) ? ;
     label::set_align(l_power, label::LV_LABEL_ALIGN_RIGHT) ? ;
     obj::align(l_power, scr, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0) ? ;
     widgets.power_label = l_power;
@@ -53,7 +53,7 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> LvglResult<()> { ////
     label::set_long_mode(label_date, label::LV_LABEL_LONG_BREAK) ? ;
     obj::set_width(label_date, 200) ? ;
     obj::set_height(label_date, 200) ? ;
-    label::set_text(label_date, strn!("DDD")) ? ;  //  strn creates a null-terminated string
+    label::set_text(label_date, strn!("")) ? ;  //  strn creates a null-terminated string
     label::set_align(label_date, label::LV_LABEL_ALIGN_CENTER) ? ;
     obj::align(label_date, scr, obj::LV_ALIGN_CENTER, 0, 40) ? ;
     widgets.date_label = label_date;

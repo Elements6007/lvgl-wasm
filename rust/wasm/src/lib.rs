@@ -21,7 +21,7 @@ static mut WIDGETS: watch_face::WatchFaceWidgets = watch_face::WatchFaceWidgets 
 pub extern fn create_clock() -> i32 {
     unsafe { puts(b"In Rust: Creating clock...\0".as_ptr()); }
     unsafe {
-        WIDGETS.screen = create_screen();
+        WIDGETS.screen = get_screen();
         watch_face::create_widgets(&mut WIDGETS)
             .expect("create_widgets failed");
     }
@@ -63,8 +63,8 @@ pub extern fn update_clock(year: i32, month: i32, day: i32,
 }
 
 extern "C" {
-    /// Create LVGL Screen. Defined in wasm/lvgl.c
-    fn create_screen() -> *mut lvgl::core::obj::lv_obj_t;
+    /// Get LVGL Screen. Defined in wasm/lvgl.c
+    fn get_screen() -> *mut lvgl::core::obj::lv_obj_t;
     fn puts(fmt: *const u8) -> i32;
     //  fn printf(fmt: *const u8, ...) -> i32;
 }

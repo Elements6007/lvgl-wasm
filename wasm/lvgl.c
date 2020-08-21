@@ -97,6 +97,44 @@ lv_obj_t *create_screen(void) {
 }
 
 ////////////////////////////////////////////////////////////////////
+//  RIOT Interface
+
+/// Month names. From https://github.com/lupyuen/pinetime-rust-riot/blob/master/modules/controller/controller_time.c
+#define MONSPERYEAR     12
+static const char *mon_short_names[MONSPERYEAR + 1] = {
+    [0] = "Inv",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+};
+
+/// Date time format. From https://github.com/lupyuen/pinetime-rust-riot/blob/master/modules/controller/include/controller/time.h
+typedef struct {
+    uint16_t year;
+    uint8_t month;
+    uint8_t dayofmonth;
+    uint8_t hour;
+    uint8_t minute;
+    uint8_t second;
+    uint8_t fracs;
+} controller_time_spec_t;
+
+/// Get month name. From https://github.com/lupyuen/pinetime-rust-riot/blob/master/modules/controller/controller_time.c
+const char *controller_time_month_get_short_name(controller_time_spec_t *time) {
+    assert(time->month < MONSPERYEAR);
+    return mon_short_names[time->month];
+}
+
+////////////////////////////////////////////////////////////////////
 //  LVGL Compatibility
 
 /// Change LVGL v6 lv_obj_set_style() to LVGL v7 lv_obj_reset_style_list() and lv_obj_add_style()

@@ -40,6 +40,24 @@ pub extern fn refresh_clock() -> i32 {
 pub extern fn update_clock(year: i32, month: i32, day: i32,
     hour: i32, minute: i32, second: i32) -> i32 {
     unsafe { puts(b"In Rust: Updating clock...\0".as_ptr()); }
+    let state = watch_face::WatchFaceState {
+        ble_state:  watch_face::BleState::BLEMAN_BLE_STATE_CONNECTED ,
+        time:       watch_face::controller_time_spec_t {
+            year:       year as u16,
+            month:      month as u8,
+            dayofmonth: day as u8,
+            hour:       hour as u8,
+            minute:     minute as u8,
+            second:     second as u8,
+            fracs:      0,
+        },
+        millivolts: 0,
+        charging:   true,
+        powered:    true,
+    };
+    unsafe {
+        watch_face::set_time_label(&mut WIDGETS, &state);
+    }
     0
 }
 

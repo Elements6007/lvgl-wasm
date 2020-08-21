@@ -185,11 +185,11 @@ extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets, state: *const 
 /// State for the Watch Face, shared between GUI and control. TODO: Sync with widgets/home_time/include/home_time.h
 #[repr(C)]
 pub struct WatchFaceState { ////
-    ble_state:  BleState,  //  bleman_ble_state_t
-    time:       controller_time_spec_t,
-    millivolts: u32,
-    charging:   bool,
-    powered:    bool,
+    pub ble_state:  BleState,  //  bleman_ble_state_t ////
+    pub time:       controller_time_spec_t, ////
+    pub millivolts: u32, ////
+    pub charging:   bool, ////
+    pub powered:    bool, ////
 }
 
 /// Widgets for the Watch Face, private to Rust. TODO: Sync with widgets/home_time/include/home_time.h
@@ -219,13 +219,13 @@ pub enum BleState {  //  bleman_ble_state_t ////
 #[repr(C)]
 #[allow(non_camel_case_types)]
 pub struct controller_time_spec_t { ////
-    year:       u16,
-    month:      u8,
-    dayofmonth: u8,
-    hour:       u8,
-    minute:     u8,
-    second:     u8,
-    fracs:      u8,
+    pub year:       u16, ////
+    pub month:      u8, ////
+    pub dayofmonth: u8, ////
+    pub hour:       u8, ////
+    pub minute:     u8, ////
+    pub second:     u8, ////
+    pub fracs:      u8, ////
 }
 
 /// Import C APIs

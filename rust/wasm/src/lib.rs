@@ -8,7 +8,7 @@ cargo build --target=wasm32-unknown-emscripten
 use core::ptr;
 use app::watch_face;
 
-static mut widgets: watch_face::WatchFaceWidgets = watch_face::WatchFaceWidgets {
+static mut WIDGETS: watch_face::WatchFaceWidgets = watch_face::WatchFaceWidgets {
     screen:      ptr::null_mut(),
     time_label:  ptr::null_mut(),
     date_label:  ptr::null_mut(),
@@ -21,7 +21,7 @@ static mut widgets: watch_face::WatchFaceWidgets = watch_face::WatchFaceWidgets 
 pub extern fn create_clock() -> i32 {
     unsafe { puts(b"In Rust:Creating clock...\0".as_ptr()); }
     unsafe {
-        watch_face::create_widgets(&mut widgets)
+        watch_face::create_widgets(&mut WIDGETS)
             .expect("create_widgets failed");
     }
     0
@@ -41,19 +41,6 @@ pub extern fn update_clock(year: i32, month: i32, day: i32,
     unsafe { puts(b"In Rust: Updating clock...\0".as_ptr()); }
     0
 }
-
-/*
-/// Change LVGL v6 lv_label_set_style() to LVGL v7 lv_obj_reset_style_list() and lv_obj_add_style()
-#[no_mangle]
-pub extern fn lv_label_set_style(
-    label: *mut lv_obj_t,
-    type_: lv_label_style_t,
-    style: *const lv_style_t,    
-) {
-    lv_obj_reset_style_list(label, LV_LABEL_PART_MAIN);
-    lv_obj_add_style(label, LV_LABEL_PART_MAIN, style);
-}
-*/
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Test Functions

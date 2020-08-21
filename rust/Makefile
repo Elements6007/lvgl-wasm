@@ -1,4 +1,4 @@
-# Build LVGL for WebAssembly: wasm/lvgl.html, lvgl.js, lvgl.wasm
+# Build LVGL in Rust for WebAssembly: wasm/lvgl.html, lvgl.js, lvgl.wasm
 
 ###############################################################################
 # Typical Compile to WebAssembly with emscripten
@@ -11,17 +11,7 @@ include lvgl.mk
 
 # WebAssembly C and C++ Source Files
 WASM_CSRCS := \
-	demo/lv_demo_widgets.c \
-	wasm/lv_port_disp.c \
-	clock/BatteryIcon.cpp \
-	clock/BleController.cpp \
-	clock/BleIcon.cpp \
-	clock/ClockTmp.cpp \
-	clock/ClockHelper.cpp \
-	clock/DateTimeController.cpp \
-	clock/LittleVgl.cpp \
-	clock/jetbrains_mono_bold_20.c \
-	clock/jetbrains_mono_extrabold_compressed.c
+	wasm/lv_port_disp.c
 
 # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 TARGETS:= wasm/lvgl

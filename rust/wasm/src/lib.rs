@@ -5,12 +5,25 @@ cargo build --target=wasm32-unknown-emscripten
 */
 #![feature(libc)]
 
+use core::ptr;
 use app::watch_face;
+
+static mut widgets: watch_face::WatchFaceWidgets = watch_face::WatchFaceWidgets {
+    screen:      ptr::null_mut(),
+    time_label:  ptr::null_mut(),
+    date_label:  ptr::null_mut(),
+    ble_label:   ptr::null_mut(),
+    power_label: ptr::null_mut(),
+};
 
 /// Create an instance of the clock
 #[no_mangle]
 pub extern fn create_clock() -> i32 {
     unsafe { puts(b"In Rust:Creating clock...\0".as_ptr()); }
+    unsafe {
+        watch_face::create_widgets(&mut widgets)
+            .expect("create_widgets failed");
+    }
     0
 }
 

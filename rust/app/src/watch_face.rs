@@ -196,11 +196,11 @@ pub struct WatchFaceState { ////
 #[repr(C)]
 #[allow(non_camel_case_types)]
 pub struct WatchFaceWidgets { ////
-    screen:      *mut obj::lv_obj_t,  //  TODO: Shared with home_time_widget_t
-    time_label:  *mut obj::lv_obj_t,  //  TODO: Should be private to Rust
-    date_label:  *mut obj::lv_obj_t,  //  TODO: Should be private to Rust
-    ble_label:   *mut obj::lv_obj_t,  //  TODO: Should be private to Rust
-    power_label: *mut obj::lv_obj_t,  //  TODO: Should be private to Rust
+    pub screen:      *mut obj::lv_obj_t,  //  TODO: Shared with home_time_widget_t ////
+    pub time_label:  *mut obj::lv_obj_t,  //  TODO: Should be private to Rust ////
+    pub date_label:  *mut obj::lv_obj_t,  //  TODO: Should be private to Rust ////
+    pub ble_label:   *mut obj::lv_obj_t,  //  TODO: Should be private to Rust ////
+    pub power_label: *mut obj::lv_obj_t,  //  TODO: Should be private to Rust ////
 }
 
 //  TODO: Sync with modules/bleman/include/bleman.h

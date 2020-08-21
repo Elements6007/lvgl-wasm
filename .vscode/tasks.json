@@ -42,21 +42,21 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " scripts\\build-app.cmd && copy .vscode/launch-nrf52.json .vscode/launch.json && echo ✅ ◾ ️Done! "
+                    " cargo build && make -f rust/Makefile && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/build-app.sh && cp .vscode/launch-nrf52.json .vscode/launch.json && echo ✅ ◾ ️Done! "
+                    " cargo build && make -f rust/Makefile && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/build-app.sh && echo ✅ ◾ ️Done! "
+                    " cargo build && make -f rust/Makefile && echo ✅ ◾ ️Done! "
                 ],
             },
             "group": {

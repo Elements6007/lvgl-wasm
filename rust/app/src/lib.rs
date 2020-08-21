@@ -25,7 +25,7 @@
 #![feature(exclusive_range_pattern)]    //  Allow ranges like `0..128` in `match` statements
 
 //  Declare the libraries that contain macros
-extern crate cortex_m;                  //  Declare the external library `cortex_m`
+//// extern crate cortex_m;                  //  Declare the external library `cortex_m`
 extern crate lvgl;                      //  Declare the LittlevGL (LVGL) library
 extern crate macros as lvgl_macros;     //  Declare the LVGL Procedural Macros library
 
@@ -34,7 +34,7 @@ pub mod watch_face;         //  Export `watch_face.rs` as Rust module `watch_fac
 
 //  Declare the system modules
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
-use cortex_m::asm::bkpt;    //  Import cortex_m assembly function to inject breakpoint
+//// use cortex_m::asm::bkpt;    //  Import cortex_m assembly function to inject breakpoint
 use lvgl::console;          //  Import Semihosting Console functions
 
 ///  Main program, currently not used. TODO: Call at startup.

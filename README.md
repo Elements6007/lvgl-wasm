@@ -56,11 +56,13 @@ For Watch Faces based on Rust, see the [`rust` branch](https://github.com/AppKak
 
 # Upcoming Features
 
-1. __Accept Touch Input__ for LVGL
+1.  __Accept Touch Input__ for LVGL
 
-1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
+1.  __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
 
-1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
+    [Check out the `rust` branch of `lvgl-asm`](https://github.com/AppKaki/lvgl-wasm/blob/rust/README.md)
+
+1.  Allow PineTime Watch Faces to be __built online in Rust with online preview__
 
 # References
 
@@ -298,6 +300,8 @@ mv wasm/lvgl.html wasm/lvgl.old.html
 ## Mixing Rust and C WebAssembly
 
 In future we shall be mixing C WebAssembly with Rust WebAssembly, so that the Watch Face code in [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) may be programmed in Rust instead.
+
+[Check out the `rust` branch of `lvgl-asm`](https://github.com/AppKaki/lvgl-wasm/blob/rust/README.md)
 
 Here's a test of C WebAssembly calling Rust WebAssembly...
 

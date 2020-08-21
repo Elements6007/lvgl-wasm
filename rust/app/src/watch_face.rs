@@ -1,4 +1,5 @@
 //! Watch Face in Rust, LittlevGL and RIOT OS for PineTime Smart Watch. Ported from https://github.com/bosmoment/PineTime-apps/blob/master/widgets/home_time/screen_time.c
+//! Copied from https://github.com/lupyuen/pinetime-rust-riot/blob/master/rust/app/src/watch_face.rs
 use core::{
     fmt::Write,
     ptr,

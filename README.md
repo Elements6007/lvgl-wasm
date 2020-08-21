@@ -4,7 +4,11 @@
 
 _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.com/SravanSenthiln1): PineTime Watch Face Simulator vs Real PineTime_
 
-__Note: This is the `rust` branch that supports Watch Faces build with Rust__
+__Note: This is the `rust` branch that supports Watch Faces built with Rust__
+
+Rust Watch Face:
+
+https://github.com/lupyuen/pinetime-rust-riot/blob/master/rust/app/src/watch_face.rs
 
 __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 

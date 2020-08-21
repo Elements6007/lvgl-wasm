@@ -56,7 +56,8 @@ pub extern fn update_clock(year: i32, month: i32, day: i32,
         powered:    true,
     };
     unsafe {
-        watch_face::set_time_label(&mut WIDGETS, &state);
+        watch_face::set_time_label(&mut WIDGETS, &state)
+            .expect("set_time_label failed");
     }
     0
 }

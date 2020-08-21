@@ -2,15 +2,33 @@
 rustup default nightly
 rustup target add wasm32-unknown-emscripten
 cargo build --target=wasm32-unknown-emscripten
-
-To dump:
-~/PineTime/wabt/build/wasm-objdump -x docs/test_rust.wasm | more
 */
 #![feature(libc)]
-//  use std::ops::Add;
-//  use wasm_bindgen::prelude::*;
-//  use wasm_bindgen::Clamped;
-//  use web_sys::{CanvasRenderingContext2d, ImageData};
+
+/// Create an instance of the clock
+#[no_mangle]
+pub extern fn create_clock() -> i32 {
+    unsafe { puts(b"In Rust:Creating clock...\0".as_ptr()); }
+    0
+}
+
+/// Redraw the clock
+#[no_mangle]
+pub extern fn refresh_clock() -> i32 {
+    unsafe { puts(b"In Rust: Refreshing clock...\0".as_ptr()); }
+    0
+}
+
+/// Update the clock time. Use generic "int" type to prevent JavaScript-WebAssembly interoperability problems.
+#[no_mangle]
+pub extern fn update_clock(year: i32, month: i32, day: i32,
+    hour: i32, minute: i32, second: i32) -> i32 {
+    unsafe { puts(b"In Rust: Updating clock...\0".as_ptr()); }
+    0
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Test Functions
 
 extern "C" {
     static mut test_rust_buffer: [u8; 32];
@@ -53,6 +71,11 @@ pub extern fn test_rust_get_buffer() -> i32 {
 }
 
 /*
+//  use std::ops::Add;
+//  use wasm_bindgen::prelude::*;
+//  use wasm_bindgen::Clamped;
+//  use web_sys::{CanvasRenderingContext2d, ImageData};
+
 #[wasm_bindgen]
 pub fn draw(
     ctx: &CanvasRenderingContext2d,

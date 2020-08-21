@@ -42,6 +42,19 @@ pub extern fn update_clock(year: i32, month: i32, day: i32,
     0
 }
 
+/*
+/// Change LVGL v6 lv_label_set_style() to LVGL v7 lv_obj_reset_style_list() and lv_obj_add_style()
+#[no_mangle]
+pub extern fn lv_label_set_style(
+    label: *mut lv_obj_t,
+    type_: lv_label_style_t,
+    style: *const lv_style_t,    
+) {
+    lv_obj_reset_style_list(label, LV_LABEL_PART_MAIN);
+    lv_obj_add_style(label, LV_LABEL_PART_MAIN, style);
+}
+*/
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Test Functions
 

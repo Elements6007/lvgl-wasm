@@ -88,6 +88,16 @@ void render_display(void) {
 }
 
 ////////////////////////////////////////////////////////////////////
+//  LVGL Compatibility
+
+/// Change LVGL v6 lv_obj_set_style() to LVGL v7 lv_obj_reset_style_list() and lv_obj_add_style()
+#undef lv_obj_set_style
+void lv_obj_set_style(lv_obj_t *label, lv_label_style_ttype, const lv_style_t *style) {
+    lv_obj_reset_style_list(label, LV_LABEL_PART_MAIN);  //  TODO: Handle non-label styles
+    lv_obj_add_style(label, LV_LABEL_PART_MAIN, style);  //  TODO: Handle non-label styles
+}
+
+////////////////////////////////////////////////////////////////////
 //  Main
 
 /// Do nothing

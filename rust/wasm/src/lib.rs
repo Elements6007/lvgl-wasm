@@ -19,7 +19,7 @@ static mut WIDGETS: watch_face::WatchFaceWidgets = watch_face::WatchFaceWidgets 
 /// Create an instance of the clock
 #[no_mangle]
 pub extern fn create_clock() -> i32 {
-    unsafe { puts(b"In Rust:Creating clock...\0".as_ptr()); }
+    unsafe { puts(b"In Rust: Creating clock...\0".as_ptr()); }
     unsafe {
         watch_face::create_widgets(&mut WIDGETS)
             .expect("create_widgets failed");

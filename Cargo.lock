@@ -301,6 +301,7 @@ dependencies = [
 name = "wasm"
 version = "0.1.0"
 dependencies = [
+ "app",
  "wasm-bindgen",
  "web-sys",
 ]

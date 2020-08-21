@@ -30,7 +30,8 @@ extern crate lvgl;                      //  Declare the LittlevGL (LVGL) library
 extern crate macros as lvgl_macros;     //  Declare the LVGL Procedural Macros library
 
 //  Declare the modules in our application
-mod watch_face;             //  Declare `watch_face.rs` as Rust module `watch_face` for Watch Face
+pub mod watch_face;             ////  Export `watch_face.rs` as Rust module `watch_face` for Watch Face
+////mod watch_face;             //  Declare `watch_face.rs` as Rust module `watch_face` for Watch Face
 
 //  Declare the system modules
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below

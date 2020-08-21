@@ -12,7 +12,7 @@ use lvgl::{
 use lvgl_macros::strn;
 
 /// Create the widgets for the Watch Face. Called by create_watch_face() below.
-fn create_widgets(widgets: &mut WatchFaceWidgets) -> LvglResult<()> {
+pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> LvglResult<()> { ////
     let scr = widgets.screen;
     assert!(!scr.is_null(), "null screen");
 
@@ -63,7 +63,7 @@ fn create_widgets(widgets: &mut WatchFaceWidgets) -> LvglResult<()> {
 }
 
 /// Update the widgets in the Watch Face with the current state. Called by update_watch_face() below.
-fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> LvglResult<()> {
+pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> LvglResult<()> { ////
     set_time_label(widgets, state) ? ;
     set_bt_label(widgets, state) ? ;
     set_power_label(widgets, state) ? ;
@@ -184,7 +184,7 @@ extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets, state: *const 
 
 /// State for the Watch Face, shared between GUI and control. TODO: Sync with widgets/home_time/include/home_time.h
 #[repr(C)]
-struct WatchFaceState {
+pub struct WatchFaceState { ////
     ble_state:  BleState,  //  bleman_ble_state_t
     time:       controller_time_spec_t,
     millivolts: u32,
@@ -195,7 +195,7 @@ struct WatchFaceState {
 /// Widgets for the Watch Face, private to Rust. TODO: Sync with widgets/home_time/include/home_time.h
 #[repr(C)]
 #[allow(non_camel_case_types)]
-struct WatchFaceWidgets {
+pub struct WatchFaceWidgets { ////
     screen:      *mut obj::lv_obj_t,  //  TODO: Shared with home_time_widget_t
     time_label:  *mut obj::lv_obj_t,  //  TODO: Should be private to Rust
     date_label:  *mut obj::lv_obj_t,  //  TODO: Should be private to Rust
@@ -208,7 +208,7 @@ struct WatchFaceWidgets {
 #[derive(PartialEq)]
 #[allow(non_camel_case_types)]
 #[allow(dead_code)]
-enum BleState {  //  bleman_ble_state_t
+pub enum BleState {  //  bleman_ble_state_t ////
     BLEMAN_BLE_STATE_INACTIVE = 0,
     BLEMAN_BLE_STATE_ADVERTISING = 1,
     BLEMAN_BLE_STATE_DISCONNECTED = 2,
@@ -218,7 +218,7 @@ enum BleState {  //  bleman_ble_state_t
 //  TODO: Sync with modules/controller/include/controller/time.h
 #[repr(C)]
 #[allow(non_camel_case_types)]
-struct controller_time_spec_t {
+pub struct controller_time_spec_t { ////
     year:       u16,
     month:      u8,
     dayofmonth: u8,

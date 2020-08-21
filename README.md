@@ -14,9 +14,11 @@ __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier d
 
 - [Watch Face Source Code in Rust](rust/app/src/watch_face.rs)
 
-Read the article...
+Read the articles...
 
 - ["Preview PineTime Watch Faces in your Web Browser with WebAssembly"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
+
+- ["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
 
 # Features
 

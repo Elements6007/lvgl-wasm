@@ -6,15 +6,13 @@ _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.
 
 __Note: This is the `rust` branch that supports Watch Faces built with Rust__
 
-Rust Watch Face:
-
-https://github.com/lupyuen/pinetime-rust-riot/blob/master/rust/app/src/watch_face.rs
+Rust Watch Face: [`rust/app/src/watch_face.rs`](rust/app/src/watch_face.rs)
 
 __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 
-- [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
+- [Online Rust Demo](https://appkaki.github.io/lvgl-wasm/rust.html)
 
-- [Watch Face Source Code in C++](clock/Clock.cpp)
+- [Watch Face Source Code in Rust](rust/app/src/watch_face.rs)
 
 Read the article...
 

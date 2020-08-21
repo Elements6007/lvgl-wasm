@@ -88,10 +88,19 @@ void render_display(void) {
 }
 
 ////////////////////////////////////////////////////////////////////
+//  Rust LVGL Interface
+
+/// Create LVGL Screen. Called by rust/wasm/src/lib.rs
+lv_obj_t *create_screen(void) {
+    lv_obj_t *screen = lv_obj_create(NULL, NULL);
+    return screen;
+}
+
+////////////////////////////////////////////////////////////////////
 //  LVGL Compatibility
 
 /// Change LVGL v6 lv_obj_set_style() to LVGL v7 lv_obj_reset_style_list() and lv_obj_add_style()
-/// Used by rust/app/src/watch_face.rs
+/// Called by rust/app/src/watch_face.rs
 #undef lv_obj_set_style
 void lv_obj_set_style(lv_obj_t *label, lv_label_style_ttype, const lv_style_t *style) {
     lv_obj_reset_style_list(label, LV_LABEL_PART_MAIN);  //  TODO: Handle non-label styles

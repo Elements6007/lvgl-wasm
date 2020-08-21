@@ -1008,6 +1008,17 @@ Or define a macro like so...
 lv_label_set_style(label_time, LV_LABEL_STYLE_MAIN, LabelBigStyle);
 ```
 
+`lv_obj_set_style()` may be defined like so...
+
+```c
+/// Change LVGL v6 lv_obj_set_style() to LVGL v7 lv_obj_reset_style_list() and lv_obj_add_style()
+#undef lv_obj_set_style
+void lv_obj_set_style(lv_obj_t *obj, const lv_style_t *style) {
+    lv_obj_reset_style_list(obj, LV_LABEL_PART_MAIN);  //  TODO: Handle non-label styles
+    lv_obj_add_style(obj, LV_LABEL_PART_MAIN, style);  //  TODO: Handle non-label styles
+}
+```
+
 ## Migrating LVGL lv_style_plain
 
 `lv_style_plain` has been removed in LVGL 7. Code like this...

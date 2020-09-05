@@ -85,15 +85,19 @@ pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> LvglR
                 BleState::BLEMAN_BLE_STATE_CONNECTED    => "#37872d",  //  GUI_COLOR_LBL_DARK_GREEN
             };
         //  Create a string buffer with max size 16 to format the Bluetooth status
-        static mut BLUETOOTH_STATUS: heapless::String::<heapless::consts::U16> = heapless::String(heapless::i::String::new());
+        static mut BLUETOOTH_STATUS: String = new_string();
         //  Format the Bluetooth status and set the label
-        unsafe {
+        unsafe {  //  Unsafe because BLUETOOTH_STATUS is a mutable static
             BLUETOOTH_STATUS.clear();
-            write!(&mut BLUETOOTH_STATUS, 
+            write!(
+                &mut BLUETOOTH_STATUS, 
                 "{} \u{F293}#\0",  //  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.
-                color)
-                .expect("bt fail");
-            label::set_text(widgets.ble_label, &Strn::new(BLUETOOTH_STATUS.as_bytes())) ? ;  //  TODO: Simplify    
+                color
+            ).expect("bt fail");
+            label::set_text(
+                widgets.ble_label, 
+                &to_strn(&BLUETOOTH_STATUS)
+            ) ? ;
         }
     }
     Ok(())
@@ -113,35 +117,47 @@ pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Lv
         if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
         else { " " };
     //  Create a string buffer with max size 50 and format the battery status
-    static mut BATTERY_STATUS: heapless::String::<heapless::consts::U50> = heapless::String(heapless::i::String::new());
+    static mut BATTERY_STATUS: String = new_string();
     //  Format the battery status and set the label
-    unsafe {
+    unsafe {  //  Unsafe because BATTERY_STATUS is a mutable static
         BATTERY_STATUS.clear();
-        write!(&mut BATTERY_STATUS, 
+        write!(
+            &mut BATTERY_STATUS, 
             "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
             color,
             percentage,
             symbol,
-            state.millivolts)
-            .expect("batt fail");
-        label::set_text(widgets.power_label, &Strn::new(BATTERY_STATUS.as_bytes())) ? ;  //  TODO: Simplify    
+            state.millivolts
+        ).expect("batt fail");
+        label::set_text(
+            widgets.power_label, 
+            &to_strn(&BATTERY_STATUS)
+        ) ? ; 
     }
-    obj::align(widgets.power_label, widgets.screen, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0) ? ;
+    obj::align(
+        widgets.power_label, widgets.screen, 
+        obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0
+    ) ? ;
     Ok(())
 }
 
 /// Populate the Time and Date Labels with the time and date. Called by screen_time_update_screen() above.
 pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> LvglResult<()> { ////
     //  Create a string buffer with max size 6 to format the time
-    static mut TIME_BUF: heapless::String::<heapless::consts::U6> = heapless::String(heapless::i::String::new());
+    static mut TIME_BUF: String = heapless::String(heapless::i::String::new());
     //  Format the time and set the label
-    unsafe {
+    unsafe {  //  Unsafe because TIME_BUF is a mutable static
         TIME_BUF.clear();
-        write!(&mut TIME_BUF, "{:02}:{:02}\0",  //  Must terminate Rust strings with null
+        write!(
+            &mut TIME_BUF, 
+            "{:02}:{:02}\0",  //  Must terminate Rust strings with null
             state.time.hour,
-            state.time.minute)
-            .expect("time fail");
-        label::set_text(widgets.time_label, &Strn::new(TIME_BUF.as_bytes())) ? ;  //  TODO: Simplify
+            state.time.minute
+        ).expect("time fail");
+        label::set_text(
+            widgets.time_label, 
+            &to_strn(&TIME_BUF)
+        ) ? ;
     }
 
     //  Get the short month name
@@ -151,16 +167,21 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Lvg
         .expect("month fail");
 
     //  Create a string buffer with max size 15 to format the date
-    static mut DATE_BUF: heapless::String::<heapless::consts::U15> = heapless::String(heapless::i::String::new());
+    static mut DATE_BUF: String = new_string();
     //  Format the date and set the label
-    unsafe {
+    unsafe {  //  Unsafe because DATE_BUF is a mutable static
         DATE_BUF.clear();
-        write!(&mut DATE_BUF, "{} {} {}\n\0",  //  Must terminate Rust strings with null
+        write!(
+            &mut DATE_BUF, 
+            "{} {} {}\n\0",  //  Must terminate Rust strings with null
             state.time.dayofmonth,
             month_str,
-            state.time.year)
-        .expect("date fail");
-        label::set_text(widgets.date_label, &Strn::new(DATE_BUF.as_bytes())) ? ;  //  TODO: Simplify
+            state.time.year
+        ).expect("date fail");
+        label::set_text(
+            widgets.date_label, 
+            &to_strn(&DATE_BUF)
+        ) ? ;
     }
     Ok(())
 }
@@ -182,6 +203,19 @@ extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets, state: *const 
         .expect("update_widgets fail");
     0  //  Return OK
 }
+
+/// Create a new String
+const fn new_string() -> String {
+    heapless::String(heapless::i::String::new())
+}
+
+/// Convert a static String to null-terminated Strn
+fn to_strn(str: &'static String) -> Strn {
+    Strn::new(str.as_bytes())
+}
+
+/// Limit Strings to 64 chars (which may include multiple color codes like "#ffffff")
+type String = heapless::String::<heapless::consts::U64>;
 
 /// State for the Watch Face, shared between GUI and control. TODO: Sync with widgets/home_time/include/home_time.h
 #[repr(C)]

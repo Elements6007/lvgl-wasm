@@ -74,7 +74,10 @@ pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Lvg
 /// Populate the Bluetooth Label with the Bluetooth status. Called by screen_time_update_screen() above.
 pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> LvglResult<()> { ////
     if state.ble_state == BleState::BLEMAN_BLE_STATE_DISCONNECTED {
-        label::set_text(widgets.ble_label, strn!("")) ? ;
+        label::set_text(
+            widgets.ble_label, 
+            strn!("")
+        ) ? ;
     } else {
         //  Get the color of the Bluetooth icon
         let color = 
@@ -84,7 +87,7 @@ pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> LvglR
                 BleState::BLEMAN_BLE_STATE_ADVERTISING  => "#5794f2",  //  GUI_COLOR_LBL_BASIC_BLUE
                 BleState::BLEMAN_BLE_STATE_CONNECTED    => "#37872d",  //  GUI_COLOR_LBL_DARK_GREEN
             };
-        //  Create a string buffer with max size 16 to format the Bluetooth status
+        //  Create a string buffer to format the Bluetooth status
         static mut BLUETOOTH_STATUS: String = new_string();
         //  Format the Bluetooth status and set the label
         unsafe {  //  Unsafe because BLUETOOTH_STATUS is a mutable static
@@ -116,7 +119,7 @@ pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Lv
     let symbol =  //  Charging symbol
         if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
         else { " " };
-    //  Create a string buffer with max size 50 and format the battery status
+    //  Create a string buffer to format the battery status
     static mut BATTERY_STATUS: String = new_string();
     //  Format the battery status and set the label
     unsafe {  //  Unsafe because BATTERY_STATUS is a mutable static
@@ -143,8 +146,8 @@ pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Lv
 
 /// Populate the Time and Date Labels with the time and date. Called by screen_time_update_screen() above.
 pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> LvglResult<()> { ////
-    //  Create a string buffer with max size 6 to format the time
-    static mut TIME_BUF: String = heapless::String(heapless::i::String::new());
+    //  Create a string buffer to format the time
+    static mut TIME_BUF: String = new_string();
     //  Format the time and set the label
     unsafe {  //  Unsafe because TIME_BUF is a mutable static
         TIME_BUF.clear();
@@ -166,7 +169,7 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Lvg
     let month_str = unsafe { cstr_core::CStr::from_ptr(month_cstr).to_str() }       //  Convert C string to Rust string
         .expect("month fail");
 
-    //  Create a string buffer with max size 15 to format the date
+    //  Create a string buffer to format the date
     static mut DATE_BUF: String = new_string();
     //  Format the date and set the label
     unsafe {  //  Unsafe because DATE_BUF is a mutable static

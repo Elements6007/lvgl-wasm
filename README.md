@@ -8,6 +8,8 @@ __Note: This is the `rust` branch that supports Watch Faces built with Rust__
 
 Rust Watch Face: [`rust/app/src/watch_face.rs`](rust/app/src/watch_face.rs)
 
+Presentation Slides: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://docs.google.com/presentation/d/1IgCsWJ5TYpPaHXZlaETlM2rYQrBmOpN2WeFsNjmYO_k/edit?usp=sharing)
+
 __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 
 - [Online Rust Demo](https://appkaki.github.io/lvgl-wasm/rust.html)

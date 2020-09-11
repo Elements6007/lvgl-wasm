@@ -1,8 +1,4 @@
-<h1 align="center"> PineTime Watch Face Simulator with LVGL ported to WebAssembly  </h1>
-
-![Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime](https://lupyuen.github.io/images/pinetime-simulator.png)
-
-_Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.com/SravanSenthiln1): PineTime Watch Face Simulator vs Real PineTime_
+<h1 align="center"> WebAssembly Simulator for Rust on RIOT with LVGL  </h1>
 
 __Note: This is the `rust` branch that supports Watch Faces built with Rust__
 
@@ -10,11 +6,13 @@ Rust Watch Face: [`rust/app/src/watch_face.rs`](rust/app/src/watch_face.rs)
 
 Presentation Slides: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://docs.google.com/presentation/d/1IgCsWJ5TYpPaHXZlaETlM2rYQrBmOpN2WeFsNjmYO_k/edit?usp=sharing)
 
+Presentation Video: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://youtu.be/rTxeXnlH-mM)
+
 __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 
-- [Online Rust Demo](https://appkaki.github.io/lvgl-wasm/rust.html)
+- [Online Rust on RIOT Demo](https://appkaki.github.io/lvgl-wasm/rust.html)
 
-- [Watch Face Source Code in Rust](rust/app/src/watch_face.rs)
+- [Watch Face Source Code for Rust on RIOT](rust/app/src/watch_face.rs)
 
 Read the articles...
 

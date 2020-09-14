@@ -1,18 +1,18 @@
 <h1 align="center"> WebAssembly Simulator for Rust on RIOT with LVGL  </h1>
 
+![WebAssembly Simulator for Rust on RIOT](https://lupyuen.github.io/images/rust-on-riot-simulator.png)
+
 __Note: This is the `rust` branch that supports Watch Faces built with Rust__
 
-Rust Watch Face: [`rust/app/src/watch_face.rs`](rust/app/src/watch_face.rs)
-
-Presentation Slides: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://docs.google.com/presentation/d/1IgCsWJ5TYpPaHXZlaETlM2rYQrBmOpN2WeFsNjmYO_k/edit?usp=sharing)
-
-Presentation Video: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://youtu.be/rTxeXnlH-mM)
-
-__Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
+__Simulate Rust on RIOT Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 
 - [Online Rust on RIOT Demo](https://appkaki.github.io/lvgl-wasm/rust.html)
 
 - [Watch Face Source Code for Rust on RIOT](rust/app/src/watch_face.rs)
+
+- Presentation Slides: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://docs.google.com/presentation/d/1IgCsWJ5TYpPaHXZlaETlM2rYQrBmOpN2WeFsNjmYO_k/edit?usp=sharing)
+
+- Presentation Video: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://youtu.be/rTxeXnlH-mM)
 
 Read the articles...
 
@@ -29,8 +29,6 @@ Read the articles...
 1. __Uses GitHub Actions Workflow__ to build any fork of [InfiniTime Watch Face](https://github.com/JF002/Pinetime) into WebAssembly
 
 1. __Renders LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
-
-1. __Includes PineTime Fonts and Symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
 
 1. __Supports RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly. [Custom Bitmap Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
 
@@ -60,6 +58,8 @@ Read the articles...
 
 # Upcoming Features
 
+1. __Support Custom Fonts and Symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
+
 1. __Accept Touch Input__ for LVGL
 
 1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
@@ -73,6 +73,10 @@ Read the articles...
 - ["Programming with PineTime"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime#programming-with-pinetime)
 
 - ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
+
+- Presentation Slides: ["Safer, Simpler Embedded Programs with Rust on RIOT"](https://docs.google.com/presentation/d/1IgCsWJ5TYpPaHXZlaETlM2rYQrBmOpN2WeFsNjmYO_k/edit?usp=sharing)
+
+- Presentation Video: ["Safer, Simpler Embedded Programs with Rust on RIOT"](https://youtu.be/rTxeXnlH-mM)
 
 # How To Build The Simulator
 

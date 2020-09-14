@@ -163,7 +163,11 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 
     Enter `lvgl.html` in the URL bar to view the PineTime Watch Face Simulator.
 
-In case of problems, compare with the [GitHub Actions build log](https://github.com/lupyuen/pinetime-rust-riot/actions?query=workflow%3A%22Simulate+PineTime+Firmware%22)
+In case of problems, compare with the following...
+
+- [GitHub Actions workflow](https://github.com/lupyuen/pinetime-rust-riot/blob/master/.github/workflows/simulator.yml)
+
+- [GitHub Actions build log](https://github.com/lupyuen/pinetime-rust-riot/actions?query=workflow%3A%22Simulate+PineTime+Firmware%22)
 
 # How It Works
 

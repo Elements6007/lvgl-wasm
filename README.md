@@ -22,11 +22,9 @@ Read the articles...
 
 # Features
 
-1. __Compiles actual PineTime Watch Face__ from C++ to WebAssembly: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) was converted to [WebAssembly `clock`](clock/Clock.cpp)
+1. __Compiles actual Rust On RIOT Watch Face__ from Rust to WebAssembly without any code changes
 
-1. __Auto Convert any PineTime Watch Face__ from C++ to WebAssembly with `sed` and GitHub Actions / GitLab CD. [Custom Watch Face Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
-
-1. __Uses GitHub Actions Workflow__ to build any fork of [InfiniTime Watch Face](https://github.com/JF002/Pinetime) into WebAssembly
+1. __Uses GitHub Actions Workflow__ to build any fork of Rust On RIOT into WebAssembly
 
 1. __Renders LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
 
@@ -34,49 +32,23 @@ Read the articles...
 
 1. __Shows current date and time__
 
-# How to Build and Preview a PineTime Watch Face with GitHub or GitLab
-
-1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab): [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
-
-1.  Enable __GitHub Pages (or GitLab Pages)__ publishing for `master` branch, `docs` folder
-
-1.  Add the __GitHub Actions Workflow (or GitLab CD)__: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml)
-
-1.  Enable the workflow
-
-1.  We __edit [`DisplayApp/Screens/Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)__ in the web browser via GitHub (or GitLab Web IDE)
-
-1.  Which triggers a __PineTime Firmware Build__ in GitHub Actions (or GitLab CD), assuming [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml) has been installed
-
-1.  Which also builds the __PineTime Watch Face Simulator__ in WebAssembly
-
-1.  And then __pushes the generated WebAssembly files__ to GitHub Pages (or GitLab Pages)
-
-1.  We __preview the PineTime Watch Face__ through the Simulator in a web browser: `https://YOUR_ACCOUNT.github.io/Pinetime` (See [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html))
-
-1.  If we are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
-
 # Upcoming Features
 
-1. __Support Custom Fonts and Symbols__ from [`LittleVgl.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
+1. __Support Custom Fonts and Symbols__ for LVGL
 
 1. __Accept Touch Input__ for LVGL
 
-1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
-
-1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
+1. Allow Watch Faces to be __built online in Rust with online preview__
 
 # References
 
-- ["Preview PineTime Watch Faces in your Web Browser with WebAssembly"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
-
-- ["Programming with PineTime"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime#programming-with-pinetime)
-
-- ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
+- ["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
 
 - Presentation Slides: ["Safer, Simpler Embedded Programs with Rust on RIOT"](https://docs.google.com/presentation/d/1IgCsWJ5TYpPaHXZlaETlM2rYQrBmOpN2WeFsNjmYO_k/edit?usp=sharing)
 
 - Presentation Video: ["Safer, Simpler Embedded Programs with Rust on RIOT"](https://youtu.be/rTxeXnlH-mM)
+
+- ["Preview PineTime Watch Faces in your Web Browser with WebAssembly"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
 
 # How To Build The Simulator
 

@@ -52,65 +52,94 @@ Read the articles...
 
 # How To Build The Simulator
 
-TODO
-
 To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 
 1.  Install emscripten and wabt. See instructions below.
 
+1.  Install Rust from `rustup.rs`
+
 1.  Enter...
 
     ```bash
-    git clone https://github.com/AppKaki/lvgl-wasm
+    git clone --branch rust  https://github.com/AppKaki/lvgl-wasm
     cd lvgl-wasm
     ```
 
-1.  __For Arm64 Only__ (Raspberry Pi 64, Pinebook Pro):
-
-    We need to prevent `make` from running parallel builds, because the machine will freeze due to high I/O.
-
-    Edit `wasm/lvgl.sh`(wasm/lvgl.sh) and change...
+1.  Build the Rust app...
 
     ```bash
-    make -j
+    cargo build
+    ```
+
+    Ignore this error, we'll fix in the next step...
+
+    ```
+    error[E0432]: unresolved import `ad`
+    --> /home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/cty-0.1.5/src/lib.rs:8:9
+    pub use ad::*;
+    ^^ maybe a missing crate `ad`?
+    ```
+
+1.  Change `$HOME/.cargo/registry/src/github.com-*/cty-0.1.5/src/lib.rs`
+
+    From...
+
+    ```
+    target_arch = "arm"
     ```
 
     To...
 
-    ```bash
-    make
+    ```
+    target_arch = "arm", target_arch = "wasm32"
     ```
 
-1.  Copy [`DisplayApp/Screens/Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) from our fork of the InfiniTime repo to `clock/Clock.cpp`...
+    ```bash
+    cat $HOME/.cargo/registry/src/github.com-*/cty-0.1.5/src/lib.rs \
+        | sed 's/target_arch = "arm"/target_arch = "arm", target_arch = "wasm32"/' \
+        >/tmp/lib.rs
+    cp /tmp/lib.rs $HOME/.cargo/registry/src/github.com-*/cty-0.1.5/src/lib.rs
+    rm /tmp/lib.rs
+    ```
+        
+1.  Copy Rust Watch Face from our fork of pinetime-mynewt-rust into lvgl-wasm...
 
     ```bash
-    # Assume that our fork of InfiniTime is at ~/Pinetime
-    cp ~/Pinetime/src/DisplayApp/Screens/Clock.cpp clock/Clock.cpp
+    rm -r rust/app
+    # Assume that our fork of pinetime-mynewt-rust is at ~/pinetime-rust-riot
+    cp -r ~/pinetime-rust-riot/rust/app rust
     ```
 
-    This is the Watch Face that will be built into the Simulator.
+    This is the Rust On RIOT Watch Face that will be built into the Simulator.
+
+1.  Change `rust/app/Cargo.toml`
+
+    From...
+
+    ```
+    crate-type = ["staticlib"]
+    ```
+
+    To...
+
+    ```
+    crate-type = ["lib"]
+    ```
+
+    ```bash
+    cat rust/app/Cargo.toml \
+        | sed 's/crate-type = \["staticlib"\]/crate-type = \["lib"\]/' \
+        >rust/app/Cargo.toml.new
+    cp rust/app/Cargo.toml.new rust/app/Cargo.toml
+    rm rust/app/Cargo.toml.new
+    ```
 
 1.  Build the LVGL WebAssembly app containing our Watch Face...
 
     ```bash
-    # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
-    wasm/lvgl.sh
+    cargo build
+    make -f rust/Makefile
     ```
-
-    We should see...
-
-    ```
-    ...
-    clock/ClockTmp.cpp:172:32: warning: format specifies type 'unsigned long' but the argument has type 'unsigned int' [-Wformat]
-        sprintf(stepBuffer, "%lu", stepCount.Get());
-                            ~~~   ^~~~~~~~~~~~~~~
-                            %u
-    17 warnings generated.
-    + wasm-objdump -x wasm/lvgl.wasm
-    + mv wasm/lvgl.html wasm/lvgl.old.html
-    ```
-
-    This produces `wasm/lvgl.html`, `wasm/lvgl.js` and `wasm/lvgl.wasm`
 
 1.  Copy the generated WebAssembly files to the `docs` folder (used by GitHub Pages)...
 
@@ -134,7 +163,7 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 
     Enter `lvgl.html` in the URL bar to view the PineTime Watch Face Simulator.
 
-In case of problems, compare with the [GitHub Actions build log](https://github.com/AppKaki/lvgl-wasm/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
+In case of problems, compare with the [GitHub Actions build log](https://github.com/lupyuen/pinetime-rust-riot/actions?query=workflow%3A%22Simulate+PineTime+Firmware%22)
 
 # How It Works
 

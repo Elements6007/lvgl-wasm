@@ -68,6 +68,8 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 1.  Build the Rust app...
 
     ```bash
+    rustup default nightly
+    rustup target add wasm32-unknown-emscripten
     cargo build
     ```
 
@@ -171,106 +173,30 @@ In case of problems, compare with the following...
 
 # How It Works
 
-TODO
+Rust on RIOT WebAssembly is compiled in multiple parts...
 
-PineTime Watch Face Simulator was compiled from C and C++ to WebAssembly with [emscripten](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)...
+1. Watch Face Library in Rust, from [`rust`](rust)
 
-- Generated Files: [`lvgl.html`](docs/lvgl.html), [`lvgl.js`](docs/lvgl.js), [`lvgl.wasm`](docs/lvgl.wasm)
+   Compiled with `cargo` with target `wasm32-unknown-emscripten` into a WebAssembly Static Library: `target/wasm32-unknown-emscripten/debug/libwasm.a`
+   
+   Contains the Watch Face code [`rust/app`](rust/app), LVGL wrapper [`rust/lvgl`](rust/lvgl), WebAssembly interface [`rust/wasm`](rust/wasm)
+   
+   Uses macros from [`rust/macros`](rust/macros)
 
-- [Online Demo](https://appkaki.github.io/lvgl-wasm/)
+1. LVGL Library in C, from [`src`](src)
 
-- [LVGL Application Source File](wasm/lvgl.c)
+   Compiled from C to WebAssembly with [emscripten](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)
 
-- [GitHub Actions Workflow](.github/workflows/ccpp.yml)
+1. WebAssembly Interface in C, from [`wasm/lvgl.c`](wasm/lvgl.c)
 
-- [Build Script](wasm/lvgl.sh)
+   Compiled from C to WebAssembly with [emscripten](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)
 
-- [Makefile](Makefile)
-
-Let's study the Build Script: [`wasm/lvgl.sh`](wasm/lvgl.sh)
-
-## Rewrite Clock.cpp to build with WebAssembly
-
-```bash
-# Rewrite Clock.cpp to build with WebAssembly:
-# Change <libs/date/includes/date/date.h>
-#   To "date.h"
-# Change <Components/DateTime/DateTimeController.h>
-#   To "DateTimeController.h"
-# Change <libs/lvgl/lvgl.h>
-#   To "../lvgl.h"
-# Change "../DisplayApp.h"
-#   To "DisplayApp.h"
-# Change obj->user_data
-#   To backgroundLabel_user_data
-# Change backgroundLabel->user_data
-#   To backgroundLabel_user_data
-# Remove Screen(app),
-cat clock/Clock.cpp \
-    | sed 's/<libs\/date\/includes\/date\/date.h>/"date.h"/' \
-    | sed 's/<Components\/DateTime\/DateTimeController.h>/"DateTimeController.h"/' \
-    | sed 's/<libs\/lvgl\/lvgl.h>/"..\/lvgl.h"/' \
-    | sed 's/"..\/DisplayApp.h"/"DisplayApp.h"/' \
-    | sed 's/obj->user_data/backgroundLabel_user_data/' \
-    | sed 's/backgroundLabel->user_data/backgroundLabel_user_data/' \
-    | sed 's/Screen(app),//' \
-    >clock/ClockTmp.cpp
-```
-
-We call `sed` to rewrite `Clock.cpp` so that it compiles with the InfiniTime Sandbox...
-
-1.  Include paths are flattened...
-
-    ```c++
-    #include <Components/DateTime/DateTimeController.h>
-    ```
-
-    Becomes...
-
-    ```c++
-    #include "DateTimeController.h"
-    ```
-
-    The InfiniTime Sandbox header and source files are located in the [clock](clock) folder, the same folder as `Clock.cpp`
-
-1.  We simplify Base Classes...
-
-    ```c++
-    Clock::Clock(...) : 
-        Screen(app),
-        currentDateTime{{}}, ... {
-    ```
-
-    Becomes
-
-    ```c++
-    Clock::Clock(...) : 
-        currentDateTime{{}}, ... {
-    ```
-
-    In the InfiniTime Sandbox, the `Screen` class has been replaced by a [Mock Class](clock/Screen.h) that uses no constructor.
-
-1.  We rewrite LVGL references like `user_data`.
-
-    TODO: This may be removed, we now support `user_data` with the updated [`lv_config.h`](lv_config.h)
-
-This step creates the file `ClockTmp.cpp`, which is compiled instead of the original `Clock.cpp`.
-
-## Build LVGL app
-
-We build the LVGL app in WebAssembly...
-
-```bash
-# Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
-make -j
-```
-
-The `make` command triggers this command in the [Makefile](Makefile)...
+The Makefile [`rust/Makefile`](rust/Makefile) links the above into WebAssembly like this...
 
 ```bash
 emcc -o wasm/lvgl.html \
 	-Wl,--start-group \
-  clock/ClockTmp.cpp \
+  target/wasm32-unknown-emscripten/debug/libwasm.a \
 	(List of C and C++ object files from LVGL and InfiniTime Sandbox) \
 	-Wl,--end-group \
 	-g \
@@ -292,17 +218,6 @@ The emscripten compiler `emcc` generates three files in folder `wasm`...
 
 `EXPORTED_FUNCTIONS` are the C functions that will be exposed from WebAssembly to JavaScript. See the section on "Exported Functions" below.
 
-## Dump the WebAssembly modules
-
-For troubleshooting, we dump the text version of the WebAssembly module to `lvgl.txt`...
-
-```bash
-# Dump the WebAssembly modules
-wasm-objdump -x wasm/lvgl.wasm >wasm/lvgl.txt
-```
-
-[Sample `lvgl.txt`](docs/lvgl.txt)
-
 ## Rename the HTML files
 
 Because we use a custom `lvgl.html`, we rename the generated `lvgl.html` to prevent overwriting...
@@ -312,52 +227,22 @@ Because we use a custom `lvgl.html`, we rename the generated `lvgl.html` to prev
 mv wasm/lvgl.html wasm/lvgl.old.html
 ```
 
-## Mixing Rust and C WebAssembly
+## Dump the WebAssembly modules
 
-In future we shall be mixing C WebAssembly with Rust WebAssembly, so that the Watch Face code in [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp) may be programmed in Rust instead.
-
-Here's a test of C WebAssembly calling Rust WebAssembly...
-
-- Generated Files: [`test_rust.html`](docs/test_rust.html), [`test_rust.js`](docs/test_rust.js), [`test_rust.wasm`](docs/test_rust.wasm)
-
-- [Online Demo](https://appkaki.github.io/lvgl-wasm/test_rust.html)
-
-- [C Source File](wasm/test_rust.c)
-
-- [Rust Source File](rust/src/lib.rs)
-
-- [GitHub Actions Workflow](.github/workflows/ccpp.yml#L16-L31)
-
-- [Build Script](https://github.com/AppKaki/lvgl-wasm/blob/master/wasm/lvgl.sh#L33-L46)
-
-Here's how we build Rust and C WebAssembly: [`wasm/lvgl.sh`](wasm/lvgl.sh)
+For troubleshooting, we may dump the text version of the WebAssembly module to `lvgl.txt`...
 
 ```bash
-# Install Rust Toolchain for emscripten
-rustup default nightly
-rustup target add wasm32-unknown-emscripten
-
-# Build Rust modules with emscripten compatibility
-cargo build --target=wasm32-unknown-emscripten
-
-# Build sample Rust app: wasm/test_rust.html, test_rust.js, test_rust.wasm
-emcc \
-    -g \
-    wasm/test_rust.c \
-    -s WASM=1 \
-    -s "EXPORTED_FUNCTIONS=[ '_main', '_get_display_buffer', '_get_display_width', '_get_display_height', '_test_display', '_test_c', '_test_c_set_buffer', '_test_c_get_buffer', '_test_c_buffer_address', '_test_rust', '_test_rust2', '_test_rust3', '_test_rust_set_buffer', '_test_rust_get_buffer' ]" \
-    -o wasm/test_rust.html \
-	-I src/lv_core \
-    target/wasm32-unknown-emscripten/debug/liblvgl_wasm_rust.a
-
 # Dump the WebAssembly modules
-wasm-objdump -x wasm/test_rust.wasm >wasm/test_rust.txt
-
-# Rename the HTML files so we don't overwrite the updates
-mv wasm/test_rust.html wasm/test_rust.old.html
+wasm-objdump -x wasm/lvgl.wasm >wasm/lvgl.txt
 ```
 
-If we see this error...
+[Sample `lvgl.txt`](docs/lvgl.txt)
+
+## Patch for `cty` crate
+
+TODO
+
+This error appears because WebAssembly is not defined for the imported C types...
 
 ```
 error[E0432]: unresolved import `ad`

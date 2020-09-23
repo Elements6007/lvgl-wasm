@@ -34,7 +34,7 @@ Read the articles...
 
 # Upcoming Features
 
-1. __Support Custom Fonts and Symbols__ for LVGL
+1. __Support Custom Fonts and Symbols__ for LVGL, by migrating LVGL v6 styles (used by pinetime-rust-riot) to v7 (used by lvgl-wasm)
 
 1. __Accept Touch Input__ for LVGL
 
@@ -240,8 +240,6 @@ wasm-objdump -x wasm/lvgl.wasm >wasm/lvgl.txt
 
 ## Patch for `cty` crate
 
-TODO
-
 This error appears because WebAssembly is not defined for the imported C types...
 
 ```
@@ -285,21 +283,19 @@ Check `Cargo.toml`...
 panic         = "abort"     # Disable stack unwinding on panic
 ```
 
-# InfiniTime Sandbox
+# Rust on RIOT Sandbox
 
-TODO
+Rust on RIOT Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
 
-PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
-
-`Clock.cpp` is our C++ class that contains the Watch Face code. `Clock.cpp` calls functions from two providers...
+Our Watch Face Module in Rust from [`rust/app`](rust/app) calls functions from two providers...
 
 1. [LVGL UI Toolkit Library](https://docs.lvgl.io/latest/en/html/index.html)
 
-1. [InfiniTime Operating System](https://github.com/JF002/Pinetime) based on FreeRTOS
+1. [Rust on RIOT](https://github.com/lupyuen/pinetime-rust-riot)
 
-`lvgl-wasm` simulates the minimal set of InfiniTime functions needed for rendering Watch Faces. (FreeRTOS is not supported by the Simulator)
+`lvgl-wasm` simulates the minimal set of functions needed for rendering Watch Faces. (RIOT is not supported by the Simulator)
 
-Hence `lvgl-wasm` works like a __Sandbox__.  Here's how the InfiniTime Sandbox works...
+Hence `lvgl-wasm` works like a __Sandbox__.  Here's how the Sandbox works...
 
 ## Exported Functions
 
@@ -307,7 +303,7 @@ The Sandbox exports the following WebAssembly functions from C to JavaScript...
 
 ### Clock Functions
 
-These functions create the Clock class from `Clock.cpp`, render the LVGL widgets on the Watch Face, and update the time...
+These functions create the Watch Face from the [`rust/app`](rust/app) module, render the LVGL widgets on the Watch Face, and update the time...
 
 -   `create_clock()`
 
@@ -324,9 +320,11 @@ These functions create the Clock class from `Clock.cpp`, render the LVGL widgets
 -   `update_clock(year, month, day, hour, minute, second)`
 
     Set the current date and time in `DateTimeController`. The time needs to be adjusted for the current timezone, see the JavaScript call to `update_clock()` below.
-    
+
     From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
 
+    TODO: This code needs to be fixed to show the correct date and time
+    
 ### Display Functions
 
 These functions initialise the LVGL library and render the LVGL Widgets to the WebAssembly Display Buffer...
@@ -405,105 +403,39 @@ For testing only...
 
 ## Sandbox API
 
-The Sandbox simulates InfiniTime OS by exposing the following API Classes to `Clock.cpp`...
+The Sandbox simulates Rust on RIOT OS by exposing the following Rust modules to the Watch Face Module in [`rust/app`](rust/app)...
 
-### New Classes
+### New Modules
 
-The following classes were created for the Simulator...
+The following Rust modules were created for the Simulator...
 
--   [`ClockHelper.h`](clock/ClockHelper.h), [`.cpp`](clock/ClockHelper.cpp)
+- [`rust/wasm`](rust/wasm)
 
-    Exposes the Clock Functions for creating and rendering the Watch Face: `create_clock()`, `refresh_clock()` and `update_clock()`
+  Exposes the Rust functions `create_clock`, `refresh_clock`, `update_clock` that will be called by the C WebAssembly Functions above.
 
-### Mocked Classes
+  See [`rust/wasm/src/lib.rs`](rust/wasm/src/lib.rs)
 
-The following classes from InfiniTime were mocked up (i.e. made non-functional) to run in the Simulator...
+### Mocked Modules
 
--   [`DisplayApp.h`](clock/DisplayApp.h)
+The following Rust on RIOT modules from were mocked up (i.e. made non-functional) to run in the Simulator...
 
-    Mocked-up `DisplayApp` class.
-
-    Based on [`DisplayApp/DisplayApp.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/DisplayApp.h)
-
--   [`Screen.h`](clock/Screen.h)
-
-    Mocked-up `Screen` class.
-
-    Based on [`DisplayApp/Screens/Screen.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Screen.h)
+(None)
 
 ### Reused Classes
 
-The following classes were reused from InfiniTime with minor changes (e.g. include paths changed, functions stubbed out)...
+The following modules were reused from Rust on RIOT with minor changes...
 
--   [`BatteryController.h`](clock/BatteryController.h)
+- [`rust/lvgl`](rust/lvgl)
 
-    Simulated battery functions.
+  Safe Wrapper for LVGL. Based on [`pinetime-rust-riot/rust/lvgl`](https://github.com/lupyuen/pinetime-rust-riot/tree/master/rust/lvgl)
 
-    Based on [`Components/Battery/BatteryController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/Battery/BatteryController.h)
+- [`rust/macros`](rust/macros) 
 
--   [`BatteryIcon.h`](clock/BatteryIcon.h), [`.cpp`](clock/BatteryIcon.cpp)
-
-    Battery icons.
-
-    Based on [`DisplayApp/Screens/BatteryIcon.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BatteryIcon.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BatteryIcon.cpp)
-
--   [`BleController.h`](clock/BleController.h), [`.cpp`](clock/BleController.cpp)
-
-    Simulated BLE controller.
-
-    Based on [`Components/Ble/BleController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/Ble/BleController.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/Components/Ble/BleController.cpp)
-
--   [`BleIcon.h`](clock/BleIcon.h), [`.cpp`](clock/BleIcon.cpp)
-
-    BLE icons.
-
-    Based on [`DisplayApp/Screens/BleIcon.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BleIcon.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/BleIcon.cpp)
-
--   [`Clock.h`](clock/Clock.h), [`.cpp`](clock/Clock.cpp)
-
-    Watch Face code. `Clock.cpp` contains the Custom Watch Face code. `Clock.h` is fixed for all Watch Faces.
-
-    `Clock.cpp` is transformed by `sed` to `ClockTmp.cpp`. (See "How It Works" above)
-
-    `ClockTmp.cpp` is the actual file that's compiled by the emscripten compiler.
-
-    Based on [`DisplayApp/Screens/Clock.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
-
--   [`DateTimeController.h`](clock/DateTimeController.h), [`.cpp`](clock/DateTimeController.cpp)
-
-    Date and time functions.
-
-    Based on [`Components/DateTime/DateTimeController.h`](https://github.com/JF002/Pinetime/blob/master/src/Components/DateTime/DateTimeController.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/Components/DateTime/DateTimeController.cpp)
-
--   [`LittleVgl.h`](clock/LittleVgl.h), [`.cpp`](clock/LittleVgl.cpp)
-
-    LVGL Style functions.
-
-    The changes here are quite massive and incomplete because InfiniTime uses LVGL Version 6 Styles whereas the Simulator uses LVGL Version 7 Styles.  See the section below on "Migrating LVGL Version 6 to 7"
-
-    Based on [`DisplayApp/LittleVgl.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.h), [`.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/LittleVgl.cpp)
-
--   [`Symbols.h`](clock/Symbols.h)
-
-    Watch Face symbols.
-
-    Based on [`DisplayApp/Screens/Symbols.h`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Symbols.h)
-
--   [`date.h`](clock/date.h)
-
-    Date functions.
-
-    Based on [`libs/date/includes/date/date.h`](libs/date/includes/date/date.h)
+  Macros for building Safe Wrappers. Based on [`pinetime-rust-riot/rust/macros`](https://github.com/lupyuen/pinetime-rust-riot/tree/master/rust/macros)
 
 ## Sandbox Styles
 
-InfiniTime Sandbox exposes two LVGL Styles...
-
-1.  Default Style defined in [`lv_conf.h`](lv_conf.h#L448-L451) with font [`jetbrains_mono_bold_20`](clock/jetbrains_mono_bold_20.c)
-
-    TODO: Use the Base Theme defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L283-L333). It doesn't work with LVGL Version 7 because the LVGL 7 needs Style Callback Functions.
-
-1.  `LabelBigStyle` defined in [`LittleVgl.cpp`](clock/LittleVgl.cpp#L393-L414) with font [`jetbrains_mono_extrabold_compressed`](clock/jetbrains_mono_extrabold_compressed.c)
+TODO: Port the LVGL v6 styles from Rust on RIOT to v7 for the Simulator
 
 # Simulator JavaScript
 

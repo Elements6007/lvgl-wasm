@@ -5,8 +5,8 @@ cargo build
 */
 #![feature(libc)]  //  Allow C Standard Library, which will be mapped by emscripten to JavaScript
 
-use mynewt::fill_zero;
-use watchface::WatchFace;   //  Needed for calling WatchFace traits
+use barebones_watchface::watchface::lvgl::mynewt::fill_zero;
+use barebones_watchface::watchface::{self, WatchFace};   //  Needed for calling WatchFace traits
 
 /// Declare the Watch Face Type
 type WatchFaceType = barebones_watchface::BarebonesWatchFace;

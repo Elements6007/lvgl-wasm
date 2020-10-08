@@ -37,9 +37,9 @@ dependencies = [
 
 [[package]]
 name = "barebones-watchface"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "55becd1ab1c9848f2930a164cbe43f69ca8309e78ce98955bf5423654264134f"
+checksum = "5609a005798daa1b3b408686b2d2d0a7e5d71d54683e9c4414bd3ba37d57e993"
 dependencies = [
  "arrayvec",
  "cortex-m",
@@ -48,9 +48,7 @@ dependencies = [
  "embedded-hal",
  "heapless",
  "memchr",
- "pinetime-lvgl",
  "pinetime-macros",
- "pinetime-mynewt",
  "pinetime-watchface",
 ]
 
@@ -187,9 +185,9 @@ checksum = "546c37ac5d9e56f55e73b677106873d9d9f5190605e41a856503623648488cae"
 
 [[package]]
 name = "pinetime-lvgl"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "826df05033f44b34cb93ef94296fa7cd2ed77e6206e3e363fa90b18572f6455b"
+checksum = "94a3f29adc1be5225931e03c69ebd201284a7ac9661773b336a238f3a2c99999"
 dependencies = [
  "cortex-m",
  "cortex-m-semihosting",
@@ -203,9 +201,9 @@ dependencies = [
 
 [[package]]
 name = "pinetime-macros"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72c4a25d305da0d35eda43f9751cdbe786c7437a7f91f6ecf6a0b810d699b690"
+checksum = "08feecc469cbd64b005bf72013962b0aae88cb6473149edb68815cf37303ef5f"
 dependencies = [
  "cstr_core",
  "cty 0.2.1",
@@ -219,9 +217,9 @@ dependencies = [
 
 [[package]]
 name = "pinetime-mynewt"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "59a69317c5ce803667aeb36d3b1d2036c7841b9407eca5efd124328049ba3a7a"
+checksum = "1a2c9eae2e95d951c61d25a7e4154d8fe25ea5c212c24be674c2992b37f80f63"
 dependencies = [
  "cortex-m",
  "cstr_core",
@@ -234,9 +232,9 @@ dependencies = [
 
 [[package]]
 name = "pinetime-watchface"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "49c3f87d95719364652cb0aba7ad76b4f7e6f4ca7f785a6c0ba13f1dc3905a90"
+checksum = "e686a5209d42559376bd7b0dd4acd4f8a5b9a76fab40aa7e953fc070c4a10b52"
 dependencies = [
  "arrayvec",
  "cortex-m",
@@ -247,7 +245,6 @@ dependencies = [
  "memchr",
  "pinetime-lvgl",
  "pinetime-macros",
- "pinetime-mynewt",
 ]
 
 [[package]]
@@ -353,8 +350,5 @@ name = "wasm"
 version = "0.1.0"
 dependencies = [
  "barebones-watchface",
- "pinetime-lvgl",
  "pinetime-macros",
- "pinetime-mynewt",
- "pinetime-watchface",
 ]

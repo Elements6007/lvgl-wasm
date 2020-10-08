@@ -3,10 +3,11 @@
 # All projects in the `rust` folder belong to this workspace
 [workspace]
 members = [
-    "rust/app",
-    "rust/lvgl",
-    "rust/macros",
-    "rust/wasm",
+    "mynewt/wasm",
+    # "rust/app",
+    # "rust/lvgl",
+    # "rust/macros",
+    # "rust/wasm",
 ]
 
 # Options for `cargo build`

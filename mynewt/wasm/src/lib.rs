@@ -1,30 +1,31 @@
 /* To build:
 rustup default nightly
 rustup target add wasm32-unknown-emscripten
-cargo build --target=wasm32-unknown-emscripten
+cargo build
 */
-#![feature(libc)]
+#![feature(libc)]  //  Allow C Standard Library, which will be mapped by emscripten to JavaScript
 
-use core::ptr;
-use app::watch_face;
+use mynewt::fill_zero;
+use watchface::WatchFace;   //  Needed for calling WatchFace traits
 
-static mut WIDGETS: watch_face::WatchFaceWidgets = watch_face::WatchFaceWidgets {
-    screen:      ptr::null_mut(),
-    time_label:  ptr::null_mut(),
-    date_label:  ptr::null_mut(),
-    ble_label:   ptr::null_mut(),
-    power_label: ptr::null_mut(),
-};
+/// Declare the Watch Face Type
+type WatchFaceType = barebones_watchface::BarebonesWatchFace;
+
+/// Watch Face for the app
+static mut WATCH_FACE: WatchFaceType = fill_zero!(WatchFaceType);
 
 /// Create an instance of the clock
 #[no_mangle]
 pub extern fn create_clock() -> i32 {
     unsafe { puts(b"In Rust: Creating clock...\0".as_ptr()); }
-    unsafe {
-        WIDGETS.screen = get_screen();
-        watch_face::create_widgets(&mut WIDGETS)
-            .expect("create_widgets failed");
+
+    //  Create the watch face
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static  
+        WATCH_FACE = WatchFaceType::new()
+            .expect("Create watch face fail");
     }
+
+    //  Return OK, caller will render display
     0
 }
 
@@ -32,6 +33,8 @@ pub extern fn create_clock() -> i32 {
 #[no_mangle]
 pub extern fn refresh_clock() -> i32 {
     unsafe { puts(b"In Rust: Refreshing clock...\0".as_ptr()); }
+
+    //  Return OK, caller will render display
     0
 }
 
@@ -40,31 +43,36 @@ pub extern fn refresh_clock() -> i32 {
 pub extern fn update_clock(year: i32, month: i32, day: i32,
     hour: i32, minute: i32, second: i32) -> i32 {
     unsafe { puts(b"In Rust: Updating clock...\0".as_ptr()); }
-    let state = watch_face::WatchFaceState {
-        ble_state:  watch_face::BleState::BLEMAN_BLE_STATE_CONNECTED ,
-        time:       watch_face::controller_time_spec_t {
-            year:       year as u16,
-            month:      month as u8,
-            dayofmonth: day as u8,
-            hour:       hour as u8,
+
+    //  Compose the state
+    let state = watchface::WatchFaceState {
+        time:       watchface::WatchFaceTime {
+            year:       year   as u16,
+            month:      month  as u8,
+            day:        day    as u8,
+            hour:       hour   as u8,
             minute:     minute as u8,
             second:     second as u8,
-            fracs:      0,
+            day_of_week: 1,  //  TODO
         },
+        bluetooth:  watchface::BluetoothState::BLUETOOTH_STATE_CONNECTED,
         millivolts: 0,
         charging:   true,
         powered:    true,
     };
-    unsafe {
-        watch_face::set_time_label(&mut WIDGETS, &state)
-            .expect("set_time_label failed");
+
+    //  Update the watch face
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
+        WATCH_FACE.update(&state)
+            .expect("Update watch face fail");
     }
+    
+    //  Return OK, caller will render display
     0
 }
 
 extern "C" {
-    /// Get LVGL Screen. Defined in wasm/lvgl.c
-    fn get_screen() -> *mut lvgl::core::obj::lv_obj_t;
+    /// Print to the JavaScript Console. From Standard C Library, mapped to JavaScript by emscripten.
     fn puts(fmt: *const u8) -> i32;
     //  fn printf(fmt: *const u8, ...) -> i32;
 }
@@ -109,91 +117,3 @@ extern "C" {
     static mut test_rust_buffer: [u8; 32];
     fn test_c() -> i32;
 }
-
-/*
-//  use std::ops::Add;
-//  use wasm_bindgen::prelude::*;
-//  use wasm_bindgen::Clamped;
-//  use web_sys::{CanvasRenderingContext2d, ImageData};
-
-#[wasm_bindgen]
-pub fn draw(
-    ctx: &CanvasRenderingContext2d,
-    width: u32,
-    height: u32,
-    real: f64,
-    imaginary: f64,
-) -> Result<(), JsValue> {
-    // The real workhorse of this algorithm, generating pixel data
-    let c = Complex { real, imaginary };
-    let mut data = get_julia_set(width, height, c);
-    let data = ImageData::new_with_u8_clamped_array_and_sh(Clamped(&mut data), width, height)?;
-    ctx.put_image_data(&data, 0.0, 0.0)
-}
-
-fn get_julia_set(width: u32, height: u32, c: Complex) -> Vec<u8> {
-    let mut data = Vec::new();
-
-    let param_i = 1.5;
-    let param_r = 1.5;
-    let scale = 0.005;
-
-    for x in 0..width {
-        for y in 0..height {
-            let z = Complex {
-                real: y as f64 * scale - param_r,
-                imaginary: x as f64 * scale - param_i,
-            };
-            let iter_index = get_iter_index(z, c);
-            data.push((iter_index / 4) as u8);
-            data.push((iter_index / 2) as u8);
-            data.push(iter_index as u8);
-            data.push(255);
-        }
-    }
-
-    data
-}
-
-fn get_iter_index(z: Complex, c: Complex) -> u32 {
-    let mut iter_index: u32 = 0;
-    let mut z = z;
-    while iter_index < 900 {
-        if z.norm() > 2.0 {
-            break;
-        }
-        z = z.square() + c;
-        iter_index += 1;
-    }
-    iter_index
-}
-
-#[derive(Clone, Copy, Debug)]
-struct Complex {
-    real: f64,
-    imaginary: f64,
-}
-
-impl Complex {
-    fn square(self) -> Complex {
-        let real = (self.real * self.real) - (self.imaginary * self.imaginary);
-        let imaginary = 2.0 * self.real * self.imaginary;
-        Complex { real, imaginary }
-    }
-
-    fn norm(&self) -> f64 {
-        (self.real * self.real) + (self.imaginary * self.imaginary)
-    }
-}
-
-impl Add<Complex> for Complex {
-    type Output = Complex;
-
-    fn add(self, rhs: Complex) -> Complex {
-        Complex {
-            real: self.real + rhs.real,
-            imaginary: self.imaginary + rhs.imaginary,
-        }
-    }
-}
-*/

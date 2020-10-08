@@ -1329,11 +1329,13 @@
           //  Update the WebAssembly Date and Time: year, month, day, hour, minute, second
           const localTime = new Date();
           const timezoneOffset = localTime.getTimezoneOffset();  //  In mins
-          //  Compensate for the time zone
-          const now = new Date(
-            localTime.valueOf()             //  Convert time to millisec
-            - (timezoneOffset * 60 * 1000)  //  Convert mins to millisec
-          );
+          //  TODO: For Rust: Don't compensate for the time zone
+          const now = new Date();
+          //  TODO: For InfiniTime: Compensate for the time zone
+          //  const now = new Date(
+          //    localTime.valueOf()             //  Convert time to millisec
+          //    - (timezoneOffset * 60 * 1000)  //  Convert mins to millisec
+          //  );
           Module._update_clock(
             now.getFullYear(),
             now.getMonth() - 1,  //  getMonth() returns 1 to 12

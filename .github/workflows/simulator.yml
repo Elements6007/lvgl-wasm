@@ -183,72 +183,72 @@ jobs:
         # rm mynewt/wasm/src/lib.rs.new
         cat mynewt/wasm/src/lib.rs
 
-    - name: Build Rust+LVGL for WebAssembly
-      run:  |
-        # Add emscripten and wabt to the PATH
-        source /tmp/emsdk/emsdk_env.sh
-        export PATH=$PATH:/tmp/wabt/build
-        cd /tmp/lvgl-wasm
+    # - name: Build Rust+LVGL for WebAssembly
+    #   run:  |
+    #     # Add emscripten and wabt to the PATH
+    #     source /tmp/emsdk/emsdk_env.sh
+    #     export PATH=$PATH:/tmp/wabt/build
+    #     cd /tmp/lvgl-wasm
 
-        # Build Rust+LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
-        cargo build
-        make -f mynewt/Makefile
+    #     # Build Rust+LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
+    #     cargo build
+    #     make -f mynewt/Makefile
 
-        # Dump the WebAssembly modules
-        wasm-objdump -x wasm/lvgl.wasm >wasm/lvgl.txt
+    #     # Dump the WebAssembly modules
+    #     wasm-objdump -x wasm/lvgl.wasm >wasm/lvgl.txt
 
-        # Rename the HTML files so we don't overwrite the updates
-        mv wasm/lvgl.html wasm/lvgl.old.html
+    #     # Rename the HTML files so we don't overwrite the updates
+    #     mv wasm/lvgl.html wasm/lvgl.old.html
 
     - name: Show files
       run:  set ; pwd ; ls -l /tmp/lvgl-wasm
 
-    - name: Copy WebAssembly to GitHub Pages
-      run:  |
-        if [ ! -d docs ]; then
-          mkdir docs
-        fi
-        export src=/tmp/lvgl-wasm
-        export docs=$src/docs
-        export wasm=$src/wasm
-        cp \
-          $docs/lvgl.html \
-          $wasm/*.html \
-          $wasm/*.js \
-          $wasm/*.wasm \
-          $wasm/*.txt \
-          docs
+    # - name: Copy WebAssembly to GitHub Pages
+    #   run:  |
+    #     if [ ! -d docs ]; then
+    #       mkdir docs
+    #     fi
+    #     export src=/tmp/lvgl-wasm
+    #     export docs=$src/docs
+    #     export wasm=$src/wasm
+    #     cp \
+    #       $docs/lvgl.html \
+    #       $wasm/*.html \
+    #       $wasm/*.js \
+    #       $wasm/*.wasm \
+    #       $wasm/*.txt \
+    #       docs
 
-    - name: Commit GitHub Pages
-      uses: EndBug/add-and-commit@v4.4.0
-      with:
-        # Arguments for the git add command
-        add: docs
-        # The name of the user that will be displayed as the author of the commit
-        # author_name: # optional
-        # The email of the user that will be displayed as the author of the commit
-        # author_email: # optional
-        # The directory where your repository is located. You should use actions/checkout first to set it up
-        # cwd: # optional, default is .
-        # Whether to use the force option on git add, in order to bypass eventual gitignores
-        # force: # optional, default is false
-        # Whether to use the signoff option on git commit
-        # signoff: # optional, default is false
-        # The message for the commit
-        # message: # optional, default is Commit from GitHub Actions
-        # Name of the branch to use, if different from the one that triggered the workflow
-        # ref: # optional
-        # Arguments for the git rm command
-        # remove: # optional, default is 
-        # The name of the tag to add to the new commit
-        # tag: # optional, default is 
+    # - name: Commit GitHub Pages
+    #   uses: EndBug/add-and-commit@v4.4.0
+    #   with:
+    #     # Arguments for the git add command
+    #     add: docs
+    #     # The name of the user that will be displayed as the author of the commit
+    #     # author_name: # optional
+    #     # The email of the user that will be displayed as the author of the commit
+    #     # author_email: # optional
+    #     # The directory where your repository is located. You should use actions/checkout first to set it up
+    #     # cwd: # optional, default is .
+    #     # Whether to use the force option on git add, in order to bypass eventual gitignores
+    #     # force: # optional, default is false
+    #     # Whether to use the signoff option on git commit
+    #     # signoff: # optional, default is false
+    #     # The message for the commit
+    #     # message: # optional, default is Commit from GitHub Actions
+    #     # Name of the branch to use, if different from the one that triggered the workflow
+    #     # ref: # optional
+    #     # Arguments for the git rm command
+    #     # remove: # optional, default is 
+    #     # The name of the tag to add to the new commit
+    #     # tag: # optional, default is 
 
-    - name: Upload Outputs
-      uses: actions/upload-artifact@v2
-      with:
-        name: wasm
-        path: |
-          /tmp/lvgl-wasm/wasm/*.html
-          /tmp/lvgl-wasm/wasm/*.js
-          /tmp/lvgl-wasm/wasm/*.wasm
-          /tmp/lvgl-wasm/wasm/*.txt
+    # - name: Upload Outputs
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wasm
+    #     path: |
+    #       /tmp/lvgl-wasm/wasm/*.html
+    #       /tmp/lvgl-wasm/wasm/*.js
+    #       /tmp/lvgl-wasm/wasm/*.wasm
+    #       /tmp/lvgl-wasm/wasm/*.txt

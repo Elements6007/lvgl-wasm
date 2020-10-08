@@ -99,7 +99,7 @@ jobs:
     - name: Checkout Rust+LVGL for WebAssembly
       run:  |
         cd /tmp
-        git clone --branch rust  https://github.com/AppKaki/lvgl-wasm
+        git clone --branch mynewt https://github.com/AppKaki/lvgl-wasm
 
     - name: Prebuild Rust+LVGL for WebAssembly
       run:  |

@@ -1,30 +1,20 @@
-<h1 align="center"> WebAssembly Simulator for Rust on RIOT with LVGL  </h1>
+<h1 align="center"> WebAssembly Simulator for Rust on Mynewt with LVGL  </h1>
 
-![WebAssembly Simulator for Rust on RIOT](https://lupyuen.github.io/images/rust-on-riot-simulator.png)
+![WebAssembly Simulator for Rust on Mynewt](https://lupyuen.github.io/images/rust-on-riot-simulator.png)
 
 __Note: This is the `mynewt` branch that supports Watch Faces built with Rust on Mynewt__
 
-__Simulate Rust on RIOT Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
+__Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 
-- [Online Rust on RIOT Demo](https://appkaki.github.io/lvgl-wasm/rust.html)
+- [Online Rust on Mynewt Demo](https://lupyuen.github.io/barebones-watchface/lvgl.html)
 
-- [Watch Face Source Code for Rust on RIOT](rust/app/src/watch_face.rs)
-
-- Presentation Slides: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://docs.google.com/presentation/d/1IgCsWJ5TYpPaHXZlaETlM2rYQrBmOpN2WeFsNjmYO_k/edit?usp=sharing)
-
-- Presentation Video: [_Safer, Simpler Embedded Programs with Rust on RIOT_](https://youtu.be/rTxeXnlH-mM)
-
-Read the articles...
-
-- ["Preview PineTime Watch Faces in your Web Browser with WebAssembly"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
-
-- ["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
+- [Watch Face Source Code for Rust on Mynewt](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs)
 
 # Features
 
-1. __Compiles actual Rust On RIOT Watch Face__ from Rust to WebAssembly without any code changes
+1. __Compiles actual Rust On Mynewt Watch Face__ from Rust to WebAssembly without any code changes
 
-1. __Uses GitHub Actions Workflow__ to build any fork of Rust On RIOT into WebAssembly
+1. __Uses GitHub Actions Workflow__ to build any fork of Rust On Mynewt into WebAssembly
 
 1. __Renders LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
 
@@ -34,7 +24,7 @@ Read the articles...
 
 # Upcoming Features
 
-1. __Support Custom Fonts and Symbols__ for LVGL, by migrating LVGL v6 styles (used by pinetime-rust-riot) to v7 (used by lvgl-wasm)
+1. __Support Custom Fonts and Symbols__ for LVGL
 
 1. __Accept Touch Input__ for LVGL
 
@@ -42,15 +32,13 @@ Read the articles...
 
 # References
 
-- ["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
-
-- Presentation Slides: ["Safer, Simpler Embedded Programs with Rust on RIOT"](https://docs.google.com/presentation/d/1IgCsWJ5TYpPaHXZlaETlM2rYQrBmOpN2WeFsNjmYO_k/edit?usp=sharing)
-
-- Presentation Video: ["Safer, Simpler Embedded Programs with Rust on RIOT"](https://youtu.be/rTxeXnlH-mM)
+- ["Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
 
 - ["Preview PineTime Watch Faces in your Web Browser with WebAssembly"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
 
 # How To Build The Simulator
+
+TODO
 
 To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 
@@ -173,6 +161,8 @@ In case of problems, compare with the following...
 
 # How It Works
 
+TODO
+
 Rust on RIOT WebAssembly is compiled in multiple parts...
 
 1. Watch Face Library in Rust, from [`rust`](rust)
@@ -284,6 +274,8 @@ panic         = "abort"     # Disable stack unwinding on panic
 ```
 
 # Rust on RIOT Sandbox
+
+TODO
 
 Rust on RIOT Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
 

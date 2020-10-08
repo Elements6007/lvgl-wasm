@@ -151,12 +151,12 @@ jobs:
         # TODO: Find the watchface project name e.g. my-watchface
         # Search mynewt/watchface/Cargo.toml for
         #   name = "my-watchface"
-        grep "name =" mynewt/watchface/Cargo.toml
+        # grep "name =" mynewt/watchface/Cargo.toml
 
         # TODO: Find the watchface struct name e.g. MyWatchface
         # Search all files *.rs in mynewt/watchface for
         #   impl WatchFace for MyWatchface {
-        grep "impl WatchFace" mynewt/watchface/src/lib.rs
+        # grep "impl WatchFace" mynewt/watchface/src/lib.rs
 
         # TODO: Change mynewt/wasm/Cargo.toml from
         #   barebones-watchface = "1.0.1"
@@ -168,7 +168,7 @@ jobs:
         #     >mynewt/wasm/Cargo.toml.new
         # cp mynewt/wasm/Cargo.toml.new mynewt/wasm/Cargo.toml
         # rm mynewt/wasm/Cargo.toml.new
-        cat mynewt/wasm/Cargo.toml
+        # cat mynewt/wasm/Cargo.toml
 
         # TODO: Change mynewt/wasm/src/lib.rs from
         #   type WatchFaceType = barebones_watchface::BarebonesWatchFace;
@@ -181,7 +181,7 @@ jobs:
         #     >mynewt/wasm/src/lib.rs.new
         # cp mynewt/wasm/src/lib.rs.new mynewt/wasm/src/lib.rs
         # rm mynewt/wasm/src/lib.rs.new
-        cat mynewt/wasm/src/lib.rs
+        # cat mynewt/wasm/src/lib.rs
 
     # - name: Build Rust+LVGL for WebAssembly
     #   run:  |

@@ -148,7 +148,7 @@ jobs:
         # Go to the LVGL folder
         cd /tmp/lvgl-wasm
 
-        # TODO: Find the watchface project name e.g. my-watchface
+        # TODO: Find the watchface crate name e.g. my-watchface
         # Search mynewt/watchface/Cargo.toml for
         #   name = "my-watchface"
         # grep "name =" mynewt/watchface/Cargo.toml
@@ -159,15 +159,13 @@ jobs:
         # grep "impl WatchFace" mynewt/watchface/src/lib.rs
 
         # TODO: Change mynewt/wasm/Cargo.toml from
-        #   barebones-watchface = "1.0.1"
+        #   barebones-watchface = "1.0.2"
         # to
         #   my-watchface = { path = "../watchface" }
 
         # TODO: Copy and overwrite crates from mynewt/watchface/Cargo.toml to mynewt/wasm/Cargo.toml
-        #   pinetime-macros     = "1.0.1"
-        #   pinetime-mynewt     = "1.0.1"
-        #   pinetime-lvgl       = "1.0.1"
-        #   pinetime-watchface  = "1.0.1"
+        #   pinetime-macros     = "1.0.2"
+        #   pinetime-watchface  = "1.0.2"
 
         # cat mynewt/wasm/Cargo.toml \
         #     | sed 's/crate-type = \["staticlib"\]/crate-type = \["lib"\]/' \
@@ -177,10 +175,14 @@ jobs:
         # cat mynewt/wasm/Cargo.toml
 
         # TODO: Change mynewt/wasm/src/lib.rs from
+        #   use barebones_watchface::watchface::lvgl::mynewt::fill_zero;
+        #   use barebones_watchface::watchface::{self, WatchFace};
         #   type WatchFaceType = barebones_watchface::BarebonesWatchFace;
         # to
+        #   use my_watchface::watchface::lvgl::mynewt::fill_zero;
+        #   use my_watchface::watchface::{self, WatchFace};
         #   type WatchFaceType = my_watchface::MyWatchFace;
-        # Change project name from "-" to "_"
+        # Change crate name from "-" to "_"
 
         # cat mynewt/wasm/src/lib.rs \
         #     | sed 's/crate-type = \["staticlib"\]/crate-type = \["lib"\]/' \

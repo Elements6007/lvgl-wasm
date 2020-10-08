@@ -10,6 +10,10 @@ __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for ea
 
 - [Watch Face Source Code for Rust on Mynewt](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs)
 
+- [Watch Face Crate on crates.io](https://crates.io/crates/barebones-watchface)
+
+- [GitHub Actions Workflow for Simulator](https://github.com/lupyuen/barebones-watchface/blob/master/.github/workflows/simulator.yml)
+
 # Features
 
 1. __Compiles actual Rust On Mynewt Watch Face__ from Rust to WebAssembly without any code changes

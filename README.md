@@ -2,7 +2,7 @@
 
 ![WebAssembly Simulator for Rust on RIOT](https://lupyuen.github.io/images/rust-on-riot-simulator.png)
 
-__Note: This is the `rust` branch that supports Watch Faces built with Rust__
+__Note: This is the `mynewt` branch that supports Watch Faces built with Rust on Mynewt__
 
 __Simulate Rust on RIOT Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 

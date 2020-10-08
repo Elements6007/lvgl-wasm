@@ -163,6 +163,12 @@ jobs:
         # to
         #   my-watchface = { path = "../watchface" }
 
+        # TODO: Copy and overwrite crates from mynewt/watchface/Cargo.toml to mynewt/wasm/Cargo.toml
+        #   pinetime-macros     = "1.0.1"
+        #   pinetime-mynewt     = "1.0.1"
+        #   pinetime-lvgl       = "1.0.1"
+        #   pinetime-watchface  = "1.0.1"
+
         # cat mynewt/wasm/Cargo.toml \
         #     | sed 's/crate-type = \["staticlib"\]/crate-type = \["lib"\]/' \
         #     >mynewt/wasm/Cargo.toml.new

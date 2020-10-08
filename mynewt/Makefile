@@ -11,7 +11,7 @@ include lvgl.mk
 
 # WebAssembly C and C++ Source Files
 WASM_CSRCS := \
-	wasm/lv_port_disp.c
+	wasm/lv_port_disp.c \
 	clock/jetbrains_mono_bold_20.c \
 	clock/jetbrains_mono_extrabold_compressed.c
 

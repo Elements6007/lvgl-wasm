@@ -1775,7 +1775,7 @@ Code[1074]:
  - func[460] size=31 <lv_theme_get_font_normal>
  - func[461] size=525 <lv_theme_material_init>
  - func[462] size=10341 <theme_apply>
- - func[463] size=28718 <basic_init>
+ - func[463] size=28721 <basic_init>
  - func[464] size=3 <cont_init>
  - func[465] size=3 <btn_init>
  - func[466] size=3 <label_init>
@@ -1791,7 +1791,7 @@ Code[1074]:
  - func[476] size=3 <spinner_init>
  - func[477] size=3509 <chart_init>
  - func[478] size=11617 <calendar_init>
- - func[479] size=3717 <cpicker_init>
+ - func[479] size=3714 <cpicker_init>
  - func[480] size=4853 <checkbox_init>
  - func[481] size=3 <btnmatrix_init>
  - func[482] size=3192 <keyboard_init>
@@ -1799,14 +1799,14 @@ Code[1074]:
  - func[484] size=1895 <page_init>
  - func[485] size=1446 <textarea_init>
  - func[486] size=1073 <spinbox_init>
- - func[487] size=12205 <list_init>
+ - func[487] size=12211 <list_init>
  - func[488] size=1389 <ddlist_init>
  - func[489] size=748 <roller_init>
  - func[490] size=3 <tabview_init>
  - func[491] size=3 <tileview_init>
  - func[492] size=3684 <table_init>
  - func[493] size=3 <win_init>
- - func[494] size=9662 <tabview_win_shared_init>
+ - func[494] size=9665 <tabview_win_shared_init>
  - func[495] size=127 <style_init_reset>
  - func[496] size=183 <lv_style_set_bg_opa>
  - func[497] size=218 <lv_color_hex.1>

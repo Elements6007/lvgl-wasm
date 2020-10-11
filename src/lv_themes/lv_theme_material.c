@@ -22,7 +22,8 @@
 
 /*SCREEN*/
 
-#define COLOR_SCR        (IS_LIGHT ? lv_color_hex(0xeaeff3) : lv_color_hex(0x444b5a))
+#define COLOR_SCR        (IS_LIGHT ? lv_color_hex(0xeaeff3) : lv_color_hex(0x000000))  ////  Changed to Black Background
+////#define COLOR_SCR        (IS_LIGHT ? lv_color_hex(0xeaeff3) : lv_color_hex(0x444b5a))
 #define COLOR_SCR_TEXT   (IS_LIGHT ? lv_color_hex(0x3b3e42) : lv_color_hex(0xe7e9ec))
 
 /*BUTTON*/
@@ -40,8 +41,7 @@
 #define COLOR_BTN_BORDER_INA    (IS_LIGHT ? lv_color_hex3(0x888) : lv_color_hex(0x404040))
 
 /*BACKGROUND*/
-#define COLOR_BG            (IS_LIGHT ? lv_color_hex(0xffffff) : lv_color_hex(0x000000))  ////  Changed to Black Background
-////#define COLOR_BG            (IS_LIGHT ? lv_color_hex(0xffffff) : lv_color_hex(0x586273))
+#define COLOR_BG            (IS_LIGHT ? lv_color_hex(0xffffff) : lv_color_hex(0x586273))
 #define COLOR_BG_PR         (IS_LIGHT ? lv_color_hex(0xeeeeee) : lv_color_hex(0x494f57))
 #define COLOR_BG_CHK        theme.color_primary
 #define COLOR_BG_PR_CHK     lv_color_darken(theme.color_primary, LV_OPA_20)

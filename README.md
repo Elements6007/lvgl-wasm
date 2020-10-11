@@ -4,6 +4,10 @@
 
 _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.com/SravanSenthiln1): PineTime Watch Face Simulator vs Real PineTime_
 
+For __Rust on Mynewt__ Watch Faces, see the [`mynewt` branch](https://github.com/AppKaki/lvgl-wasm/blob/mynewt/README.md)
+
+For __Rust on RIOT__ Watch Faces, see the [`rust` branch](https://github.com/AppKaki/lvgl-wasm/blob/rust/README.md)
+
 __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 
 - [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
@@ -13,8 +17,6 @@ __Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier d
 Read the article...
 
 - ["Preview PineTime Watch Faces in your Web Browser with WebAssembly"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
-
-For Watch Faces based on Rust, see the [`rust` branch](https://github.com/AppKaki/lvgl-wasm/blob/rust/README.md)
 
 # Features
 

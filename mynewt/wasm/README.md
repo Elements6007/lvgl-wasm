@@ -1,4 +1,4 @@
-# Rust WebAssembly Modules for LVGL
+# Rust Application for LVGL on WebAssembly
 
 Based on...
 

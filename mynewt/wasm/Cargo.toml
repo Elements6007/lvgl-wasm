@@ -8,5 +8,5 @@ edition = "2018"
 crate-type = ["staticlib"]
 
 [dependencies]
-pinetime-macros     = "1.0.2"  # Safe Wrapper Macros for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-macros
-barebones-watchface = "1.0.3"  # Barebones Watch Face for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/barebones-watchface
+pinetime-macros     = "1.0.3"  # Safe Wrapper Macros for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-macros
+barebones-watchface = "1.0.4"  # Barebones Watch Face for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/barebones-watchface

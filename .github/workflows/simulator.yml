@@ -50,6 +50,7 @@ jobs:
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 
+    # We download emscripten instead of building from source because it changes often and causes emcc build errors
     - name: Download emscripten
       if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Download emscripten if not found in cache
       run:  |
@@ -68,7 +69,7 @@ jobs:
         emcc --version
         emcc --version        
 
-    # - name: Install emscripten
+    # - name: Install emscripten from source
     #   if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
     #   run:  |
     #     # Based on https://emscripten.org/docs/getting_started/downloads.html
@@ -103,6 +104,7 @@ jobs:
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 
+    # We download wabt instead of building from source because building wabt is slow
     - name: Download wabt
       if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Download wabt if not found in cache
       run:  |
@@ -114,7 +116,7 @@ jobs:
         tar xzf wabt.tgz
         rm wabt.tgz
                 
-    # - name: Install wabt
+    # - name: Install wabt from source
     #   if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
     #   run:  |
     #     cd /tmp

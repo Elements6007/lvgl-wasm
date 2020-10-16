@@ -56,6 +56,7 @@ jobs:
         # Fetch the emscripten binary from lvgl-wasm
         cd /tmp && mkdir emsdk && cd emsdk
         curl https://github.com/AppKaki/lvgl-wasm/releases/download/v1.0.0/emsdk.zip -o emsdk.zip
+        ls -l
 
         # Unzip to /tmp/emsdk
         unzip emsdk.zip
@@ -110,6 +111,7 @@ jobs:
         # Fetch the wabt binary from lvgl-wasm
         cd /tmp && mkdir wabt && cd wabt
         curl https://github.com/AppKaki/lvgl-wasm/releases/download/v1.0.0/wabt.zip -o wabt.zip
+        ls -l
         
         # Unzip to /tmp/wabt
         unzip wabt.zip

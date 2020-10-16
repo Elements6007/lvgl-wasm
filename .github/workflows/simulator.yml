@@ -260,3 +260,19 @@ jobs:
           /tmp/lvgl-wasm/wasm/*.js
           /tmp/lvgl-wasm/wasm/*.wasm
           /tmp/lvgl-wasm/wasm/*.txt
+
+    # For distributing emscripten
+    - name: Upload emscripten
+      uses: actions/upload-artifact@v2
+      with:
+        name: emsdk
+        path: |
+          /tmp/emsdk
+
+    # For distributing wabt
+    - name: Upload wabt
+      uses: actions/upload-artifact@v2
+      with:
+        name: wabt
+        path: |
+          /tmp/wabt

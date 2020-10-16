@@ -40,35 +40,35 @@ jobs:
         rustup default nightly
         rustup target add wasm32-unknown-emscripten
 
-    # - name: Check cache for emscripten
-    #   id:   cache-emsdk
-    #   uses: actions/cache@v2
-    #   env:
-    #     cache-name: cache-emsdk
-    #   with:
-    #     path: /tmp/emsdk
-    #     key:  ${{ runner.os }}-build-${{ env.cache-name }}
-    #     restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+    - name: Check cache for emscripten
+      id:   cache-emsdk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-emsdk
+      with:
+        path: /tmp/emsdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 
-    - name: Install emscripten
-      #### if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
-      run:  |
-        # Fetch the emscripten binary from lvgl-wasm
-        cd /tmp && mkdir emsdk && cd emsdk
-        curl -L https://github.com/AppKaki/lvgl-wasm/releases/download/v1.0.0/emsdk.zip -o emsdk.zip
-        ls -l
+    # - name: Install emscripten
+    #   #### if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
+    #   run:  |
+    #     # Fetch the emscripten binary from lvgl-wasm
+    #     cd /tmp && mkdir emsdk && cd emsdk
+    #     curl -L https://github.com/AppKaki/lvgl-wasm/releases/download/v1.0.0/emsdk.zip -o emsdk.zip
+    #     ls -l
 
-        # Unzip to /tmp/emsdk
-        unzip emsdk.zip
-        ls -l
-        rm emsdk.zip
+    #     # Unzip to /tmp/emsdk
+    #     unzip emsdk.zip
+    #     ls -l
+    #     rm emsdk.zip
 
-        # Activate PATH and other environment variables in the current terminal
-        source /tmp/emsdk/emsdk_env.sh
+    #     # Activate PATH and other environment variables in the current terminal
+    #     source /tmp/emsdk/emsdk_env.sh
 
-        # Show version
-        emcc --version
-        emcc --version        
+    #     # Show version
+    #     emcc --version
+    #     emcc --version        
 
     # - name: Install emscripten
     #   if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
@@ -95,28 +95,28 @@ jobs:
     #     emcc --version
     #     emcc --version      
 
-    # - name: Check cache for wabt
-    #   id:   cache-wabt
-    #   uses: actions/cache@v2
-    #   env:
-    #     cache-name: cache-wabt
-    #   with:
-    #     path: /tmp/wabt
-    #     key:  ${{ runner.os }}-build-${{ env.cache-name }}
-    #     restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+    - name: Check cache for wabt
+      id:   cache-wabt
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-wabt
+      with:
+        path: /tmp/wabt
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 
-    - name: Install wabt
-      #### if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
-      run:  |
-        # Fetch the wabt binary from lvgl-wasm
-        cd /tmp && mkdir wabt && cd wabt
-        curl -L https://github.com/AppKaki/lvgl-wasm/releases/download/v1.0.0/wabt.zip -o wabt.zip
-        ls -l
+    # - name: Install wabt
+    #   #### if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
+    #   run:  |
+    #     # Fetch the wabt binary from lvgl-wasm
+    #     cd /tmp && mkdir wabt && cd wabt
+    #     curl -L https://github.com/AppKaki/lvgl-wasm/releases/download/v1.0.0/wabt.zip -o wabt.zip
+    #     ls -l
         
-        # Unzip to /tmp/wabt
-        unzip wabt.zip
-        ls -l
-        rm wabt.zip
+    #     # Unzip to /tmp/wabt
+    #     unzip wabt.zip
+    #     ls -l
+    #     rm wabt.zip
                 
     # - name: Install wabt
     #   if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
@@ -294,18 +294,23 @@ jobs:
           /tmp/lvgl-wasm/wasm/*.wasm
           /tmp/lvgl-wasm/wasm/*.txt
 
-    # For distributing emscripten
-    # - name: Upload emscripten
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: emsdk
-    #     path: |
-    #       /tmp/emsdk
+    # Package emscripten and wabt binaries
+    - name: Archive emscripten and wabt
+      run:  |
+        cd /tmp
+        tar czvf emsdk.tgz emsdk
+        tar czvf wabt.tgz wabt
 
-    # For distributing wabt
-    # - name: Upload wabt
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: wabt
-    #     path: |
-    #       /tmp/wabt
+    # Upload emscripten binary
+    - name: Upload emscripten
+      uses: actions/upload-artifact@v2
+      with:
+        name: emsdk
+        path: /tmp/emsdk.tgz
+
+    # Upload wabt binary
+    - name: Upload wabt
+      uses: actions/upload-artifact@v2
+      with:
+        name: wabt
+        path: /tmp/wabt.tgz

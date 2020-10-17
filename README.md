@@ -22,7 +22,7 @@ __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for ea
 
 1. __Renders LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
 
-1. __Supports RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly. [Custom Bitmap Demo](https://appkaki.github.io/lvgl-wasm/lvgl2.html) / [Source Code](clock/Clock2.cpp)
+1. __Supports RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 
 1. __Shows current date and time__
 
@@ -36,15 +36,13 @@ __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for ea
 
 # References
 
-- ["Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
+- ["Create Your Own PineTime Watch Face in Rust... And Publish on crates.io"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/watchface)
 
 - ["Preview PineTime Watch Faces in your Web Browser with WebAssembly"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
 
 # How To Build The Simulator
 
-TODO
-
-To build PineTime Watch Face Simulator on Linux x64 or Arm64...
+To build PineTime Watch Face Simulator on Linux x64 or Arm64, follow these steps based on the GitHub Actions Workflow [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)...
 
 1.  Install emscripten and wabt. See instructions below.
 
@@ -53,7 +51,7 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 1.  Enter...
 
     ```bash
-    git clone --branch rust  https://github.com/AppKaki/lvgl-wasm
+    git clone --branch mynewt  https://github.com/AppKaki/lvgl-wasm
     cd lvgl-wasm
     ```
 
@@ -88,6 +86,8 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
     target_arch = "arm", target_arch = "wasm32"
     ```
 
+    Here is the `sed` script that makes the change...
+
     ```bash
     cat $HOME/.cargo/registry/src/github.com-*/cty-0.1.5/src/lib.rs \
         | sed 's/target_arch = "arm"/target_arch = "arm", target_arch = "wasm32"/' \
@@ -96,37 +96,43 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
     rm /tmp/lib.rs
     ```
         
-1.  Copy Rust Watch Face from our fork of pinetime-mynewt-rust into lvgl-wasm...
+1.  Inject the Watch Face Crate into lvgl-wasm.
+    
+    Assuming that `my_watchface::MyWatchFace` is the Watch Face that will be built into the Simulator...
 
-    ```bash
-    rm -r rust/app
-    # Assume that our fork of pinetime-mynewt-rust is at ~/pinetime-rust-riot
-    cp -r ~/pinetime-rust-riot/rust/app rust
-    ```
-
-    This is the Rust On RIOT Watch Face that will be built into the Simulator.
-
-1.  Change `rust/app/Cargo.toml`
-
-    From...
+    Change `mynewt/wasm/Cargo.toml` from
 
     ```
-    crate-type = ["staticlib"]
+    barebones-watchface = "x.x.x"
     ```
 
-    To...
+    to
 
     ```
-    crate-type = ["lib"]
+    # If my-watchface is on crates.io...
+    my-watchface = "x.x.x"
+
+    # If my-watchface is on GitHub...
+    my-watchface = { git = "https://github.com/..." }
     ```
 
-    ```bash
-    cat rust/app/Cargo.toml \
-        | sed 's/crate-type = \["staticlib"\]/crate-type = \["lib"\]/' \
-        >rust/app/Cargo.toml.new
-    cp rust/app/Cargo.toml.new rust/app/Cargo.toml
-    rm rust/app/Cargo.toml.new
+    Change `mynewt/wasm/src/lib.rs` from
+
     ```
+    use barebones_watchface::watchface::lvgl::mynewt::fill_zero;
+    use barebones_watchface::watchface::{self, WatchFace};
+    type WatchFaceType = barebones_watchface::BarebonesWatchFace;
+    ```
+
+    to
+
+    ```
+    use my_watchface::watchface::lvgl::mynewt::fill_zero;
+    use my_watchface::watchface::{self, WatchFace};
+    type WatchFaceType = my_watchface::MyWatchFace;
+    ```
+
+    For the `sed` script, see [`barebones-watchface/.github/workflows/simulator.yml`](https://github.com/lupyuen/barebones-watchface/blob/master/.github/workflows/simulator.yml#L170-L250)
 
 1.  Build the LVGL WebAssembly app containing our Watch Face...
 
@@ -159,9 +165,9 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64...
 
 In case of problems, compare with the following...
 
-- [GitHub Actions workflow](https://github.com/lupyuen/pinetime-rust-riot/blob/master/.github/workflows/simulator.yml)
+- [GitHub Actions workflow](.github/workflows/simulator.yml)
 
-- [GitHub Actions build log](https://github.com/lupyuen/pinetime-rust-riot/actions?query=workflow%3A%22Simulate+PineTime+Firmware%22)
+- [GitHub Actions build log](https://github.com/AppKaki/lvgl-wasm/actions) (look for `mynewt` branch)
 
 # How It Works
 

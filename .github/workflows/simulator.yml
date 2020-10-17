@@ -166,7 +166,7 @@ jobs:
         rm /tmp/lib.rs
         cat $HOME/.cargo/registry/src/github.com-*/cty-0.1.5/src/lib.rs
         
-    - name: Copy Rust Watch Face into Rust+LVGL for WebAssembly
+    - name: Inject Rust Watch Face into Rust+LVGL for WebAssembly
       run:  |
         # Add emscripten and wabt to the PATH
         source /tmp/emsdk/emsdk_env.sh
@@ -179,48 +179,8 @@ jobs:
         # Go to the LVGL folder
         cd /tmp/lvgl-wasm
 
-        # TODO: Find the watchface crate name e.g. my-watchface
-        # Search mynewt/watchface/Cargo.toml for
-        #   name = "my-watchface"
-        # grep "name =" mynewt/watchface/Cargo.toml
-
-        # TODO: Find the watchface struct name e.g. MyWatchface
-        # Search all files *.rs in mynewt/watchface for
-        #   impl WatchFace for MyWatchface {
-        # grep "impl WatchFace" mynewt/watchface/src/lib.rs
-
-        # TODO: Change mynewt/wasm/Cargo.toml from
-        #   barebones-watchface = "1.0.2"
-        # to
-        #   my-watchface = { path = "../watchface" }
-
-        # TODO: Copy and overwrite crates from mynewt/watchface/Cargo.toml to mynewt/wasm/Cargo.toml
-        #   pinetime-macros     = "1.0.2"
-        #   pinetime-watchface  = "1.0.2"
-
-        # cat mynewt/wasm/Cargo.toml \
-        #     | sed 's/crate-type = \["staticlib"\]/crate-type = \["lib"\]/' \
-        #     >mynewt/wasm/Cargo.toml.new
-        # cp mynewt/wasm/Cargo.toml.new mynewt/wasm/Cargo.toml
-        # rm mynewt/wasm/Cargo.toml.new
-        # cat mynewt/wasm/Cargo.toml
-
-        # TODO: Change mynewt/wasm/src/lib.rs from
-        #   use barebones_watchface::watchface::lvgl::mynewt::fill_zero;
-        #   use barebones_watchface::watchface::{self, WatchFace};
-        #   type WatchFaceType = barebones_watchface::BarebonesWatchFace;
-        # to
-        #   use my_watchface::watchface::lvgl::mynewt::fill_zero;
-        #   use my_watchface::watchface::{self, WatchFace};
-        #   type WatchFaceType = my_watchface::MyWatchFace;
-        # Change crate name from "-" to "_"
-
-        # cat mynewt/wasm/src/lib.rs \
-        #     | sed 's/crate-type = \["staticlib"\]/crate-type = \["lib"\]/' \
-        #     >mynewt/wasm/src/lib.rs.new
-        # cp mynewt/wasm/src/lib.rs.new mynewt/wasm/src/lib.rs
-        # rm mynewt/wasm/src/lib.rs.new
-        # cat mynewt/wasm/src/lib.rs
+        # TODO: Specify the Watch Face Crate in mynewt/wasm/Cargo.toml and mynewt/wasm/src/lib.rs
+        # See https://github.com/lupyuen/barebones-watchface/blob/master/.github/workflows/simulator.yml#L170-L250
 
     - name: Build Rust+LVGL for WebAssembly
       run:  |

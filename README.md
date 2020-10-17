@@ -651,9 +651,9 @@ If we see this error...
    FAIL: Compilation failed!: ['/usr/lib/emscripten/emcc', '-D_GNU_SOURCE', '-o', '/tmp/tmpbe4ik5na.js', '/tmp/tmpzu5jusdg.c', '-O0', '--js-opts', '0', '--memory-init-file', '0', '-Werror', '-Wno-format', '-s', 'BOOTSTRAPPING_STRUCT_INFO=1', '-s', 'WARN_ON_UNDEFINED_SYMBOLS=0', '-s', 'STRICT=1', '-s', 'SINGLE_FILE=1']
 ```
 
-## emcc Error: stackSave already exists
-
 Then we need to install the right version of binaryen (see above)
+
+## emcc Error: stackSave already exists
 
 If we see this error...
 

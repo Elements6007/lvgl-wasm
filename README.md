@@ -281,47 +281,45 @@ panic         = "abort"     # Disable stack unwinding on panic
 
 # Rust on Mynewt Sandbox
 
-TODO
-
 Our WebAssembly Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
 
-Our Watch Face Module in Rust from [`rust/app`](rust/app) calls functions from two providers...
+Our Watch Face Crate calls functions from two providers...
 
-1. [LVGL UI Toolkit Library](https://docs.lvgl.io/latest/en/html/index.html)
+1. [LVGL Library (Version 7)](https://docs.lvgl.io/latest/en/html/index.html) for UI widgets
 
-1. [Rust on RIOT](https://github.com/lupyuen/pinetime-rust-riot)
+1. [PineTime Watch Face Framework](https://github.com/lupyuen/pinetime-watchface) for current date / time, Bluetooth status and power status
 
-`lvgl-wasm` simulates the minimal set of functions needed for rendering Watch Faces. (RIOT is not supported by the Simulator)
+`lvgl-wasm` simulates the minimal set of functions needed for rendering Watch Faces.
 
 Hence `lvgl-wasm` works like a __Sandbox__.  Here's how the Sandbox works...
 
 ## Exported Functions
 
-The Sandbox exports the following WebAssembly functions from C to JavaScript...
+The Sandbox exports the following WebAssembly functions from Rust to JavaScript...
 
 ### Clock Functions
 
-These functions create the Watch Face from the [`rust/app`](rust/app) module, render the LVGL widgets on the Watch Face, and update the time...
+These functions create the Watch Face, render the LVGL widgets on the Watch Face, and update the time...
 
 -   `create_clock()`
 
     Create an instance of the clock. 
     
-    From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+    From [`mynewt/wasm/src/lib.rs`](mynewt/wasm/src/lib.rs)
 
 -   `refresh_clock()`
 
     Redraw the clock. 
     
-    From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+    From [`mynewt/wasm/src/lib.rs`](mynewt/wasm/src/lib.rs)
 
 -   `update_clock(year, month, day, hour, minute, second)`
 
-    Set the current date and time in `DateTimeController`. The time needs to be adjusted for the current timezone, see the JavaScript call to `update_clock()` below.
+    Set the current date and time.
 
-    From [`clock/ClockHelper.cpp`](clock/ClockHelper.cpp)
+    From [`mynewt/wasm/src/lib.rs`](mynewt/wasm/src/lib.rs)
 
-    TODO: This code needs to be fixed to show the correct date and time
+    TODO: This code needs to be fixed to show the correct day of week
     
 ### Display Functions
 

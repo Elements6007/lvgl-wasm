@@ -6,9 +6,9 @@ __Note: This is the `mynewt` branch that supports Watch Faces built with Rust on
 
 __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 
-- [Online Rust on Mynewt Demo](https://lupyuen.github.io/barebones-watchface/lvgl.html)
+- [Online Simulator Demo](https://lupyuen.github.io/barebones-watchface/lvgl.html)
 
-- [Watch Face Source Code for Rust on Mynewt](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs)
+- [Watch Face Source Code](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs)
 
 - [Watch Face Crate on crates.io](https://crates.io/crates/barebones-watchface)
 
@@ -303,19 +303,19 @@ These functions create the Watch Face, render the LVGL widgets on the Watch Face
 
 -   `create_clock()`
 
-    Create an instance of the clock. 
+    Create the Watch Face. Calls [`pinetime-watchface`](https://github.com/lupyuen/pinetime-watchface) to create an instance of the Watch Face from the Watch Face Crate.
     
     From [`mynewt/wasm/src/lib.rs`](mynewt/wasm/src/lib.rs)
 
 -   `refresh_clock()`
 
-    Redraw the clock. 
+    Redraw the Watch Face. Currently does nothing.
     
     From [`mynewt/wasm/src/lib.rs`](mynewt/wasm/src/lib.rs)
 
 -   `update_clock(year, month, day, hour, minute, second)`
 
-    Set the current date and time.
+    Set the current date and time. Calls [`pinetime-watchface`](https://github.com/lupyuen/pinetime-watchface) to redraw the instance of the Watch Face from the Watch Face Crate.
 
     From [`mynewt/wasm/src/lib.rs`](mynewt/wasm/src/lib.rs)
 
@@ -396,42 +396,6 @@ For testing only...
 -   `main()`: Does nothing. 
 
     From [`wasm/lvgl.c`](wasm/lvgl.c)
-
-## Sandbox API
-
-The Sandbox simulates Rust on RIOT OS by exposing the following Rust modules to the Watch Face Module in [`rust/app`](rust/app)...
-
-### New Modules
-
-The following Rust modules were created for the Simulator...
-
-- [`rust/wasm`](rust/wasm)
-
-  Exposes the Rust functions `create_clock`, `refresh_clock`, `update_clock` that will be called by the C WebAssembly Functions above.
-
-  See [`rust/wasm/src/lib.rs`](rust/wasm/src/lib.rs)
-
-### Mocked Modules
-
-The following Rust on RIOT modules from were mocked up (i.e. made non-functional) to run in the Simulator...
-
-(None)
-
-### Reused Classes
-
-The following modules were reused from Rust on RIOT with minor changes...
-
-- [`rust/lvgl`](rust/lvgl)
-
-  Safe Wrapper for LVGL. Based on [`pinetime-rust-riot/rust/lvgl`](https://github.com/lupyuen/pinetime-rust-riot/tree/master/rust/lvgl)
-
-- [`rust/macros`](rust/macros) 
-
-  Macros for building Safe Wrappers. Based on [`pinetime-rust-riot/rust/macros`](https://github.com/lupyuen/pinetime-rust-riot/tree/master/rust/macros)
-
-## Sandbox Styles
-
-TODO: Port the LVGL v6 styles from Rust on RIOT to v7 for the Simulator
 
 # Simulator JavaScript
 

@@ -171,18 +171,14 @@ In case of problems, compare with the following...
 
 # How It Works
 
-TODO
+The WebAssembly Simulator is compiled as multiple parts...
 
-Rust on RIOT WebAssembly is compiled in multiple parts...
-
-1. Watch Face Library in Rust, from [`rust`](rust)
+1. Watch Face Library in Rust, from [`mynewt/wasm`](mynewt/wasm)
 
    Compiled with `cargo` with target `wasm32-unknown-emscripten` into a WebAssembly Static Library: `target/wasm32-unknown-emscripten/debug/libwasm.a`
    
-   Contains the Watch Face code [`rust/app`](rust/app), LVGL wrapper [`rust/lvgl`](rust/lvgl), WebAssembly interface [`rust/wasm`](rust/wasm)
+   Contains the selected Watch Face code and WebAssembly interface [`rust/wasm`](rust/wasm)
    
-   Uses macros from [`rust/macros`](rust/macros)
-
 1. LVGL Library in C, from [`src`](src)
 
    Compiled from C to WebAssembly with [emscripten](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)
@@ -197,7 +193,7 @@ The Makefile [`rust/Makefile`](rust/Makefile) links the above into WebAssembly l
 emcc -o wasm/lvgl.html \
 	-Wl,--start-group \
   target/wasm32-unknown-emscripten/debug/libwasm.a \
-	(List of C and C++ object files from LVGL and InfiniTime Sandbox) \
+	(List of C and C++ object files from LVGL and Sandbox) \
 	-Wl,--end-group \
 	-g \
 	-I src/lv_core \
@@ -208,7 +204,7 @@ emcc -o wasm/lvgl.html \
 
 The emscripten compiler `emcc` generates three files in folder `wasm`...
 
-- `lvgl.wasm`: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox. [Sample File](docs/lvgl.wasm)
+- `lvgl.wasm`: WebAssembly Executable Code, containing our Watch Face, LVGL and the Sandbox. [Sample File](docs/lvgl.wasm)
 
 - `lvgl.js`: Provides the JavaScript glue that's needed to load `lvgl.wasm` and run it in a Web Browser. [Sample File](docs/lvgl.js)
 
@@ -283,11 +279,11 @@ Check `Cargo.toml`...
 panic         = "abort"     # Disable stack unwinding on panic
 ```
 
-# Rust on RIOT Sandbox
+# Rust on Mynewt Sandbox
 
 TODO
 
-Rust on RIOT Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
+Our WebAssembly Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
 
 Our Watch Face Module in Rust from [`rust/app`](rust/app) calls functions from two providers...
 

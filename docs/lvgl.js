@@ -4553,19 +4553,19 @@ var _refresh_clock = Module["_refresh_clock"] = createExportWrapper("refresh_clo
 var _update_clock = Module["_update_clock"] = createExportWrapper("update_clock");
 
 /** @type {function(...*):?} */
-var _fflush = Module["_fflush"] = createExportWrapper("fflush");
-
-/** @type {function(...*):?} */
-var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
-
-/** @type {function(...*):?} */
-var _htonl = Module["_htonl"] = createExportWrapper("htonl");
+var _ntohs = Module["_ntohs"] = createExportWrapper("ntohs");
 
 /** @type {function(...*):?} */
 var _htons = Module["_htons"] = createExportWrapper("htons");
 
 /** @type {function(...*):?} */
-var _ntohs = Module["_ntohs"] = createExportWrapper("ntohs");
+var _htonl = Module["_htonl"] = createExportWrapper("htonl");
+
+/** @type {function(...*):?} */
+var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
+
+/** @type {function(...*):?} */
+var _fflush = Module["_fflush"] = createExportWrapper("fflush");
 
 /** @type {function(...*):?} */
 var stackSave = Module["stackSave"] = createExportWrapper("stackSave");

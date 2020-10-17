@@ -1,4 +1,4 @@
-# Build LVGL for WebAssembly: wasm/lvgl.html, lvgl.js, lvgl.wasm
+# Build LVGL for WebAssembly and InfiniTime: wasm/lvgl.html, lvgl.js, lvgl.wasm
 
 ###############################################################################
 # Typical Compile to WebAssembly with emscripten

@@ -1,6 +1,6 @@
 <h1 align="center"> WebAssembly Simulator for Rust on Mynewt with LVGL  </h1>
 
-![WebAssembly Simulator for Rust on Mynewt](https://lupyuen.github.io/images/rust-on-riot-simulator.png)
+![WebAssembly Simulator for Rust on Mynewt](https://lupyuen.github.io/images/rust-on-mynewt-simulator.png)
 
 __Note: This is the `mynewt` branch that supports Watch Faces built with Rust on Mynewt__
 

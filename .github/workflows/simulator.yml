@@ -9,11 +9,11 @@ on:
 
   # Run this Workflow when files are updated (Pushed) in the "master" Branch
   push:
-    branches: [ mynewt ]
+    branches: [ mynewt, font ]
     
   # Also run this Workflow when a Pull Request is created or updated in the "master" Branch
   pull_request:
-    branches: [ mynewt ]
+    branches: [ mynewt, font ]
 
 # Steps to run for the Workflow
 jobs:

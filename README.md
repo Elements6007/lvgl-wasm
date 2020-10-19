@@ -556,11 +556,32 @@ Finally we update the HTML Canvas...
 }
 ```
 
-# Install emscripten on Ubuntu x64
+# Install emscripten on Ubuntu x64 and Windows WSL
 
-See the GitHub Actions Workflow...
+To install emscripten on Ubuntu x64 and Windows WSL...
 
-[`.github/workflows/ccpp.yml`](.github/workflows/ccpp.yml)
+```bash
+# Get the emsdk repo
+git clone https://github.com/emscripten-core/emsdk.git
+
+# Enter that directory
+cd emsdk
+
+# Download and install the latest SDK tools.
+./emsdk install latest
+        
+# Make the "latest" SDK "active" for the current user. (writes .emscripten file)
+./emsdk activate latest
+
+# Activate PATH and other environment variables in the current terminal
+source ./emsdk_env.sh
+
+# Show version
+emcc --version
+emcc --version 
+```
+
+Based on the GitHub Actions Workflow: [`.github/workflows/ccpp.yml`](.github/workflows/ccpp.yml)
 
 Look for the steps...
 

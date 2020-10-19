@@ -9,6 +9,6 @@ crate-type = ["staticlib"]
 
 [dependencies]
 pinetime-macros       = "1.0.3"  # Safe Wrapper Macros for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-macros
-# pinetime-macros     = { path = "../pinetime-macros" }  # For development only
+# pinetime-macros     = { path = "../../../pinetime-macros" }  # For development only
 barebones-watchface   = "1.0.5"  # Barebones Watch Face for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/barebones-watchface
-# barebones-watchface = { path = "../barebones-watchface" }  # For development only
+# barebones-watchface = { path = "../../../barebones-watchface" }  # For development only

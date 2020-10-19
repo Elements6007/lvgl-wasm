@@ -42,7 +42,7 @@ __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for ea
 
 # How To Build The Simulator
 
-To build PineTime Watch Face Simulator on Linux x64 or Arm64, follow these steps based on the GitHub Actions Workflow [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)...
+To build PineTime Watch Face Simulator on Linux x64 or Arm64 or Windows WSL, follow these steps based on the GitHub Actions Workflow [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)...
 
 1.  Install emscripten and wabt. See instructions below.
 

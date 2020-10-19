@@ -1,3 +1,4 @@
+//  TODO: Sync with firmware: https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/lv_conf.h
 /**
  * @file lv_conf.h
  * Configuration file for LVGL v7.1.0

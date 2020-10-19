@@ -581,7 +581,31 @@ emcc --version
 emcc --version 
 ```
 
-Based on the GitHub Actions Workflow: [`.github/workflows/ccpp.yml`](.github/workflows/ccpp.yml)
+If we see the error...
+
+```
+emscripten:ERROR: emscript: failure to parse metadata output from wasm-emscripten-finalize
+```
+
+Then use the prebuilt emscripten binary...
+
+```bash
+# Download the emscripten binary from lvgl-wasm
+curl -L https://github.com/AppKaki/lvgl-wasm/releases/download/v1.0.0/emsdk.tgz -o emsdk.tgz
+
+# Unzip to emsdk
+tar xzf emsdk.tgz
+rm emsdk.tgz
+
+# Activate PATH and other environment variables in the current terminal
+source emsdk/emsdk_env.sh
+
+# Show version
+emcc --version
+emcc --version        
+```
+
+Based on the GitHub Actions Workflow: [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)
 
 Look for the steps...
 

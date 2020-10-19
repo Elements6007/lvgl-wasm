@@ -138,7 +138,7 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64 or Windows WSL, fol
 
     ```bash
     cargo build
-    make -f rust/Makefile
+    make -f mynewt/Makefile
     ```
 
 1.  Copy the generated WebAssembly files to the `docs` folder (used by GitHub Pages)...
@@ -177,7 +177,7 @@ The WebAssembly Simulator is compiled as multiple parts...
 
    Compiled with `cargo` with target `wasm32-unknown-emscripten` into a WebAssembly Static Library: `target/wasm32-unknown-emscripten/debug/libwasm.a`
    
-   Contains the selected Watch Face code and WebAssembly interface [`rust/wasm`](rust/wasm)
+   Contains the selected Watch Face code and WebAssembly interface [`mynewt/wasm`](mynewt/wasm)
    
 1. LVGL Library in C, from [`src`](src)
 
@@ -187,7 +187,7 @@ The WebAssembly Simulator is compiled as multiple parts...
 
    Compiled from C to WebAssembly with [emscripten](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)
 
-The Makefile [`rust/Makefile`](rust/Makefile) links the above into WebAssembly like this...
+The Makefile [`mynewt/Makefile`](mynewt/Makefile) links the above into WebAssembly like this...
 
 ```bash
 emcc -o wasm/lvgl.html \

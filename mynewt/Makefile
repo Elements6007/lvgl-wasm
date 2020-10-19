@@ -12,8 +12,7 @@ include lvgl.mk
 # WebAssembly C and C++ Source Files
 WASM_CSRCS := \
 	wasm/lv_port_disp.c \
-	clock/jetbrains_mono_bold_20.c \
-	clock/jetbrains_mono_extrabold_compressed.c
+	mynewt/inline.c
 
 # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
 TARGETS:= wasm/lvgl

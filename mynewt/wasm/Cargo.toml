@@ -1,6 +1,6 @@
 [package]
 name    = "wasm"
-version = "2.0.0"
+version = "2.0.1"
 authors = ["luppy@appkaki.com"]
 edition = "2018"
 
@@ -10,5 +10,5 @@ crate-type = ["staticlib"]
 [dependencies]
 pinetime-macros       = "2.0.0"  # Safe Wrapper Macros for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-macros
 # pinetime-macros     = { path = "../../../pinetime-macros" }  # For development only
-barebones-watchface   = "2.0.0"  # Barebones Watch Face for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/barebones-watchface
+barebones-watchface   = "2.0.1"  # Barebones Watch Face for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/barebones-watchface
 # barebones-watchface = { path = "../../../barebones-watchface" }  # For development only

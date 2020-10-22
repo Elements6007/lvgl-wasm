@@ -144,6 +144,19 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64 or Windows WSL, fol
     make -f mynewt/Makefile
     ```
 
+    If we see this error...
+
+    ```
+    emscripten:ERROR: emscript: failure to parse metadata output from wasm-emscripten-finalize
+    ```
+
+    Revert to the older working version of emscripten...
+
+    ```bash
+    emsdk/emsdk install 2.0.6
+    make -f mynewt/Makefile
+    ```
+
 1.  Copy the generated WebAssembly files to the `docs` folder (used by GitHub Pages)...
 
     ```bash
@@ -584,13 +597,7 @@ emcc --version
 emcc --version 
 ```
 
-If we see the error...
-
-```
-emscripten:ERROR: emscript: failure to parse metadata output from wasm-emscripten-finalize
-```
-
-Then use the prebuilt emscripten binary...
+Alternatively, use the prebuilt emscripten binary for Ubuntu x64...
 
 ```bash
 # Download the emscripten binary from lvgl-wasm
@@ -608,7 +615,7 @@ emcc --version
 emcc --version        
 ```
 
-Based on the GitHub Actions Workflow: [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)
+This is based on the GitHub Actions Workflow: [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)
 
 Look for the steps...
 

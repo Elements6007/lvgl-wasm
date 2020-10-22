@@ -96,7 +96,9 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64 or Windows WSL, fol
     rm /tmp/lib.rs
     ```
         
-1.  Inject the Watch Face Crate into lvgl-wasm.
+1.  (Optional) Inject the Watch Face Crate into lvgl-wasm.
+
+    By default lvgl-wasm builds the WebAssembly Simulator with the Barebones Watch Face. Skip this step to use the default Watch Face.
     
     Assuming that `my_watchface::MyWatchFace` is the Watch Face that will be built into the Simulator...
 

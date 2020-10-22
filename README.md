@@ -712,30 +712,49 @@ That means binaryen 93 generates the "stackSave" that conflicts with emscripten 
 
 We need to install branch version_94 of binaryen, change version in CMakeLists.txt to version 93 (see above)
 
-# Install emscripten on macOS (Doesn't Work)
+# Install emscripten on macOS
 
-Enter these commands...
+Enter these commands [according to the docs](https://emscripten.org/docs/getting_started/downloads.html#installation-instructions)...
+
 ```bash
-brew install emscripten
-brew install binaryen
-# Upgrade llvm to 10.0.0
-brew install llvm
-brew upgrade llvm
-nano /usr/local/Cellar/emscripten/1.40.1/libexec/.emscripten
+# Get the emsdk repo
+git clone https://github.com/emscripten-core/emsdk.git
+
+# Enter that directory
+cd emsdk
+
+# Download and install the latest SDK tools.
+./emsdk install latest
+        
+# Make the "latest" SDK "active" for the current user. (writes .emscripten file)
+./emsdk activate latest
+
+# Activate PATH and other environment variables in the current terminal
+source ./emsdk_env.sh
+
+# Show version
+emcc --version
+emcc --version 
 ```
 
-Change BINARYEN_ROOT and LLVM_ROOT to 
-```python
-BINARYEN_ROOT = os.path.expanduser(os.getenv('BINARYEN', '/usr/local')) # directory
-LLVM_ROOT = os.path.expanduser(os.getenv('LLVM', '/usr/local/opt/llvm/bin')) # directory
+If we see this error...
+
+```
++ exec python ./emsdk.py install latest
+Installing SDK 'sdk-releases-upstream-d7a29d82b320e471203b69d43aaf03b560eedc54-64bit'..
+Installing tool 'node-12.18.1-64bit'..
+Error: Downloading URL 'https://storage.googleapis.com/webassembly/emscripten-releases-builds/deps/node-v12.18.1-darwin-x64.tar.gz': <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:777)>
+Warning: Possibly SSL/TLS issue. Update or install Python SSL root certificates (2048-bit or greater) supplied in Python folder or https://pypi.org/project/certifi/ and try again.
+Installation failed!
 ```
 
-Fails with error:
+Try installing the latest Python 3 via `brew install`. Then edit the shell script [`emsdk/emsdk`](https://github.com/emscripten-core/emsdk/blob/master/emsdk) and set `EMSDK_PYTHON` to the path of the installed Python 3 executable...
+
 ```
-   emcc: warning: LLVM version appears incorrect (seeing "10.0", expected "12.0") [-Wversion-check]
-   shared:INFO: (Emscripten: Running sanity checks)
-   clang-10: error: unknown argument: '-fignore-exceptions'
-   emcc: error: '/usr/local/opt/llvm/bin/clang -target wasm32-unknown-emscripten -D__EMSCRIPTEN_major__=1 -D__EMSCRIPTEN_minor__=40 -D__EMSCRIPTEN_tiny__=1 -D_LIBCPP_ABI_VERSION=2 -Dunix -D__unix -D__unix__ -Werror=implicit-function-declaration -Xclang -nostdsysteminc -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/compat -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/libc -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/libc/musl/arch/emscripten -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/local/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/SSE -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/compiler-rt/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/lib/libunwind/include -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/cache/wasm/include -DEMSCRIPTEN -fignore-exceptions -Isrc/lv_core -D LV_USE_DEMO_WIDGETS ././src/lv_core/lv_group.c -Xclang -isystem/usr/local/Cellar/emscripten/1.40.1/libexec/system/include/SDL -c -o /var/folders/gp/jb0b68fn3b187mgyyrjml3km0000gn/T/emscripten_temp_caxv1fls/lv_group_0.o -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr' failed (1)
+# Insert this line before exec
+EMSDK_PYTHON=/usr/local/Cellar/python@3.8/3.8.5/bin/python3
+
+exec "$EMSDK_PYTHON" "$0.py" "$@"
 ```
 
 # WebAssembly Stack Trace for PineTime Watch Face

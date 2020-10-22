@@ -1,119 +1,104 @@
-/* To build:
-rustup default nightly
-rustup target add wasm32-unknown-emscripten
-cargo build
-*/
-#![feature(libc)]  //  Allow C Standard Library, which will be mapped by emscripten to JavaScript
+//  Simple port of LVGL to WebAssembly.
+//  Renders UI controls to HTML Canvas but touch input not handled yet.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include "../lvgl.h"
+#include "../demo/lv_demo_widgets.h"
+#include "lv_port_disp.h"
 
-use barebones_watchface::watchface::lvgl::mynewt::fill_zero;
-use barebones_watchface::watchface::{self, WatchFace};   //  Needed for calling WatchFace traits
+////////////////////////////////////////////////////////////////////
+//  Device and Display Buffers
 
-/// Declare the Watch Face Type
-type WatchFaceType = barebones_watchface::BarebonesWatchFace;
+///  RGBA WebAssembly Display Buffer that will be rendered to HTML Canvas
+#define DISPLAY_BYTES_PER_PIXEL 4
+uint8_t display_buffer[LV_HOR_RES_MAX * LV_VER_RES_MAX * DISPLAY_BYTES_PER_PIXEL];
 
-/// Watch Face for the app
-static mut WATCH_FACE: WatchFaceType = fill_zero!(WatchFaceType);
+///  Plot a pixel on the WebAssembly Display Buffer
+void put_display_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+    assert(x >= 0); assert(x < LV_HOR_RES_MAX);
+    assert(y >= 0); assert(y < LV_VER_RES_MAX);
+    int i = (y * LV_HOR_RES_MAX * DISPLAY_BYTES_PER_PIXEL) + (x * DISPLAY_BYTES_PER_PIXEL);
+    display_buffer[i++] = r;  //  Red
+    display_buffer[i++] = g;  //  Green
+    display_buffer[i++] = b;  //  Blue
+    display_buffer[i++] = a;  //  Alpha
+}
 
-/// Create an instance of the clock
-#[no_mangle]
-pub extern fn create_clock() -> i32 {
-    unsafe { puts(b"In Rust: Creating clock...\0".as_ptr()); }
+///  Return the WebAssembly Address of the WebAssembly Display Buffer
+unsigned get_display_buffer(void) {
+    uint8_t *p = &display_buffer[0];
+    return (unsigned) p;
+}
 
-    //  Create the watch face
-    unsafe {  //  Unsafe because WATCH_FACE is a mutable static  
-        WATCH_FACE = WatchFaceType::new()
-            .expect("Create watch face fail");
+///  Return the width of the WebAssembly Display Buffer
+unsigned get_display_width(void) { return LV_HOR_RES_MAX; }
+
+///  Return the height of the WebAssembly Display Buffer
+unsigned get_display_height(void) { return LV_VER_RES_MAX; }
+
+///  Render a colour box to the WebAssembly Display Buffer
+int test_display(void) {
+    puts("In C: Testing display...");
+    for (uint16_t x = 0; x < LV_HOR_RES_MAX; x++) {
+        for (uint16_t y = 0; y < LV_VER_RES_MAX; y++) {     
+            uint8_t r = (x * 256 / 20) & 0xff;
+            uint8_t g = (y * 256 / 20) & 0xff;
+            uint8_t b = ((x + y) * 256 / 40) & 0xff;
+            uint8_t a = 0xff;
+            put_display_px(x, y, r, g, b, a);
+        }
     }
-
-    //  Return OK, caller will render display
-    0
+    return 0;
 }
 
-/// Redraw the clock
-#[no_mangle]
-pub extern fn refresh_clock() -> i32 {
-    unsafe { puts(b"In Rust: Refreshing clock...\0".as_ptr()); }
+////////////////////////////////////////////////////////////////////
+//  Render LVGL
 
-    //  Return OK, caller will render display
-    0
+/// Init the LVGL display
+void init_display(void) {
+    puts("In C: Init display...");
+
+    //  Init the LVGL display
+    lv_init();
+    lv_port_disp_init();
 }
 
-/// Update the clock time. Use generic "int" type to prevent JavaScript-WebAssembly interoperability problems.
-#[no_mangle]
-pub extern fn update_clock(year: i32, month: i32, day: i32,
-    hour: i32, minute: i32, second: i32) -> i32 {
-    unsafe { puts(b"In Rust: Updating clock...\0".as_ptr()); }
+/// Render a Button Widget and a Label Widget
+void render_widgets(void) {
+    puts("In C: Rendering widgets...");
+    lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
+    lv_obj_set_pos(btn, 10, 10);                            //  Set its position
+    lv_obj_set_size(btn, 120, 50);                          //  Set its size
 
-    //  Compose the state
-    let state = watchface::WatchFaceState {
-        time:       watchface::WatchFaceTime {
-            year:       year   as u16,
-            month:      month  as u8,
-            day:        day    as u8,
-            hour:       hour   as u8,
-            minute:     minute as u8,
-            second:     second as u8,
-            day_of_week: 1,  //  TODO
-        },
-        bluetooth:  watchface::BluetoothState::BLUETOOTH_STATE_CONNECTED,
-        millivolts: 0,
-        charging:   true,
-        powered:    true,
-    };
-
-    //  Update the watch face
-    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
-        WATCH_FACE.update(&state)
-            .expect("Update watch face fail");
-    }
-    
-    //  Return OK, caller will render display
-    0
+    lv_obj_t * label = lv_label_create(btn, NULL);          //  Add a label to the button
+    lv_label_set_text(label, "Button");                     //  Set the labels text
 }
 
-extern "C" {
-    /// Print to the JavaScript Console. From Standard C Library, mapped to JavaScript by emscripten.
-    fn puts(fmt: *const u8) -> i32;
-    //  fn printf(fmt: *const u8, ...) -> i32;
+/// Render the LVGL display
+void render_display(void) {
+    puts("In C: Rendering display...");
+    //  Must tick at least 100 milliseconds to force LVGL to update display
+    lv_tick_inc(100);
+    //  LVGL will flush our display driver
+    lv_task_handler();
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//  Test Functions
+////////////////////////////////////////////////////////////////////
+//  Main
 
-#[no_mangle]
-pub extern fn test_rust() -> i32 {
-    unsafe { puts(b"In Rust: test_rust()\0".as_ptr()); }
-    2205
+/// Do nothing
+int main(int argc, char **argv) {
+    puts("In C: main()");
+    return 0;
 }
 
-#[no_mangle]
-pub extern fn test_rust2() -> i32 {
-    unsafe { puts(b"In Rust: test_rust2()\0".as_ptr()); }
-    2306
-}
+////////////////////////////////////////////////////////////////////
+//  Debugging
 
-#[no_mangle]
-pub extern fn test_rust3() -> i32 {
-    unsafe { puts(b"In Rust: test_rust3()\0".as_ptr()); }
-    let i = unsafe { test_c() };
-    i
-}
-
-#[no_mangle]
-pub extern fn test_rust_set_buffer() -> i32 {
-    unsafe { puts(b"In Rust: test_rust_set_buffer()\0".as_ptr()); }
-    let i = unsafe { test_rust_buffer[0] };
-    unsafe { test_rust_buffer[0] = 0x42; }  //  B
-    i as i32
-}
-
-#[no_mangle]
-pub extern fn test_rust_get_buffer() -> i32 {
-    unsafe { puts(b"In Rust: test_rust_get_buffer()\0".as_ptr()); }
-    unsafe { test_rust_buffer[0] as i32 }
-}
-
-extern "C" {
-    static mut test_rust_buffer: [u8; 32];
-    fn test_c() -> i32;
+/// Print pointer
+int print_pointer(const char *msg, const void *ptr) {
+    printf("%s: %p\n", msg, ptr);
+    return 0;
 }

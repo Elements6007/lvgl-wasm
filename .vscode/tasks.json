@@ -42,21 +42,21 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " cargo build && make -f rust/Makefile && wasm/copy-rust.sh && echo ✅ ◾ ️Done! "
+                    " cargo build && source ../emsdk/emsdk_env.sh && make -f mynewt/Makefile && wasm/copy-wasm.sh && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " cargo build && make -f rust/Makefile && wasm/copy-rust.sh && echo ✅ ◾ ️Done! "
+                    " cargo build && source ../emsdk/emsdk_env.sh && make -j -f mynewt/Makefile && wasm/copy-wasm.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " cargo build && make -f rust/Makefile && wasm/copy-rust.sh && echo ✅ ◾ ️Done! "
+                    " cargo build && source ../emsdk/emsdk_env.sh && make -f mynewt/Makefile && wasm/copy-wasm.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "group": {

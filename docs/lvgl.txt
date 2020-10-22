@@ -719,9 +719,9 @@ Function[1086]:
  - func[672] sig=8 <lv_scr_act>
  - func[673] sig=7 <render_display>
  - func[674] sig=0 <main>
- - func[675] sig=0 <strcmp>
- - func[676] sig=0 <__stpcpy>
- - func[677] sig=0 <strcpy>
+ - func[675] sig=0 <__stpcpy>
+ - func[676] sig=0 <strcpy>
+ - func[677] sig=0 <strcmp>
  - func[678] sig=2 <memcpy>
  - func[679] sig=2 <memset>
  - func[680] sig=8 <__errno_location>
@@ -1183,11 +1183,11 @@ Export[28]:
  - func[1095] <create_clock> -> "create_clock"
  - func[1096] <refresh_clock> -> "refresh_clock"
  - func[1097] <update_clock> -> "update_clock"
- - func[1101] <fflush> -> "fflush"
- - func[680] <__errno_location> -> "__errno_location"
- - func[1103] <htonl> -> "htonl"
  - func[1107] <ntohs> -> "ntohs"
  - func[1105] <htons> -> "htons"
+ - func[1103] <htonl> -> "htonl"
+ - func[680] <__errno_location> -> "__errno_location"
+ - func[1101] <fflush> -> "fflush"
  - func[1098] <stackSave> -> "stackSave"
  - func[1099] <stackRestore> -> "stackRestore"
  - func[1100] <stackAlloc> -> "stackAlloc"
@@ -2009,9 +2009,9 @@ Code[1086]:
  - func[672] size=20 <lv_scr_act>
  - func[673] size=33 <render_display>
  - func[674] size=90 <main>
- - func[675] size=91 <strcmp>
- - func[676] size=205 <__stpcpy>
- - func[677] size=12 <strcpy>
+ - func[675] size=205 <__stpcpy>
+ - func[676] size=12 <strcpy>
+ - func[677] size=91 <strcmp>
  - func[678] size=533 <memcpy>
  - func[679] size=375 <memset>
  - func[680] size=6 <__errno_location>
@@ -41464,9 +41464,9 @@ Custom:
  - func[672] <lv_scr_act>
  - func[673] <render_display>
  - func[674] <main>
- - func[675] <strcmp>
- - func[676] <__stpcpy>
- - func[677] <strcpy>
+ - func[675] <__stpcpy>
+ - func[676] <strcpy>
+ - func[677] <strcmp>
  - func[678] <memcpy>
  - func[679] <memset>
  - func[680] <__errno_location>

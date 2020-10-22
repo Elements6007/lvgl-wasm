@@ -140,6 +140,7 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64 or Windows WSL, fol
 
     ```bash
     cargo build
+    source emsdk/emsdk_env.sh
     make -f mynewt/Makefile
     ```
 

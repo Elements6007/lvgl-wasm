@@ -2,8 +2,8 @@
 
 ![WebAssembly Simulator for Rust on Mynewt](https://lupyuen.github.io/images/rust-on-mynewt-simulator.png)
 
-For __Rust on Mynewt__ Watch Faces, see the [`mynewt` branch](https://github.com/AppKaki/lvgl-wasm/blob/mynewt/README.md)
+For __Rust on Mynewt__ Simulator, see the [`mynewt` branch](https://github.com/AppKaki/lvgl-wasm/blob/mynewt/README.md)
 
-For __Rust on RIOT__ Watch Faces, see the [`rust` branch](https://github.com/AppKaki/lvgl-wasm/blob/rust/README.md)
+For __Rust on RIOT__ Simulator, see the [`rust` branch](https://github.com/AppKaki/lvgl-wasm/blob/rust/README.md)
 
-For __InfiniTime__ Watch Faces, see the [`master` branch](https://github.com/AppKaki/lvgl-wasm/blob/master/infinitime.md)
+For __InfiniTime__ Simulator, see the [`master` branch](https://github.com/AppKaki/lvgl-wasm/blob/master/infinitime.md)

@@ -637,31 +637,6 @@ This is based on the GitHub Actions Workflow: [`.github/workflows/simulator.yml`
     export PATH=$PATH:~/wabt/build
     ```
 
-# Install emscripten on Windows Without WSL
-
-To install emscripten on plain old Windows without WSL...
-
-```bash
-# Get the emsdk repo
-git clone https://github.com/emscripten-core/emsdk.git
-
-# Enter that directory
-cd emsdk
-
-# Download and install version 2.0.6 of the SDK tools. The latest version 2.0.7 fails to build lvgl-wasm.
-emsdk.bat install 2.0.6
-        
-# Make version 2.0.6 active for the current user (writes .emscripten file)
-emsdk.bat activate 2.0.6
-
-# Activate PATH and other environment variables in the current terminal
-emsdk_env.bat
-
-# Show version
-emcc --version
-emcc --version 
-```
-
 # Install emscripten on macOS
 
 Enter these commands [according to the docs](https://emscripten.org/docs/getting_started/downloads.html#installation-instructions)...
@@ -705,6 +680,31 @@ Try installing the latest Python 3 via `brew install`. Then edit the shell scrip
 EMSDK_PYTHON=/usr/local/Cellar/python@3.8/3.8.5/bin/python3
 
 exec "$EMSDK_PYTHON" "$0.py" "$@"
+```
+
+# Install emscripten on Windows Without WSL
+
+To install emscripten on plain old Windows without WSL...
+
+```bash
+# Get the emsdk repo
+git clone https://github.com/emscripten-core/emsdk.git
+
+# Enter that directory
+cd emsdk
+
+# Download and install version 2.0.6 of the SDK tools. The latest version 2.0.7 fails to build lvgl-wasm.
+emsdk.bat install 2.0.6
+        
+# Make version 2.0.6 active for the current user (writes .emscripten file)
+emsdk.bat activate 2.0.6
+
+# Activate PATH and other environment variables in the current terminal
+emsdk_env.bat
+
+# Show version
+emcc --version
+emcc --version 
 ```
 
 # Install emscripten on Arch Linux / Manjaro Arm64

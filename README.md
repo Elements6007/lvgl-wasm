@@ -198,6 +198,8 @@ In case of problems, compare with the following...
 
 # Install emscripten on Ubuntu x64 and Windows WSL
 
+(If you're using plain old Windows without WSL, check the instructions below under "Install emscripten on Windows Without WSL")
+
 To install emscripten on Ubuntu x64 and Windows WSL...
 
 ```bash

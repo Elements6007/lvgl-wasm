@@ -24,11 +24,11 @@ __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for ea
 
 1. __Supports RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 
-1. __Shows current date and time__
+1. __Shows current Date and Time__
+
+1. __Supports multiple Fonts and Bitmaps__
 
 # Upcoming Features
-
-1. __Support Custom Fonts and Symbols__ for LVGL
 
 1. __Accept Touch Input__ for LVGL
 

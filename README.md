@@ -44,7 +44,7 @@ __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for ea
 
 To build PineTime Watch Face Simulator on Linux, macOS or Windows (without WSL), follow these steps based on the GitHub Actions Workflow [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)...
 
-1.  Install emscripten and wabt. See instructions below.
+1.  Install emscripten (`emsdk`) and wabt. See instructions below.
 
 1.  Install Rust from `rustup.rs`
 
@@ -54,6 +54,8 @@ To build PineTime Watch Face Simulator on Linux, macOS or Windows (without WSL),
     git clone --branch mynewt  https://github.com/AppKaki/lvgl-wasm
     cd lvgl-wasm
     ```
+    
+    The `emsdk` and `lvgl-wasm` folders should be installed at the same folder level.
 
 1.  Build the Rust app...
 

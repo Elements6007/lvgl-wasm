@@ -42,7 +42,7 @@ __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for ea
 
 # How To Build The Simulator
 
-To build PineTime Watch Face Simulator on Linux x64 or Arm64 or Windows WSL, follow these steps based on the GitHub Actions Workflow [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)...
+To build PineTime Watch Face Simulator on Linux, macOS or Windows (without WSL), follow these steps based on the GitHub Actions Workflow [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)...
 
 1.  Install emscripten and wabt. See instructions below.
 
@@ -143,8 +143,10 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64 or Windows WSL, fol
     source emsdk/emsdk_env.sh
     make -f mynewt/Makefile
     ```
+    
+    For Windows (without WSL): See the build instructions in [`mynewt/build.cmd`](mynewt/build.cmd)
 
-    If we see this error...
+1.  If we see this error...
 
     ```
     emscripten:ERROR: emscript: failure to parse metadata output from wasm-emscripten-finalize
@@ -162,18 +164,24 @@ To build PineTime Watch Face Simulator on Linux x64 or Arm64 or Windows WSL, fol
     ```bash
     cp wasm/lvgl.js wasm/lvgl.wasm docs
     ```
+    
+    For Windows (without WSL):
+
+    ```cmd
+    copy wasm/lvgl.js wasm/lvgl.wasm docs
+    ```
 
     We don't need `lvgl.html` because `docs` already contains a version of `lvgl.html` with custom JavaScript.
 
 1.  Start a Web Server for the `docs` folder, because WebAssembly doesn't work when opened from the filesystem.
 
-    __For Arm64:__ Use [`darkhttpd`](https://unix4lyfe.org/darkhttpd/)...
+    __For Linux:__ Use [`darkhttpd`](https://unix4lyfe.org/darkhttpd/)...
 
     ```bash
     darkhttpd docs
     ```
 
-    __For x64:__ Use the Chrome Extension [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) and set the folder to `docs`
+    __For macOS and Windows:__ Use the Chrome Extension [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en) and set the folder to `docs`
 
 1.  Launch a Web Browser and open the URL shown by `darkhttpd` or Web Server for Chrome.
 

@@ -18,9 +18,9 @@ __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for ea
 
 1. __Compiles actual Rust On Mynewt Watch Face__ from Rust to WebAssembly without any code changes
 
-1. __Uses GitHub Actions Workflow__ to build any fork of Rust On Mynewt into WebAssembly
+1. __Uses GitHub Actions Workflow__ to build any Rust Watch Face into WebAssembly. [Browse Rust Watch Faces](https://crates.io/search?q=pinetime%20watchface)
 
-1. __Renders LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. See [`lvgl.html`](docs/lvgl.html#L1296-L1357)
+1. __Renders LVGL to HTML Canvas__ directly via WebAssembly, without using SDL2. [See `lvgl.html`](docs/lvgl.html#L1296-L1357)
 
 1. __Supports RGB565 Framebuffer Format__ used by PineTime Display Controller, so that bitmaps will be rendered correctly
 

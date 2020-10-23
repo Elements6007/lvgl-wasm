@@ -1,5 +1,7 @@
 ::  Build lvgl-wasm on Windows. Derived from GitHub Actions log: https://github.com/AppKaki/lvgl-wasm/actions
-::  Note: emcc won't run multiple times from this script. Copy and paste all the lines in "First Time Build Only" section below to a Windows Command Prompt.
+::  Note: emcc won't run multiple times from this script. To build on Windows:
+::  (1) Copy and paste all the lines in "First Time Build Only" section below to a Windows Command Prompt
+::  (2) Then enter "build.cmd"
 cargo build
 ..\emsdk\emsdk_env.bat
 emcc -o wasm/lvgl.html ^

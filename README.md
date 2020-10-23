@@ -583,11 +583,11 @@ git clone https://github.com/emscripten-core/emsdk.git
 # Enter that directory
 cd emsdk
 
-# Download and install the latest SDK tools.
-./emsdk install latest
+# Download and install version 2.0.6 of the SDK tools. The latest version 2.0.7 fails to build lvgl-wasm.
+./emsdk install 2.0.6
         
-# Make the "latest" SDK "active" for the current user. (writes .emscripten file)
-./emsdk activate latest
+# Make version 2.0.6 active for the current user (writes .emscripten file)
+./emsdk activate 2.0.6
 
 # Activate PATH and other environment variables in the current terminal
 source ./emsdk_env.sh
@@ -615,22 +615,88 @@ emcc --version
 emcc --version        
 ```
 
-This is based on the GitHub Actions Workflow: [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)
+This is based on the GitHub Actions Workflow: [`.github/workflows/simulator.yml`](.github/workflows/simulator.yml)...
 
-Look for the steps...
+1.  Look for the steps "Install emscripten" and "Install wabt"
 
-1.   "Install emscripten"
+1.  Change `/tmp` to a permanent path like `~`
 
-1.   "Install wabt"
+1.  Then add emscripten and wabt to the PATH...
 
-Change `/tmp` to a permanent path like `~`
+    ```bash
+    # Add emscripten and wabt to the PATH
+    source ~/emsdk/emsdk_env.sh
+    export PATH=$PATH:~/wabt/build
+    ```
 
-Then add emscripten and wabt to the PATH...
+# Install emscripten on Windows Without WSL
+
+To install emscripten on plain old Windows without WSL...
 
 ```bash
-# Add emscripten and wabt to the PATH
-source ~/emsdk/emsdk_env.sh
-export PATH=$PATH:~/wabt/build
+# Get the emsdk repo
+git clone https://github.com/emscripten-core/emsdk.git
+
+# Enter that directory
+cd emsdk
+
+# Download and install version 2.0.6 of the SDK tools. The latest version 2.0.7 fails to build lvgl-wasm.
+emsdk.bat install 2.0.6
+        
+# Make version 2.0.6 active for the current user (writes .emscripten file)
+emsdk.bat activate 2.0.6
+
+# Activate PATH and other environment variables in the current terminal
+emsdk_env.bat
+
+# Show version
+emcc --version
+emcc --version 
+```
+
+# Install emscripten on macOS
+
+Enter these commands [according to the docs](https://emscripten.org/docs/getting_started/downloads.html#installation-instructions)...
+
+```bash
+# Get the emsdk repo
+git clone https://github.com/emscripten-core/emsdk.git
+
+# Enter that directory
+cd emsdk
+
+# Download and install version 2.0.6 of the SDK tools. The latest version 2.0.7 fails to build lvgl-wasm.
+./emsdk install 2.0.6
+        
+# Make version 2.0.6 active for the current user (writes .emscripten file)
+./emsdk activate 2.0.6
+
+# Activate PATH and other environment variables in the current terminal
+source ./emsdk_env.sh
+
+# Show version
+emcc --version
+emcc --version 
+```
+
+If we see this error...
+
+```
++ exec python ./emsdk.py install latest
+Installing SDK 'sdk-releases-upstream-d7a29d82b320e471203b69d43aaf03b560eedc54-64bit'..
+Installing tool 'node-12.18.1-64bit'..
+Error: Downloading URL 'https://storage.googleapis.com/webassembly/emscripten-releases-builds/deps/node-v12.18.1-darwin-x64.tar.gz': <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:777)>
+Warning: Possibly SSL/TLS issue. Update or install Python SSL root certificates (2048-bit or greater) supplied in Python folder or https://pypi.org/project/certifi/ and try again.
+Installation failed!
+```
+
+Try installing the latest Python 3 via `brew install`. Then edit the shell script [`emsdk/emsdk`](https://github.com/emscripten-core/emsdk/blob/master/emsdk) and set `EMSDK_PYTHON` to the path of the installed Python 3 executable...
+
+```
+# Insert this line before exec
+EMSDK_PYTHON=/usr/local/Cellar/python@3.8/3.8.5/bin/python3
+
+exec "$EMSDK_PYTHON" "$0.py" "$@"
 ```
 
 # Install emscripten on Arch Linux / Manjaro Arm64
@@ -721,51 +787,6 @@ If we see this error...
 That means binaryen 93 generates the "stackSave" that conflicts with emscripten 1.39.20. [More details here](https://github.com/emscripten-core/emscripten/pull/11166)
 
 We need to install branch version_94 of binaryen, change version in CMakeLists.txt to version 93 (see above)
-
-# Install emscripten on macOS
-
-Enter these commands [according to the docs](https://emscripten.org/docs/getting_started/downloads.html#installation-instructions)...
-
-```bash
-# Get the emsdk repo
-git clone https://github.com/emscripten-core/emsdk.git
-
-# Enter that directory
-cd emsdk
-
-# Download and install the latest SDK tools.
-./emsdk install latest
-        
-# Make the "latest" SDK "active" for the current user. (writes .emscripten file)
-./emsdk activate latest
-
-# Activate PATH and other environment variables in the current terminal
-source ./emsdk_env.sh
-
-# Show version
-emcc --version
-emcc --version 
-```
-
-If we see this error...
-
-```
-+ exec python ./emsdk.py install latest
-Installing SDK 'sdk-releases-upstream-d7a29d82b320e471203b69d43aaf03b560eedc54-64bit'..
-Installing tool 'node-12.18.1-64bit'..
-Error: Downloading URL 'https://storage.googleapis.com/webassembly/emscripten-releases-builds/deps/node-v12.18.1-darwin-x64.tar.gz': <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:777)>
-Warning: Possibly SSL/TLS issue. Update or install Python SSL root certificates (2048-bit or greater) supplied in Python folder or https://pypi.org/project/certifi/ and try again.
-Installation failed!
-```
-
-Try installing the latest Python 3 via `brew install`. Then edit the shell script [`emsdk/emsdk`](https://github.com/emscripten-core/emsdk/blob/master/emsdk) and set `EMSDK_PYTHON` to the path of the installed Python 3 executable...
-
-```
-# Insert this line before exec
-EMSDK_PYTHON=/usr/local/Cellar/python@3.8/3.8.5/bin/python3
-
-exec "$EMSDK_PYTHON" "$0.py" "$@"
-```
 
 # WebAssembly Stack Trace for PineTime Watch Face
 

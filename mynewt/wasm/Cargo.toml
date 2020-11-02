@@ -12,3 +12,4 @@ pinetime-macros       = "2.0.0"  # Safe Wrapper Macros for Mynewt on PineTime Sm
 # pinetime-macros     = { path = "../../../pinetime-macros" }  # For development only
 barebones-watchface   = "2.1.1"  # Barebones Watch Face for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/barebones-watchface
 # barebones-watchface = { path = "../../../barebones-watchface" }  # For development only
+rhai                  = "0.19.3" # Rhai Scripting Engine: https://crates.io/crates/rhai

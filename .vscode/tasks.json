@@ -11,7 +11,7 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " cargo build && ..\\emsdk\\emsdk_env.bat && mynewt\\build.cmd && echo ✅ ◾ ️Done! "
+                    " mynewt\\build.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {

@@ -37,9 +37,9 @@ dependencies = [
 
 [[package]]
 name = "barebones-watchface"
-version = "1.0.5"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7b6083e0eb25169dd0053270e7e3c9bd181d505e89e08bb85cfd33f6fd06c72"
+checksum = "6beff5bc16f3da76993d22e18b789dd986ec84ddfcf96d3bb6fe4c48b3ed859c"
 dependencies = [
  "arrayvec",
  "cortex-m",
@@ -185,9 +185,9 @@ checksum = "546c37ac5d9e56f55e73b677106873d9d9f5190605e41a856503623648488cae"
 
 [[package]]
 name = "pinetime-lvgl"
-version = "1.0.4"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4071072956531b4fa52f219aae6caf576ff0014caffb56d469482e1746455ce"
+checksum = "be5636d5916a12b95d9c718f5238b940b8f474aa2c1095d1c09ffd2361c63617"
 dependencies = [
  "cortex-m",
  "cortex-m-semihosting",
@@ -201,9 +201,9 @@ dependencies = [
 
 [[package]]
 name = "pinetime-macros"
-version = "1.0.3"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2c9cb5cc488c44ab7227abd727f018589a416bd0fbeb5376d34303c30c801427"
+checksum = "a98180d7de26834e8db0752148cc7c6660b69f477e0be43209c3eeda5c908e59"
 dependencies = [
  "cstr_core",
  "cty 0.2.1",
@@ -217,9 +217,9 @@ dependencies = [
 
 [[package]]
 name = "pinetime-mynewt"
-version = "1.0.4"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "54fa5303992b052704cd8a6e90b4e706996f86016986358ec18aba8c78f99165"
+checksum = "6e3aad63a7139008e6c412b889c1475652b3b973ac5f1709fdaf03f0d067dc08"
 dependencies = [
  "cortex-m",
  "cstr_core",
@@ -232,9 +232,9 @@ dependencies = [
 
 [[package]]
 name = "pinetime-watchface"
-version = "1.0.4"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "99700d518eb546a9579602deefda27d4089d985fa249cfbb1aafedb81826f35a"
+checksum = "8591001f6ebd12aab47ab9515c0d0c4fa975e3f770a7418a463c8338bb1af60c"
 dependencies = [
  "arrayvec",
  "cortex-m",
@@ -347,7 +347,7 @@ dependencies = [
 
 [[package]]
 name = "wasm"
-version = "0.1.0"
+version = "2.1.1"
 dependencies = [
  "barebones-watchface",
  "pinetime-macros",

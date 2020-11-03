@@ -73,6 +73,9 @@ fn ptr_null() -> *const obj::lv_obj_t {
     ptr::null()
 }
 
+//  LVGL Functions mapped to Rhai calling convention
+//  TODO: Generate automatically with the `safe_wrap` proc macro
+
 fn label_create(
     par: *mut obj::lv_obj_t, 
     copy: *const obj::lv_obj_t

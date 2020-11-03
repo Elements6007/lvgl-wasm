@@ -4,13 +4,28 @@ use rhai::{
     Engine,
     EvalAltResult,
     RegisterFn,
-    //RegisterResultFn,
+    RegisterResultFn,
     packages::{
         BasicStringPackage,
         Package,
     },
 };
-use barebones_watchface::watchface::{self};   //  Needed for calling WatchFace traits
+use barebones_watchface::{
+    watchface::{
+        self,
+        lvgl::{
+            self,
+            core::obj,
+            widgets::{
+                label,
+            },
+            mynewt::{
+                self,
+                Strn,
+            }
+        },
+    },
+};
 
 /// Run a Rhai script that calls LVGL functions in WebAssembly
 pub fn run_script() -> Result<(), Box<EvalAltResult>> {
@@ -25,11 +40,15 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     //  let package = BasicStringPackage::new();
     //  engine.load_package(package.get());
 
-    //  Register an LVGL function
+    //  Register the LVGL functions
     engine.register_fn(
         "watchface_get_active_screen",  //  Name of Rhai function
         watchface::get_active_screen    //  LVGL function
     );
+    engine.register_fn("ptr_null", ptr_null);  //  TODO: Rename to ptr::null
+    //  engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rename to label::set_text
+    //  engine.register_result_fn("obj_set_width", obj::set_width);
+    //  engine.register_result_fn("obj_set_height", obj::set_height);
 
     //  Execute the Rhai script
     let result = engine.eval::<i64>(r#"
@@ -46,3 +65,18 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     println!("Answer: {}", result);  // prints 42
     Ok(())
 }
+
+fn ptr_null() -> *const obj::lv_obj_t {
+    core::ptr::null()
+}
+
+fn label_set_text(lbl: lvgl::Ptr, _s: &str) -> mynewt::result::MynewtResult<()> {
+    label::set_text(lbl, macros::strn!("TODO"))
+}
+
+/*
+let lbl = label::create(screen, ptr::null()) ? ;  //  `?` will terminate the function in case of error
+label::set_text(     lbl, strn!("00:00")) ? ;     //  strn creates a null-terminated string
+obj::set_width(      lbl, 240) ? ;
+obj::set_height(     lbl, 200) ? ;
+*/

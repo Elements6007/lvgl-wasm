@@ -1,14 +1,15 @@
 //! Rhai Scripting for LVGL in WebAssembly (looks like Rust)
 //! https://schungx.github.io/rhai/about/index.html
+use core::ptr;
 use rhai::{
     Engine,
     EvalAltResult,
     RegisterFn,
     RegisterResultFn,
-    packages::{
-        BasicStringPackage,
-        Package,
-    },
+    // packages::{
+    //     BasicStringPackage,
+    //     Package,
+    // },
 };
 use barebones_watchface::{
     watchface::{
@@ -45,8 +46,8 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
         "watchface_get_active_screen",  //  Name of Rhai function
         watchface::get_active_screen    //  LVGL function
     );
-    engine.register_fn("ptr_null", ptr_null);  //  TODO: Rename to ptr::null
-    //  engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rename to label::set_text
+    engine.register_fn("ptr_null", ptr_null);  //  TODO: Rewrite as ptr::null
+    //  engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rewrite as label::set_text
     //  engine.register_result_fn("obj_set_width", obj::set_width);
     //  engine.register_result_fn("obj_set_height", obj::set_height);
 
@@ -67,7 +68,7 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
 }
 
 fn ptr_null() -> *const obj::lv_obj_t {
-    core::ptr::null()
+    ptr::null()
 }
 
 fn label_set_text(lbl: lvgl::Ptr, _s: &str) -> mynewt::result::MynewtResult<()> {

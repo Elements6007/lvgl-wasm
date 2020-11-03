@@ -48,6 +48,7 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
         watchface::get_active_screen    //  LVGL function
     );
     engine.register_fn("ptr_null", ptr_null);  //  TODO: Rewrite as ptr::null
+    engine.register_result_fn("label_create", label_create);  //  TODO: Rewrite as label::create
     engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rewrite as label::set_text
     //  engine.register_result_fn("obj_set_width", obj::set_width);
     //  engine.register_result_fn("obj_set_height", obj::set_height);
@@ -70,6 +71,16 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
 
 fn ptr_null() -> *const obj::lv_obj_t {
     ptr::null()
+}
+
+fn label_create(
+    par: *mut obj::lv_obj_t, 
+    copy: *const obj::lv_obj_t
+) -> Result<Dynamic, Box<EvalAltResult>> {
+    let result = label::create(par, copy)
+        .expect("label_create fail");
+    //  TODO: Ok(result.into())
+    Ok(().into())
 }
 
 fn label_set_text(lbl: lvgl::Ptr, _s: &str) -> Result<Dynamic, Box<EvalAltResult>> {    

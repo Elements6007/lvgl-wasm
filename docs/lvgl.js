@@ -1152,9 +1152,9 @@ function updateGlobalBufferAndViews(buf) {
   Module['HEAPF64'] = HEAPF64 = new Float64Array(buf);
 }
 
-var STACK_BASE = 5857200,
+var STACK_BASE = 5949152,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 614320;
+    STACK_MAX = 706272;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 
@@ -4329,6 +4329,29 @@ var ASM_CONSTS = {
   }
   }
 
+  function ___sys_open(path, flags, varargs) {SYSCALLS.varargs = varargs;
+  try {
+  
+      var pathname = SYSCALLS.getStr(path);
+      var mode = SYSCALLS.get();
+      var stream = FS.open(pathname, flags, mode);
+      return stream.fd;
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
+  function ___sys_read(fd, buf, count) {try {
+  
+      var stream = SYSCALLS.getStreamFromFD(fd);
+      return FS.read(stream, HEAP8,buf, count);
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
   function _abort() {
       abort();
     }
@@ -4401,6 +4424,17 @@ var ASM_CONSTS = {
       HEAP32[((penviron_buf_size)>>2)]=bufSize;
       return 0;
     }
+
+  function _fd_close(fd) {try {
+  
+      var stream = SYSCALLS.getStreamFromFD(fd);
+      FS.close(stream);
+      return 0;
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return e.errno;
+  }
+  }
 
   function _fd_write(fd, iov, iovcnt, pnum) {try {
   
@@ -4514,7 +4548,7 @@ function intArrayToString(array) {
 
 
 __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
-var asmLibraryArg = { "__assert_fail": ___assert_fail, "__cxa_find_matching_catch_2": ___cxa_find_matching_catch_2, "__resumeException": ___resumeException, "__sys_getcwd": ___sys_getcwd, "abort": _abort, "emscripten_memcpy_big": _emscripten_memcpy_big, "emscripten_resize_heap": _emscripten_resize_heap, "environ_get": _environ_get, "environ_sizes_get": _environ_sizes_get, "fd_write": _fd_write, "getTempRet0": _getTempRet0, "invoke_i": invoke_i, "invoke_ii": invoke_ii, "invoke_iii": invoke_iii, "invoke_iiii": invoke_iiii, "invoke_iiiiii": invoke_iiiiii, "invoke_ji": invoke_ji, "invoke_jii": invoke_jii, "invoke_jiii": invoke_jiii, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vii": invoke_vii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiii": invoke_viiiii, "memory": wasmMemory, "pthread_condattr_destroy": _pthread_condattr_destroy, "pthread_condattr_init": _pthread_condattr_init, "pthread_condattr_setclock": _pthread_condattr_setclock, "pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "pthread_mutexattr_init": _pthread_mutexattr_init, "pthread_mutexattr_settype": _pthread_mutexattr_settype, "pthread_rwlock_rdlock": _pthread_rwlock_rdlock, "pthread_rwlock_unlock": _pthread_rwlock_unlock, "setTempRet0": _setTempRet0 };
+var asmLibraryArg = { "__assert_fail": ___assert_fail, "__cxa_find_matching_catch_2": ___cxa_find_matching_catch_2, "__resumeException": ___resumeException, "__sys_getcwd": ___sys_getcwd, "__sys_open": ___sys_open, "__sys_read": ___sys_read, "abort": _abort, "emscripten_memcpy_big": _emscripten_memcpy_big, "emscripten_resize_heap": _emscripten_resize_heap, "environ_get": _environ_get, "environ_sizes_get": _environ_sizes_get, "fd_close": _fd_close, "fd_write": _fd_write, "getTempRet0": _getTempRet0, "invoke_ii": invoke_ii, "invoke_iii": invoke_iii, "invoke_iiii": invoke_iiii, "invoke_iiiiii": invoke_iiiiii, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vii": invoke_vii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiii": invoke_viiiii, "memory": wasmMemory, "pthread_condattr_destroy": _pthread_condattr_destroy, "pthread_condattr_init": _pthread_condattr_init, "pthread_condattr_setclock": _pthread_condattr_setclock, "pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "pthread_mutexattr_init": _pthread_mutexattr_init, "pthread_mutexattr_settype": _pthread_mutexattr_settype, "pthread_rwlock_rdlock": _pthread_rwlock_rdlock, "pthread_rwlock_unlock": _pthread_rwlock_unlock, "setTempRet0": _setTempRet0 };
 var asm = createWasm();
 /** @type {function(...*):?} */
 var ___wasm_call_ctors = Module["___wasm_call_ctors"] = createExportWrapper("__wasm_call_ctors");
@@ -4553,16 +4587,16 @@ var _refresh_clock = Module["_refresh_clock"] = createExportWrapper("refresh_clo
 var _update_clock = Module["_update_clock"] = createExportWrapper("update_clock");
 
 /** @type {function(...*):?} */
-var _ntohs = Module["_ntohs"] = createExportWrapper("ntohs");
-
-/** @type {function(...*):?} */
-var _htons = Module["_htons"] = createExportWrapper("htons");
+var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
 
 /** @type {function(...*):?} */
 var _htonl = Module["_htonl"] = createExportWrapper("htonl");
 
 /** @type {function(...*):?} */
-var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
+var _htons = Module["_htons"] = createExportWrapper("htons");
+
+/** @type {function(...*):?} */
+var _ntohs = Module["_ntohs"] = createExportWrapper("ntohs");
 
 /** @type {function(...*):?} */
 var _fflush = Module["_fflush"] = createExportWrapper("fflush");
@@ -4586,19 +4620,24 @@ var _free = Module["_free"] = createExportWrapper("free");
 var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
 
 /** @type {function(...*):?} */
-var dynCall_jiii = Module["dynCall_jiii"] = createExportWrapper("dynCall_jiii");
-
-/** @type {function(...*):?} */
 var dynCall_ji = Module["dynCall_ji"] = createExportWrapper("dynCall_ji");
-
-/** @type {function(...*):?} */
-var dynCall_jii = Module["dynCall_jii"] = createExportWrapper("dynCall_jii");
 
 
 function invoke_v(index) {
   var sp = stackSave();
   try {
     wasmTable.get(index)();
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0 && e !== 'longjmp') throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiii(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    return wasmTable.get(index)(a1,a2,a3);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0 && e !== 'longjmp') throw e;
@@ -4617,32 +4656,10 @@ function invoke_viiiii(index,a1,a2,a3,a4,a5) {
   }
 }
 
-function invoke_i(index) {
-  var sp = stackSave();
-  try {
-    return wasmTable.get(index)();
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0 && e !== 'longjmp') throw e;
-    _setThrew(1, 0);
-  }
-}
-
 function invoke_vi(index,a1) {
   var sp = stackSave();
   try {
     wasmTable.get(index)(a1);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0 && e !== 'longjmp') throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viii(index,a1,a2,a3) {
-  var sp = stackSave();
-  try {
-    wasmTable.get(index)(a1,a2,a3);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0 && e !== 'longjmp') throw e;
@@ -4661,10 +4678,32 @@ function invoke_vii(index,a1,a2) {
   }
 }
 
+function invoke_viii(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    wasmTable.get(index)(a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0 && e !== 'longjmp') throw e;
+    _setThrew(1, 0);
+  }
+}
+
 function invoke_iii(index,a1,a2) {
   var sp = stackSave();
   try {
     return wasmTable.get(index)(a1,a2);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0 && e !== 'longjmp') throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiii(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    wasmTable.get(index)(a1,a2,a3,a4);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0 && e !== 'longjmp') throw e;
@@ -4687,61 +4726,6 @@ function invoke_ii(index,a1) {
   var sp = stackSave();
   try {
     return wasmTable.get(index)(a1);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0 && e !== 'longjmp') throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiii(index,a1,a2,a3) {
-  var sp = stackSave();
-  try {
-    return wasmTable.get(index)(a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0 && e !== 'longjmp') throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiii(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    wasmTable.get(index)(a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0 && e !== 'longjmp') throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_jiii(index,a1,a2,a3) {
-  var sp = stackSave();
-  try {
-    return dynCall_jiii(index,a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0 && e !== 'longjmp') throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_ji(index,a1) {
-  var sp = stackSave();
-  try {
-    return dynCall_ji(index,a1);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0 && e !== 'longjmp') throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_jii(index,a1,a2) {
-  var sp = stackSave();
-  try {
-    return dynCall_jii(index,a1,a2);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0 && e !== 'longjmp') throw e;

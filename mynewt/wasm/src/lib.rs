@@ -8,6 +8,8 @@ cargo build
 use barebones_watchface::watchface::lvgl::mynewt::fill_zero;
 use barebones_watchface::watchface::{self, WatchFace};   //  Needed for calling WatchFace traits
 
+mod script;
+
 /// Declare the Watch Face Type
 type WatchFaceType = barebones_watchface::BarebonesWatchFace;
 
@@ -18,6 +20,9 @@ static mut WATCH_FACE: WatchFaceType = fill_zero!(WatchFaceType);
 #[no_mangle]
 pub extern fn create_clock() -> i32 {
     unsafe { puts(b"In Rust: Creating clock...\0".as_ptr()); }
+
+    //  Run the script
+    script::run_script().unwrap();
 
     //  Create the watch face
     unsafe {  //  Unsafe because WATCH_FACE is a mutable static  

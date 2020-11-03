@@ -2,6 +2,7 @@
 //! https://schungx.github.io/rhai/about/index.html
 use core::ptr;
 use rhai::{
+    Dynamic,
     Engine,
     EvalAltResult,
     RegisterFn,
@@ -21,7 +22,7 @@ use barebones_watchface::{
                 label,
             },
             mynewt::{
-                self,
+                // self,
                 Strn,
             }
         },
@@ -47,7 +48,7 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
         watchface::get_active_screen    //  LVGL function
     );
     engine.register_fn("ptr_null", ptr_null);  //  TODO: Rewrite as ptr::null
-    //  engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rewrite as label::set_text
+    engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rewrite as label::set_text
     //  engine.register_result_fn("obj_set_width", obj::set_width);
     //  engine.register_result_fn("obj_set_height", obj::set_height);
 
@@ -71,8 +72,10 @@ fn ptr_null() -> *const obj::lv_obj_t {
     ptr::null()
 }
 
-fn label_set_text(lbl: lvgl::Ptr, _s: &str) -> mynewt::result::MynewtResult<()> {
-    label::set_text(lbl, macros::strn!("TODO"))
+fn label_set_text(lbl: lvgl::Ptr, _s: &str) -> Result<Dynamic, Box<EvalAltResult>> {    
+    let result = label::set_text(lbl, macros::strn!("TODO"))
+        .expect("label_set_text fail");
+    Ok(result.into())
 }
 
 /*

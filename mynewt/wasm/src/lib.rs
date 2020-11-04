@@ -21,11 +21,13 @@ static mut WATCH_FACE: WatchFaceType = fill_zero!(WatchFaceType);
 pub extern fn create_clock() -> i32 {
     unsafe { puts(b"In Rust: Creating clock...\0".as_ptr()); }
 
+    /*
     //  Create the watch face
     unsafe {  //  Unsafe because WATCH_FACE is a mutable static  
         WATCH_FACE = WatchFaceType::new()
             .expect("Create watch face fail");
     }
+    */
 
     //  Run the script
     script::run_script().unwrap();
@@ -49,6 +51,7 @@ pub extern fn update_clock(year: i32, month: i32, day: i32,
     hour: i32, minute: i32, second: i32) -> i32 {
     unsafe { puts(b"In Rust: Updating clock...\0".as_ptr()); }
 
+    /*
     //  Compose the state
     let state = watchface::WatchFaceState {
         time:       watchface::WatchFaceTime {
@@ -71,6 +74,7 @@ pub extern fn update_clock(year: i32, month: i32, day: i32,
         WATCH_FACE.update(&state)
             .expect("Update watch face fail");
     }
+    */
     
     //  Return OK, caller will render display
     0

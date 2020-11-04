@@ -55,7 +55,8 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
 
     //  Execute the Rhai script
     let result = engine.eval::<i64>(r#"
-        //  Here is the Rhai script (looks like Rust), which can be modified at runtime...
+        //  Here is the Rhai script (looks like Rust)
+        //  TODO: Allow editing of script at runtime via CodeMirror
 
         //  Call an LVGL function to get the LVGL active screen
         let screen = watchface_get_active_screen();

@@ -1152,9 +1152,9 @@ function updateGlobalBufferAndViews(buf) {
   Module['HEAPF64'] = HEAPF64 = new Float64Array(buf);
 }
 
-var STACK_BASE = 5951696,
+var STACK_BASE = 5951760,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 708816;
+    STACK_MAX = 708880;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 

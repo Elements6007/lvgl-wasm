@@ -61,16 +61,16 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
         let screen = watchface_get_active_screen();
 
         //  Create an LVGL label
-        //  let lbl = label_create(screen, ptr_null()) ? ;
+        let lbl = label_create(screen, ptr_null());  //  TODO: Rewrite as `? ;`
 
         //  Set the text of the LVGL label
-        //  label_set_text(lbl, "TODO") ? ;  //  TODO: Rewrite as strn!(...)
+        label_set_text(lbl, "TODO");  //  TODO: Rewrite as `strn!(...)` and `? ;`
 
         //  Set the label width
-        //  obj_set_width(lbl, 240) ? ;
+        //  obj_set_width(lbl, 240);  //  TODO: Rewrite as `? ;`
 
         //  Set the label height
-        //  obj_set_height(lbl, 200) ? ;
+        //  obj_set_height(lbl, 200);  //  TODO: Rewrite as `? ;`
 
         //  Print a message
         print("Hello from Rhai script in WebAssembly!");

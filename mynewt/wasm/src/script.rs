@@ -101,16 +101,19 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     rect.shadow_ofs_y = 5;
 
     const CANVAS_WIDTH: i16  = 200;
-    const CANVAS_HEIGHT: i16  = 150;
-    static mut buf: [obj::lv_color_t; (CANVAS_WIDTH * CANVAS_HEIGHT) as usize] = 
-        [obj::lv_color_t::default(); (CANVAS_WIDTH * CANVAS_HEIGHT) as usize];
+    const CANVAS_HEIGHT: i16 = 150;
+    const BYTES_PER_PIXEL: usize = 2;
+    static mut buf: [obj::lv_color_t; (CANVAS_WIDTH * CANVAS_HEIGHT) as usize * BYTES_PER_PIXEL] = 
+        [obj::lv_color_t::default(); (CANVAS_WIDTH * CANVAS_HEIGHT) as usize * BYTES_PER_PIXEL];
 
     let screen = watchface::get_active_screen();
     let canvas = canvas::create(screen, ptr::null())
         .expect("create canvas fail");
-    canvas::set_buffer(canvas, &mut buf, CANVAS_WIDTH, CANVAS_HEIGHT, img::LV_IMG_CF_TRUE_COLOR as u8)
+    let buf2: *mut core::ffi::c_void = &mut buf;
+    canvas::set_buffer(canvas, buf2, CANVAS_WIDTH, CANVAS_HEIGHT, img::LV_IMG_CF_TRUE_COLOR as u8)
         .expect("canvas set buffer fail");
-    canvas::draw_rect(canvas, 70, 60, 100, 70, &rect)
+    let rect2: *const canvas::lv_draw_rect_dsc_t = &rect;
+    canvas::draw_rect(canvas, 70, 60, 100, 70, rect2)
         .expect("canvas draw rect fail");
     ////
     */

@@ -18,7 +18,10 @@ use barebones_watchface::{
         lvgl::{
             self,
             core::obj,
+            draw::draw,
             widgets::{
+                canvas,
+                img,
                 label,
             },
             mynewt::{
@@ -80,6 +83,38 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
         40 + 2
     "#)?;
     println!("Answer: {}", result);  // prints 42
+
+    /*
+    ////
+    let mut rect = draw::lv_draw_rect_dsc_t::default();
+    draw::rect_dsc_init(&mut rect);
+    rect.radius = 10;
+    //rect.bg_opa = LV_OPA_COVER;
+    //rect.bg_grad_dir = LV_GRAD_DIR_HOR;
+    //rect.bg_color = LV_COLOR_RED;
+    //rect.bg_grad_color = LV_COLOR_BLUE;
+    rect.border_width = 2;
+    //rect.border_opa = LV_OPA_90;
+    //rect.border_color = LV_COLOR_WHITE;
+    rect.shadow_width = 5;
+    rect.shadow_ofs_x = 5;
+    rect.shadow_ofs_y = 5;
+
+    const CANVAS_WIDTH: i16  = 200;
+    const CANVAS_HEIGHT: i16  = 150;
+    static mut buf: [obj::lv_color_t; (CANVAS_WIDTH * CANVAS_HEIGHT) as usize] = 
+        [obj::lv_color_t::default(); (CANVAS_WIDTH * CANVAS_HEIGHT) as usize];
+
+    let screen = watchface::get_active_screen();
+    let canvas = canvas::create(screen, ptr::null())
+        .expect("create canvas fail");
+    canvas::set_buffer(canvas, &mut buf, CANVAS_WIDTH, CANVAS_HEIGHT, img::LV_IMG_CF_TRUE_COLOR as u8)
+        .expect("canvas set buffer fail");
+    canvas::draw_rect(canvas, 70, 60, 100, 70, &rect)
+        .expect("canvas draw rect fail");
+    ////
+    */
+    
     Ok(())
 }
 

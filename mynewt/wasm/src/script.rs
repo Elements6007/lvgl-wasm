@@ -87,10 +87,10 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     "#)?;
     println!("Answer: {}", result);  // prints 42
 
-    /*
     ////
     let mut rect = draw::lv_draw_rect_dsc_t::default();
-    draw::rect_dsc_init(&mut rect);
+    draw::rect_dsc_init(&mut rect)
+        .expect("rect init fail");
     rect.radius = 10;
     //rect.bg_opa = LV_OPA_COVER;
     //rect.bg_grad_dir = LV_GRAD_DIR_HOR;
@@ -106,21 +106,21 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     const CANVAS_WIDTH: i16  = 200;
     const CANVAS_HEIGHT: i16 = 150;
     const BYTES_PER_PIXEL: usize = 2;
-    static mut buf: [obj::lv_color_t; (CANVAS_WIDTH * CANVAS_HEIGHT) as usize * BYTES_PER_PIXEL] = 
-        [obj::lv_color_t::default(); (CANVAS_WIDTH * CANVAS_HEIGHT) as usize * BYTES_PER_PIXEL];
+    static mut BUF: [obj::lv_color_t; (CANVAS_WIDTH * CANVAS_HEIGHT) as usize * BYTES_PER_PIXEL] = 
+        [ obj::lv_color_t{ full: 0 } ; (CANVAS_WIDTH * CANVAS_HEIGHT) as usize * BYTES_PER_PIXEL];
 
     let screen = watchface::get_active_screen();
     let canvas = canvas::create(screen, ptr::null())
         .expect("create canvas fail");
-    let buf2: *mut [obj::lv_color_t] = &mut buf;
-    canvas::set_buffer(canvas, buf2 as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, img::LV_IMG_CF_TRUE_COLOR as u8)
+    let buf: *mut [obj::lv_color_t] = unsafe { &mut BUF };
+    canvas::set_buffer(canvas, buf as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, img::LV_IMG_CF_TRUE_COLOR as u8)
         .expect("canvas set buffer fail");
 
-    let rect2: *const canvas::lv_draw_rect_dsc_t = &rect;
+    let rect2: *const canvas::lv_draw_rect_dsc_t = 
+        unsafe { core::mem::transmute(&rect) };
     canvas::draw_rect(canvas, 70, 60, 100, 70, rect2)
         .expect("canvas draw rect fail");
     ////
-    */
     
     Ok(())
 }

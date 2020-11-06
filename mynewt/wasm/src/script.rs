@@ -113,8 +113,9 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     let canvas = canvas::create(screen, ptr::null())
         .expect("create canvas fail");
     let buf: *mut [obj::lv_color_t] = unsafe { &mut BUF };
-    canvas::set_buffer(canvas, buf as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, img::LV_IMG_CF_TRUE_COLOR as u8)
-        .expect("canvas set buffer fail");
+    canvas::set_buffer(canvas, buf as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, 
+        img::LV_IMG_CF_TRUE_COLOR as u8
+    ).expect("canvas set buffer fail");
 
     let rect2: *const canvas::lv_draw_rect_dsc_t = 
         unsafe { core::mem::transmute(&rect) };

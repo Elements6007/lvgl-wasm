@@ -1,6 +1,9 @@
 //! Rhai Scripting for LVGL in WebAssembly (looks like Rust)
 //! https://schungx.github.io/rhai/about/index.html
-use core::ptr;
+use core::{
+    ptr,
+    ffi::c_void,
+};
 use rhai::{
     Dynamic,
     Engine,
@@ -109,9 +112,10 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     let screen = watchface::get_active_screen();
     let canvas = canvas::create(screen, ptr::null())
         .expect("create canvas fail");
-    let buf2: *mut core::ffi::c_void = &mut buf;
-    canvas::set_buffer(canvas, buf2, CANVAS_WIDTH, CANVAS_HEIGHT, img::LV_IMG_CF_TRUE_COLOR as u8)
+    let buf2: *mut [obj::lv_color_t] = &mut buf;
+    canvas::set_buffer(canvas, buf2 as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, img::LV_IMG_CF_TRUE_COLOR as u8)
         .expect("canvas set buffer fail");
+
     let rect2: *const canvas::lv_draw_rect_dsc_t = &rect;
     canvas::draw_rect(canvas, 70, 60, 100, 70, rect2)
         .expect("canvas draw rect fail");

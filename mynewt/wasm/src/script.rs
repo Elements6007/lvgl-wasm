@@ -55,16 +55,46 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     );
     engine.register_fn("ptr_null", ptr_null);  //  TODO: Rewrite as ptr::null
     engine.register_fn("new_rect", new_rect);
+    engine.register_fn("get_canvas", get_canvas);
     engine.register_fn("canvas_draw_rect", canvas_draw_rect);  //  TODO: Rewrite as canvas::draw_rect
     engine.register_result_fn("label_create", label_create);  //  TODO: Rewrite as label::create
     engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rewrite as label::set_text
     engine.register_result_fn("obj_set_width", obj_set_width);  //  TODO: Rewrite as obj_set_width
     engine.register_result_fn("obj_set_height", obj_set_height);  //  TODO: Rewrite obj_set_height
 
+    //  Create the canvas
+    create_canvas();
+    
     //  Execute the Rhai script
     let result = engine.eval::<i64>(r#"
         //  Here is the Rhai script (looks like Rust)
         //  TODO: Allow editing of script at runtime via CodeMirror
+
+        //  Print a message
+        print("Hello from Rhai script in WebAssembly!");
+
+        //  Get the LVGL Canvas
+        let canvas = get_canvas();
+
+        //  Create a rectangle
+        let rect = new_rect();
+    
+        //  Set rounded corners and shadow for rectangle
+        //  rect.radius       = 10;
+        //  rect.border_width =  2;
+        //  rect.shadow_width =  5;
+        //  rect.shadow_ofs_x =  5;
+        //  rect.shadow_ofs_y =  5;
+    
+        //  Draw the rectangle on the canvas
+        canvas_draw_rect(
+            canvas, 
+            70,    //  x
+            60,    //  y
+            100,   //  width
+            70,    //  height
+            rect
+        );
 
         //  Call an LVGL function to get the LVGL active screen
         let screen = watchface_get_active_screen();
@@ -80,17 +110,38 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
 
         //  Set the label height
         //  obj_set_height(lbl, 200);  //  TODO: Rewrite as `? ;`
-
-        //  Print a message
-        print("Hello from Rhai script in WebAssembly!");
-
+    
         //  Return the result
         40 + 2
     "#)?;
     println!("Answer: {}", result);  // prints 42
 
+    /*
     //  Render a rounded rectangle to LVGL Canvas
+    //  Create a rectangle
+    let mut rect = draw::lv_draw_rect_dsc_t::default();
+    draw::rect_dsc_init(&mut rect)
+        .expect("rect init fail");
 
+    //  Set rounded corners and shadow for rectangle
+    rect.radius = 10;
+    rect.border_width = 2;
+    rect.shadow_width = 5;
+    rect.shadow_ofs_x = 5;
+    rect.shadow_ofs_y = 5;
+
+    //  Draw the rectangle on the canvas
+    let rect2: *const canvas::lv_draw_rect_dsc_t = 
+        unsafe { core::mem::transmute(&rect) };  //  TODO: Move draw::lv_draw_rect_dsc_t to canvas::lv_draw_rect_dsc_t
+    canvas::draw_rect(unsafe { CANVAS }, 70, 60, 100, 70, rect2)
+        .expect("canvas draw rect fail");
+    */
+    
+    Ok(())
+}
+
+/// Create the canvas for rendering graphics
+fn create_canvas() {
     //  Create a static buffer for the canvas
     const CANVAS_WIDTH: i16  = 240;
     const CANVAS_HEIGHT: i16 = 240;
@@ -111,26 +162,6 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     canvas::set_buffer(unsafe { CANVAS }, buf as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, 
         img::LV_IMG_CF_TRUE_COLOR as u8
     ).expect("canvas set buffer fail");
-
-    //  Create a rectangle
-    let mut rect = draw::lv_draw_rect_dsc_t::default();
-    draw::rect_dsc_init(&mut rect)
-        .expect("rect init fail");
-
-    //  Set rounded corners and shadow for rectangle
-    rect.radius = 10;
-    rect.border_width = 2;
-    rect.shadow_width = 5;
-    rect.shadow_ofs_x = 5;
-    rect.shadow_ofs_y = 5;
-
-    //  Draw the rectangle on the canvas
-    let rect2: *const canvas::lv_draw_rect_dsc_t = 
-        unsafe { core::mem::transmute(&rect) };  //  TODO: Move draw::lv_draw_rect_dsc_t to canvas::lv_draw_rect_dsc_t
-    canvas::draw_rect(unsafe { CANVAS }, 70, 60, 100, 70, rect2)
-        .expect("canvas draw rect fail");
-    
-    Ok(())
 }
 
 /// Global instance of canvas for rendering graphics
@@ -159,17 +190,23 @@ fn new_rect() -> draw::lv_draw_rect_dsc_t {
 /// Draw the rectangle on the canvas
 fn canvas_draw_rect(
     canvas: *mut obj::lv_obj_t, 
-    x: canvas::lv_coord_t, 
-    y: canvas::lv_coord_t, 
-    width: canvas::lv_coord_t, 
-    height: canvas::lv_coord_t, 
-    rect_dsc: *const draw::lv_draw_rect_dsc_t
-    //  TODO: Change to rect_dsc: *const canvas::lv_draw_rect_dsc_t
+    x: i64,  //  TODO: canvas::lv_coord_t, 
+    y: i64,  //  TODO: canvas::lv_coord_t, 
+    width: i64,  //  TODO: canvas::lv_coord_t, 
+    height: i64,  //  TODO: canvas::lv_coord_t, 
+    rect_dsc: draw::lv_draw_rect_dsc_t
+    //  TODO: Change to rect_dsc: canvas::lv_draw_rect_dsc_t
 ) {
     let rect2: *const canvas::lv_draw_rect_dsc_t = 
-        unsafe { core::mem::transmute(rect_dsc) };  //  TODO: Move draw::lv_draw_rect_dsc_t to canvas::lv_draw_rect_dsc_t
-    canvas::draw_rect(canvas, x, y, width, height, rect2)
-        .expect("canvas draw rect fail");
+        unsafe { core::mem::transmute(&rect_dsc) };  //  TODO: Move draw::lv_draw_rect_dsc_t to canvas::lv_draw_rect_dsc_t
+    canvas::draw_rect(
+        canvas, 
+        x as canvas::lv_coord_t, 
+        y as canvas::lv_coord_t, 
+        width as canvas::lv_coord_t, 
+        height as canvas::lv_coord_t, 
+        rect2
+    ).expect("canvas draw rect fail");
 }
 
 /// Create a label

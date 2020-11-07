@@ -92,21 +92,23 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     //  Render a rounded rectangle to LVGL Canvas
 
     //  Create a static buffer for the canvas
-    const CANVAS_WIDTH: i16  = 200;
-    const CANVAS_HEIGHT: i16 = 150;
+    const CANVAS_WIDTH: i16  = 240;
+    const CANVAS_HEIGHT: i16 = 240;
     const BYTES_PER_PIXEL: usize = 2;  //  2 bytes for RGB565 colour
-    const CANVAS_SIZE: usize = (CANVAS_WIDTH * CANVAS_HEIGHT) as usize * BYTES_PER_PIXEL;
+    const CANVAS_SIZE: usize = CANVAS_WIDTH as usize * CANVAS_HEIGHT as usize * BYTES_PER_PIXEL;
     static mut BUF: [obj::lv_color_t ; CANVAS_SIZE] = 
         [ obj::lv_color_t{ full: 0 } ; CANVAS_SIZE];  //  Init canvas to black
 
     //  Create the canvas
     let screen = watchface::get_active_screen();
-    let canvas = canvas::create(screen, ptr::null())
-        .expect("create canvas fail");
+    unsafe {
+        CANVAS = canvas::create(screen, ptr::null())
+            .expect("create canvas fail");
+    }
 
     //  Set the buffer for the canvas
     let buf: *mut [obj::lv_color_t] = unsafe { &mut BUF };
-    canvas::set_buffer(canvas, buf as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, 
+    canvas::set_buffer(unsafe { CANVAS }, buf as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, 
         img::LV_IMG_CF_TRUE_COLOR as u8
     ).expect("canvas set buffer fail");
 
@@ -125,11 +127,14 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     //  Draw the rectangle on the canvas
     let rect2: *const canvas::lv_draw_rect_dsc_t = 
         unsafe { core::mem::transmute(&rect) };  //  TODO: Move draw::lv_draw_rect_dsc_t to canvas::lv_draw_rect_dsc_t
-    canvas::draw_rect(canvas, 70, 60, 100, 70, rect2)
+    canvas::draw_rect(unsafe { CANVAS }, 70, 60, 100, 70, rect2)
         .expect("canvas draw rect fail");
     
     Ok(())
 }
+
+/// Global instance of canvas for rendering graphics
+static mut CANVAS: *mut obj::lv_obj_t = ptr::null_mut();
 
 fn ptr_null() -> *const obj::lv_obj_t {
     ptr::null()
@@ -137,6 +142,11 @@ fn ptr_null() -> *const obj::lv_obj_t {
 
 //  LVGL Functions mapped to Rhai calling convention
 //  TODO: Generate automatically with the `safe_wrap` proc macro
+
+/// Get the canvas
+fn get_canvas() -> *mut obj::lv_obj_t {
+    unsafe { CANVAS }
+}
 
 /// Create a rectangle
 fn new_rect() -> draw::lv_draw_rect_dsc_t {

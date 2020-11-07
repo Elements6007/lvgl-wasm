@@ -48,6 +48,9 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     //  let package = BasicStringPackage::new();
     //  engine.load_package(package.get());
 
+    //  Register the LVGL type
+    engine.register_type::<draw::lv_draw_rect_dsc_t>();
+
     //  Register the LVGL functions
     engine.register_fn(
         "watchface_get_active_screen",  //  Name of Rhai function

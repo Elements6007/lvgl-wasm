@@ -49,7 +49,7 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     //  engine.load_package(package.get());
 
     //  Register the LVGL type
-    engine.register_type::<draw::lv_draw_rect_dsc_t>();
+    //  engine.register_type::<draw::lv_draw_rect_dsc_t>();
 
     //  Register the LVGL functions
     engine.register_fn(
@@ -64,6 +64,7 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rewrite as label::set_text
     engine.register_result_fn("obj_set_width", obj_set_width);  //  TODO: Rewrite as obj_set_width
     engine.register_result_fn("obj_set_height", obj_set_height);  //  TODO: Rewrite obj_set_height
+    engine.register_get_set("radius", rect_get_radius, rect_set_radius);
 
     //  Create the canvas
     create_canvas();
@@ -83,7 +84,7 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
         let rect = new_rect();
     
         //  Set rounded corners and shadow for rectangle
-        //  rect.radius       = 10;
+        rect.radius       = 10;
         //  rect.border_width =  2;
         //  rect.shadow_width =  5;
         //  rect.shadow_ofs_x =  5;
@@ -188,6 +189,16 @@ fn new_rect() -> draw::lv_draw_rect_dsc_t {
     draw::rect_dsc_init(&mut rect)
         .expect("rect init fail");
     rect
+}
+
+//// Get rectangle radius
+fn rect_get_radius(rect: &mut draw::lv_draw_rect_dsc_t) -> i64 {
+    rect.radius.into()
+}
+
+//// Set rectangle radius
+fn rect_set_radius(rect: &mut draw::lv_draw_rect_dsc_t, new_val: i64) {
+    rect.radius = new_val as obj::lv_style_int_t;
 }
 
 /// Draw the rectangle on the canvas

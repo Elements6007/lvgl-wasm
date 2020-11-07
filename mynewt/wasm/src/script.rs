@@ -54,6 +54,8 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
         watchface::get_active_screen    //  LVGL function
     );
     engine.register_fn("ptr_null", ptr_null);  //  TODO: Rewrite as ptr::null
+    engine.register_fn("new_rect", new_rect);
+    engine.register_fn("canvas_draw_rect", canvas_draw_rect);  //  TODO: Rewrite as canvas::draw_rect
     engine.register_result_fn("label_create", label_create);  //  TODO: Rewrite as label::create
     engine.register_result_fn("label_set_text", label_set_text);  //  TODO: Rewrite as label::set_text
     engine.register_result_fn("obj_set_width", obj_set_width);  //  TODO: Rewrite as obj_set_width
@@ -89,18 +91,6 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
 
     //  Render a rounded rectangle to LVGL Canvas
 
-    //  Create a rectangle
-    let mut rect = draw::lv_draw_rect_dsc_t::default();
-    draw::rect_dsc_init(&mut rect)
-        .expect("rect init fail");
-
-    //  Set rounded corners and shadow for rectangle
-    rect.radius = 10;
-    rect.border_width = 2;
-    rect.shadow_width = 5;
-    rect.shadow_ofs_x = 5;
-    rect.shadow_ofs_y = 5;
-
     //  Create a static buffer for the canvas
     const CANVAS_WIDTH: i16  = 200;
     const CANVAS_HEIGHT: i16 = 150;
@@ -120,6 +110,18 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
         img::LV_IMG_CF_TRUE_COLOR as u8
     ).expect("canvas set buffer fail");
 
+    //  Create a rectangle
+    let mut rect = draw::lv_draw_rect_dsc_t::default();
+    draw::rect_dsc_init(&mut rect)
+        .expect("rect init fail");
+
+    //  Set rounded corners and shadow for rectangle
+    rect.radius = 10;
+    rect.border_width = 2;
+    rect.shadow_width = 5;
+    rect.shadow_ofs_x = 5;
+    rect.shadow_ofs_y = 5;
+
     //  Draw the rectangle on the canvas
     let rect2: *const canvas::lv_draw_rect_dsc_t = 
         unsafe { core::mem::transmute(&rect) };  //  TODO: Move draw::lv_draw_rect_dsc_t to canvas::lv_draw_rect_dsc_t
@@ -135,6 +137,30 @@ fn ptr_null() -> *const obj::lv_obj_t {
 
 //  LVGL Functions mapped to Rhai calling convention
 //  TODO: Generate automatically with the `safe_wrap` proc macro
+
+/// Create a rectangle
+fn new_rect() -> draw::lv_draw_rect_dsc_t {
+    let mut rect = draw::lv_draw_rect_dsc_t::default();
+    draw::rect_dsc_init(&mut rect)
+        .expect("rect init fail");
+    rect
+}
+
+/// Draw the rectangle on the canvas
+fn canvas_draw_rect(
+    canvas: *mut obj::lv_obj_t, 
+    x: canvas::lv_coord_t, 
+    y: canvas::lv_coord_t, 
+    width: canvas::lv_coord_t, 
+    height: canvas::lv_coord_t, 
+    rect_dsc: *const draw::lv_draw_rect_dsc_t
+    //  TODO: Change to rect_dsc: *const canvas::lv_draw_rect_dsc_t
+) {
+    let rect2: *const canvas::lv_draw_rect_dsc_t = 
+        unsafe { core::mem::transmute(rect_dsc) };  //  TODO: Move draw::lv_draw_rect_dsc_t to canvas::lv_draw_rect_dsc_t
+    canvas::draw_rect(canvas, x, y, width, height, rect2)
+        .expect("canvas draw rect fail");
+}
 
 /// Create a label
 fn label_create(

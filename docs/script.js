@@ -1152,9 +1152,9 @@ function updateGlobalBufferAndViews(buf) {
   Module['HEAPF64'] = HEAPF64 = new Float64Array(buf);
 }
 
-var STACK_BASE = 6182992,
+var STACK_BASE = 6215776,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 940112;
+    STACK_MAX = 972896;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 
@@ -4573,6 +4573,15 @@ var _render_widgets = Module["_render_widgets"] = createExportWrapper("render_wi
 
 /** @type {function(...*):?} */
 var _render_display = Module["_render_display"] = createExportWrapper("render_display");
+
+/** @type {function(...*):?} */
+var _get_script_buffer = Module["_get_script_buffer"] = createExportWrapper("get_script_buffer");
+
+/** @type {function(...*):?} */
+var _get_script_buffer_size = Module["_get_script_buffer_size"] = createExportWrapper("get_script_buffer_size");
+
+/** @type {function(...*):?} */
+var _set_script_length = Module["_set_script_length"] = createExportWrapper("set_script_length");
 
 /** @type {function(...*):?} */
 var _main = Module["_main"] = createExportWrapper("main");

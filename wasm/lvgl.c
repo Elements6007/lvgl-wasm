@@ -86,6 +86,31 @@ void render_display(void) {
 }
 
 ////////////////////////////////////////////////////////////////////
+//  Script Buffer
+
+///  Script to be executed in UTF-8 encoding
+#define SCRIPT_BUFFER_SIZE (32 * 1024)  //  32 KB
+uint8_t script_buffer[SCRIPT_BUFFER_SIZE];
+
+///  Current script length
+uint16_t script_length = 0;
+
+///  Return the WebAssembly Address of the Script Buffer
+unsigned get_script_buffer(void) {
+    uint8_t *p = &script_buffer[0];
+    return (unsigned) p;
+}
+
+///  Return the size of the Script Buffer
+unsigned get_script_buffer_size(void) { return SCRIPT_BUFFER_SIZE; }
+
+///  Set the current script length
+unsigned set_script_length(unsigned len) { 
+    script_length = len;
+    return 0;
+}
+
+////////////////////////////////////////////////////////////////////
 //  Main
 
 /// Do nothing

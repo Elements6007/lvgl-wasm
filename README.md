@@ -1,8 +1,8 @@
-<h1 align="center"> WebAssembly Simulator for Rust on Mynewt with LVGL  </h1>
+<h1 align="center"> LVGL Scripting with Rhai, WebAssembly and Rust </h1>
 
 ![WebAssembly Simulator for Rust on Mynewt](https://lupyuen.github.io/images/rust-on-mynewt-simulator.png)
 
-__Note: This is the `mynewt` branch that supports Watch Faces built with Rust on Mynewt__
+__Note: This is the `rhai` branch that supports LVGL Scripting with Rhai, a Rust-like scripting language__
 
 __Simulate Rust on Mynewt Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
 

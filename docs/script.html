@@ -101,6 +101,14 @@
         outline: none;
       }
     </style>
+    <!-- Create the CodeMirror text editor -->
+    <link rel="stylesheet" href="codemirror.css">
+    <script src="codemirror.js"></script>
+    <script>
+      var editor = CodeMirror.fromTextArea(myTextarea, {
+        lineNumbers: true
+      });
+    </script>
   </head>
   <body style="font-size:small">
     &nbsp;PineTime Watch Face Simulator

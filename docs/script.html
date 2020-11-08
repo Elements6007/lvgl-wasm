@@ -404,7 +404,7 @@
       }
 
       /// Handle code changes in the text editor
-      function onCodeChange() {
+      function onCodeChange(instance, changeObj) {
         console.log("onCodeChange");
         //  Wait 10 seconds then re-run the script, unless the code is still being changed in the last 10 seconds
         const timestamp = Date.now();

@@ -109,13 +109,14 @@
     <script src="codemirror/mode/rust/rust.js"></script>
   </head>
   <body style="font-size:small">
+    <!--
     &nbsp;LVGL Scripting with Rhai
-    &nbsp;(<a href="https://github.com/AppKaki/lvgl-wasm/blob/mynewt/README.md">More info</a>)<br>
-
+    &nbsp;(<a href="https://github.com/AppKaki/lvgl-wasm/blob/rhai/README.md">More info</a>)<br>
+    -->
     <div class="spinner" id='spinner'></div>
     <div class="emscripten" id="status">Downloading...</div>
 
-<span id='controls' style="visibility: hidden;">
+<span id='controls' style="visibility: hidden; height: 0;">
   <span><input type="checkbox" id="resize">Resize</span>
   <span><input type="checkbox" id="pointerLock" checked>Lock&nbsp;&nbsp;</span>
   <span><input type="button" value="Fullscreen" onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, 
@@ -134,7 +135,13 @@
 
     <!--  CodeMirror text editor  -->
     <textarea id="code" rows="20">
-      //  This is the Rhai script (looks like Rust)
+      //  This is the Rhai script (looks like Rust) that renders graphics with LVGL
+      //  Try modifying the script!
+
+      //  Rhai is a Rust-like scripting language...
+      //    https://schungx.github.io/rhai/about/index.html
+      //  Source code for this page and its WebAssembly + Rust components...
+      //    https://github.com/AppKaki/lvgl-wasm/tree/rhai
 
       //  Print a message
       print("Hello from Rhai script in WebAssembly!");
@@ -145,14 +152,10 @@
       //  Create a rectangle
       let rect = new_rect();
   
-      //  Set rounded corners and shadow for rectangle
-      rect.radius       = 10;
-      //  rect.border_width =  2;
-      //  rect.shadow_width =  5;
-      //  rect.shadow_ofs_x =  5;
-      //  rect.shadow_ofs_y =  5;
+      //  Set radius of the rounded corners for the rectangle
+      rect.radius = 10;
   
-      //  Draw the rectangle on the canvas
+      //  Draw the rectangle onto the canvas
       canvas_draw_rect(
           canvas, 
           70,    //  x
@@ -162,23 +165,8 @@
           rect
       );
 
-      //  Call an LVGL function to get the LVGL active screen
-      let screen = watchface_get_active_screen();
-
-      //  Create an LVGL label
-      let lbl = label_create(screen, ptr_null());  //  TODO: Rewrite as `? ;`
-
-      //  Set the text of the LVGL label
-      label_set_text(lbl, "TODO");  //  TODO: Rewrite as `strn!(...)` and `? ;`
-
-      //  Set the label width
-      //  obj_set_width(lbl, 240);  //  TODO: Rewrite as `? ;`
-
-      //  Set the label height
-      //  obj_set_height(lbl, 200);  //  TODO: Rewrite as `? ;`
-  
-      //  Return the result
-      40 + 2
+      //  Return an integer result for the script
+      0
     </textarea>
 
     <!--  WebAssembly log  -->

@@ -389,6 +389,23 @@
         //  console.log("onDelayedCodeChange");
         if (timestamp != lastCodeChangeTimestamp) { return; }  //  If timestamp has been changed, quit
         console.log("onDelayedCodeChange OK");
+
+        //  Fetch the editor text in UTF-8 format
+        var text = editor.getValue();
+        if (text.length >= Module._get_script_buffer_size()) {
+          console.error("Code too long, expecting " + Module._get_script_buffer_size());
+          return;
+        }
+
+        //  Copy the text to the script buffer
+        var addr = Module._get_script_buffer();
+        //  TODO: Module.HEAPU8[addr] = ...
+
+        //  Set the script length
+        Module._set_script_length(text.length);
+
+        //  Run the script
+        Module._refresh_clock()
       }
 
       /// Handle code changes in the text editor

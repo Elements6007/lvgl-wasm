@@ -105,6 +105,8 @@
     <!-- For CodeMirror text editor -->
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
     <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/addon/mode/simple.js"></script>
+    <script src="codemirror/mode/rust/rust.js"></script>
   </head>
   <body style="font-size:small">
     &nbsp;LVGL Scripting with Rhai
@@ -335,7 +337,10 @@
       //  Create the CodeMirror text editor
       var code = document.getElementById("code");
       var editor = CodeMirror.fromTextArea(code, {
-        lineNumbers: true
+        lineNumbers:  true,
+        lineWrapping: true,
+        indentUnit:   4,
+        mode:         "rust"
       });
     </script>    
     <!--  End of Custom Script  -->

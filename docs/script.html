@@ -389,11 +389,32 @@
         mode:         "rust"
       });
 
-      //  Handle code changes in the text editor
+      /// Re-run the script after this number of milliseconds
+      const CODE_CHANGE_DELAY = 10 * 1000;
+
+      /// Timestamp of last code change (milliseconds)
+      var lastCodeChangeTimestamp = 0;
+
+      /// Handle code changes in the text editor after a delay
+      function onDelayedCodeChange(timestamp) {
+        //  Re-run the script, unless the code is still being changed in the last 10 seconds
+        console.log("onDelayedCodeChange");
+        if (timestamp != lastCodeChangeTimestamp) { return; }  //  If timestamp has been changed, quit
+        console.log("onDelayedCodeChange OK");
+      }
+
+      /// Handle code changes in the text editor
       function onCodeChange() {
         console.log("onCodeChange");
+        //  Wait 10 seconds then re-run the script, unless the code is still being changed in the last 10 seconds
+        const timestamp = Date.now();
+        lastCodeChangeTimestamp = timestamp;
+        window.setTimeout(function() { 
+          onDelayedCodeChange(timestamp); 
+        }, CODE_CHANGE_DELAY);
       }
       editor.on("change", onCodeChange);
+
     </script>    
     <!--  End of Custom Script  -->
 

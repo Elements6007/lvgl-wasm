@@ -184,7 +184,7 @@
     <!--  WebAssembly log  -->
     <textarea id="output" rows="8"></textarea>
 
-    <!--  Emscripten Script  -->
+    <!--  Standard Emscripten Script  -->
     <script type='text/javascript'>
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
@@ -388,6 +388,12 @@
         indentUnit:   4,
         mode:         "rust"
       });
+
+      //  Handle code changes in the text editor
+      function onCodeChange() {
+        console.log("onCodeChange");
+      }
+      editor.on("change", onCodeChange);
     </script>    
     <!--  End of Custom Script  -->
 

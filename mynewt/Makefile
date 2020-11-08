@@ -1,4 +1,5 @@
-# Build LVGL in Rust for WebAssembly: wasm/lvgl.html, lvgl.js, lvgl.wasm
+# Build LVGL in Rust for WebAssembly
+# TODO: Sync with mynewt/build.cmd
 
 ###############################################################################
 # Typical Compile to WebAssembly with emscripten
@@ -14,8 +15,11 @@ WASM_CSRCS := \
 	wasm/lv_port_disp.c \
 	mynewt/inline.c
 
-# Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
-TARGETS:= wasm/lvgl
+# Build LVGL scripting app: wasm/script.html, script.js, script.wasm
+TARGETS:= wasm/script
+
+# Build LVGL watch face app: wasm/lvgl.html, lvgl.js, lvgl.wasm
+# TARGETS:= wasm/lvgl
 
 DEPS   := lv_conf.h
 

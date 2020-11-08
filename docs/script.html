@@ -101,14 +101,10 @@
         outline: none;
       }
     </style>
-    <!-- Create the CodeMirror text editor -->
+
+    <!-- For CodeMirror text editor -->
     <link rel="stylesheet" href="codemirror.css">
     <script src="codemirror.js"></script>
-    <script>
-      var editor = CodeMirror.fromTextArea(code, {
-        lineNumbers: true
-      });
-    </script>
   </head>
   <body style="font-size:small">
     &nbsp;LVGL Scripting with Rhai
@@ -134,12 +130,13 @@
       <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
     </div>
 
-    <!--  CodeMirror text editor -->
+    <!--  CodeMirror text editor  -->
     <textarea id="code" rows="20"></textarea>
 
-    <!--  WebAssembly log -->
+    <!--  WebAssembly log  -->
     <textarea id="output" rows="8"></textarea>
 
+    <!--  Emscripten Script  -->
     <script type='text/javascript'>
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
@@ -217,6 +214,7 @@
         };
       };
     </script>
+
     <!--  Custom Script  -->
     <script type="text/javascript">
       /// Rendering Parameters
@@ -334,8 +332,15 @@
       /// Convert i to hexadecimal
       function toHex(i) { return "0x" + Number(i).toString(16); }
 
+      //  Create the CodeMirror text editor
+      var code = document.getElementById("code");
+      var editor = CodeMirror.fromTextArea(code, {
+        lineNumbers: true
+      });
     </script>    
     <!--  End of Custom Script  -->
+
+    <!--  Compiled Emscripten Script  -->
     <script async type="text/javascript" src="script.js"></script>
   </body>
 </html>

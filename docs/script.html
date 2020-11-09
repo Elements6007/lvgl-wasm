@@ -135,38 +135,38 @@
 
     <!--  CodeMirror text editor  -->
     <textarea id="code" rows="20">
-      //  This is the Rhai script (looks like Rust) that renders graphics with LVGL
-      //  Try modifying the script!
+//  This is the Rhai script (looks like Rust) that renders graphics with LVGL
+//  Try modifying the script!
 
-      //  Rhai is a Rust-like scripting language...
-      //    https://schungx.github.io/rhai/about/index.html
-      //  Source code for this page and its WebAssembly + Rust components...
-      //    https://github.com/AppKaki/lvgl-wasm/tree/rhai
+//  Rhai is a Rust-like scripting language...
+//    https://schungx.github.io/rhai
+//  Source code for this page...
+//    https://github.com/AppKaki/lvgl-wasm/tree/rhai
 
-      //  Print a message
-      print("Hello from Rhai script in WebAssembly!");
+//  Print a message
+print("Hello from Rhai script in WebAssembly!");
 
-      //  Get the LVGL Canvas
-      let canvas = get_canvas();
+//  Get the LVGL Canvas
+let canvas = get_canvas();
 
-      //  Create a rectangle
-      let rect = new_rect();
-  
-      //  Set radius of the rounded corners for the rectangle
-      rect.radius = 10;
-  
-      //  Draw the rectangle onto the canvas
-      canvas_draw_rect(
-          canvas, 
-          70,    //  x
-          60,    //  y
-          100,   //  width
-          70,    //  height
-          rect
-      );
+//  Create a rectangle
+let rect = new_rect();
 
-      //  Return an integer result for the script
-      0
+//  Set radius of the rounded corners for the rectangle
+rect.radius = 10;
+
+//  Draw the rectangle onto the canvas
+canvas_draw_rect(
+    canvas, 
+    70,    //  x
+    60,    //  y
+    100,   //  width
+    70,    //  height
+    rect
+);
+
+//  Return an integer result for the script
+0
     </textarea>
 
     <!--  WebAssembly log  -->

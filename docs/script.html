@@ -13,7 +13,7 @@
 
       .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
       div.emscripten { text-align: center; }      
-      div.emscripten_border { border: 1px solid black; background-color: black; }
+      div.emscripten_border { border: 1px solid black; background-color: #202020; }
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
       canvas.emscripten { border: 0px none; background-color: black; }
 
@@ -26,7 +26,6 @@
         height: 30px;
         width: 30px;
         margin: 0;
-        margin-top: 20px;
         margin-left: 20px;
         display: inline-block;
         vertical-align: top;
@@ -39,7 +38,6 @@
         border-left: 5px solid rgb(235, 235, 235);
         border-right: 5px solid rgb(235, 235, 235);
         border-bottom: 5px solid rgb(235, 235, 235);
-        border-top: 5px solid rgb(120, 120, 120);
         
         border-radius: 100%;
         background-color: rgb(189, 215, 46);
@@ -65,7 +63,6 @@
       #status {
         display: inline-block;
         vertical-align: top;
-        margin-top: 30px;
         margin-left: 20px;
         font-weight: bold;
         color: rgb(120, 120, 120);
@@ -80,14 +77,19 @@
         display: inline-block;
         float: right;
         vertical-align: top;
-        margin-top: 30px;
         margin-right: 20px;
+      }
+
+      #canvas {
+        width: 480px;
+        height: 480px;
       }
 
       #output {
         width: 100%;
+        height: 800px;
         margin: 0 auto;
-        margin-top: 10px;
+        margin-top: 2px;
         border-left: 0px;
         border-right: 0px;
         padding-left: 0px;
@@ -134,17 +136,12 @@
 
     <!--  CodeMirror text editor  -->
     <textarea id="code" rows="35">
-//  This is the Rhai script (looks like Rust) 
+//  This is the Rhai script (Rust-like)
 //  that renders graphics with LVGL
 //  Try modifying the script!
 
-//  Rhai is a Rust-like scripting language...
-//    https://schungx.github.io/rhai
-//  Source code for this page...
-//    https://github.com/AppKaki/lvgl-wasm/tree/rhai
-
 //  Print a message
-print("Hello from Rhai script in WebAssembly!");
+print("Hello from Rhai script!");
 
 //  Get the canvas
 let canvas = get_canvas();
@@ -152,7 +149,7 @@ let canvas = get_canvas();
 //  Create a rectangle
 let rect = new_rect();
 
-//  Set radius of the rounded corners for the rectangle
+//  Radius of the rounded corners
 rect.radius = 10;
 
 //  Draw the rectangle onto the canvas
@@ -167,6 +164,11 @@ canvas_draw_rect(
 
 //  Return an integer result for the script
 0
+
+//  More about Rhai the Rust-like scripting language...
+//    https://schungx.github.io/rhai
+//  Source code for this page...
+//    https://github.com/AppKaki/lvgl-wasm/tree/rhai
     </textarea>
 
     <!--  WebAssembly log  -->

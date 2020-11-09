@@ -392,22 +392,25 @@
 
         //  Fetch the editor text in UTF-8 format
         var text = editor.getValue();
-        if (text.length >= Module._get_script_buffer_size()) {
-          console.error("Code too long, expecting " + Module._get_script_buffer_size());
+
+        //  Convert the text from UTF-8 to byte array
+        var buf = toUTF8Array(text);
+        var len = buf.length;
+        if (len >= Module._get_script_buffer_size()) {
+          console.error("Code too long, expecting at most " + Module._get_script_buffer_size());
           return;
         }
-        console.log({ length: text.length, text });
+        //  console.log({ len, text });
 
         //  Copy the text to the script buffer
         var addr = Module._get_script_buffer();
-        var buf = toUTF8Array(text);
-        for (var b = 0; b < text.length; b++) {
+        for (var b = 0; b < len; b++) {
           Module.HEAPU8[addr + b] = buf[b];
-          //  console.log({ buf: toHex(buf[b]) });
+          // console.log({ buf: toHex(buf[b]) });
         }
 
         //  Set the script length
-        Module._set_script_length(text.length);
+        Module._set_script_length(len);
 
         //  Run the script
         Module._refresh_clock()

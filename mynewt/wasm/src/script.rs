@@ -35,8 +35,11 @@ use barebones_watchface::{
     },
 };
 
-/// Run a Rhai script that calls LVGL functions in WebAssembly
-pub fn run_script() -> Result<(), Box<EvalAltResult>> {
+/// Global instance of the Rhai script engine
+static mut ENGINE: Option<Engine> = None;
+
+/// Init the Rhai script engine for LVGL
+pub fn init() {
     //  Create the script engine
     let mut engine = Engine::new();
 
@@ -67,80 +70,20 @@ pub fn run_script() -> Result<(), Box<EvalAltResult>> {
     engine.register_get_set("radius", rect_get_radius, rect_set_radius);
 
     //  Create the canvas
-    create_canvas();
-    
-    //  Execute the Rhai script
-    let result = engine.eval::<i64>(r#"
-        //  Here is the Rhai script (looks like Rust)
-        //  TODO: Allow editing of script at runtime via CodeMirror
+    create_canvas();    
 
-        //  Print a message
-        print("Hello from Rhai script in WebAssembly!");
+    //  Set the global script engine
+    unsafe { ENGINE = Some(engine) };
+}
 
-        //  Get the LVGL Canvas
-        let canvas = get_canvas();
-
-        //  Create a rectangle
-        let rect = new_rect();
-    
-        //  Set rounded corners and shadow for rectangle
-        rect.radius       = 10;
-        //  rect.border_width =  2;
-        //  rect.shadow_width =  5;
-        //  rect.shadow_ofs_x =  5;
-        //  rect.shadow_ofs_y =  5;
-    
-        //  Draw the rectangle on the canvas
-        canvas_draw_rect(
-            canvas, 
-            70,    //  x
-            60,    //  y
-            100,   //  width
-            70,    //  height
-            rect
-        );
-
-        //  Call an LVGL function to get the LVGL active screen
-        let screen = watchface_get_active_screen();
-
-        //  Create an LVGL label
-        let lbl = label_create(screen, ptr_null());  //  TODO: Rewrite as `? ;`
-
-        //  Set the text of the LVGL label
-        label_set_text(lbl, "TODO");  //  TODO: Rewrite as `strn!(...)` and `? ;`
-
-        //  Set the label width
-        //  obj_set_width(lbl, 240);  //  TODO: Rewrite as `? ;`
-
-        //  Set the label height
-        //  obj_set_height(lbl, 200);  //  TODO: Rewrite as `? ;`
-    
-        //  Return the result
-        40 + 2
-    "#)?;
-    println!("Answer: {}", result);  // prints 42
-
-    /*
-    //  Render a rounded rectangle to LVGL Canvas
-    //  Create a rectangle
-    let mut rect = draw::lv_draw_rect_dsc_t::default();
-    draw::rect_dsc_init(&mut rect)
-        .expect("rect init fail");
-
-    //  Set rounded corners and shadow for rectangle
-    rect.radius = 10;
-    rect.border_width = 2;
-    rect.shadow_width = 5;
-    rect.shadow_ofs_x = 5;
-    rect.shadow_ofs_y = 5;
-
-    //  Draw the rectangle on the canvas
-    let rect2: *const canvas::lv_draw_rect_dsc_t = 
-        unsafe { core::mem::transmute(&rect) };  //  TODO: Move draw::lv_draw_rect_dsc_t to canvas::lv_draw_rect_dsc_t
-    canvas::draw_rect(unsafe { CANVAS }, 70, 60, 100, 70, rect2)
-        .expect("canvas draw rect fail");
-    */
-    
+/// Run a Rhai script that calls LVGL functions in WebAssembly
+pub fn run_script(script: &str) -> Result<(), Box<EvalAltResult>> {
+    if let Some(engine) = ENGINE {
+        //  Execute the Rhai script
+        //  let engine = unsafe { ENGINE.unwrap() };
+        let result = engine.eval::<i64>(script) ? ;
+        println!("Result: {}", result);        
+    }
     Ok(())
 }
 

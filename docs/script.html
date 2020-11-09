@@ -303,9 +303,9 @@
           Module._refresh_clock();
         }
 
-        //  Render Watch Face to the WebAssembly Display Buffer
-        Module._render_display();
-        
+        //  Execute script and render to the WebAssembly Display Buffer
+        onDelayedCodeChange(null);
+
         //  Fetch the PineTime dimensions from WebAssembly Display Buffer
         var width = Module._get_display_width();
         var height = Module._get_display_height();
@@ -387,7 +387,7 @@
       function onDelayedCodeChange(timestamp) {
         //  Re-run the script, unless the code is still being changed in the last 10 seconds
         //  console.log("onDelayedCodeChange");
-        if (timestamp != lastCodeChangeTimestamp) { return; }  //  If timestamp has been changed, quit
+        if (timestamp && timestamp != lastCodeChangeTimestamp) { return; }  //  If timestamp has been changed, quit
         console.log("onDelayedCodeChange OK");
 
         //  Fetch the editor text in UTF-8 format

@@ -29,8 +29,8 @@ pub extern fn create_clock() -> i32 {
     }
     */
 
-    //  Run the script
-    script::run_script().unwrap();
+    //  Init the script engine
+    script::init();
 
     //  Return OK, caller will render display
     0
@@ -41,10 +41,14 @@ pub extern fn create_clock() -> i32 {
 pub extern fn refresh_clock() -> i32 {
     unsafe { puts(b"In Rust: Refreshing clock...\0".as_ptr()); }
 
-    //  Fetch the script
     if unsafe { script_length } > 0 {
+        //  Fetch the script
         let script = unsafe { core::str::from_utf8(&script_buffer[0..script_length as usize]).unwrap() };
         println!("script: {}", script);
+
+        //  Run the script
+        script::run_script(&script)
+            .expect("Script failed");
     }
 
     //  Return OK, caller will render display
@@ -87,7 +91,7 @@ pub extern fn update_clock(year: i32, month: i32, day: i32,
 }
 
 /// Size of script buffer.  TODO: Sync with wasm/lvgl.c
-const SCRIPT_BUFFER_SIZE: usize = (32 * 1024);  //  32 KB
+const SCRIPT_BUFFER_SIZE: usize = 32 * 1024;  //  32 KB
 
 extern "C" {
     /// Script buffer. Defined in wasm/lvgl.c

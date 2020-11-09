@@ -35,11 +35,14 @@ use barebones_watchface::{
     },
 };
 
-/// Global instance of the Rhai script engine
-static mut ENGINE: Option<Engine> = None;
-
 /// Init the Rhai script engine for LVGL
 pub fn init() {
+    //  Create the canvas
+    create_canvas();    
+}
+
+/// Run a Rhai script that calls LVGL functions in WebAssembly
+pub fn run_script(script: &str) -> Result<(), Box<EvalAltResult>> {
     //  Create the script engine
     let mut engine = Engine::new();
 
@@ -69,21 +72,9 @@ pub fn init() {
     engine.register_result_fn("obj_set_height", obj_set_height);  //  TODO: Rewrite obj_set_height
     engine.register_get_set("radius", rect_get_radius, rect_set_radius);
 
-    //  Create the canvas
-    create_canvas();    
-
-    //  Set the global script engine
-    unsafe { ENGINE = Some(engine) };
-}
-
-/// Run a Rhai script that calls LVGL functions in WebAssembly
-pub fn run_script(script: &str) -> Result<(), Box<EvalAltResult>> {
-    if let Some(engine) = ENGINE {
-        //  Execute the Rhai script
-        //  let engine = unsafe { ENGINE.unwrap() };
-        let result = engine.eval::<i64>(script) ? ;
-        println!("Result: {}", result);        
-    }
+    //  Execute the Rhai script
+    let result = engine.eval::<i64>(script) ? ;
+    println!("Result: {}", result);        
     Ok(())
 }
 

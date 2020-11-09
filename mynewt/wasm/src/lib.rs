@@ -43,8 +43,11 @@ pub extern fn refresh_clock() -> i32 {
 
     if unsafe { script_length } > 0 {
         //  Fetch the script
-        let script = unsafe { core::str::from_utf8(&script_buffer[0..script_length as usize]).unwrap() };
-        println!("script: {}", script);
+        let script = unsafe { 
+            core::str::from_utf8(&script_buffer[0..script_length as usize])
+                .unwrap() 
+        };
+        //  println!("script: {}", script);
 
         //  Run the script
         script::run_script(&script)

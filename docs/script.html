@@ -256,61 +256,35 @@
       /// Rendering Parameters
       const DISPLAY_SCALE = 2;  //  Scale the canvas width and height
       const DISPLAY_BYTES_PER_PIXEL = 4;  //  4 bytes per pixel: RGBA
-      const DEMO_MODE = false;  //  Set to true to see demo widget, false to see PineTime Watch Face
 
-      /// In JavaScript: Create the Watch Face in WebAssembly
+      /// Init LVGL and Rhai script engine and execute the script
       function renderCanvas() {
         Module.print(`In JavaScript: Rendering canvas...`);
 
         //  Init LVGL Display in WebAssembly
         Module._init_display();
 
-        if (DEMO_MODE) {
-          //  Create the Demo Widgets in WebAssembly
-          Module._render_widgets();
-        } else {
-          //  Create the Watch Face in WebAssembly
-          Module._create_clock();
-        }
-        //  Draw the Watch Face
+        //  Init the Rhai script engine
+        Module._create_clock();
+
+        //  Execute script and render the WebAssembly Display Buffer to the HTML Canvas
         updateCanvas();
       }
 
-      /// In JavaScript: Update the Watch Face time in WebAssembly and render the WebAssembly Display Buffer to the HTML Canvas
+      /// Execute script and render the WebAssembly Display Buffer to the HTML Canvas
       function updateCanvas() {
         Module.print(`In JavaScript: Updating canvas...`);
-        if (!DEMO_MODE) {
-          //  Update the WebAssembly Date and Time: year, month, day, hour, minute, second
-          const localTime = new Date();
-          const timezoneOffset = localTime.getTimezoneOffset();  //  In mins
-          //  TODO: For Rust: Don't compensate for the time zone
-          const now = new Date();
-          //  TODO: For InfiniTime: Compensate for the time zone
-          //  const now = new Date(
-          //    localTime.valueOf()             //  Convert time to millisec
-          //    - (timezoneOffset * 60 * 1000)  //  Convert mins to millisec
-          //  );
-          Module._update_clock(
-            now.getFullYear(),
-            now.getMonth() + 1,  //  getMonth() returns 0 to 11
-            now.getDate(), 
-            now.getHours(),
-            now.getMinutes(),
-            now.getSeconds()
-          );
-
-          //  Update the Watch Face time in WebAssembly
-          Module._refresh_clock();
-        }
+        //  Copy the contents of the text editor into the WebAssembly script buffer
+        setScriptBuffer();
 
         //  Execute script and render to the WebAssembly Display Buffer
-        onDelayedCodeChange(null);
+        Module._render_display();
 
-        //  Fetch the PineTime dimensions from WebAssembly Display Buffer
+        //  Fetch the display dimensions from WebAssembly Display Buffer
         var width = Module._get_display_width();
         var height = Module._get_display_height();
 
-        //  Resize the canvas to PineTime dimensions (240 x 240)
+        //  Resize the canvas to display dimensions (240 x 240)
         if (
           Module.canvas.width != width * DISPLAY_SCALE ||
           Module.canvas.height != height * DISPLAY_SCALE
@@ -350,13 +324,15 @@
         //  Paint the canvas
         ctx.putImageData(imageData, 0, 0);        
         
-        //  Update the Watch Face at the next minute
+        /*  TODO: If periodic update is needed e.g. watch face
+        //  Update the display at the next minute
         const sleepSeconds = 60 - new Date().getSeconds();
         Module.print(`In JavaScript: Sleeping ${sleepSeconds} seconds...`);
         window.setTimeout(
           updateCanvas,
           sleepSeconds * 1000
         );
+        */
       }
 
       /// Wait for emscripten to be initialised
@@ -388,8 +364,26 @@
         //  Re-run the script, unless the code is still being changed in the last 10 seconds
         //  console.log("onDelayedCodeChange");
         if (timestamp && timestamp != lastCodeChangeTimestamp) { return; }  //  If timestamp has been changed, quit
-        console.log("onDelayedCodeChange OK");
+        //  console.log("onDelayedCodeChange OK");
 
+        //  Run the script and update the display
+        updateCanvas();
+      }
+
+      /// Handle code changes in the text editor
+      function onCodeChange(instance, changeObj) {
+        //  console.log("onCodeChange");
+        //  Wait 10 seconds then re-run the script, unless the code is still being changed in the last 10 seconds
+        const timestamp = Date.now();
+        lastCodeChangeTimestamp = timestamp;
+        window.setTimeout(function() { 
+          onDelayedCodeChange(timestamp); 
+        }, CODE_CHANGE_DELAY);
+      }
+      editor.on("change", onCodeChange);
+
+      /// Copy the contents of the text editor into the WebAssembly script buffer
+      function setScriptBuffer() {
         //  Fetch the editor text in UTF-8 format
         var text = editor.getValue();
 
@@ -411,22 +405,7 @@
 
         //  Set the script length
         Module._set_script_length(len);
-
-        //  Run the script
-        Module._refresh_clock()
       }
-
-      /// Handle code changes in the text editor
-      function onCodeChange(instance, changeObj) {
-        //  console.log("onCodeChange");
-        //  Wait 10 seconds then re-run the script, unless the code is still being changed in the last 10 seconds
-        const timestamp = Date.now();
-        lastCodeChangeTimestamp = timestamp;
-        window.setTimeout(function() { 
-          onDelayedCodeChange(timestamp); 
-        }, CODE_CHANGE_DELAY);
-      }
-      editor.on("change", onCodeChange);
 
       /// Convert UTF-8 string to byte array. From https://stackoverflow.com/questions/18729405/how-to-convert-utf8-string-to-byte-array
       function toUTF8Array(str) {

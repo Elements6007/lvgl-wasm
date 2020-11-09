@@ -72,6 +72,9 @@ pub fn run_script(script: &str) -> Result<(), Box<EvalAltResult>> {
     engine.register_result_fn("obj_set_height", obj_set_height);  //  TODO: Rewrite obj_set_height
     engine.register_get_set("radius", rect_get_radius, rect_set_radius);
 
+    //  Erase the canvas to black
+    clear_canvas();
+
     //  Execute the Rhai script
     let result = engine.eval::<i64>(script) ? ;
     println!("Result: {}", result);        
@@ -80,14 +83,6 @@ pub fn run_script(script: &str) -> Result<(), Box<EvalAltResult>> {
 
 /// Create the canvas for rendering graphics
 fn create_canvas() {
-    //  Create a static buffer for the canvas
-    const CANVAS_WIDTH: i16  = 240;
-    const CANVAS_HEIGHT: i16 = 240;
-    const BYTES_PER_PIXEL: usize = 2;  //  2 bytes for RGB565 colour
-    const CANVAS_SIZE: usize = CANVAS_WIDTH as usize * CANVAS_HEIGHT as usize * BYTES_PER_PIXEL;
-    static mut BUF: [obj::lv_color_t ; CANVAS_SIZE] = 
-        [ obj::lv_color_t{ full: 0 } ; CANVAS_SIZE];  //  Init canvas to black
-
     //  Create the canvas
     let screen = watchface::get_active_screen();
     unsafe {
@@ -96,15 +91,35 @@ fn create_canvas() {
     }
 
     //  Set the buffer for the canvas
-    let buf: *mut [obj::lv_color_t] = unsafe { &mut BUF };
+    let buf: *mut [obj::lv_color_t] = unsafe { &mut CANVAS_BUFFER };
     canvas::set_buffer(unsafe { CANVAS }, buf as *mut c_void, CANVAS_WIDTH, CANVAS_HEIGHT, 
         img::LV_IMG_CF_TRUE_COLOR as u8
     ).expect("canvas set buffer fail");
 }
 
+/// Erase the canvas buffer to black
+fn clear_canvas() {
+    unsafe {
+        for i in 0..CANVAS_BUFFER.len() {
+            CANVAS_BUFFER[i].full = 0;
+        }    
+    }
+}
+
+/// Canvas dimensions
+const CANVAS_WIDTH: i16  = 240;
+const CANVAS_HEIGHT: i16 = 240;
+const BYTES_PER_PIXEL: usize = 2;  //  2 bytes for RGB565 colour
+const CANVAS_SIZE: usize = CANVAS_WIDTH as usize * CANVAS_HEIGHT as usize * BYTES_PER_PIXEL;
+
+/// Static buffer for the canvas
+static mut CANVAS_BUFFER: [obj::lv_color_t ; CANVAS_SIZE] = 
+    [ obj::lv_color_t{ full: 0 } ; CANVAS_SIZE];  //  Init canvas to black
+
 /// Global instance of canvas for rendering graphics
 static mut CANVAS: *mut obj::lv_obj_t = ptr::null_mut();
 
+/// Return a null pointer for LVGL
 fn ptr_null() -> *const obj::lv_obj_t {
     ptr::null()
 }

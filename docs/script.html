@@ -278,6 +278,7 @@
         setScriptBuffer();
 
         //  Execute script and render to the WebAssembly Display Buffer
+        Module._refresh_clock();
         Module._render_display();
 
         //  Fetch the display dimensions from WebAssembly Display Buffer
@@ -354,14 +355,14 @@
       });
 
       /// Re-run the script after this number of milliseconds
-      const CODE_CHANGE_DELAY = 10 * 1000;
+      const CODE_CHANGE_DELAY = 5 * 1000;
 
       /// Timestamp of last code change (milliseconds)
       var lastCodeChangeTimestamp = 0;
 
       /// Handle code changes in the text editor after a delay
       function onDelayedCodeChange(timestamp) {
-        //  Re-run the script, unless the code is still being changed in the last 10 seconds
+        //  Re-run the script, unless the code is still being changed in the last X seconds
         //  console.log("onDelayedCodeChange");
         if (timestamp && timestamp != lastCodeChangeTimestamp) { return; }  //  If timestamp has been changed, quit
         //  console.log("onDelayedCodeChange OK");
@@ -373,7 +374,7 @@
       /// Handle code changes in the text editor
       function onCodeChange(instance, changeObj) {
         //  console.log("onCodeChange");
-        //  Wait 10 seconds then re-run the script, unless the code is still being changed in the last 10 seconds
+        //  Wait X seconds then re-run the script, unless the code is still being changed in the last X seconds
         const timestamp = Date.now();
         lastCodeChangeTimestamp = timestamp;
         window.setTimeout(function() { 

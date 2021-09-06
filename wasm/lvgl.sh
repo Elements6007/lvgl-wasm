@@ -4,7 +4,7 @@
 # Stop the script on error, echo all commands
 set -e -x
 
-# Rewrite Clock.cpp to build with WebAssembly:
+# Rewrite WatchFaceDigital.cpp to build with WebAssembly:
 # Change <libs/date/includes/date/date.h>
 #   To "date.h"
 # Change <Components/DateTime/DateTimeController.h>

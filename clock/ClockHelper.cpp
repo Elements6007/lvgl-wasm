@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "LittleVgl.h"
-#include "Clock.h"
+#include "WatchFaceDigital.h"
 #include "ClockHelper.h"
 
 static Pinetime::Components::LittleVgl *littleVgl0 = nullptr;

@@ -2,7 +2,7 @@
 #include <libs/date/includes/date/date.h>
 #include <Components/DateTime/DateTimeController.h>
 #include <libs/lvgl/lvgl.h>
-#include "Clock.h"
+#include "WatchFaceDigital.h"
 #include "../DisplayApp.h"
 #include "BatteryIcon.h"
 #include "BleIcon.h"

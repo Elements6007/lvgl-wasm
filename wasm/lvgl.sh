@@ -18,7 +18,7 @@ set -e -x
 # Change backgroundLabel->user_data
 #   To backgroundLabel_user_data
 # Remove Screen(app),
-cat clock/Clock.cpp \
+cat clock/WatchFaceDigital.cpp \
     | sed 's/<libs\/date\/includes\/date\/date.h>/"date.h"/' \
     | sed 's/<Components\/DateTime\/DateTimeController.h>/"DateTimeController.h"/' \
     | sed 's/<libs\/lvgl\/lvgl.h>/"..\/lvgl.h"/' \

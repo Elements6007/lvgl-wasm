@@ -5,4 +5,4 @@
 
 
 
-#define WF_BACKGROUND_C1        "bg_clock_04.png"
+#define WF_BACKGROUND_C1        "F:/bg_clock_04.bin"

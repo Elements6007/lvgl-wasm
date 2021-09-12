@@ -7,6 +7,7 @@
 #include "BatteryIcon.h"
 #include "BleIcon.h"
 #include "Symbols.h"
+#include "bg_clock_04.c"
 using namespace Pinetime::Applications::Screens;
 extern lv_font_t jetbrains_mono_extrabold_compressed;
 extern lv_font_t jetbrains_mono_bold_20;

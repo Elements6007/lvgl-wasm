@@ -4,7 +4,7 @@
 #include "LittleVgl.h"
 #include "WatchFaceDigital.h"
 #include "ClockHelper.h"
-
+#include "bg_clock_04.c"
 static Pinetime::Components::LittleVgl *littleVgl0 = nullptr;
 static Pinetime::Drivers::St7789 *lcd0 = nullptr;
 static Pinetime::Drivers::Cst816S *touchPanel0 = nullptr;

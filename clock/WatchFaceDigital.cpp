@@ -13,7 +13,7 @@ extern lv_font_t jetbrains_mono_extrabold_compressed;
 extern lv_font_t jetbrains_mono_bold_20;
 extern lv_style_t* LabelBigStyle;
 
-LV_IMG_DECLARE(bg_clock_04)
+LV_IMG_DECLARE(bg_clock_04);
 
 static void event_handler(lv_obj_t * obj, lv_event_t event) {
   Clock* screen = static_cast<Clock *>(backgroundLabel_user_data); ////static_cast<Clock *>(obj->user_data);
